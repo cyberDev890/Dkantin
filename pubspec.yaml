@@ -2,21 +2,25 @@ name: dikantin
 version: 1.0.0+1
 publish_to: none
 description: A new Flutter project.
-environment: 
-  sdk: '>=3.1.2 <4.0.0'
+environment:
+  sdk: ">=3.1.2 <4.0.0"
 
-dependencies: 
+dependencies:
+  badges: ^3.1.2
+  carbon_icons: ^0.0.1+2
   cupertino_icons: ^1.0.2
-  get_cli: ^1.8.4
+  flutter:
+    sdk: flutter
   get: 4.6.6
-  flutter: 
-    sdk: flutter
+  google_fonts: ^4.0.4
+  icons_flutter: ^0.0.4
 
-dev_dependencies: 
+dev_dependencies:
   flutter_lints: ^2.0.0
-  flutter_test: 
+  flutter_test:
     sdk: flutter
 
-flutter: 
+flutter:
   uses-material-design: true
-
+  assets:
+    - assets/
