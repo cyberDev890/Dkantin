@@ -20,28 +20,28 @@ class _SemuaState extends State<Semua> {
   List<Map<String, dynamic>> items = [
     {
       "image": "assets/basreng.jpg",
-      "name": "Basreng Kantin 1",
+      "name": "Basreng ",
       "kantin": "Kantin 1",
       "price": "Rp. 6.000",
       "Terjual": "20 porsi"
     },
     {
       "image": "assets/sate.jpg",
-      "name": "Sate Madura Kantin 2",
+      "name": "Sate Madura ",
       "kantin": "Kantin 1",
       "price": "Rp. 15.000",
       "Terjual": "15 porsi"
     },
     {
       "image": "assets/nasi.jpeg",
-      "name": "Nasi Liwet Kantin 3",
+      "name": "Nasi Liwet ",
       "kantin": "Kantin 1",
       "price": "Rp. 12.000",
       "Terjual": "100 porsi"
     },
     {
       "image": "assets/nasi.jpeg",
-      "name": "Lalapan jamur Kantin 3",
+      "name": "Lalapan jamur ",
       "kantin": "Kantin 1",
       "price": "Rp. 12.000",
       "Terjual": "100 porsi"
@@ -159,24 +159,24 @@ class _SemuaState extends State<Semua> {
                       ),
                       child: SingleChildScrollView(
                         child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                height: 120,
-                                alignment: Alignment.topRight,
-                                width: double.infinity,
-                                padding: const EdgeInsets.all(8),
-                                decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                    image: AssetImage(
-                                      items[index]["image"],
-                                    ),
-                                    fit: BoxFit.cover,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              height: 120,
+                              alignment: Alignment.topRight,
+                              width: double.infinity,
+                              padding: const EdgeInsets.all(8),
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image: AssetImage(
+                                    items[index]["image"],
                                   ),
+                                  fit: BoxFit.cover,
                                 ),
                               ),
-                              Padding(
-                                padding: const EdgeInsets.all(5.0),
+                            ),
+                            Padding(
+                                padding: const EdgeInsets.all(10.0),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -191,61 +191,50 @@ class _SemuaState extends State<Semua> {
                                       ),
                                     ),
                                     Padding(
-                                        padding: const EdgeInsets.all(5.0),
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Padding(
-                                              padding: const EdgeInsets.only(
-                                                  bottom: 8.0),
-                                              child: Text(
-                                                items[index]["kantin"],
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .bodyLarge,
-                                              ),
+                                      padding:
+                                          const EdgeInsets.only(bottom: 8.0),
+                                      child: Text(
+                                        items[index]["kantin"],
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyLarge,
+                                      ),
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          items[index]["price"],
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyLarge,
+                                        ),
+                                        SizedBox(
+                                          height: 30,
+                                          width: 30,
+                                          child: Ink(
+                                            decoration: ShapeDecoration(
+                                              color: Colors.blue,
+                                              shape: CircleBorder(),
                                             ),
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Text(
-                                                  items[index]["price"],
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .bodyLarge,
-                                                ),
-                                                SizedBox(
-                                                  height: 30,
-                                                  width: 30,
-                                                  child: Ink(
-                                                    decoration: ShapeDecoration(
-                                                      color: Colors.blue,
-                                                      shape: CircleBorder(),
-                                                    ),
-                                                    child: IconButton.filled(
-                                                      padding: EdgeInsets.zero,
-                                                      onPressed: () {
-                                                        homeController
-                                                            .increment();
-                                                        homeController.update();
-                                                      },
-                                                      iconSize: 18,
-                                                      icon:
-                                                          const Icon(Icons.add),
-                                                    ),
-                                                  ),
-                                                )
-                                              ],
-                                            )
-                                          ],
-                                        ))
+                                            child: IconButton.filled(
+                                              padding: EdgeInsets.zero,
+                                              onPressed: () {
+                                                homeController.increment();
+                                                homeController.update();
+                                              },
+                                              iconSize: 18,
+                                              icon: const Icon(Icons.add),
+                                            ),
+                                          ),
+                                        )
+                                      ],
+                                    )
                                   ],
-                                ),
-                              ),
-                            ]),
+                                ))
+                          ],
+                        ),
                       ),
                     ),
                   );

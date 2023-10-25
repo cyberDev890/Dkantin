@@ -1,6 +1,6 @@
-import 'package:carbon_icons/carbon_icons.dart';
+// ignore_for_file: prefer_const_constructors
+
 import 'package:dikantin/app/modules/utils/minuman.dart';
-import 'package:dikantin/app/modules/utils/bar.dart';
 import 'package:dikantin/app/modules/utils/favorite.dart';
 import 'package:dikantin/app/modules/utils/makanan.dart';
 import 'package:dikantin/app/modules/utils/semua.dart';
@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:google_fonts/google_fonts.dart';
-import '../../../data/service.dart';
 import '../controllers/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {
@@ -51,7 +50,7 @@ class HomeView extends GetView<HomeController> {
         ),
       ],
       title: Container(
-        padding: EdgeInsets.fromLTRB(0, 15, 10, 0),
+        padding: EdgeInsets.fromLTRB(0, 5, 10, 0),
         child: Image.asset(
           'assets/logo_dikantin.png',
           height: 90, // Sesuaikan dengan tinggi yang Anda inginkan

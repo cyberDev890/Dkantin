@@ -1,29 +1,45 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../controllers/riwayat_controller.dart';
 
 class RiwayatView extends GetView<RiwayatController> {
-  const RiwayatView({Key? key}) : super(key: key);
+  RiwayatView({Key? key}) : super(key: key);
+  final RiwayatController riwayatController = Get.put(RiwayatController());
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [Color(0xFFFFFFFF), Color(0xFFAAEBFF)],
+    return DefaultTabController(
+      length: 3,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Center(
+            child: Text(
+              "Riwayat",
+              style: TextStyle(
+                fontSize: 14.0,
+              ),
+            ),
           ),
         ),
-        child: Center(
-          child: Text(
-            'Selamat datang di riwayat',
-            style: TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-              color: Colors.black,
+        body: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [Color(0xFFFFFFFF), Color(0xFFAAEBFF)],
+            ),
+          ),
+          child: Container(
+            height: 100.0,
+            decoration: const BoxDecoration(
+              color: Colors.orange,
+              borderRadius: BorderRadius.all(
+                Radius.circular(
+                  8.0,
+                ),
+              ),
             ),
           ),
         ),
