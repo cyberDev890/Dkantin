@@ -30,11 +30,11 @@ class NavigationView extends GetView<NavigationController> {
           return BottomNavigationBar(
             type: BottomNavigationBarType.fixed,
             elevation: 0.0, // to get rid of the shadow
-            backgroundColor: Color(
-                0xFFAAEBFF), // transparent, you could use 0x44aaaaff to make it slightly less transparent with a blue hue.
+            backgroundColor: Colors
+                .white, // transparent, you could use 0x44aaaaff to make it slightly less transparent with a blue hue.
             currentIndex: controller.tabIndex,
             selectedItemColor: Colors.blue,
-            unselectedItemColor: Colors.white,
+            unselectedItemColor: Color(0xFFD0E0FE),
             onTap: (index) {
               controller.updateCurrentScreen(index);
             },

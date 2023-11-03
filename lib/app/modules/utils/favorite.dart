@@ -1,8 +1,10 @@
-import 'package:dikantin/app/modules/home/controllers/home_controller.dart';
-import 'package:dikantin/app/modules/utils/search.dart';
+import 'package:shimmer/shimmer.dart';
+import 'package:dikantin/app/modules/utils/formatDate.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../../data/providers/services.dart';
+import '../home/controllers/home_controller.dart';
 
 class Favorite extends StatefulWidget {
   const Favorite({Key? key}) : super(key: key);
@@ -14,46 +16,27 @@ class Favorite extends StatefulWidget {
 class _FavoriteState extends State<Favorite> {
   final HomeController homeController = Get.find<HomeController>();
 
-  // Buat sebuah List yang berisi data
-  List<Map<String, dynamic>> items = [
-    {
-      "image": "assets/basreng.jpg",
-      "name": "Basreng Kantin 1",
-      "price": "Rp. 6.000",
-      "Terjual": "20 porsi"
-    },
-    {
-      "image": "assets/sate.jpg",
-      "name": "Sate Madura Kantin 2",
-      "price": "Rp. 15.000",
-      "Terjual": "15 porsi"
-    },
-    {
-      "image": "assets/nasi.jpeg",
-      "name": "Nasi Liwet Kantin 3",
-      "price": "Rp. 12.000",
-      "Terjual": "100 porsi"
-    },
-  ];
   @override
   Widget build(BuildContext context) {
+    final baseColorHex = 0xFFE0E0E0;
+    final highlightColorHex = 0xFFC0C0C0;
     final mediaHeight =
         MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top;
-    // final bodyHeight =
-    return SingleChildScrollView(
-      child: Container(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            search(),
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.020,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
+
+    return RefreshIndicator(
+      onRefresh: () async {
+        await homeController.refreshData();
+      },
+      child: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.only(left: 15),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
                 child: Text(
-                  "Favorit hari ini",
+                  "Penuh Diskon",
                   style: GoogleFonts.poppins(
                     textStyle: TextStyle(
                       fontSize: 18,
@@ -62,101 +45,151 @@ class _FavoriteState extends State<Favorite> {
                   ),
                 ),
               ),
-            ),
-            GestureDetector(
-              onTap: () {
-                homeController.increment();
-                homeController.update();
-              },
-              child: Container(
-                height: mediaHeight * 0.40,
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: 3,
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (BuildContext context, index) {
-                    return Container(
-                      padding: EdgeInsets.all(5),
-                      // color: Colors.blue,
-                      // margin: EdgeInsets.only(left: 10),
-                      width: MediaQuery.of(context).size.width *
-                          0.5, // Lebar responsif
-                      child: Stack(
-                        children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
-                            child: Image.asset(
-                              items[index]["image"],
-                              height: 300,
-                              width: 450,
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                          Container(
-                            // margin: EdgeInsets.all(10),
-                            // height: 300,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              gradient: LinearGradient(
-                                begin: Alignment.topCenter,
-                                end: Alignment.bottomCenter,
-                                colors: [Colors.transparent, Colors.black],
-                                stops: [0.7, 1.0],
+              FutureBuilder(
+                future: homeController.fetchDataDiskon(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Shimmer.fromColors(
+                      baseColor: Color(baseColorHex),
+                      highlightColor: Color(highlightColorHex),
+                      child: Container(
+                        height: mediaHeight * 0.40,
+                        child: ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: 5,
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (BuildContext context, index) {
+                            return Container(
+                              padding: EdgeInsets.all(5),
+                              width: MediaQuery.of(context).size.width * 0.5,
+                              child: Stack(
+                                children: [
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      color: Color(baseColorHex),
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(10)),
+                                    ),
+                                  ),
+                                  Center(
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Shimmer.fromColors(
+                                          baseColor: Colors.transparent,
+                                          highlightColor:
+                                              Color(highlightColorHex),
+                                          child: Container(
+                                            width: 100,
+                                            height: 20,
+                                            color: Color(baseColorHex),
+                                          ),
+                                        ),
+                                        SizedBox(height: 10),
+                                        Shimmer.fromColors(
+                                          baseColor: Colors.transparent,
+                                          highlightColor: Color(0xFF67667),
+                                          child: Container(
+                                            width: 150,
+                                            height: 20,
+                                            color: Color(baseColorHex),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
                               ),
-                            ),
-                          ),
-                          Positioned(
-                            top: 10,
-                            right: 10,
-                            child: Icon(
-                              Icons.favorite,
-                              size: 40,
-                              color: Colors.red,
-                            ), // Ikon love
-                          ),
-                          Positioned(
-                            bottom: 30,
-                            left: 15,
-                            right: 10,
-                            child: Text(
-                              items[index]["name"],
-                              style: GoogleFonts.poppins(
-                                textStyle: TextStyle(
-                                  fontSize: 13,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.normal,
-                                ),
-                              ),
-                            ),
-                          ),
-                          Positioned(
-                            bottom: 10,
-                            left: 15,
-                            right: 10,
-                            child: Text(
-                              items[index]["price"],
-                              style: GoogleFonts.poppins(
-                                textStyle: TextStyle(
-                                  fontSize: 15,
-                                  color: const Color.fromRGBO(255, 255, 255, 1),
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
+                            );
+                          },
+                        ),
                       ),
                     );
-                  },
-                ),
+                  } else {
+                    return Container(
+                      height: mediaHeight * 0.40,
+                      child: ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: homeController.diskon.data?.length ?? 0,
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (BuildContext context, index) {
+                          final menuData = homeController.diskon.data![index];
+                          final harga = menuData.harga ?? 0;
+                          return Container(
+                            padding: EdgeInsets.all(5),
+                            width: MediaQuery.of(context).size.width * 0.5,
+                            child: Stack(
+                              children: [
+                                ClipRRect(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10)),
+                                  child: Image.network(
+                                    Api.gambar + menuData.foto.toString(),
+                                    height: 300,
+                                    width: 450,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                                Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    gradient: LinearGradient(
+                                      begin: Alignment.topCenter,
+                                      end: Alignment.bottomCenter,
+                                      colors: [
+                                        Colors.transparent,
+                                        Colors.black
+                                      ],
+                                      stops: [0.7, 1.0],
+                                    ),
+                                  ),
+                                ),
+                                Positioned(
+                                  bottom: 30,
+                                  left: 15,
+                                  right: 10,
+                                  child: Text(
+                                    menuData.nama ?? '',
+                                    style: GoogleFonts.poppins(
+                                      textStyle: TextStyle(
+                                        fontSize: 13,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.normal,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Positioned(
+                                  bottom: 10,
+                                  left: 15,
+                                  right: 10,
+                                  child: Text(
+                                    harga.toRupiah(),
+                                    style: GoogleFonts.poppins(
+                                      textStyle: TextStyle(
+                                        fontSize: 15,
+                                        color: const Color.fromRGBO(
+                                            255, 255, 255, 1),
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                      ),
+                    );
+                  }
+                },
               ),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
+              SizedBox(height: 10),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
                 child: Text(
                   "Penjualan Hari ini",
                   style: GoogleFonts.poppins(
@@ -167,86 +200,167 @@ class _FavoriteState extends State<Favorite> {
                   ),
                 ),
               ),
-            ),
-            GestureDetector(
-              onTap: () {
-                homeController.increment();
-                homeController.update();
-              },
-              child: Container(
-                height: mediaHeight * 0.20,
-                child: ListView.builder(
-                  itemCount: 3,
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (BuildContext context, index) {
-                    return Container(
-                      padding: EdgeInsets.all(5),
-                      // color: Colors.blue,
-                      // margin: EdgeInsets.only(left: 10),
-                      width: MediaQuery.of(context).size.width *
-                          0.6, // Lebar responsif
-                      child: Stack(
-                        children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
-                            child: Image.asset(
-                              items[index]["image"],
-                              height: 300,
-                              width: 300,
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                          Container(
-                            // margin: EdgeInsets.all(10),
-                            // height: 300,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              gradient: LinearGradient(
-                                begin: Alignment.topCenter,
-                                end: Alignment.bottomCenter,
-                                colors: [Colors.transparent, Colors.black],
-                                stops: [0.4, 1.0],
+              FutureBuilder(
+                future: homeController.fetchDataPenjualan(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Shimmer.fromColors(
+                      baseColor: Color(baseColorHex),
+                      highlightColor: Color(highlightColorHex),
+                      child: Container(
+                        height: mediaHeight * 0.20,
+                        child: ListView.builder(
+                          itemCount: 5,
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (BuildContext context, index) {
+                            return Container(
+                              padding: EdgeInsets.all(5),
+                              width: MediaQuery.of(context).size.width * 0.6,
+                              child: Stack(
+                                children: [
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      color: Color(baseColorHex),
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(10)),
+                                    ),
+                                  ),
+                                  Center(
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Shimmer.fromColors(
+                                          baseColor: Colors.transparent,
+                                          highlightColor:
+                                              Color(highlightColorHex),
+                                          child: Container(
+                                            width: 200,
+                                            height: 20,
+                                            color: Color(baseColorHex),
+                                          ),
+                                        ),
+                                        SizedBox(height: 10),
+                                        Shimmer.fromColors(
+                                          baseColor: Colors.transparent,
+                                          highlightColor:
+                                              Color(highlightColorHex),
+                                          child: Container(
+                                            width: 100,
+                                            height: 20,
+                                            color: Color(baseColorHex),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
                               ),
-                            ),
-                          ),
-                          Positioned(
-                            bottom: 30,
-                            left: 15,
-                            right: 10,
-                            child: Text(
-                              items[index]["name"],
-                              style: GoogleFonts.poppins(
-                                textStyle: TextStyle(
-                                  fontSize: 13,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.normal,
-                                ),
-                              ),
-                            ),
-                          ),
-                          Positioned(
-                            bottom: 10,
-                            left: 15,
-                            right: 10,
-                            child: Text(
-                              items[index]["Terjual"],
-                              style: GoogleFonts.poppins(
-                                textStyle: TextStyle(
-                                  fontSize: 15,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
+                            );
+                          },
+                        ),
                       ),
                     );
-                  },
-                ),
+                  } else if (homeController.penjualan.data!.isEmpty) {
+                    return Container(
+                      height: mediaHeight * 0.20,
+                      // color: Colors.blue,
+                      child: Center(
+                        child: Text(
+                          "Data Penjualan Hari ini Kosong",
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    );
+                  } else {
+                    return Container(
+                      height: mediaHeight * 0.20,
+                      child: ListView.builder(
+                        itemCount: homeController.penjualan.data?.length ?? 0,
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (BuildContext context, index) {
+                          final dataPenjualan =
+                              homeController.penjualan.data![index];
+                          String kategori =
+                              (dataPenjualan.kategori ?? '').toLowerCase();
+                          String kategoriPesan =
+                              kategori == 'makanan' ? 'Porsi' : 'Pcs';
+
+                          return Container(
+                            padding: EdgeInsets.all(5),
+                            width: MediaQuery.of(context).size.width * 0.6,
+                            child: Stack(
+                              children: [
+                                ClipRRect(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10)),
+                                  child: Image.network(
+                                    Api.gambar + dataPenjualan.foto.toString(),
+                                    height: 300,
+                                    width: 300,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                                Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    gradient: LinearGradient(
+                                      begin: Alignment.topCenter,
+                                      end: Alignment.bottomCenter,
+                                      colors: [
+                                        Colors.transparent,
+                                        Colors.black
+                                      ],
+                                      stops: [0.4, 1.0],
+                                    ),
+                                  ),
+                                ),
+                                Positioned(
+                                  bottom: 30,
+                                  left: 15,
+                                  right: 10,
+                                  child: Text(
+                                    '${dataPenjualan.nama ?? ''} Kantin ${dataPenjualan.idKantin}',
+                                    style: GoogleFonts.poppins(
+                                      textStyle: TextStyle(
+                                        fontSize: 13,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.normal,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Positioned(
+                                  bottom: 10,
+                                  left: 15,
+                                  right: 10,
+                                  child: Text(
+                                    '${dataPenjualan.penjualanHariIni ?? ''} $kategoriPesan',
+                                    style: GoogleFonts.poppins(
+                                      textStyle: TextStyle(
+                                        fontSize: 15,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                      ),
+                    );
+                  }
+                },
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

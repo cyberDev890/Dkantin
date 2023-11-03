@@ -1,4 +1,3 @@
-// ignore_for_file: prefer_const_constructors
 
 import 'package:dikantin/app/modules/utils/Konfirmasi.dart';
 import 'package:dikantin/app/modules/utils/kirim.dart';
@@ -102,7 +101,7 @@ class PesananView extends GetView<PesananController> {
                     fontSize: 12,
                   ),
                 ),
-                position: badges.BadgePosition.topEnd(top: -10, end: -15),
+                position: badges.BadgePosition.topEnd(top: -12, end: -15),
                 badgeStyle: badges.BadgeStyle(
                   shape: badges.BadgeShape.circle,
                   badgeColor: Colors.orange,
@@ -115,14 +114,14 @@ class PesananView extends GetView<PesananController> {
           ],
           labelStyle: GoogleFonts.poppins(
             textStyle: TextStyle(
-              fontSize: 16,
+              fontSize: 14,
               color: Colors.black,
               fontWeight: FontWeight.bold, // Font Weight untuk yang terpilih
             ),
           ),
           unselectedLabelStyle: GoogleFonts.poppins(
             textStyle: TextStyle(
-              fontSize: 16,
+              fontSize: 14,
               fontWeight:
                   FontWeight.normal, // Font Weight untuk yang tidak terpilih
             ),
@@ -134,11 +133,12 @@ class PesananView extends GetView<PesananController> {
           appBar: myAppbar,
           body: Container(
             decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [Color(0xFFFFFFFF), Color(0xFFAAEBFF)],
-              ),
+              // gradient: LinearGradient(
+              //   begin: Alignment.topCenter,
+              //   end: Alignment.bottomCenter,
+              //   colors: [Color(0xFFFFFFFF), Color(0xFFAAEBFF)],
+              // ),
+              color: Colors.white,
             ),
             child: TabBarView(
                 controller: pesananController.tabController,

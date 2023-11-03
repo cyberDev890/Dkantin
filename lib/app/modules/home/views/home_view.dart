@@ -24,21 +24,21 @@ class HomeView extends GetView<HomeController> {
         Padding(
           padding: const EdgeInsets.only(right: 30.0),
           child: IconButton.filledTonal(
-            onPressed: () {},
+            onPressed: () {
+              Get.toNamed('/keranjang');
+            },
             icon: Obx(
               () => badges.Badge(
                 badgeAnimation: badges.BadgeAnimation.slide(),
                 badgeContent: Text(
-                  c.count.value.toString(),
+                  controller.count.value.toString(),
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 11,
                   ),
                 ),
                 position: badges.BadgePosition.topEnd(top: -10, end: -10),
-                badgeStyle: const badges.BadgeStyle(
-                  badgeColor: Colors.green,
-                ),
+                badgeStyle: const badges.BadgeStyle(badgeColor: Colors.green),
                 child: const Icon(
                   Icons.shopping_cart,
                   size: 30,
@@ -59,7 +59,7 @@ class HomeView extends GetView<HomeController> {
         ),
       ),
     );
-    final x = mediaHeight -
+    final mediaBody = mediaHeight -
         app.preferredSize.height -
         MediaQuery.of(context).padding.top;
     return DefaultTabController(
@@ -68,11 +68,7 @@ class HomeView extends GetView<HomeController> {
         appBar: app,
         body: Container(
           decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [Color(0xFFEEFBFF), Color(0xFFAAEBFF)],
-            ),
+            color: Colors.white,
           ),
           child: NestedScrollView(
             headerSliverBuilder: (context, isScrolled) {
@@ -85,15 +81,10 @@ class HomeView extends GetView<HomeController> {
                   flexibleSpace: SingleChildScrollView(
                     physics: NeverScrollableScrollPhysics(),
                     child: Container(
-                      height: x * 0.20,
-                      padding: EdgeInsets.fromLTRB(15, 30, 10, 0),
+                      height: mediaBody * 0.20,
+                      padding: EdgeInsets.fromLTRB(20, 30, 10, 0),
                       decoration: BoxDecoration(
-                        // color: Colors.blue,
-                        gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: [Color(0xFFFFFFFF), Color(0xFFEEFBFF)],
-                        ),
+                        color: Colors.white,
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -114,10 +105,10 @@ class HomeView extends GetView<HomeController> {
                                 ),
                               ),
                               SizedBox(
-                                width: x * 0.1,
+                                width: mediaBody * 0.02,
                               ),
                               Container(
-                                // height: 22,
+                                height: 22,
                                 // width: 64,
                                 decoration: BoxDecoration(
                                     border: Border.all(
@@ -161,7 +152,7 @@ class HomeView extends GetView<HomeController> {
                             ],
                           ),
                           SizedBox(
-                            height: x / 50,
+                            height: mediaBody / 400,
                           ),
                           Container(
                             // padding: EdgeInsets.only(right: x * 0.25),
@@ -186,7 +177,7 @@ class HomeView extends GetView<HomeController> {
                   pinned: true,
                   delegate: MyTabBarDelegate(
                     TabBar(
-                      controller: c.tabController,
+                      controller: controller.tabController,
                       labelColor: Colors.black,
                       unselectedLabelColor: Colors.black,
                       isScrollable: true,
@@ -233,7 +224,7 @@ class HomeView extends GetView<HomeController> {
               ];
             },
             body: TabBarView(
-                controller: c.tabController,
+                controller: controller.tabController,
                 children: [Favorite(), Semua(), Makanan(), Minuman()]),
           ),
         ),
@@ -258,11 +249,12 @@ class MyTabBarDelegate extends SliverPersistentHeaderDelegate {
     return Container(
         decoration: BoxDecoration(
           // color: Colors.blue,
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [Color(0xFFEDFBFF), Color(0xFFE7F8FD)],
-          ),
+          // gradient: LinearGradient(
+          //   begin: Alignment.topCenter,
+          //   end: Alignment.bottomCenter,
+          //   colors: [Color(0xFFEDFBFF), Color(0xFFE7F8FD)]\,
+          // ),
+          color: Colors.white,
         ),
         child: _tabBar);
   }
