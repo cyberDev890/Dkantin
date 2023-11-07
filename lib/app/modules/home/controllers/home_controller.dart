@@ -2,20 +2,58 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../data/models/menu_diskon_model.dart';
-import '../../../data/models/menu_model.dart';
 import '../../../data/models/penjualan_model.dart';
+import '../../../data/models/search_model.dart';
 import '../../../data/providers/menu_provider.dart';
 
 class HomeController extends GetxController with GetTickerProviderStateMixin {
   //TODO: Implement HomeController
   late AnimationController _controller;
   late TabController tabController; // Tambahkan variabel TabController
-
-  final count = 0.obs;
+  final searchResults = <Datasearch>[].obs;
   final menuProvider = MenuProvider().obs;
   late Penjualan penjualan = Penjualan();
-  late MenuDiskon diskon = MenuDiskon();
-  final RxList<Menu> menuList = <Menu>[].obs;
+  var cartList = <Datasearch>[].obs;
+  var itemQuantities = <int, int>{}.obs;
+  final isLoading = false.obs; // Tambahkan isLoading
+// Menghitung total harga dari semua item di keranjang, termasuk kuantitas dan diskon
+  int get totalPrice {
+    int total = 0;
+    for (var item in cartList) {
+      int itemTotal = calculatePriceAfterDiscount(item) *
+          (itemQuantities[item.idMenu] ?? 1);
+      total += itemTotal;
+    }
+    return total;
+  }
+
+  int get countc => cartList.length;
+
+  int get count {
+    return itemQuantities.values.fold(0, (sum, quantity) => sum + quantity);
+  }
+
+  // Calculate discount for each item
+  int calculateDiscount(Datasearch item) {
+    // Check for null and return 0 if discount is null
+    int discount = item.diskon ?? 0;
+    return (item.harga! * discount) ~/ 100;
+  }
+
+  // Calculate price after discount for each item
+  int calculatePriceAfterDiscount(Datasearch item) {
+    // Subtract the discount from the item's price
+    return item.harga! - calculateDiscount(item);
+  }
+
+  // Get total discount for all items
+  int get totalDiscount =>
+      cartList.fold(0, (sum, item) => sum + calculateDiscount(item));
+
+  // Get total price after all discounts have been applied
+  int get totalPriceAfterDiscount =>
+      cartList.fold(0, (sum, item) => sum + calculatePriceAfterDiscount(item));
+
   @override
   void onInit() {
     super.onInit();
@@ -24,7 +62,7 @@ class HomeController extends GetxController with GetTickerProviderStateMixin {
       duration: Duration(seconds: 1),
     );
     tabController = TabController(length: 4, vsync: this);
-    fetchDataDiskon();
+    fetchDataDiskon('');
     fetchDataPenjualan();
     refreshData();
   }
@@ -37,22 +75,78 @@ class HomeController extends GetxController with GetTickerProviderStateMixin {
   @override
   void onClose() {
     _controller.dispose();
-    tabController.dispose(); // Hapus TabController saat controller ditutup
+    tabController.dispose();
     super.onClose();
   }
 
-  void increment() => count.value++;
+  void addToCart(Datasearch item) {
+    // Cek apakah item sudah ada di keranjang
+    if (!cartList.any((element) => element.idMenu == item.idMenu)) {
+      cartList.add(item);
+      itemQuantities[item.idMenu!] = 1;
+    } else {
+      addQuantity(item.idMenu!);
+    }
+    itemQuantities.refresh();
+  }
+
+  void removeFromCart(Datasearch item) {
+    cartList.removeWhere((element) => element.nama == item.nama);
+    itemQuantities.remove(item.idMenu); // Ini akan menghapus kuantitas dari map
+    itemQuantities
+        .refresh(); // Memperbarui observers agar jumlah total kuantitas diperbarui di UI
+    update(); // Memanggil update untuk memicu pembaruan UI pada widget yang terkait
+  }
+
   void startAnimation() {
     _controller.forward();
   }
 
-  Future<void> fetchDataDiskon() async {
-    try {
-      diskon = await menuProvider.value.fetchDataDiskon();
-    } catch (e) {
-      // Tangani kesalahan jika permintaan gagal
-      print('Error: $e');
+  void addQuantity(int idMenu) {
+    if (itemQuantities.containsKey(idMenu)) {
+      itemQuantities[idMenu] = (itemQuantities[idMenu] ?? 1) + 1;
+    } else {
+      itemQuantities[idMenu] =
+          1; // Jika item belum ada dalam map, set kuantitas ke 1
     }
+    itemQuantities.refresh(); // Memperbarui UI
+  }
+
+  void subtractQuantity(int idMenu) {
+    if (itemQuantities.containsKey(idMenu) && itemQuantities[idMenu]! > 1) {
+      itemQuantities[idMenu] = (itemQuantities[idMenu] ?? 1) - 1;
+      itemQuantities.refresh(); // Memperbarui UI
+    }
+  }
+
+  void setLoading(bool value) {
+    isLoading.value = value; // Metode untuk mengatur status isLoading
+  }
+
+  Future<void> fetchDataDiskon(String keyword) async {
+    try {
+      setLoading(
+          true); // Set isLoading menjadi true saat pemanggilan API dimulai
+      final results = await menuProvider.value.fetchDataDiskon(keyword);
+      searchResults.assignAll(results.data ?? []);
+    } catch (e) {
+      print('Error during search: $e');
+      searchResults.clear();
+    } finally {
+      setLoading(
+          false); // Set isLoading menjadi false saat pemanggilan API selesai
+    }
+  }
+
+  int calculateSubtotal(int idMenu) {
+    final int price = calculatePriceAfterDiscount(findMenuById(idMenu));
+    final int quantity = itemQuantities[idMenu] ?? 1;
+    return price * quantity;
+  }
+
+  Datasearch findMenuById(int idMenu) {
+    return cartList.firstWhere((menu) => menu.idMenu == idMenu,
+        orElse: () => Datasearch());
   }
 
   Future<void> fetchDataPenjualan() async {
@@ -64,19 +158,7 @@ class HomeController extends GetxController with GetTickerProviderStateMixin {
   }
 
   Future<void> refreshData() async {
-    await fetchDataDiskon();
+    await fetchDataDiskon('');
     await fetchDataPenjualan();
   }
-
-  // // Fungsi pencarian data
-  // Future<void> searchMenu(String keyword) async {
-  //   try {
-  //     final searchResults = await menuProvider.value.searchMenu(keyword);
-  //     menuList
-  //         .assignAll(searchResults); // Mengisi menuList dengan hasil pencarian
-  //   } catch (e) {
-  //     // Handle kesalahan jika pencarian gagal
-  //     print('Gagal melakukan pencarian: $e');
-  //   }
-  // }
 }

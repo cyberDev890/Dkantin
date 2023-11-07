@@ -1,5 +1,5 @@
 class MenuDiskon {
-  List<Data>? data;
+  List<DataDiskon>? data;
   int? code;
   bool? status;
 
@@ -7,9 +7,9 @@ class MenuDiskon {
 
   MenuDiskon.fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {
-      data = <Data>[];
+      data = <DataDiskon>[];
       json['data'].forEach((v) {
-        data?.add(Data.fromJson(v));
+        data?.add(DataDiskon.fromJson(v));
       });
     }
     code = json['code'];
@@ -29,7 +29,7 @@ class MenuDiskon {
 }
 }
 
-class Data {
+class DataDiskon {
   int? idMenu;
   String? nama;
   int? harga;
@@ -39,7 +39,7 @@ class Data {
   int? idKantin;
   int? diskon;
 
-  Data(
+  DataDiskon(
       {this.idMenu,
       this.nama,
       this.harga,
@@ -49,7 +49,7 @@ class Data {
       this.idKantin,
       this.diskon});
 
-  Data.fromJson(Map<String, dynamic> json) {
+  DataDiskon.fromJson(Map<String, dynamic> json) {
     idMenu = json['id_menu'];
     nama = json['nama'];
     harga = json['harga'];

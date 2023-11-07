@@ -2,8 +2,10 @@ import 'package:dikantin/app/modules/home/controllers/minuman_controller.dart';
 import 'package:dikantin/app/modules/utils/formatDate.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 import 'package:shimmer/shimmer.dart';
 import '../../data/providers/services.dart';
+import '../home/controllers/home_controller.dart';
 
 class Minuman extends StatefulWidget {
   const Minuman({Key? key}) : super(key: key);
@@ -14,6 +16,7 @@ class Minuman extends StatefulWidget {
 
 class _MinumanState extends State<Minuman> {
   final MinumanController controller = Get.put(MinumanController());
+  final HomeController homeController = Get.find<HomeController>();
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +56,7 @@ class _MinumanState extends State<Minuman> {
                       decoration: InputDecoration.collapsed(
                         filled: true,
                         fillColor: Colors.transparent,
-                        hintText: "Cari",
+                        hintText: "Mau makan apa hari ini ganteng ?",
                         hintStyle: TextStyle(
                             color: Colors.grey[500], fontFamily: 'Mulish'),
                         hoverColor: Colors.transparent,
@@ -109,13 +112,8 @@ class _MinumanState extends State<Minuman> {
                     );
                   } else if (controller.searchResults.isEmpty) {
                     return Center(
-                      child: Text(
-                        "Data Not Found",
-                        style: TextStyle(
-                          fontSize: 16.0,
-                        ),
-                      ),
-                    );
+                        child: Lottie.asset('assets/animation_lokcsauz.json',
+                            repeat: false));
                   } else {
                     return GridView.builder(
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -193,25 +191,54 @@ class _MinumanState extends State<Minuman> {
                                                   .textTheme
                                                   .bodyLarge,
                                             ),
-                                            SizedBox(
-                                              height: 30,
-                                              width: 30,
-                                              child: Ink(
-                                                decoration: ShapeDecoration(
-                                                  color: Colors.blue,
-                                                  shape: CircleBorder(),
-                                                ),
-                                                child: IconButton.filled(
-                                                  padding: EdgeInsets.zero,
-                                                  onPressed: () {
-                                                    // controller.increment();
-                                                    // controller.update();
-                                                  },
-                                                  iconSize: 18,
-                                                  icon: const Icon(Icons.add),
-                                                ),
-                                              ),
-                                            )
+                                            Obx(() => homeController.cartList
+                                                    .contains(menuData)
+                                                ? SizedBox(
+                                                    height: 30,
+                                                    width: 30,
+                                                    child: Ink(
+                                                      decoration:
+                                                          ShapeDecoration(
+                                                        color: Colors.blue,
+                                                        shape: CircleBorder(),
+                                                      ),
+                                                      child: IconButton.filled(
+                                                        padding:
+                                                            EdgeInsets.zero,
+                                                        onPressed: () {
+                                                          homeController
+                                                              .removeFromCart(
+                                                                  menuData);
+                                                        },
+                                                        iconSize: 18,
+                                                        icon: const Icon(
+                                                            Icons.remove),
+                                                      ),
+                                                    ),
+                                                  )
+                                                : SizedBox(
+                                                    height: 30,
+                                                    width: 30,
+                                                    child: Ink(
+                                                      decoration:
+                                                          ShapeDecoration(
+                                                        color: Colors.blue,
+                                                        shape: CircleBorder(),
+                                                      ),
+                                                      child: IconButton.filled(
+                                                        padding:
+                                                            EdgeInsets.zero,
+                                                        onPressed: () {
+                                                          homeController
+                                                              .addToCart(
+                                                                  menuData);
+                                                        },
+                                                        iconSize: 18,
+                                                        icon: const Icon(
+                                                            Icons.add),
+                                                      ),
+                                                    ),
+                                                  ))
                                           ],
                                         )
                                       ],

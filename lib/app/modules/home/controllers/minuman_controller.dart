@@ -1,11 +1,11 @@
+import 'package:dikantin/app/data/models/search_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:dikantin/app/data/providers/menu_provider.dart';
-import '../../../data/models/menu_model.dart';
 
 class MinumanController extends GetxController {
   final menuProvider = MenuProvider().obs;
-  final searchResults = <Data>[].obs;
+  final searchResults = <Datasearch>[].obs;
   final isLoading = false.obs; // Tambahkan isLoading
 
   final TextEditingController searchController = TextEditingController();

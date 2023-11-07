@@ -7,4 +7,6 @@ extension IntExtensions on int {
 
     return formattedCurrency.substring(0, formattedCurrency.indexOf(','));
   }
+
+
 }

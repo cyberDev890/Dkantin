@@ -27,7 +27,7 @@ class MenuProvider extends GetxController {
     }
   }
 
-  Future<Menu> searchMakanan(String keyword) async {
+  Future<Search> searchMakanan(String keyword) async {
     final token =
         "28yrAEcQdkW4SZBP8BJEUw2wJGn9zHIkAcovXVuufTthXz1Q4VnPTgecqGsj8ayovuXLgcS2zWvvp7WLNjNGALNHuwpFvpW7VYVvcMF36xHh6zLxQ1pJHgr8bsK6dc2xWZP0AIXCU76XbLsIpylcAkBsgSDXxnRVl6TlFa5esMPDiDpmTgq68MVZogeVmyV8kxk5j20c";
     final response = await http.get(
@@ -39,13 +39,13 @@ class MenuProvider extends GetxController {
     );
 
     if (response.statusCode == 200) {
-      return Menu.fromJson(jsonDecode(response.body));
+      return Search.fromJson(jsonDecode(response.body));
     } else {
       throw Exception('Gagal memuat data');
     }
   }
 
-  Future<Menu> searchMinuman(String keyword) async {
+  Future<Search> searchMinuman(String keyword) async {
     final token =
         "28yrAEcQdkW4SZBP8BJEUw2wJGn9zHIkAcovXVuufTthXz1Q4VnPTgecqGsj8ayovuXLgcS2zWvvp7WLNjNGALNHuwpFvpW7VYVvcMF36xHh6zLxQ1pJHgr8bsK6dc2xWZP0AIXCU76XbLsIpylcAkBsgSDXxnRVl6TlFa5esMPDiDpmTgq68MVZogeVmyV8kxk5j20c";
     final response = await http.get(
@@ -57,17 +57,17 @@ class MenuProvider extends GetxController {
     );
 
     if (response.statusCode == 200) {
-      return Menu.fromJson(jsonDecode(response.body));
+      return Search.fromJson(jsonDecode(response.body));
     } else {
       throw Exception('Gagal memuat data');
     }
   }
 
-  Future<MenuDiskon> fetchDataDiskon() async {
+  Future<Search> fetchDataDiskon(String keyword) async {
     final token =
         "28yrAEcQdkW4SZBP8BJEUw2wJGn9zHIkAcovXVuufTthXz1Q4VnPTgecqGsj8ayovuXLgcS2zWvvp7WLNjNGALNHuwpFvpW7VYVvcMF36xHh6zLxQ1pJHgr8bsK6dc2xWZP0AIXCU76XbLsIpylcAkBsgSDXxnRVl6TlFa5esMPDiDpmTgq68MVZogeVmyV8kxk5j20c";
     final response = await http.get(
-      Uri.parse(Api.diskon),
+      Uri.parse(Api.diskon + keyword),
       headers: {
         'Authorization':
             'Bearer $token', // Gantilah [TOKEN] dengan token yang sesuai
@@ -75,7 +75,7 @@ class MenuProvider extends GetxController {
     );
 
     if (response.statusCode == 200) {
-      return MenuDiskon.fromJson(jsonDecode(response.body));
+      return Search.fromJson(jsonDecode(response.body));
     } else {
       throw Exception('Gagal memuat data');
     }

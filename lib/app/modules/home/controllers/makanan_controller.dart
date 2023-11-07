@@ -4,10 +4,11 @@ import 'package:dikantin/app/data/providers/services.dart';
 import 'package:dikantin/app/data/providers/menu_provider.dart';
 
 import '../../../data/models/menu_model.dart';
+import '../../../data/models/search_model.dart';
 
 class MakananController extends GetxController {
   final menuProvider = MenuProvider().obs;
-  final searchResults = <Data>[].obs;
+  final searchResults = <Datasearch>[].obs;
   final isLoading = false.obs; // Tambahkan isLoading
   final TextEditingController searchController = TextEditingController();
 
@@ -40,4 +41,7 @@ class MakananController extends GetxController {
           false); // Set isLoading menjadi false saat pemanggilan API selesai
     }
   }
+
+
+  
 }
