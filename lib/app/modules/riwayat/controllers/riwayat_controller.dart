@@ -1,4 +1,5 @@
 import 'package:dikantin/app/data/models/search_model.dart';
+import 'package:dikantin/app/data/models/riwayat_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../data/providers/menu_provider.dart';
@@ -9,7 +10,7 @@ class RiwayatController extends GetxController
   late TabController tabController;
   final count = 0.obs;
   final menuProvider = MenuProvider().obs;
-  final searchResults = <Datasearch>[].obs;
+  final searchResults = <Data>[].obs;
   final isLoading = false.obs; // Tambahkan isLoading
 
   @override
@@ -52,7 +53,7 @@ class RiwayatController extends GetxController
     try {
       setLoading(
           true); // Set isLoading menjadi true saat pemanggilan API dimulai
-      final results = await menuProvider.value.searchSemua(keyword);
+      final results = await menuProvider.value.searchRiwayat(keyword);
       searchResults.assignAll(results.data ?? []);
     } catch (e) {
       print('Error during search: $e');

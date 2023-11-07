@@ -1,7 +1,14 @@
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_interpolation_to_compose_strings
+
+import 'package:dikantin/app/data/models/keranjang_model.dart';
 import 'package:dikantin/app/data/providers/services.dart';
+import 'package:dikantin/app/modules/keranjang/controllers/keranjang_controller.dart';
 import 'package:dikantin/app/modules/utils/formatDate.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:badges/badges.dart' as badges;
+import 'package:intl/intl.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../controllers/riwayat_controller.dart';
@@ -13,41 +20,117 @@ class RiwayatView extends GetView<RiwayatController> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Center(
-          child: Text(
-            "Riwayat",
-            style: TextStyle(
-              fontSize: 14.0,
-            ),
+    final mediaHeight = MediaQuery.of(context).size.height;
+    final app = AppBar(
+      elevation: 0, // Menghilangkan shadow di bawah AppBar
+      backgroundColor: Colors.white, // Membuat AppBar transparan
+      actions: [
+        Container(
+          padding: EdgeInsets.fromLTRB(0, 5, 10, 0),
+          child: Image.asset(
+            'assets/logo_dikantin.png',
+            height: 90, // Sesuaikan dengan tinggi yang Anda inginkan
+            width: 90, // Sesuaikan dengan lebar yang Anda inginkan
+            fit: BoxFit.cover,
           ),
         ),
+      ],
+      title: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Text(
+          "Riwayat Pesanan",
+          style: GoogleFonts.poppins(
+              textStyle: TextStyle(
+                  fontSize: 20,
+                  color: Colors.black,
+                  fontWeight: FontWeight.w600)),
+        ),
       ),
+    );
+    final mediaBody = mediaHeight -
+        app.preferredSize.height -
+        MediaQuery.of(context).padding.top;
+    return Scaffold(
+      appBar: app,
       body: RefreshIndicator(
         onRefresh: () async {
           await riwayatController.refreshData();
         },
         child: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: TextField(
-                controller: searchController,
-                onChanged: (text) {
-                  riwayatController
-                      .search(text); // Trigger the search as the user types
-                },
-                decoration: InputDecoration(
-                  labelText: 'Search',
-                  suffixIcon: IconButton(
-                    icon: Icon(Icons.search),
-                    onPressed: () {
-                      riwayatController.search(searchController.text);
+            // Padding(
+            //   padding: const EdgeInsets.all(8.0),
+            //   child: TextField(
+            //     controller: searchController,
+            //     onChanged: (text) {
+            //       riwayatController
+            //           .search(text); // Trigger the search as the user types
+            //     },
+            //     decoration: InputDecoration(
+            //       labelText: 'Search',
+            //       suffixIcon: IconButton(
+            //         icon: Icon(Icons.search),
+            //         onPressed: () {
+            //           riwayatController.search(searchController.text);
+            //         },
+            //       ),
+            //     ),
+            //   ),
+            // ),
+            Container(
+              margin: EdgeInsets.fromLTRB(30, 15, 30, 15),
+              decoration: BoxDecoration(
+                  border: Border.all(color: Color(0xFF969696), width: 1.5),
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(14.0),
+                  )),
+              child: Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Icon(
+                      Icons.search,
+                      color: Color(0xFF969696),
+                    ),
+                  ),
+                  Expanded(
+                      child: TextFormField(
+                    controller: searchController,
+                    initialValue: null,
+                    onChanged: (text) {
+                      controller
+                          .search(text); // Trigger the search as the user types
                     },
+                    decoration: InputDecoration.collapsed(
+                      filled: true,
+                      fillColor: Colors.transparent,
+                      hintText: "Cari Disini..",
+                      hintStyle: TextStyle(
+                          color: Colors.grey[500], fontFamily: 'Mulish'),
+                      hoverColor: Colors.transparent,
+                    ),
+                    onFieldSubmitted: (value) {
+                      // Get.to(() => searchBuku(keywords: search.toString()));
+                    },
+                  ))
+                ],
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.only(left: 30),
+              alignment: Alignment.bottomLeft,
+              child: Text(
+                "Pesan Lagi Yuk !! ...",
+                style: GoogleFonts.poppins(
+                  textStyle: TextStyle(
+                    fontSize: 11,
+                    fontWeight: FontWeight.w400,
                   ),
                 ),
               ),
+            ),
+            SizedBox(
+              height: mediaBody * 0.008,
             ),
             Expanded(
               child: Obx(() {
@@ -59,8 +142,8 @@ class RiwayatView extends GetView<RiwayatController> {
                     child: GridView.builder(
                       padding: EdgeInsets.zero,
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        childAspectRatio: 0.80,
-                        crossAxisCount: 2,
+                        childAspectRatio: 1.9,
+                        crossAxisCount: 1,
                         mainAxisSpacing: 10,
                         crossAxisSpacing: 10,
                       ),
@@ -97,105 +180,317 @@ class RiwayatView extends GetView<RiwayatController> {
                     ),
                   );
                 } else {
-                  return GridView.builder(
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      childAspectRatio: 0.80,
-                      crossAxisCount: 2,
-                      mainAxisSpacing: 10,
-                      crossAxisSpacing: 10,
-                    ),
+                  return ListView.builder(
+                    physics: const ScrollPhysics(),
                     itemCount: riwayatController.searchResults.length,
-                    shrinkWrap: true,
-                    physics: ScrollPhysics(),
-                    itemBuilder: (BuildContext context, int index) {
+                    itemBuilder: (context, index) {
                       final menuData = riwayatController.searchResults[index];
                       final harga = menuData.harga ?? 0;
+                      String? tanggal = menuData.createdAt;
+                      DateTime createdDate = DateTime.parse(
+                          tanggal!); // Ganti ini dengan tanggal dari database dalam format datetime
+                      String formattedDate =
+                          DateFormat('dd MMMM y').format(createdDate);
                       return GestureDetector(
                         onTap: () {},
-                        child: Card(
-                          clipBehavior: Clip.antiAlias,
-                          elevation: 4,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
-                            side: BorderSide(color: Colors.grey.shade200),
-                          ),
-                          child: SingleChildScrollView(
+                        child: Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Card(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(
+                                  10.0), // Sesuaikan dengan radius yang diinginkan
+                            ),
+                            elevation: 5,
+                            // color: Colors.red,
                             child: Column(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Container(
-                                  height: 120,
-                                  alignment: Alignment.topRight,
-                                  width: double.infinity,
-                                  padding: const EdgeInsets.all(8),
-                                  decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                      image: NetworkImage(Api.gambar +
-                                          menuData.foto.toString()),
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                ),
                                 Padding(
-                                  padding: const EdgeInsets.all(10.0),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      12, 12, 12, 12),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
                                     children: [
-                                      Padding(
-                                        padding:
-                                            const EdgeInsets.only(bottom: 8.0),
-                                        child: Text(
-                                          menuData.nama ?? '',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyLarge,
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding:
-                                            const EdgeInsets.only(bottom: 8.0),
-                                        child: Text(
-                                          'Kantin: ${menuData.idKantin ?? ''}',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyLarge,
-                                        ),
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(
-                                            harga.toRupiah(),
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .bodyLarge,
+                                      Container(
+                                        width: 110,
+                                        height: 110,
+                                        decoration: BoxDecoration(
+                                          color: Color.fromARGB(
+                                              208, 205, 205, 205),
+                                          borderRadius:
+                                              BorderRadius.circular(8),
+                                          border: Border.all(
+                                            color: Color.fromARGB(
+                                                208, 22, 103, 255),
+                                            width: 1,
                                           ),
-                                          SizedBox(
-                                            height: 30,
-                                            width: 30,
-                                            child: Ink(
-                                              decoration: ShapeDecoration(
-                                                color: Colors.blue,
-                                                shape: CircleBorder(),
-                                              ),
-                                              child: IconButton.filled(
-                                                padding: EdgeInsets.zero,
-                                                onPressed: () {
-                                                  // controller.increment();
-                                                  // controller.update();
-                                                },
-                                                iconSize: 18,
-                                                icon: const Icon(Icons.add),
+                                        ),
+                                        alignment:
+                                            AlignmentDirectional(0.00, 0.00),
+                                        child: Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  2, 2, 2, 2),
+                                          child: ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(6),
+                                            child: Container(
+                                              height: double.infinity,
+                                              alignment: Alignment.center,
+                                              width: double.infinity,
+                                              decoration: BoxDecoration(
+                                                image: DecorationImage(
+                                                  image: NetworkImage(Api
+                                                          .gambar +
+                                                      menuData.foto.toString()),
+                                                  fit: BoxFit.cover,
+                                                ),
                                               ),
                                             ),
-                                          )
-                                        ],
-                                      )
+                                          ),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  12, 0, 0, 0),
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(4, 0, 0, 0),
+                                                child: Text(
+                                                  menuData.nama ?? '',
+                                                  style: GoogleFonts.poppins(
+                                                      textStyle: TextStyle(
+                                                    color: Color(0xFF101518),
+                                                    fontSize: 16,
+                                                    fontWeight: FontWeight.bold,
+                                                  )),
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(4, 0, 0, 0),
+                                                child: Text(
+                                                  'Kantin: ${menuData.idKantin ?? ''}',
+                                                  style: GoogleFonts.poppins(
+                                                      textStyle: TextStyle(
+                                                    color: Color(0xFF101518),
+                                                    fontSize: 11,
+                                                    fontWeight: FontWeight.w500,
+                                                  )),
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(4, 0, 0, 0),
+                                                child: Text(
+                                                  formattedDate,
+                                                  style: GoogleFonts.poppins(
+                                                      textStyle: TextStyle(
+                                                    color: Color(0xFF101518),
+                                                    fontSize: 10,
+                                                    fontWeight: FontWeight.w500,
+                                                  )),
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(0, 11, 0, 0),
+                                                child: Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  4, 0, 0, 0),
+                                                      child: Text(
+                                                        harga.toRupiah(),
+                                                        style:
+                                                            GoogleFonts.poppins(
+                                                                textStyle:
+                                                                    TextStyle(
+                                                          color:
+                                                              Color(0xFF101518),
+                                                          fontSize: 12,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                        )),
+                                                      ),
+                                                    ),
+                                                    Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  4, 0, 0, 0),
+                                                      child: Text(
+                                                        '* ${menuData.penjualanHariIni ?? ''}',
+                                                        style:
+                                                            GoogleFonts.poppins(
+                                                                textStyle:
+                                                                    TextStyle(
+                                                          color:
+                                                              Color(0xFF101518),
+                                                          fontSize: 12,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                        )),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(0, 4, 0, 0),
+                                                child: Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.end,
+                                                  children: [
+                                                    Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  4, 0, 0, 0),
+                                                      child: Text(
+                                                        'Biaya Sebenarnya :',
+                                                        style:
+                                                            GoogleFonts.poppins(
+                                                                textStyle:
+                                                                    TextStyle(
+                                                          color:
+                                                              Color(0xFF101518),
+                                                          fontSize: 12,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                        )),
+                                                      ),
+                                                    ),
+                                                    Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  4, 0, 0, 0),
+                                                      child: Text(
+                                                        harga.toRupiah(),
+                                                        style:
+                                                            GoogleFonts.poppins(
+                                                                textStyle:
+                                                                    TextStyle(
+                                                          color:
+                                                              Color(0xFF101518),
+                                                          fontSize: 12,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                        )),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
                                     ],
                                   ),
-                                )
+                                ),
+                                Divider(
+                                  height: 12,
+                                  thickness: 1,
+                                  indent: 16,
+                                  endIndent: 16,
+                                  color: Color.fromARGB(255, 227, 226, 226),
+                                ),
+                                Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          16, 12, 16, 16),
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.max,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            'Harga Per 1 Menu',
+                                            style: GoogleFonts.poppins(
+                                                textStyle: TextStyle(
+                                              color: Color(0xFF101518),
+                                              fontSize: 13,
+                                              fontWeight: FontWeight.w500,
+                                            )),
+                                          ),
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0, 6, 0, 0),
+                                            child: Text(
+                                              harga.toRupiah(),
+                                              style: GoogleFonts.poppins(
+                                                  textStyle: TextStyle(
+                                                color: Colors.black,
+                                                fontSize: 13,
+                                                fontWeight: FontWeight.bold,
+                                              )),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0, 0, 15, 0),
+                                        child: TextButton(
+                                          onPressed: () {
+                                            print('Button pressed ...');
+                                            KeranjangController()
+                                                .addToCart(menuData.nama ?? '');
+                                          },
+                                          style: TextButton.styleFrom(
+                                            backgroundColor: Color.fromARGB(
+                                                208, 107, 159, 255),
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal: 20),
+                                            side: BorderSide(
+                                                color: Colors.transparent,
+                                                width: 1),
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                            ),
+                                          ),
+                                          child: Text(
+                                            'Pesan Lagi',
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                          ),
+                                        )),
+                                  ],
+                                ),
                               ],
                             ),
                           ),
