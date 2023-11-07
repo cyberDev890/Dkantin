@@ -1,8 +1,10 @@
 import 'package:dikantin/app/modules/utils/formatDate.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 import 'package:shimmer/shimmer.dart';
 import '../../data/providers/services.dart';
+import '../home/controllers/home_controller.dart';
 import '../home/controllers/semua_controller.dart';
 
 class Semua extends StatefulWidget {
@@ -14,6 +16,7 @@ class Semua extends StatefulWidget {
 
 class _SemuaState extends State<Semua> {
   final SemuaController controller = Get.put(SemuaController());
+  final HomeController homeController = Get.find<HomeController>();
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +56,7 @@ class _SemuaState extends State<Semua> {
                       decoration: InputDecoration.collapsed(
                         filled: true,
                         fillColor: Colors.transparent,
-                        hintText: "Cari",
+                        hintText: "Mau makan apa hari ini ganteng ?",
                         hintStyle: TextStyle(
                             color: Colors.grey[500], fontFamily: 'Mulish'),
                         hoverColor: Colors.transparent,
@@ -109,13 +112,8 @@ class _SemuaState extends State<Semua> {
                     );
                   } else if (controller.searchResults.isEmpty) {
                     return Center(
-                      child: Text(
-                        "Data Not Found",
-                        style: TextStyle(
-                          fontSize: 16.0,
-                        ),
-                      ),
-                    );
+                        child: Lottie.asset('assets/animation_lokcsauz.json',
+                            repeat: false));
                   } else {
                     return GridView.builder(
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -130,95 +128,116 @@ class _SemuaState extends State<Semua> {
                       itemBuilder: (BuildContext context, int index) {
                         final menuData = controller.searchResults[index];
                         final harga = menuData.harga ?? 0;
-                        return GestureDetector(
-                          onTap: () {},
-                          child: Card(
-                            clipBehavior: Clip.antiAlias,
-                            elevation: 4,
-                            shape: RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10)),
-                              side: BorderSide(color: Colors.grey.shade200),
-                            ),
-                            child: SingleChildScrollView(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Container(
-                                    height: 120,
-                                    alignment: Alignment.topRight,
-                                    width: double.infinity,
-                                    padding: const EdgeInsets.all(8),
-                                    decoration: BoxDecoration(
-                                      image: DecorationImage(
-                                        image: NetworkImage(Api.gambar +
-                                            menuData.foto.toString()),
-                                        fit: BoxFit.cover,
-                                      ),
+                        return Card(
+                          clipBehavior: Clip.antiAlias,
+                          elevation: 4,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                            side: BorderSide(color: Colors.grey.shade200),
+                          ),
+                          child: SingleChildScrollView(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                  height: 120,
+                                  alignment: Alignment.topRight,
+                                  width: double.infinity,
+                                  padding: const EdgeInsets.all(8),
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                      image: NetworkImage(Api.gambar +
+                                          menuData.foto.toString()),
+                                      fit: BoxFit.cover,
                                     ),
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(10.0),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsets.only(
-                                              bottom: 8.0),
-                                          child: Text(
-                                            menuData.nama ?? '',
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(bottom: 8.0),
+                                        child: Text(
+                                          menuData.nama ?? '',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyLarge,
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(bottom: 8.0),
+                                        child: Text(
+                                          'Kantin: ${menuData.idKantin ?? ''}',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyLarge,
+                                        ),
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            harga.toRupiah(),
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .bodyLarge,
                                           ),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.only(
-                                              bottom: 8.0),
-                                          child: Text(
-                                            'Kantin: ${menuData.idKantin ?? ''}',
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .bodyLarge,
-                                          ),
-                                        ),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Text(
-                                              harga.toRupiah(),
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .bodyLarge,
-                                            ),
-                                            SizedBox(
-                                              height: 30,
-                                              width: 30,
-                                              child: Ink(
-                                                decoration: ShapeDecoration(
-                                                  color: Colors.blue,
-                                                  shape: CircleBorder(),
-                                                ),
-                                                child: IconButton.filled(
-                                                  padding: EdgeInsets.zero,
-                                                  onPressed: () {
-                                                    // controller.increment();
-                                                    // controller.update();
-                                                  },
-                                                  iconSize: 18,
-                                                  icon: const Icon(Icons.add),
-                                                ),
-                                              ),
-                                            )
-                                          ],
-                                        )
-                                      ],
-                                    ),
-                                  )
-                                ],
-                              ),
+                                          Obx(() => homeController.cartList
+                                                  .contains(menuData)
+                                              ? SizedBox(
+                                                  height: 30,
+                                                  width: 30,
+                                                  child: Ink(
+                                                    decoration: ShapeDecoration(
+                                                      color: Colors.blue,
+                                                      shape: CircleBorder(),
+                                                    ),
+                                                    child: IconButton.filled(
+                                                      padding: EdgeInsets.zero,
+                                                      onPressed: () {
+                                                        homeController
+                                                            .removeFromCart(
+                                                                menuData);
+                                                      },
+                                                      iconSize: 18,
+                                                      icon: const Icon(
+                                                          Icons.remove),
+                                                    ),
+                                                  ),
+                                                )
+                                              : SizedBox(
+                                                  height: 30,
+                                                  width: 30,
+                                                  child: Ink(
+                                                    decoration: ShapeDecoration(
+                                                      color: Colors.blue,
+                                                      shape: CircleBorder(),
+                                                    ),
+                                                    child: IconButton.filled(
+                                                      padding: EdgeInsets.zero,
+                                                      onPressed: () {
+                                                        homeController
+                                                            .addToCart(
+                                                                menuData);
+                                                      },
+                                                      iconSize: 18,
+                                                      icon:
+                                                          const Icon(Icons.add),
+                                                    ),
+                                                  ),
+                                                ))
+                                        ],
+                                      )
+                                    ],
+                                  ),
+                                )
+                              ],
                             ),
                           ),
                         );

@@ -30,7 +30,7 @@ class MenuProvider extends GetxController {
     }
   }
 
-  Future<Menu> searchMakanan(String keyword) async {
+  Future<Search> searchMakanan(String keyword) async {
     final token =
         "D3RfFBjBMeWjtpTrnAjvmJKVX9ffJpPDWpiIuNhZte2KnRPA130m3tS0j0WrsYPKRZvOcqFc0gkeeZNgCecFLpjOHeEolXyO4ZZvUOtUMV6wxG0YQ1oADmNOE7qTBNsyB2YVEWwCsPc2hjV3SseK6BUTSDggloxzfk73ugvtlwedKDEPNPhoXs9zZQcaz8I5oHeD3x5O";
     final response = await http.get(
@@ -42,13 +42,13 @@ class MenuProvider extends GetxController {
     );
 
     if (response.statusCode == 200) {
-      return Menu.fromJson(jsonDecode(response.body));
+      return Search.fromJson(jsonDecode(response.body));
     } else {
       throw Exception('Gagal memuat data');
     }
   }
 
-  Future<Menu> searchMinuman(String keyword) async {
+  Future<Search> searchMinuman(String keyword) async {
     final token =
         "D3RfFBjBMeWjtpTrnAjvmJKVX9ffJpPDWpiIuNhZte2KnRPA130m3tS0j0WrsYPKRZvOcqFc0gkeeZNgCecFLpjOHeEolXyO4ZZvUOtUMV6wxG0YQ1oADmNOE7qTBNsyB2YVEWwCsPc2hjV3SseK6BUTSDggloxzfk73ugvtlwedKDEPNPhoXs9zZQcaz8I5oHeD3x5O";
     final response = await http.get(
@@ -60,7 +60,7 @@ class MenuProvider extends GetxController {
     );
 
     if (response.statusCode == 200) {
-      return Menu.fromJson(jsonDecode(response.body));
+      return Search.fromJson(jsonDecode(response.body));
     } else {
       throw Exception('Gagal memuat data');
     }
@@ -84,11 +84,11 @@ class MenuProvider extends GetxController {
     }
   }
 
-  Future<MenuDiskon> fetchDataDiskon() async {
+  Future<Search> fetchDataDiskon(String keyword) async {
     final token =
         "D3RfFBjBMeWjtpTrnAjvmJKVX9ffJpPDWpiIuNhZte2KnRPA130m3tS0j0WrsYPKRZvOcqFc0gkeeZNgCecFLpjOHeEolXyO4ZZvUOtUMV6wxG0YQ1oADmNOE7qTBNsyB2YVEWwCsPc2hjV3SseK6BUTSDggloxzfk73ugvtlwedKDEPNPhoXs9zZQcaz8I5oHeD3x5O";
     final response = await http.get(
-      Uri.parse(Api.diskon),
+      Uri.parse(Api.diskon + keyword),
       headers: {
         'Authorization':
             'Bearer $token', // Gantilah [TOKEN] dengan token yang sesuai
@@ -96,7 +96,7 @@ class MenuProvider extends GetxController {
     );
 
     if (response.statusCode == 200) {
-      return MenuDiskon.fromJson(jsonDecode(response.body));
+      return Search.fromJson(jsonDecode(response.body));
     } else {
       throw Exception('Gagal memuat data');
     }

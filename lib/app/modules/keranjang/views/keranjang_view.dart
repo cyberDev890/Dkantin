@@ -3,90 +3,89 @@
 import 'package:carbon_icons/carbon_icons.dart';
 import 'package:dikantin/app/data/models/keranjang_model.dart';
 import 'package:dikantin/app/modules/order/views/order_view.dart';
+import 'package:dikantin/app/modules/utils/formatDate.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lottie/lottie.dart';
 
-import '../../../data/providers/services.dart';
 import '../controllers/keranjang_controller.dart';
 
 class KeranjangView extends GetView<KeranjangController> {
   KeranjangView({Key? key}) : super(key: key);
-  final KeranjangController keranjangController =
-      Get.put(KeranjangController());
-  // List<Map<String, dynamic>> items = [
-  //   {
-  //     "image": "assets/basreng.jpg",
-  //     "name": "Basreng",
-  //     "kantin": "Kantin 1",
-  //     "price": "Rp. 6.000",
-  //     "Terjual": "20 porsi"
-  //   },
-  //   {
-  //     "image": "assets/sate.jpg",
-  //     "name": "Sate Madura",
-  //     "kantin": "Kantin 1",
-  //     "price": "Rp. 15.000",
-  //     "Terjual": "15 porsi"
-  //   },
-  //   {
-  //     "image": "assets/nasi.jpeg",
-  //     "name": "Nasi Liwet ",
-  //     "kantin": "Kantin 1",
-  //     "price": "Rp. 12.000",
-  //     "Terjual": "100 porsi"
-  //   },
-  //   {
-  //     "image": "assets/nasi.jpeg",
-  //     "name": "Lalapan jamur",
-  //     "kantin": "Kantin 1",
-  //     "price": "Rp. 12.000",
-  //     "Terjual": "100 porsi"
-  //   },
-  //   {
-  //     "image": "assets/nasi.jpeg",
-  //     "name": "Lalapan jamur",
-  //     "kantin": "Kantin 1",
-  //     "price": "Rp. 12.000",
-  //     "Terjual": "100 porsi"
-  //   },
-  //   {
-  //     "image": "assets/nasi.jpeg",
-  //     "name": "Lalapan jamur",
-  //     "kantin": "Kantin 1",
-  //     "price": "Rp. 12.000",
-  //     "Terjual": "100 porsi"
-  //   },
-  //   {
-  //     "image": "assets/nasi.jpeg",
-  //     "name": "Lalapan jamur",
-  //     "kantin": "Kantin 1",
-  //     "price": "Rp. 12.000",
-  //     "Terjual": "100 porsi"
-  //   },
-  //   {
-  //     "image": "assets/nasi.jpeg",
-  //     "name": "Lalapan jamur",
-  //     "kantin": "Kantin 1",
-  //     "price": "Rp. 12.000",
-  //     "Terjual": "100 porsi"
-  //   },
-  //   {
-  //     "image": "assets/nasi.jpeg",
-  //     "name": "Lalapan jamur",
-  //     "kantin": "Kantin 1",
-  //     "price": "Rp. 12.000",
-  //     "Terjual": "100 porsi"
-  //   },
-  //   {
-  //     "image": "assets/nasi.jpeg",
-  //     "name": "Lalapan jamur",
-  //     "kantin": "Kantin 1",
-  //     "price": "Rp. 12.000",
-  //     "Terjual": "100 porsi"
-  //   },
-  // ];
+  List<Map<String, dynamic>> items = [
+    {
+      "image": "assets/basreng.jpg",
+      "name": "Basreng",
+      "kantin": "Kantin 1",
+      "price": "Rp. 6.000",
+      "Terjual": "20 porsi"
+    },
+    {
+      "image": "assets/sate.jpg",
+      "name": "Sate Madura",
+      "kantin": "Kantin 1",
+      "price": "Rp. 15.000",
+      "Terjual": "15 porsi"
+    },
+    {
+      "image": "assets/nasi.jpeg",
+      "name": "Nasi Liwet ",
+      "kantin": "Kantin 1",
+      "price": "Rp. 12.000",
+      "Terjual": "100 porsi"
+    },
+    {
+      "image": "assets/nasi.jpeg",
+      "name": "Lalapan jamur",
+      "kantin": "Kantin 1",
+      "price": "Rp. 12.000",
+      "Terjual": "100 porsi"
+    },
+    {
+      "image": "assets/nasi.jpeg",
+      "name": "Lalapan jamur",
+      "kantin": "Kantin 1",
+      "price": "Rp. 12.000",
+      "Terjual": "100 porsi"
+    },
+    {
+      "image": "assets/nasi.jpeg",
+      "name": "Lalapan jamur",
+      "kantin": "Kantin 1",
+      "price": "Rp. 12.000",
+      "Terjual": "100 porsi"
+    },
+    {
+      "image": "assets/nasi.jpeg",
+      "name": "Lalapan jamur",
+      "kantin": "Kantin 1",
+      "price": "Rp. 12.000",
+      "Terjual": "100 porsi"
+    },
+    {
+      "image": "assets/nasi.jpeg",
+      "name": "Lalapan jamur",
+      "kantin": "Kantin 1",
+      "price": "Rp. 12.000",
+      "Terjual": "100 porsi"
+    },
+    {
+      "image": "assets/nasi.jpeg",
+      "name": "Lalapan jamur",
+      "kantin": "Kantin 1",
+      "price": "Rp. 12.000",
+      "Terjual": "100 porsi"
+    },
+    {
+      "image": "assets/nasi.jpeg",
+      "name": "Lalapan jamur",
+      "kantin": "Kantin 1",
+      "price": "Rp. 12.000",
+      "Terjual": "100 porsi"
+    },
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -120,11 +119,10 @@ class KeranjangView extends GetView<KeranjangController> {
           Expanded(
             child: Container(
               child: ListView.builder(
-                itemCount: keranjangController.cartItems.length,
+                itemCount: 10,
                 shrinkWrap: true,
                 physics: ScrollPhysics(),
                 itemBuilder: (BuildContext context, int index) {
-                  final menuData = keranjangController.cartItems[index];
                   return Padding(
                     padding: const EdgeInsets.fromLTRB(13, 10, 13, 0),
                     child: Card(
@@ -149,8 +147,9 @@ class KeranjangView extends GetView<KeranjangController> {
                                   alignment: Alignment.topLeft,
                                   decoration: BoxDecoration(
                                       image: DecorationImage(
-                                        image: NetworkImage(Api.gambar +
-                                            menuData.foto.toString()),
+                                        image: AssetImage(
+                                          items[index]["image"],
+                                        ),
                                         fit: BoxFit.cover,
                                       ),
                                       borderRadius: BorderRadius.circular(10)),
@@ -168,7 +167,7 @@ class KeranjangView extends GetView<KeranjangController> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         children: [
-                                          Text(menuData.nama ?? '',
+                                          Text("Nasi Goreng Mawut",
                                               maxLines: 2,
                                               style: GoogleFonts.poppins(
                                                   fontSize: 14)),
@@ -225,12 +224,7 @@ class KeranjangView extends GetView<KeranjangController> {
                                                           BorderRadius.circular(
                                                               5)),
                                                   child: InkWell(
-                                                    onTap: () {
-                                                      keranjangController
-                                                          .removeFromCart(
-                                                              menuData.nama ??
-                                                                  '');
-                                                    },
+                                                    onTap: () {},
                                                     child: Icon(
                                                       color: Colors.blue,
                                                       Icons.remove,
@@ -238,8 +232,7 @@ class KeranjangView extends GetView<KeranjangController> {
                                                     ),
                                                   ),
                                                 ),
-                                                Text(
-                                                    '${keranjangController.cartItem.length}',
+                                                Text("1",
                                                     style: GoogleFonts.poppins(
                                                       fontSize: 14,
                                                     )),
@@ -250,12 +243,7 @@ class KeranjangView extends GetView<KeranjangController> {
                                                           BorderRadius.circular(
                                                               5)),
                                                   child: InkWell(
-                                                    onTap: () {
-                                                      keranjangController
-                                                          .addToCart(
-                                                              menuData.nama ??
-                                                                  '');
-                                                    },
+                                                    onTap: () {},
                                                     child: Icon(
                                                       color: Colors.white,
                                                       Icons.add,
@@ -267,7 +255,7 @@ class KeranjangView extends GetView<KeranjangController> {
                                             ),
                                           ),
                                           Text(
-                                            '${keranjangController.totalAmount.toStringAsFixed(2)}',
+                                            "Rp. 300.000",
                                             style: TextStyle(
                                               fontSize: 14.0,
                                             ),
@@ -299,37 +287,42 @@ class KeranjangView extends GetView<KeranjangController> {
           // decoration: const BoxDecoration(
           //   color: Colors.orange,
           // ),
-          Container(
-            padding: EdgeInsets.only(bottom: 10, right: 20, left: 20, top: 10),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              // mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Text("Jumlah : 2",
-                    style: GoogleFonts.poppins(
-                        fontSize: 16, fontWeight: FontWeight.bold)),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text("Rp. 5.000.000",
-                        style: GoogleFonts.poppins(
-                            fontSize: 20, fontWeight: FontWeight.bold)),
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.blue,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
-                      onPressed: () {},
-                      child: Text("Pesan Sekarang",
+          Obx(
+            () => Container(
+              padding:
+                  EdgeInsets.only(bottom: 10, right: 20, left: 20, top: 10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                // mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text("Jumlah : ${homeController.count}",
+                      style: GoogleFonts.poppins(
+                          fontSize: 16, fontWeight: FontWeight.bold)),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(homeController.totalPrice.toRupiah(),
                           style: GoogleFonts.poppins(
-                            fontSize: 16,
-                          )),
-                    ),
-                  ],
-                ),
-              ],
+                              fontSize: 20, fontWeight: FontWeight.bold)),
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.blue,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                        onPressed: () {
+                          Get.to(OrderView());
+                        },
+                        child: Text("Pesan Sekarang",
+                            style: GoogleFonts.poppins(
+                              fontSize: 16,
+                            )),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ],

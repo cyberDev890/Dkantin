@@ -1,3 +1,4 @@
+import 'package:lottie/lottie.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:dikantin/app/modules/utils/formatDate.dart';
 import 'package:flutter/material.dart';
@@ -45,11 +46,8 @@ class _FavoriteState extends State<Favorite> {
                   ),
                 ),
               ),
-              FutureBuilder(
-                future: homeController.fetchDataDiskon(),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Shimmer.fromColors(
+              Obx(() => homeController.isLoading.value
+                  ? Shimmer.fromColors(
                       baseColor: Color(baseColorHex),
                       highlightColor: Color(highlightColorHex),
                       child: Container(
@@ -107,86 +105,88 @@ class _FavoriteState extends State<Favorite> {
                           },
                         ),
                       ),
-                    );
-                  } else {
-                    return Container(
+                    )
+                  : Container(
                       height: mediaHeight * 0.40,
                       child: ListView.builder(
                         shrinkWrap: true,
-                        itemCount: homeController.diskon.data?.length ?? 0,
+                        itemCount: homeController.searchResults.length,
                         scrollDirection: Axis.horizontal,
                         itemBuilder: (BuildContext context, index) {
-                          final menuData = homeController.diskon.data![index];
+                          final menuData = homeController.searchResults[index];
                           final harga = menuData.harga ?? 0;
-                          return Container(
-                            padding: EdgeInsets.all(5),
-                            width: MediaQuery.of(context).size.width * 0.5,
-                            child: Stack(
-                              children: [
-                                ClipRRect(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(10)),
-                                  child: Image.network(
-                                    Api.gambar + menuData.foto.toString(),
-                                    height: 300,
-                                    width: 450,
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                                Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    gradient: LinearGradient(
-                                      begin: Alignment.topCenter,
-                                      end: Alignment.bottomCenter,
-                                      colors: [
-                                        Colors.transparent,
-                                        Colors.black
-                                      ],
-                                      stops: [0.7, 1.0],
+                          return GestureDetector(
+                            onTap: () {
+                              homeController.addToCart(
+                                  homeController.searchResults[index]);
+                            },
+                            child: Container(
+                              padding: EdgeInsets.all(5),
+                              width: MediaQuery.of(context).size.width * 0.5,
+                              child: Stack(
+                                children: [
+                                  ClipRRect(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10)),
+                                    child: Image.network(
+                                      Api.gambar + menuData.foto.toString(),
+                                      height: 300,
+                                      width: 450,
+                                      fit: BoxFit.cover,
                                     ),
                                   ),
-                                ),
-                                Positioned(
-                                  bottom: 30,
-                                  left: 15,
-                                  right: 10,
-                                  child: Text(
-                                    menuData.nama ?? '',
-                                    style: GoogleFonts.poppins(
-                                      textStyle: TextStyle(
-                                        fontSize: 13,
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.normal,
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      gradient: LinearGradient(
+                                        begin: Alignment.topCenter,
+                                        end: Alignment.bottomCenter,
+                                        colors: [
+                                          Colors.transparent,
+                                          Colors.black
+                                        ],
+                                        stops: [0.7, 1.0],
                                       ),
                                     ),
                                   ),
-                                ),
-                                Positioned(
-                                  bottom: 10,
-                                  left: 15,
-                                  right: 10,
-                                  child: Text(
-                                    harga.toRupiah(),
-                                    style: GoogleFonts.poppins(
-                                      textStyle: TextStyle(
-                                        fontSize: 15,
-                                        color: const Color.fromRGBO(
-                                            255, 255, 255, 1),
-                                        fontWeight: FontWeight.bold,
+                                  Positioned(
+                                    bottom: 30,
+                                    left: 15,
+                                    right: 10,
+                                    child: Text(
+                                      menuData.nama ?? '',
+                                      style: GoogleFonts.poppins(
+                                        textStyle: TextStyle(
+                                          fontSize: 13,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.normal,
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
-                              ],
+                                  Positioned(
+                                    bottom: 10,
+                                    left: 15,
+                                    right: 10,
+                                    child: Text(
+                                      harga.toRupiah(),
+                                      style: GoogleFonts.poppins(
+                                        textStyle: TextStyle(
+                                          fontSize: 15,
+                                          color: const Color.fromRGBO(
+                                              255, 255, 255, 1),
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           );
                         },
                       ),
-                    );
-                  }
-                },
-              ),
+                    )),
               SizedBox(height: 10),
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -203,7 +203,7 @@ class _FavoriteState extends State<Favorite> {
               FutureBuilder(
                 future: homeController.fetchDataPenjualan(),
                 builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
+                  if (snapshot.connectionState == ConnectionState.waiting ) {
                     return Shimmer.fromColors(
                       baseColor: Color(baseColorHex),
                       highlightColor: Color(highlightColorHex),
@@ -263,20 +263,13 @@ class _FavoriteState extends State<Favorite> {
                         ),
                       ),
                     );
-                  } else if (homeController.penjualan.data!.isEmpty) {
+                  } else if (homeController.penjualan.data!.isEmpty ) {
                     return Container(
-                      height: mediaHeight * 0.20,
-                      // color: Colors.blue,
-                      child: Center(
-                        child: Text(
-                          "Data Penjualan Hari ini Kosong",
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    );
+                        height: mediaHeight * 0.25,
+                        child: Center(
+                          child: Lottie.asset('assets/animation_lokcom8c.json',
+                              repeat: false),
+                        ));
                   } else {
                     return Container(
                       height: mediaHeight * 0.20,
