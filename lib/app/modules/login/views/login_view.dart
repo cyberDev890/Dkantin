@@ -10,7 +10,6 @@ class LoginView extends GetView<LoginController> {
   @override
   Widget build(BuildContext context) {
     final LoginController c = Get.put(LoginController());
-    final SemuaController semua = Get.put(SemuaController());
     return Scaffold(
       body: Container(
         height: MediaQuery.of(context).size.height,
@@ -117,7 +116,7 @@ class LoginView extends GetView<LoginController> {
                       backgroundColor: Colors.white,
                     ),
                     onPressed: () {
-                      // Add code to handle the Register button action
+                      Get.toNamed('/register');
                     },
                     child: const Text(
                       "Register",

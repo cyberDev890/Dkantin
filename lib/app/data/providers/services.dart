@@ -1,7 +1,7 @@
 class Api {
-  static const koneksi = "https://c7ef-103-109-209-254.ngrok-free.app/api";
-  static const gambar = "https://c7ef-103-109-209-254.ngrok-free.app/";
-  static const signUp = "$koneksi/nama_pathnya";
+  static const koneksi = "https://dikantin.wdmif.id/api";
+  static const gambar = "https://dikantin.wdmif.id/";
+  static const signUp = "$koneksi/validate/register";
   static const signIn = "$koneksi/validate/login";
   static const profile = "$koneksi/nama_pathnya";
   static const semua = "$koneksi/menu/productAll/";

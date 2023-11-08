@@ -1,11 +1,11 @@
-import 'package:dikantin/app/data/providers/login_provider.dart';
+import 'package:dikantin/app/data/providers/auth_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginController extends GetxController {
   final count = 0.obs;
-  final loginProvider = LoginProvider().obs;
+  final loginProvider = AuthProvider().obs;
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
@@ -30,12 +30,6 @@ class LoginController extends GetxController {
   final RxBool obscureText = true.obs;
   final RxBool isLoading = false.obs;
 
-  // Method untuk mengambil token dari SharedPreferences
-  Future<String?> getTokenFromSharedPreferences() async {
-    final prefs = await SharedPreferences.getInstance();
-    return prefs.getString('bearer_token');
-  }
-
   void toggleObscureText() {
     obscureText.value = !obscureText.value;
   }
@@ -45,19 +39,21 @@ class LoginController extends GetxController {
       isLoading.value = true;
       final response = await loginProvider.value.login(username, password);
 
-      // print('Response Status Code: ${response.statusCode}');
-      // print('Response Body: ${response.body}');
-
       if (response.statusCode == 200) {
-        // Successful response (status code 200)
-        // You can perform further actions here
         Get.offAllNamed('/home');
       } else {
-        // Handle errors in login
-        Get.snackbar('Login Gagal', 'Username atau Password salah');
+        // Tampilkan Snackbar dengan pesan error
+        Get.snackbar(
+          'Login Gagal',
+          'Username atau Password salah',
+          backgroundColor: Colors.red, // Warna latar belakang
+          colorText: Colors.white, // Warna teks
+          duration: Duration(seconds: 2), // Durasi Snackbar
+          snackPosition: SnackPosition.BOTTOM, // Posisi Snackbar
+        );
       }
     } catch (error) {
-      // Handle exceptions here, if necessary
+      // Tangani pengecualian di sini, jika diperlukan
       print('An error occurred: $error');
     } finally {
       isLoading.value = false;
@@ -65,6 +61,6 @@ class LoginController extends GetxController {
   }
 
   void initializeLoginProvider() {
-    Get.put(LoginProvider());
+    Get.put(AuthProvider());
   }
 }
