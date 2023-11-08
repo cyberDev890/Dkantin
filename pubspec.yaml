@@ -17,6 +17,7 @@ dependencies:
   icons_flutter: ^0.0.4
   intl: ^0.18.1
   lottie: ^2.7.0
+  shared_preferences: ^2.2.2
   shimmer: ^3.0.0
 
 dev_dependencies:
