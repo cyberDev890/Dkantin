@@ -1,18 +1,14 @@
 import 'dart:convert';
-
 import 'package:dikantin/app/data/providers/services.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-
-import '../models/menu_diskon_model.dart';
-import '../models/menu_model.dart';
 import '../models/penjualan_model.dart';
 import '../models/search_model.dart';
 
 class MenuProvider extends GetxController {
   Future<Search> searchSemua(String keyword) async {
     final token =
-        "28yrAEcQdkW4SZBP8BJEUw2wJGn9zHIkAcovXVuufTthXz1Q4VnPTgecqGsj8ayovuXLgcS2zWvvp7WLNjNGALNHuwpFvpW7VYVvcMF36xHh6zLxQ1pJHgr8bsK6dc2xWZP0AIXCU76XbLsIpylcAkBsgSDXxnRVl6TlFa5esMPDiDpmTgq68MVZogeVmyV8kxk5j20c";
+        "r2C03bNbnpbB6BkE53Sa9Zt9FpWbCuMpKbPUNF3um85XTKfGUBS0q6xpUcaOxxsPdVhmt8YNAid6EmFDaAgLSgdoZh4B2jh3J1ufhWqj9WbfsNA4Y1ngeOMJTUDRO4XUhBjQIzgtyjFWE1m61qAQnioSqCcPo6yyai4fEbeakf6Hu9TlJ3yh2D4FOmvlI9OetXlGnxG9";
     final response = await http.get(
       Uri.parse(Api.semua + keyword), // Sesuaikan URL pencarian dengan API Anda
       headers: {
@@ -29,7 +25,7 @@ class MenuProvider extends GetxController {
 
   Future<Search> searchMakanan(String keyword) async {
     final token =
-        "28yrAEcQdkW4SZBP8BJEUw2wJGn9zHIkAcovXVuufTthXz1Q4VnPTgecqGsj8ayovuXLgcS2zWvvp7WLNjNGALNHuwpFvpW7VYVvcMF36xHh6zLxQ1pJHgr8bsK6dc2xWZP0AIXCU76XbLsIpylcAkBsgSDXxnRVl6TlFa5esMPDiDpmTgq68MVZogeVmyV8kxk5j20c";
+        "r2C03bNbnpbB6BkE53Sa9Zt9FpWbCuMpKbPUNF3um85XTKfGUBS0q6xpUcaOxxsPdVhmt8YNAid6EmFDaAgLSgdoZh4B2jh3J1ufhWqj9WbfsNA4Y1ngeOMJTUDRO4XUhBjQIzgtyjFWE1m61qAQnioSqCcPo6yyai4fEbeakf6Hu9TlJ3yh2D4FOmvlI9OetXlGnxG9";
     final response = await http.get(
       Uri.parse(Api.makanan + keyword),
       headers: {
@@ -47,7 +43,7 @@ class MenuProvider extends GetxController {
 
   Future<Search> searchMinuman(String keyword) async {
     final token =
-        "28yrAEcQdkW4SZBP8BJEUw2wJGn9zHIkAcovXVuufTthXz1Q4VnPTgecqGsj8ayovuXLgcS2zWvvp7WLNjNGALNHuwpFvpW7VYVvcMF36xHh6zLxQ1pJHgr8bsK6dc2xWZP0AIXCU76XbLsIpylcAkBsgSDXxnRVl6TlFa5esMPDiDpmTgq68MVZogeVmyV8kxk5j20c";
+        "r2C03bNbnpbB6BkE53Sa9Zt9FpWbCuMpKbPUNF3um85XTKfGUBS0q6xpUcaOxxsPdVhmt8YNAid6EmFDaAgLSgdoZh4B2jh3J1ufhWqj9WbfsNA4Y1ngeOMJTUDRO4XUhBjQIzgtyjFWE1m61qAQnioSqCcPo6yyai4fEbeakf6Hu9TlJ3yh2D4FOmvlI9OetXlGnxG9";
     final response = await http.get(
       Uri.parse(Api.minuman + keyword),
       headers: {
@@ -65,7 +61,7 @@ class MenuProvider extends GetxController {
 
   Future<Search> fetchDataDiskon(String keyword) async {
     final token =
-        "28yrAEcQdkW4SZBP8BJEUw2wJGn9zHIkAcovXVuufTthXz1Q4VnPTgecqGsj8ayovuXLgcS2zWvvp7WLNjNGALNHuwpFvpW7VYVvcMF36xHh6zLxQ1pJHgr8bsK6dc2xWZP0AIXCU76XbLsIpylcAkBsgSDXxnRVl6TlFa5esMPDiDpmTgq68MVZogeVmyV8kxk5j20c";
+        "r2C03bNbnpbB6BkE53Sa9Zt9FpWbCuMpKbPUNF3um85XTKfGUBS0q6xpUcaOxxsPdVhmt8YNAid6EmFDaAgLSgdoZh4B2jh3J1ufhWqj9WbfsNA4Y1ngeOMJTUDRO4XUhBjQIzgtyjFWE1m61qAQnioSqCcPo6yyai4fEbeakf6Hu9TlJ3yh2D4FOmvlI9OetXlGnxG9";
     final response = await http.get(
       Uri.parse(Api.diskon + keyword),
       headers: {
@@ -83,7 +79,7 @@ class MenuProvider extends GetxController {
 
   Future<Penjualan> fetchDataPenjualanHariIni() async {
     final token =
-        "28yrAEcQdkW4SZBP8BJEUw2wJGn9zHIkAcovXVuufTthXz1Q4VnPTgecqGsj8ayovuXLgcS2zWvvp7WLNjNGALNHuwpFvpW7VYVvcMF36xHh6zLxQ1pJHgr8bsK6dc2xWZP0AIXCU76XbLsIpylcAkBsgSDXxnRVl6TlFa5esMPDiDpmTgq68MVZogeVmyV8kxk5j20c";
+        "r2C03bNbnpbB6BkE53Sa9Zt9FpWbCuMpKbPUNF3um85XTKfGUBS0q6xpUcaOxxsPdVhmt8YNAid6EmFDaAgLSgdoZh4B2jh3J1ufhWqj9WbfsNA4Y1ngeOMJTUDRO4XUhBjQIzgtyjFWE1m61qAQnioSqCcPo6yyai4fEbeakf6Hu9TlJ3yh2D4FOmvlI9OetXlGnxG9";
     final response = await http.get(
       Uri.parse(Api.penjualan_hari_ini),
       headers: {
@@ -97,5 +93,54 @@ class MenuProvider extends GetxController {
     } else {
       throw Exception('Gagal memuat data');
     }
+  }
+
+  Future<http.Response> postOrder(List<Datasearch> cartList,
+      Map<String, dynamic> detailOrderan, Map<int, int> itemQuantities) async {
+    final token =
+        "r2C03bNbnpbB6BkE53Sa9Zt9FpWbCuMpKbPUNF3um85XTKfGUBS0q6xpUcaOxxsPdVhmt8YNAid6EmFDaAgLSgdoZh4B2jh3J1ufhWqj9WbfsNA4Y1ngeOMJTUDRO4XUhBjQIzgtyjFWE1m61qAQnioSqCcPo6yyai4fEbeakf6Hu9TlJ3yh2D4FOmvlI9OetXlGnxG9"; // Pastikan ini adalah token yang valid
+    var url = Uri.parse(Api.transaksi); // Pastikan ini adalah URL yang benar
+
+    var headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $token',
+    };
+
+    // Restruktur data sesuai dengan yang diperlukan oleh server
+    List<Map<String, dynamic>> orderanData = cartList.map((item) {
+      final int quantity = itemQuantities[item.idMenu!] ?? 1;
+      final num discountAmount = item.diskon != null
+          ? (item.harga! * item.diskon! / 100) * quantity
+          : 0;
+      final num totalPrice = (item.harga! * quantity) - discountAmount;
+      return {
+        "nama_menu": item.nama,
+        "id_kantin": item.idKantin,
+        "kode_menu": item.idMenu
+            .toString(), // Pastikan tipe datanya sesuai (String jika diperlukan)
+        "qty_barang": quantity,
+        "harga_barang": item.harga!,
+        "total_harga_barang": totalPrice,
+      };
+    }).toList();
+
+    Map<String, dynamic> body = {
+      "orderan": orderanData,
+      "detail_orderan": detailOrderan,
+    };
+
+    var response = await http.post(
+      url,
+      headers: headers,
+      body: json.encode(body),
+    );
+
+    if (response.statusCode != 200) {
+      // Jika status code bukan 200, cetak body untuk debugging
+      print('Request failed with status: ${response.statusCode}.');
+      print('Response body: ${response.body}');
+    }
+
+    return response;
   }
 }

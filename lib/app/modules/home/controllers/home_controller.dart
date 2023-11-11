@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -45,10 +47,6 @@ class HomeController extends GetxController with GetTickerProviderStateMixin {
     // Subtract the discount from the item's price
     return item.harga! - calculateDiscount(item);
   }
-
-  // Get total discount for all items
-  int get totalDiscount =>
-      cartList.fold(0, (sum, item) => sum + calculateDiscount(item));
 
   // Get total price after all discounts have been applied
   int get totalPriceAfterDiscount =>
@@ -160,5 +158,66 @@ class HomeController extends GetxController with GetTickerProviderStateMixin {
   Future<void> refreshData() async {
     await fetchDataDiskon('');
     await fetchDataPenjualan();
+  }
+
+  void setCartList(List<Datasearch> updatedCartList) {
+    cartList.assignAll(updatedCartList);
+  }
+
+  Future<void> submitOrder() async {
+    setLoading(true); // Menampilkan indikator loading
+    String generateRandomString({int length = 100}) {
+      const chars =
+          'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+      final random = Random();
+      final result = StringBuffer();
+
+      for (int i = 0; i < length; i++) {
+        result.write(chars[random.nextInt(chars.length)]);
+      }
+
+      return result.toString();
+    }
+
+    final Random random = Random();
+    final int randomKodeTr = random.nextInt(100) + 1; // 1 sampai 1000
+    final String kodeTr = randomKodeTr.toString();
+    final String buktiPengiriman =
+        generateRandomString(); // Fungsi ini harus Anda buat
+    Map<String, dynamic> detailOrderan = {
+      "kode_tr": kodeTr,
+      "total_harga": totalPrice,
+      "status_konfirm": 1,
+      "status_pesanan": 1,
+      "id_customer": "Cust d8a16ef5-13fc-409d-9015-d0e317d275c5",
+      "id_kurir": "323423",
+      "total_bayar": totalPrice,
+      "kembalian": 0,
+      "status_pengiriman": "proses",
+      "bukti_pengiriman": buktiPengiriman,
+      "model_pembayaran": "cash"
+      // Tambahkan field lain sesuai dengan struktur API Anda
+    };
+
+    try {
+      final response = await menuProvider.value
+          .postOrder(cartList, detailOrderan, itemQuantities);
+
+      if (response.statusCode == 200) {
+        // Proses order berhasil
+        Get.snackbar("Success", "Order submitted successfully");
+        // Reset cart dan quantities atau navigasi ke halaman berikutnya
+        cartList.clear();
+        itemQuantities.clear();
+      } else {
+        // Proses order gagal
+        Get.snackbar("Error", "Failed to submit order: ${response.body}");
+      }
+    } catch (e) {
+      // Menangani kesalahan yang mungkin terjadi selama request
+      Get.snackbar("Error", "An error occurred: $e");
+    } finally {
+      setLoading(false); // Menutup indikator loading
+    }
   }
 }
