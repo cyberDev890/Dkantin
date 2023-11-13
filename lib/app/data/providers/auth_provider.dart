@@ -68,6 +68,7 @@ class RegisterProvider {
         throw Exception('Registration failed ${response.body}');
       }
     } catch (e) {
+      print(e);
       Get.snackbar(
         'Registration Failed',
         'There was an error during registration.',
