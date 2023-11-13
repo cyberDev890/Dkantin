@@ -28,7 +28,22 @@ class AuthProvider extends GetxController {
       return response;
     } else {
       // Handle errors in login
-      throw Exception('Login failed with status code ${response.statusCode}');
+      final jsonResponse = jsonDecode(response.body);
+      final errorMessage = jsonResponse['data'];
+
+      print('${response.body}');
+
+      if (errorMessage == "Akun anda belum terverifikasi") {
+        throw Exception('Account not verified: $errorMessage');
+      } else {
+        Get.snackbar(
+          'Salah Woy',
+          '$errorMessage',
+          snackPosition: SnackPosition.TOP, // Menampilkan Snackbar dari atas
+          duration: Duration(seconds: 2),
+        );
+        throw Exception('$errorMessage');
+      }
     }
   }
 
