@@ -34,6 +34,12 @@ class AuthProvider extends GetxController {
       print('${response.body}');
 
       if (errorMessage == "Akun anda belum terverifikasi") {
+        Get.snackbar(
+          'Salah Woy',
+          '$errorMessage',
+          snackPosition: SnackPosition.TOP, // Menampilkan Snackbar dari atas
+          duration: Duration(seconds: 2),
+        );
         throw Exception('Account not verified: $errorMessage');
       } else {
         Get.snackbar(

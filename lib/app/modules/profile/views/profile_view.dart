@@ -197,6 +197,7 @@ class ProfileView extends GetView<ProfileController> {
             Padding(
               padding: const EdgeInsets.only(left: 30.0, right: 25, top: 10),
               child: TextField(
+                controller: profileController.fullNameController,
                 decoration: InputDecoration(
                   hintText: 'Vishal Khadok',
                   contentPadding:
@@ -246,6 +247,7 @@ class ProfileView extends GetView<ProfileController> {
             Padding(
               padding: const EdgeInsets.only(left: 30.0, right: 25, top: 10),
               child: TextField(
+                controller: profileController.emailController,
                 decoration: InputDecoration(
                   hintText: 'email@gmail.com',
                   contentPadding:
@@ -295,6 +297,7 @@ class ProfileView extends GetView<ProfileController> {
             Padding(
               padding: const EdgeInsets.only(left: 30.0, right: 25, top: 10),
               child: TextField(
+                controller: profileController.phoneNumberController,
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
                   hintText: '082316756168',
@@ -345,6 +348,7 @@ class ProfileView extends GetView<ProfileController> {
             Padding(
               padding: const EdgeInsets.only(left: 30.0, right: 25, top: 10),
               child: TextField(
+                controller: profileController.addressController,
                 maxLines: null, // Memungkinkan input lebih dari satu baris
                 decoration: InputDecoration(
                   filled: true,
@@ -359,15 +363,15 @@ class ProfileView extends GetView<ProfileController> {
                       horizontal: 15.0), // Sesuaikan nilai vertical
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10.0),
-                    borderSide: BorderSide.none, // Hilangkan garis pinggir
+                    borderSide: BorderSide.none,
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10.0),
-                    borderSide: BorderSide.none, // Hilangkan garis pinggir
+                    borderSide: BorderSide.none,
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10.0),
-                    borderSide: BorderSide.none, // Hilangkan garis pinggir
+                    borderSide: BorderSide.none,
                   ),
                 ),
               ),
@@ -381,7 +385,15 @@ class ProfileView extends GetView<ProfileController> {
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.blue,
               ),
-              onPressed: () {},
+              onPressed: () async {
+                // Call editProfile function from the controller
+                await profileController.editProfile(
+                  nama: profileController.fullNameController.text,
+                  email: profileController.emailController.text,
+                  noTelepon: profileController.phoneNumberController.text,
+                  alamat: profileController.addressController.text,
+                );
+              },
             ),
           ],
         ),
