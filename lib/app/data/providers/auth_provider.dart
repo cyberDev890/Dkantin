@@ -67,6 +67,8 @@ class RegisterProvider {
 
     try {
       final response = await http.post(Uri.parse(Api.signUp), body: data);
+      final jsonResponse = jsonDecode(response.body);
+      final errorMessage = jsonResponse['data'];
 
       if (response.statusCode == 200) {
         Get.snackbar(
@@ -80,6 +82,12 @@ class RegisterProvider {
 
         Get.offAllNamed("/login");
       } else {
+        Get.snackbar(
+          'Salah Woy',
+          '$errorMessage',
+          snackPosition: SnackPosition.TOP, // Menampilkan Snackbar dari atas
+          duration: Duration(seconds: 2),
+        );
         throw Exception('Registration failed ${response.body}');
       }
     } catch (e) {

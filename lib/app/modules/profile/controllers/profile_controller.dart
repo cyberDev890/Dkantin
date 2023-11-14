@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfileController extends GetxController {
   //TODO: Implement ProfileController
@@ -20,4 +21,16 @@ class ProfileController extends GetxController {
   }
 
   void increment() => count.value++;
+  Future<void> logout() async {
+    // Hapus data dari SharedPreferences
+    await clearSharedPreferences();
+
+    // Navigasi ke halaman login
+    Get.offAllNamed('/login');
+  }
+
+  Future<void> clearSharedPreferences() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.clear();
+  }
 }
