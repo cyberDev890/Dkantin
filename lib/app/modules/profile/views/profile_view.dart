@@ -161,7 +161,10 @@ class ProfileView extends GetView<ProfileController> {
                           size: 16.0,
                           color: Colors.black,
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          // Panggil fungsi pickImage saat ikon edit ditekan
+                          profileController.pickImage();
+                        },
                       ),
                     ),
                   ],

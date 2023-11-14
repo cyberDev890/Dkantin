@@ -1,8 +1,10 @@
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfileController extends GetxController {
   //TODO: Implement ProfileController
+  var selectedImage = ''.obs;
 
   final count = 0.obs;
   @override
@@ -32,5 +34,14 @@ class ProfileController extends GetxController {
   Future<void> clearSharedPreferences() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.clear();
+  }
+
+  Future<void> pickImage() async {
+    final pickedFile =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
+
+    if (pickedFile != null) {
+      selectedImage.value = pickedFile.path;
+    }
   }
 }
