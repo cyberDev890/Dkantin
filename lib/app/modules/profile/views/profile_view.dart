@@ -1,5 +1,6 @@
-// ignore_for_file: camel_case_types, prefer_typing_uninitialized_variables
 
+import 'package:dikantin/app/modules/profile/controllers/getprofile_controller.dart';
+// ignore_for_file: camel_case_types, prefer_typing_unin
 import 'package:flutter/material.dart';
 
 class ProfileView extends StatefulWidget {
@@ -12,6 +13,122 @@ class ProfileView extends StatefulWidget {
 class _ProfileViewState extends State<ProfileView> {
   @override
   Widget build(BuildContext context) {
+
+    final ProfileController profileController = Get.put(ProfileController());
+    final GetprofileController controller = Get.put(GetprofileController());
+    final mediaHeight = MediaQuery.of(context).size.height;
+    final mediaWidth = MediaQuery.of(context).size.width;
+    final bottomNavBarHeight = MediaQuery.of(context).padding.bottom;
+    final myAppbar = AppBar(
+      leading: Spacer(),
+      title: Center(
+        child: Text(
+          "Edit Profile",
+          style: TextStyle(
+            fontSize: 20,
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+      actions: <Widget>[
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.blue,
+              borderRadius: BorderRadius.circular(8.0),
+            ),
+            padding: EdgeInsets.symmetric(horizontal: 8.0),
+            width: 40.0,
+            height: 40.0,
+            child: Center(
+              // Atau bisa juga menggunakan Align
+              child: IconButton(
+                icon: Icon(
+                  Icons.logout,
+                  size: 20.0,
+                  color: Colors.black,
+                ),
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog(
+                        content: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Lottie.asset(
+                              "assets/Animation_logout.json", // Ganti dengan nama file Lottie Anda
+                              width: 150.0,
+                              height: 150.0,
+                              fit: BoxFit.cover,
+                            ),
+                            SizedBox(height: 20),
+                            Center(
+                              child: Text(
+                                "Anda Akan Logout ?",
+                                style: TextStyle(
+                                  color: Color(0xff3CA2D9),
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 18.0,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        actions: <Widget>[
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Expanded(
+                                child: ElevatedButton(
+                                  child: Text('Ya'),
+                                  onPressed: () {
+                                    profileController.logout();
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10.0),
+                                    ),
+                                    backgroundColor: Colors.green,
+                                  ),
+                                ),
+                              ),
+                              SizedBox(width: 8),
+                              Expanded(
+                                child: ElevatedButton(
+                                  child: Text('Tidak'),
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10.0),
+                                    ),
+                                    backgroundColor: Colors.red,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                },
+              ),
+            ),
+          ),
+        ),
+      ],
+      backgroundColor: Colors.white,
+      elevation: 0,
+    );
+
+    final x = mediaHeight -
+        myAppbar.preferredSize.height -
+        MediaQuery.of(context).padding.top;
     return Scaffold(
       appBar: AppBar(
         title: const Text("Dashboard"),
