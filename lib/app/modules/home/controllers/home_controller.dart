@@ -149,9 +149,14 @@ class HomeController extends GetxController with GetTickerProviderStateMixin {
 
   Future<void> fetchDataPenjualan() async {
     try {
+      setLoading(
+          true); // Set isLoading menjadi true saat pemanggilan API dimulai
       penjualan = await menuProvider.value.fetchDataPenjualanHariIni();
     } catch (e) {
       print('Error: $e');
+    } finally {
+      setLoading(
+          false); // Set isLoading menjadi false saat pemanggilan API selesai
     }
   }
 
@@ -179,24 +184,15 @@ class HomeController extends GetxController with GetTickerProviderStateMixin {
       return result.toString();
     }
 
-    final Random random = Random();
-    final int randomKodeTr = random.nextInt(100) + 1; // 1 sampai 1000
-    final String kodeTr = randomKodeTr.toString();
     final String buktiPengiriman =
         generateRandomString(); // Fungsi ini harus Anda buat
     Map<String, dynamic> detailOrderan = {
-      "kode_tr": kodeTr,
-      "total_harga": totalPrice,
-      "status_konfirm": 1,
-      "status_pesanan": 1,
-      "id_customer": "Cust d8a16ef5-13fc-409d-9015-d0e317d275c5",
+      "id_customer": "CUST98273",
       "id_kurir": "323423",
+      "total_harga": totalPrice,
       "total_bayar": totalPrice,
       "kembalian": 0,
-      "status_pengiriman": "proses",
-      "bukti_pengiriman": buktiPengiriman,
       "model_pembayaran": "cash"
-      // Tambahkan field lain sesuai dengan struktur API Anda
     };
 
     try {
