@@ -27,7 +27,28 @@ class AuthProvider extends GetxController {
       return response;
     } else {
       // Handle errors in login
-      throw Exception('Login failed with status code ${response.statusCode}');
+      final jsonResponse = jsonDecode(response.body);
+      final errorMessage = jsonResponse['data'];
+
+      print('${response.body}');
+
+      if (errorMessage == "Akun anda belum terverifikasi") {
+        Get.snackbar(
+          'Salah Woy',
+          '$errorMessage',
+          snackPosition: SnackPosition.TOP, // Menampilkan Snackbar dari atas
+          duration: Duration(seconds: 2),
+        );
+        throw Exception('Account not verified: $errorMessage');
+      } else {
+        Get.snackbar(
+          'Salah Woy',
+          '$errorMessage',
+          snackPosition: SnackPosition.TOP, // Menampilkan Snackbar dari atas
+          duration: Duration(seconds: 2),
+        );
+        throw Exception('$errorMessage');
+      }
     }
   }
 
@@ -51,6 +72,8 @@ class RegisterProvider {
 
     try {
       final response = await http.post(Uri.parse(Api.signUp), body: data);
+      final jsonResponse = jsonDecode(response.body);
+      final errorMessage = jsonResponse['data'];
 
       if (response.statusCode == 200) {
         Get.snackbar(
@@ -64,9 +87,16 @@ class RegisterProvider {
 
         Get.offAllNamed("/login");
       } else {
+        Get.snackbar(
+          'Salah Woy',
+          '$errorMessage',
+          snackPosition: SnackPosition.TOP, // Menampilkan Snackbar dari atas
+          duration: Duration(seconds: 2),
+        );
         throw Exception('Registration failed ${response.body}');
       }
     } catch (e) {
+      print(e);
       Get.snackbar(
         'Registration Failed',
         'There was an error during registration.',
