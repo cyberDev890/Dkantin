@@ -1,3 +1,4 @@
+import 'package:dikantin/app/modules/profile/controllers/getprofile_controller.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -10,6 +11,7 @@ class ProfileView extends GetView<ProfileController> {
   @override
   Widget build(BuildContext context) {
     final ProfileController profileController = Get.put(ProfileController());
+    final GetprofileController controller = Get.put(GetprofileController());
     final mediaHeight = MediaQuery.of(context).size.height;
     final mediaWidth = MediaQuery.of(context).size.width;
     final bottomNavBarHeight = MediaQuery.of(context).padding.bottom;
@@ -54,8 +56,8 @@ class ProfileView extends GetView<ProfileController> {
                           children: [
                             Lottie.asset(
                               "assets/Animation_logout.json", // Ganti dengan nama file Lottie Anda
-                              width: 100.0,
-                              height: 100.0,
+                              width: 150.0,
+                              height: 150.0,
                               fit: BoxFit.cover,
                             ),
                             SizedBox(height: 20),

@@ -1,9 +1,11 @@
 import 'dart:convert';
 
+import 'package:dikantin/app/data/models/customer_model.dart';
 import 'package:dikantin/app/data/providers/services.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfileProvider with ChangeNotifier {
   Future<void> editProfile({
@@ -60,5 +62,33 @@ class ProfileProvider with ChangeNotifier {
     }
 
     notifyListeners();
+  }
+}
+
+class CustomerController extends GetxController {
+  final String baseUrl = Api.getProfile; // Ganti dengan URL API Anda
+
+  Future<void> getCustomer() async {
+    try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      String? token = prefs.getString('token');
+      final response = await http.get(
+        Uri.parse(baseUrl),
+        headers: {
+          'Authorization': 'Bearer $token', // Ganti dengan token yang sesuai
+        },
+      );
+
+      if (response.statusCode == 200) {
+        // Handle data response sesuai kebutuhan
+        print(response.body);
+      } else {
+        // Handle error response sesuai kebutuhan
+        print('Error: ${response.statusCode}');
+      }
+    } catch (e) {
+      // Handle exception
+      print('Exception: $e');
+    }
   }
 }
