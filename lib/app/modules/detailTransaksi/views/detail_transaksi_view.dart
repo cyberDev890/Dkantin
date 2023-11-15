@@ -134,7 +134,7 @@ class DetailTransaksiView extends GetView<DetailTransaksiController> {
                             width: 5,
                           ),
                           Text(
-                            '18 Des 2021 08:00',
+                            transaksi.tanggal.toString(),
                             style: GoogleFonts.poppins(
                               textStyle: TextStyle(
                                 fontSize: 14,
@@ -147,12 +147,12 @@ class DetailTransaksiView extends GetView<DetailTransaksiController> {
                       ),
                       Container(
                         height: MediaQuery.of(context).size.height * 0.38,
-                        // decoration: BoxDecoration(
-                        //   border: Border.all(
-                        //     width: 1.0,
-                        //     color: Colors.grey[900]!,
-                        //   ),
-                        // ),
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            width: 1.0,
+                            color: Colors.grey[900]!,
+                          ),
+                        ),
                         child: ListView.builder(
                           itemCount: detailTransaksiList.length,
                           physics: const ScrollPhysics(),

@@ -7,11 +7,9 @@ import '../models/penjualan_model.dart';
 import '../models/search_model.dart';
 
 class MenuProvider extends GetxController {
-  var token =
-      "1GP7H4RtwhYiA6j5ZRfF21zoZXgbKDdiReGS7hGvL3iuU8nnBy6gquvVLsmEqyGxPD3RLCOpp3ZMnGwg29jPf5fC8k7Dn4oTZFnlxqr5DrjgvYpeNuAabxhfIJjCJbTBC44hdX77IiJ4TSA2F4JsqsWXdD7sfhANjqg3VHTs0SzVc7RYEUNhwimxgqMCEM54AxalcMxG";
   Future<Search> searchSemua(String keyword) async {
-    //SharedPreferences prefs = await SharedPreferences.getInstance();
-    //String? token = prefs.getString('token');
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString('token');
 
     final response = await http.get(
       Uri.parse(Api.semua + keyword), // Sesuaikan URL pencarian dengan API Anda
@@ -28,8 +26,8 @@ class MenuProvider extends GetxController {
   }
 
   Future<Search> searchMakanan(String keyword) async {
-    //SharedPreferences prefs = await SharedPreferences.getInstance();
-    //String? token = prefs.getString('token');
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString('token');
     final response = await http.get(
       Uri.parse(Api.makanan + keyword),
       headers: {
@@ -46,8 +44,8 @@ class MenuProvider extends GetxController {
   }
 
   Future<Search> searchMinuman(String keyword) async {
-    //SharedPreferences prefs = await SharedPreferences.getInstance();
-    //String? token = prefs.getString('token');
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString('token');
     final response = await http.get(
       Uri.parse(Api.minuman + keyword),
       headers: {
@@ -64,8 +62,8 @@ class MenuProvider extends GetxController {
   }
 
   Future<Search> fetchDataDiskon(String keyword) async {
-    //SharedPreferences prefs = await SharedPreferences.getInstance();
-    //String? token = prefs.getString('token');
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString('token');
     final response = await http.get(
       Uri.parse(Api.diskon + keyword),
       headers: {
@@ -82,8 +80,8 @@ class MenuProvider extends GetxController {
   }
 
   Future<Penjualan> fetchDataPenjualanHariIni() async {
-    //SharedPreferences prefs = await SharedPreferences.getInstance();
-    //String? token = prefs.getString('token');
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString('token');
     final response = await http.get(
       Uri.parse(Api.penjualan_hari_ini),
       headers: {
@@ -101,8 +99,8 @@ class MenuProvider extends GetxController {
 
   Future<http.Response> postOrder(List<Datasearch> cartList,
       Map<String, dynamic> detailOrderan, Map<int, int> itemQuantities) async {
-    //SharedPreferences prefs = await SharedPreferences.getInstance();
-    //String? token = prefs.getString('token');
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString('token');
     var url = Uri.parse(Api.transaksi); // Pastikan ini adalah URL yang benar
 
     var headers = {

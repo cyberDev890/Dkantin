@@ -113,142 +113,138 @@ class OrderView extends GetView<OrderController> {
                 ),
               ),
             ),
-            Expanded(
-              child: Container(
-                // //ini container list view
-                // decoration: BoxDecoration(
-                //     border: Border.all(
-                //   width: 1.0,
-                //   color: Colors.grey[900]!,
-                // )),
-                child: Obx(
-                  () => cartList.isEmpty
-                      ? Center(
-                          child: Lottie.asset('assets/animation_lokccsws.json',
-                              repeat: false))
-                      : ListView.builder(
-                          itemCount: cartList.length,
-                          shrinkWrap: true,
-                          physics: ScrollPhysics(),
-                          itemBuilder: (BuildContext context, int index) {
-                            final menuData = cartList[index];
-                            final harga = menuData.harga ?? 0;
-                            final int priceAfterDiscount = homeController
-                                .calculatePriceAfterDiscount(menuData);
-                            final int quantity = homeController
-                                    .itemQuantities[menuData.idMenu!] ??
-                                1;
+            Container(
+              // //ini container list view
+              // decoration: BoxDecoration(
+              //     border: Border.all(
+              //   width: 1.0,
+              //   color: Colors.grey[900]!,
+              // )),
+              child: Obx(
+                () => cartList.isEmpty
+                    ? Center(
+                        child: Lottie.asset('assets/animation_lokccsws.json',
+                            repeat: false))
+                    : ListView.builder(
+                        itemCount: cartList.length,
+                        shrinkWrap: true,
+                        physics: ScrollPhysics(),
+                        itemBuilder: (BuildContext context, int index) {
+                          final menuData = cartList[index];
+                          final harga = menuData.harga ?? 0;
+                          final int priceAfterDiscount = homeController
+                              .calculatePriceAfterDiscount(menuData);
+                          final int quantity = homeController
+                                  .itemQuantities[menuData.idMenu!] ??
+                              1;
 
-                            return Card(
-                              // shape: RoundedRectangleBorder(
-                              //   borderRadius: BorderRadius.circular(
-                              //       10.0), // Sesuaikan dengan radius yang diinginkan
-                              // ),
-                              elevation: 2,
-                              child: Padding(
-                                padding: const EdgeInsets.all(10.0),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Container(
-                                          height: 80,
-                                          width: 80,
-                                          alignment: Alignment.topLeft,
-                                          decoration: BoxDecoration(
-                                              image: DecorationImage(
-                                                image: NetworkImage(Api.gambar +
-                                                    menuData.foto.toString()),
-                                                fit: BoxFit.cover,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(10)),
-                                        ),
-                                        SizedBox(
-                                          width: 10,
-                                        ),
-                                        Expanded(
-                                          child: Column(
+                          return Card(
+                            // shape: RoundedRectangleBorder(
+                            //   borderRadius: BorderRadius.circular(
+                            //       10.0), // Sesuaikan dengan radius yang diinginkan
+                            // ),
+                            elevation: 2,
+                            child: Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                        height: 80,
+                                        width: 80,
+                                        alignment: Alignment.topLeft,
+                                        decoration: BoxDecoration(
+                                            image: DecorationImage(
+                                              image: NetworkImage(Api.gambar +
+                                                  menuData.foto.toString()),
+                                              fit: BoxFit.cover,
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(10)),
+                                      ),
+                                      SizedBox(
+                                        width: 10,
+                                      ),
+                                      Column(
+                                        children: [
+                                          SizedBox(
+                                            height: 5,
+                                          ),
+                                          Row(
                                             children: [
-                                              SizedBox(
-                                                height: 5,
-                                              ),
-                                              Row(
-                                                children: [
-                                                  Text(
-                                                    menuData.nama ?? '',
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .bodyLarge,
-                                                  ),
-                                                ],
-                                              ),
-                                              SizedBox(
-                                                height: 5,
-                                              ),
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  Container(
-                                                    width:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .width *
-                                                            0.25,
-                                                    child: Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceBetween,
-                                                      children: [
-                                                        Text(
-                                                          priceAfterDiscount
-                                                              .toRupiah(),
-                                                          style:
-                                                              Theme.of(context)
-                                                                  .textTheme
-                                                                  .bodyLarge,
-                                                        ),
-                                                        Text(
-                                                          "* ${quantity.toString()}",
-                                                          style:
-                                                              Theme.of(context)
-                                                                  .textTheme
-                                                                  .bodyLarge,
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                  Text(
-                                                    homeController
-                                                        .calculateSubtotal(
-                                                            menuData.idMenu!)
-                                                        .toRupiah(),
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .bodyLarge,
-                                                  ),
-                                                ],
+                                              Text(
+                                                menuData.nama ?? '',
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .bodyLarge,
                                               ),
                                             ],
                                           ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
+                                          SizedBox(
+                                            height: 5,
+                                          ),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment
+                                                    .spaceBetween,
+                                            children: [
+                                              Container(
+                                                width:
+                                                    MediaQuery.of(context)
+                                                            .size
+                                                            .width *
+                                                        0.25,
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Text(
+                                                      priceAfterDiscount
+                                                          .toRupiah(),
+                                                      style:
+                                                          Theme.of(context)
+                                                              .textTheme
+                                                              .bodyLarge,
+                                                    ),
+                                                    Text(
+                                                      "* ${quantity.toString()}",
+                                                      style:
+                                                          Theme.of(context)
+                                                              .textTheme
+                                                              .bodyLarge,
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              Text(
+                                                homeController
+                                                    .calculateSubtotal(
+                                                        menuData.idMenu!)
+                                                    .toRupiah(),
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .bodyLarge,
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ],
                               ),
-                            );
-                          },
-                        ),
-                ),
+                            ),
+                          );
+                        },
+                      ),
               ),
             ),
             Divider(
