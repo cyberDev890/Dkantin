@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+import '../modules/detailTransaksi/bindings/detail_transaksi_binding.dart';
+import '../modules/detailTransaksi/views/detail_transaksi_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/keranjang/bindings/keranjang_binding.dart';
@@ -78,6 +80,11 @@ class AppPages {
       name: _Paths.SPLASH,
       page: () => const SplashView(),
       binding: SplashBinding(),
+    ),
+    GetPage(
+      name: _Paths.DETAIL_TRANSAKSI,
+      page: () => DetailTransaksiView(),
+      binding: DetailTransaksiBinding(),
     ),
   ];
 }

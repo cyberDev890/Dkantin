@@ -13,6 +13,7 @@ abstract class Routes {
   static const ORDER = _Paths.ORDER;
   static const REGISTER = _Paths.REGISTER;
   static const SPLASH = _Paths.SPLASH;
+  static const DETAIL_TRANSAKSI = _Paths.DETAIL_TRANSAKSI;
 }
 
 abstract class _Paths {
@@ -26,5 +27,7 @@ abstract class _Paths {
   static const LOGIN = '/login';
   static const ORDER = '/order';
   static const REGISTER = '/register';
+  static const DETAIL_TRANSAKSI = '/detail-transaksi';
+
   static const SPLASH = '/splash';
 }

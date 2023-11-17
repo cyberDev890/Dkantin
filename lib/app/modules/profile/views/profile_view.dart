@@ -1,4 +1,3 @@
-import 'package:dikantin/app/modules/profile/controllers/getprofile_controller.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -11,20 +10,17 @@ class ProfileView extends GetView<ProfileController> {
   @override
   Widget build(BuildContext context) {
     final ProfileController profileController = Get.put(ProfileController());
-    final GetprofileController controller = Get.put(GetprofileController());
     final mediaHeight = MediaQuery.of(context).size.height;
     final mediaWidth = MediaQuery.of(context).size.width;
     final bottomNavBarHeight = MediaQuery.of(context).padding.bottom;
     final myAppbar = AppBar(
-      leading: Spacer(),
-      title: Center(
-        child: Text(
-          "Edit Profile",
-          style: TextStyle(
-            fontSize: 20,
-            color: Colors.black,
-            fontWeight: FontWeight.bold,
-          ),
+      centerTitle: true,
+      title: Text(
+        "Edit Profile",
+        style: TextStyle(
+          fontSize: 20,
+          color: Colors.black,
+          fontWeight: FontWeight.bold,
         ),
       ),
       actions: <Widget>[
@@ -56,8 +52,8 @@ class ProfileView extends GetView<ProfileController> {
                           children: [
                             Lottie.asset(
                               "assets/Animation_logout.json", // Ganti dengan nama file Lottie Anda
-                              width: 150.0,
-                              height: 150.0,
+                              width: 100.0,
+                              height: 100.0,
                               fit: BoxFit.cover,
                             ),
                             SizedBox(height: 20),
@@ -77,33 +73,29 @@ class ProfileView extends GetView<ProfileController> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Expanded(
-                                child: ElevatedButton(
-                                  child: Text('Ya'),
-                                  onPressed: () {
-                                    profileController.logout();
-                                  },
-                                  style: ElevatedButton.styleFrom(
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    backgroundColor: Colors.green,
+                              ElevatedButton(
+                                child: Text('Ya'),
+                                onPressed: () {
+                                  profileController.logout();
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10.0),
                                   ),
+                                  backgroundColor: Colors.green,
                                 ),
                               ),
                               SizedBox(width: 8),
-                              Expanded(
-                                child: ElevatedButton(
-                                  child: Text('Tidak'),
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                  },
-                                  style: ElevatedButton.styleFrom(
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    backgroundColor: Colors.red,
+                              ElevatedButton(
+                                child: Text('Tidak'),
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10.0),
                                   ),
+                                  backgroundColor: Colors.red,
                                 ),
                               ),
                             ],
@@ -137,17 +129,19 @@ class ProfileView extends GetView<ProfileController> {
                 child: Stack(
                   alignment: Alignment.bottomRight,
                   children: [
-                    Container(
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        border: Border.all(
-                          color: Colors.blue,
-                          width: 2.0,
-                        ),
-                        image: DecorationImage(
-                          image: AssetImage("assets/logo_dikantin.png"),
-                          fit: BoxFit.fill,
-                        ),
+                    Obx(
+                      () => CircleAvatar(
+                        radius: 60.0,
+                        backgroundColor: Colors.transparent,
+                        backgroundImage:
+                            profileController.customer.value.data?.foto != null
+                                ? NetworkImage(
+                                    "https://8e7d-103-165-156-182.ngrok-free.app/customer/" +
+                                        profileController
+                                            .customer.value.data!.foto!
+                                            .toString(),
+                                  ) as ImageProvider<Object>
+                                : AssetImage("assets/logo_dikantin.png"),
                       ),
                     ),
                     Container(
@@ -198,27 +192,25 @@ class ProfileView extends GetView<ProfileController> {
             ),
             Padding(
               padding: const EdgeInsets.only(left: 30.0, right: 25, top: 10),
-              child: TextField(
-                controller: profileController.fullNameController,
-                decoration: InputDecoration(
-                  hintText: 'Vishal Khadok',
-                  contentPadding:
-                      EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(
-                        10.0), // Menentukan radius untuk membuat bentuk rounded
-                    borderSide: BorderSide(
-                        color: Colors.black), // Menentukan warna garis pinggir
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                    borderSide: BorderSide(color: Colors.black),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                    borderSide: BorderSide(
-                        color: Colors
-                            .blue), // Menentukan warna garis pinggir saat fokus
+              child: Obx(
+                () => TextField(
+                  controller: profileController.fullNameController,
+                  decoration: InputDecoration(
+                    hintText: profileController.customer.value.data?.nama ?? '',
+                    contentPadding:
+                        EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                      borderSide: BorderSide(color: Colors.black),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                      borderSide: BorderSide(color: Colors.black),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                      borderSide: BorderSide(color: Colors.blue),
+                    ),
                   ),
                 ),
               ),
@@ -248,27 +240,31 @@ class ProfileView extends GetView<ProfileController> {
             ),
             Padding(
               padding: const EdgeInsets.only(left: 30.0, right: 25, top: 10),
-              child: TextField(
-                controller: profileController.emailController,
-                decoration: InputDecoration(
-                  hintText: 'email@gmail.com',
-                  contentPadding:
-                      EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(
-                        10.0), // Menentukan radius untuk membuat bentuk rounded
-                    borderSide: BorderSide(
-                        color: Colors.black), // Menentukan warna garis pinggir
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                    borderSide: BorderSide(color: Colors.black),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                    borderSide: BorderSide(
-                        color: Colors
-                            .blue), // Menentukan warna garis pinggir saat fokus
+              child: Obx(
+                () => TextField(
+                  controller: profileController.emailController,
+                  decoration: InputDecoration(
+                    hintText:
+                        profileController.customer.value.data?.email ?? '',
+                    contentPadding:
+                        EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(
+                          10.0), // Menentukan radius untuk membuat bentuk rounded
+                      borderSide: BorderSide(
+                          color:
+                              Colors.black), // Menentukan warna garis pinggir
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                      borderSide: BorderSide(color: Colors.black),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                      borderSide: BorderSide(
+                          color: Colors
+                              .blue), // Menentukan warna garis pinggir saat fokus
+                    ),
                   ),
                 ),
               ),
@@ -298,28 +294,32 @@ class ProfileView extends GetView<ProfileController> {
             ),
             Padding(
               padding: const EdgeInsets.only(left: 30.0, right: 25, top: 10),
-              child: TextField(
-                controller: profileController.phoneNumberController,
-                keyboardType: TextInputType.number,
-                decoration: InputDecoration(
-                  hintText: '082316756168',
-                  contentPadding:
-                      EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(
-                        10.0), // Menentukan radius untuk membuat bentuk rounded
-                    borderSide: BorderSide(
-                        color: Colors.black), // Menentukan warna garis pinggir
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                    borderSide: BorderSide(color: Colors.black),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                    borderSide: BorderSide(
-                        color: Colors
-                            .blue), // Menentukan warna garis pinggir saat fokus
+              child: Obx(
+                () => TextField(
+                  controller: profileController.phoneNumberController,
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                    hintText:
+                        profileController.customer.value.data?.noTelepon ?? '',
+                    contentPadding:
+                        EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(
+                          10.0), // Menentukan radius untuk membuat bentuk rounded
+                      borderSide: BorderSide(
+                          color:
+                              Colors.black), // Menentukan warna garis pinggir
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                      borderSide: BorderSide(color: Colors.black),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                      borderSide: BorderSide(
+                          color: Colors
+                              .blue), // Menentukan warna garis pinggir saat fokus
+                    ),
                   ),
                 ),
               ),
@@ -349,31 +349,33 @@ class ProfileView extends GetView<ProfileController> {
             ),
             Padding(
               padding: const EdgeInsets.only(left: 30.0, right: 25, top: 10),
-              child: TextField(
-                controller: profileController.addressController,
-                maxLines: null, // Memungkinkan input lebih dari satu baris
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: Colors.grey[200], // Atur warna latar belakang
-                  hintText:
-                      'Jl. Mastrip, Krajan Timur, Sumbersari, Kec. Sumbersari, Kabupaten Jember, Jawa Timur 68121',
-                  hintStyle: TextStyle(
-                      color: Colors.black54,
-                      fontSize: 12), // Atur warna teks hintText
-                  contentPadding: EdgeInsets.symmetric(
-                      vertical: 30.0,
-                      horizontal: 15.0), // Sesuaikan nilai vertical
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                    borderSide: BorderSide.none,
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                    borderSide: BorderSide.none,
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                    borderSide: BorderSide.none,
+              child: Obx(
+                () => TextField(
+                  controller: profileController.addressController,
+                  maxLines: null, // Memungkinkan input lebih dari satu baris
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: Colors.grey[200], // Atur warna latar belakang
+                    hintText:
+                        profileController.customer.value.data?.alamat ?? '',
+                    hintStyle: TextStyle(
+                        color: Colors.black54,
+                        fontSize: 12), // Atur warna teks hintText
+                    contentPadding: EdgeInsets.symmetric(
+                        vertical: 30.0,
+                        horizontal: 15.0), // Sesuaikan nilai vertical
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                      borderSide: BorderSide.none,
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                      borderSide: BorderSide.none,
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                      borderSide: BorderSide.none,
+                    ),
                   ),
                 ),
               ),

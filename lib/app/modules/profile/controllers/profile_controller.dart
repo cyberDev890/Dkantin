@@ -1,3 +1,4 @@
+import 'package:dikantin/app/data/models/customer_model.dart';
 import 'package:dikantin/app/data/providers/profile_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -6,7 +7,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfileController extends GetxController {
   //TODO: Implement ProfileController
-  final ProfileProvider _provider = ProfileProvider();
+  final ProfileProvider provider = ProfileProvider();
+  final CustomerProvider _customerProvider = CustomerProvider();
+  RxBool isLoading = true.obs;
+  Rx<Customer> customer = Customer().obs;
   var selectedImage = ''.obs;
   var fullNameController = TextEditingController();
   var emailController = TextEditingController();
@@ -16,6 +20,7 @@ class ProfileController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    getCustomerData();
   }
 
   @override
@@ -62,7 +67,7 @@ class ProfileController extends GetxController {
 
     if (token != null) {
       try {
-        await _provider.editProfile(
+        await provider.editProfile(
           token: token,
           nama: nama,
           email: email,
@@ -76,6 +81,28 @@ class ProfileController extends GetxController {
     } else {
       // Handle case where token is not available (e.g., user not logged in)
       print('Token not available. User not logged in.');
+    }
+  }
+
+  Future<void> getCustomerData() async {
+    try {
+      isLoading(true);
+
+      // Call the getCustomer method from CustomerProvider
+      Customer result = await _customerProvider.getCustomer();
+
+      // Update the customer data
+      customer(result);
+
+      // Access 'nama' from the first element in the 'data' list
+      String? customerName = result.data?.nama ?? '';
+
+      print('Nama: $customerName');
+
+      isLoading(false);
+    } catch (error) {
+      isLoading(false);
+      print('Error fetching data: $error');
     }
   }
 }

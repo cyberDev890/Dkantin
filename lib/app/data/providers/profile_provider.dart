@@ -65,30 +65,22 @@ class ProfileProvider with ChangeNotifier {
   }
 }
 
-class CustomerController extends GetxController {
+class CustomerProvider extends GetxController {
   final String baseUrl = Api.getProfile; // Ganti dengan URL API Anda
 
-  Future<void> getCustomer() async {
-    try {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      String? token = prefs.getString('token');
-      final response = await http.get(
-        Uri.parse(baseUrl),
-        headers: {
-          'Authorization': 'Bearer $token', // Ganti dengan token yang sesuai
-        },
-      );
+  Future<Customer> getCustomer() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString('token');
+    final response = await http.get(
+      Uri.parse(baseUrl),
+      headers: {'Authorization': 'Bearer $token'},
+    );
 
-      if (response.statusCode == 200) {
-        // Handle data response sesuai kebutuhan
-        print(response.body);
-      } else {
-        // Handle error response sesuai kebutuhan
-        print('Error: ${response.statusCode}');
-      }
-    } catch (e) {
-      // Handle exception
-      print('Exception: $e');
+    if (response.statusCode == 200) {
+      // Parse the JSON response and return a Customer object
+      return Customer.fromJson(json.decode(response.body));
+    } else {
+      throw Exception('Failed to load customer');
     }
   }
 }
