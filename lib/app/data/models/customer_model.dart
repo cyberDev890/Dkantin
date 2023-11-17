@@ -1,28 +1,28 @@
 class Customer {
-  List<Data>? data;
+  Data? data;
   int? code;
   bool? status;
 
   Customer({this.data, this.code, this.status});
 
   Customer.fromJson(Map<String, dynamic> json) {
-    data = json['data'] != null
-        ? (json['data'] as List).map((e) => Data.fromJson(e)).toList()
-        : null;
+    data = json['data'] != null ? Data?.fromJson(json['data']) : null;
     code = json['code'];
     status = json['status'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = {};
+    final Map<String, dynamic> jsonData = {
+      'code': code,
+      'status': status,
+    };
 
-    if (this.data != null) {
-      data['data'] = this.data?.map((v) => v.toJson()).toList();
+    if (data != null) {
+      jsonData['data'] = data!
+          .toJson(); // Memanggil toJson secara langsung dari 'data' jika tidak null
     }
-    data['code'] = this.code;
-    data['status'] = this.status;
 
-    return data;
+    return jsonData;
   }
 }
 
@@ -36,7 +36,7 @@ class Data {
   dynamic tokenFcm;
   String? alamat;
   String? email;
-  dynamic foto;
+  String? foto;
   String? createdAt;
   String? updatedAt;
 

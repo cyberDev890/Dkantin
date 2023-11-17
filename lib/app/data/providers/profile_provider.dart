@@ -65,30 +65,59 @@ class ProfileProvider with ChangeNotifier {
   }
 }
 
-class CustomerController extends GetxController {
+class CustomerProvider extends GetxController {
   final String baseUrl = Api.getProfile; // Ganti dengan URL API Anda
 
-  Future<void> getCustomer() async {
+  Future<Customer> getCustomer() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString('token');
+    final response = await http.get(
+      Uri.parse(baseUrl),
+      headers: {'Authorization': 'Bearer $token'},
+    );
+
+    if (response.statusCode == 200) {
+      // Parse the JSON response and return a Customer object
+      return Customer.fromJson(json.decode(response.body));
+    } else {
+      throw Exception('Failed to load customer');
+    }
+  }
+}
+
+class ProfileImageProvider extends GetxController {
+  RxBool isLoading = false.obs;
+
+  Future<void> updateProfileImage(String imagePath) async {
     try {
+      isLoading(true);
       SharedPreferences prefs = await SharedPreferences.getInstance();
       String? token = prefs.getString('token');
-      final response = await http.get(
-        Uri.parse(baseUrl),
-        headers: {
-          'Authorization': 'Bearer $token', // Ganti dengan token yang sesuai
-        },
+
+      var currentTime = DateTime.now().millisecondsSinceEpoch;
+      var fileName = 'profile_image_$currentTime.jpg';
+
+      var request = http.MultipartRequest(
+        'POST',
+        Uri.parse(Api.updateFoto),
       );
 
-      if (response.statusCode == 200) {
-        // Handle data response sesuai kebutuhan
-        print(response.body);
-      } else {
-        // Handle error response sesuai kebutuhan
-        print('Error: ${response.statusCode}');
-      }
-    } catch (e) {
-      // Handle exception
-      print('Exception: $e');
+      request.headers.addAll({'Authorization': 'Bearer $token'});
+
+      request.files.add(
+        await http.MultipartFile.fromPath(
+          'foto',
+          imagePath,
+          filename: fileName,
+        ),
+      );
+
+      var response = await request.send();
+
+      isLoading(false);
+    } catch (error) {
+      print('Error updating profile image: $error');
+      isLoading(false);
     }
   }
 }
