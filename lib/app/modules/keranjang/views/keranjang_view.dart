@@ -298,8 +298,12 @@ class KeranjangView extends GetView<KeranjangController> {
                           ),
                         ),
                         onPressed: () {
-                          Get.to(OrderView(),
-                              arguments: homeController.cartList);
+                          if (homeController.cartList.isNotEmpty) {
+                            Get.to(OrderView(),
+                                arguments: homeController.cartList);
+                          } else {
+                            Get.snackbar('Error', 'Your cart is empty');
+                          }
                         },
                         child: Text("Pesan Sekarang",
                             style: GoogleFonts.poppins(

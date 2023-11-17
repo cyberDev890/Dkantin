@@ -147,12 +147,12 @@ class DetailTransaksiView extends GetView<DetailTransaksiController> {
                       ),
                       Container(
                         height: MediaQuery.of(context).size.height * 0.38,
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            width: 1.0,
-                            color: Colors.grey[900]!,
-                          ),
-                        ),
+                        // decoration: BoxDecoration(
+                        //   border: Border.all(
+                        //     width: 1.0,
+                        //     color: Colors.grey[900]!,
+                        //   ),
+                        // ),
                         child: ListView.builder(
                           itemCount: detailTransaksiList.length,
                           physics: const ScrollPhysics(),
