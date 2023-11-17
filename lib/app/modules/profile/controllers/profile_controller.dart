@@ -7,8 +7,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfileController extends GetxController {
   //TODO: Implement ProfileController
-  final ProfileProvider provider = ProfileProvider();
-  final CustomerProvider _customerProvider = CustomerProvider();
+  final ProfileProvider provider = ProfileProvider().obs();
+  final CustomerProvider _customerProvider = CustomerProvider().obs();
+  final ProfileImageProvider imageProvider = ProfileImageProvider().obs();
+  RxBool isImageUploading = false.obs;
   RxBool isLoading = true.obs;
   Rx<Customer> customer = Customer().obs;
   var selectedImage = ''.obs;
@@ -48,11 +50,30 @@ class ProfileController extends GetxController {
   }
 
   Future<void> pickImage() async {
-    final pickedFile =
-        await ImagePicker().pickImage(source: ImageSource.gallery);
+    try {
+      final picker = ImagePicker();
+      final pickedFile = await picker.pickImage(source: ImageSource.gallery);
 
-    if (pickedFile != null) {
-      selectedImage.value = pickedFile.path;
+      if (pickedFile != null) {
+        // Upload the profile image
+        await imageProvider.updateProfileImage(pickedFile.path);
+        await getCustomerData();
+      } else {
+        print('No image selected.');
+      }
+    } catch (error) {
+      print('Error picking image: $error');
+    }
+  }
+
+  void uploadProfileImage(String imagePath) async {
+    try {
+      isImageUploading(true);
+      await imageProvider.updateProfileImage(imagePath);
+    } catch (error) {
+      print('Error uploading profile image: $error');
+    } finally {
+      isImageUploading(false);
     }
   }
 
@@ -74,6 +95,7 @@ class ProfileController extends GetxController {
           noTelepon: noTelepon,
           alamat: alamat,
         );
+        getCustomerData();
       } catch (error) {
         // Handle and print the error
         print('Error updating profile: $error');
@@ -93,11 +115,6 @@ class ProfileController extends GetxController {
 
       // Update the customer data
       customer(result);
-
-      // Access 'nama' from the first element in the 'data' list
-      String? customerName = result.data?.nama ?? '';
-
-      print('Nama: $customerName');
 
       isLoading(false);
     } catch (error) {

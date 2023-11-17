@@ -40,7 +40,7 @@ class LoginController extends GetxController {
       final response = await loginProvider.value.login(username, password);
 
       if (response.statusCode == 200) {
-        Get.offAllNamed('/profile');
+        Get.offAllNamed('/navigation');
       } else {
         // Tampilkan Snackbar dengan pesan error
         Get.snackbar(

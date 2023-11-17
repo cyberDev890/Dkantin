@@ -1,3 +1,4 @@
+import 'package:dikantin/app/data/providers/services.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
@@ -8,7 +9,8 @@ class ProfileView extends GetView<ProfileController> {
   const ProfileView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    final ProfileController profileController = Get.put(ProfileController());
+    final ProfileController profileController =
+        Get.put(ProfileController()).obs();
     final mediaHeight = MediaQuery.of(context).size.height;
     final mediaWidth = MediaQuery.of(context).size.width;
     final bottomNavBarHeight = MediaQuery.of(context).padding.bottom;
@@ -135,7 +137,7 @@ class ProfileView extends GetView<ProfileController> {
                         backgroundImage:
                             profileController.customer.value.data?.foto != null
                                 ? NetworkImage(
-                                    "https://8e7d-103-165-156-182.ngrok-free.app/customer/" +
+                                    Api.gambar +
                                         profileController
                                             .customer.value.data!.foto!
                                             .toString(),
