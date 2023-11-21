@@ -15,6 +15,9 @@ abstract class Routes {
   static const SPLASH = _Paths.SPLASH;
   static const DETAIL_TRANSAKSI = _Paths.DETAIL_TRANSAKSI;
   static const ON_BOARDING = _Paths.ON_BOARDING;
+  static const FORGOT_PASSWORD = _Paths.FORGOT_PASSWORD;
+  static const OTP_PAGE = _Paths.OTP_PAGE;
+  static const UBAH_PASSWORD = _Paths.UBAH_PASSWORD;
 }
 
 abstract class _Paths {
@@ -29,7 +32,9 @@ abstract class _Paths {
   static const ORDER = '/order';
   static const REGISTER = '/register';
   static const DETAIL_TRANSAKSI = '/detail-transaksi';
-
   static const SPLASH = '/splash';
   static const ON_BOARDING = '/on-boarding';
+  static const FORGOT_PASSWORD = '/forgot-password';
+  static const OTP_PAGE = '/otp-page';
+  static const UBAH_PASSWORD = '/ubah-password';
 }

@@ -126,6 +126,21 @@ class LoginView extends GetView<LoginController> {
                   ),
                 ),
               ),
+              SizedBox(
+                height: 30,
+              ),
+              GestureDetector(
+                onTap: () {
+                  Get.offAllNamed("/forgot-password");
+                },
+                child: Text(
+                  "Forgot Password?",
+                  style: TextStyle(
+                      fontSize: 15.0,
+                      color: Color(0xff514D4E),
+                      fontWeight: FontWeight.bold),
+                ),
+              )
             ],
           ),
         ),

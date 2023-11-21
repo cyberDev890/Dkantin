@@ -1,11 +1,14 @@
 class Api {
-  static const koneksi = "https://e262-103-189-201-214.ngrok-free.app/api";
-  static const gambar = "https://e262-103-189-201-214.ngrok-free.app/";
+  static const koneksi = "https://dikantin.wdmif.id/api";
+  static const gambar = "https://dikantin.wdmif.id/";
   static const signUp = "$koneksi/validate/register";
   static const signIn = "$koneksi/validate/login";
   static const updateProfile = "$koneksi/customerAccount";
   static const getProfile = '$koneksi/profileShow';
   static const updateFoto = '$koneksi/imageProfile';
+  static const forgotPassword = "$koneksi/validate/forgotPassword";
+  static const verifKode = "$koneksi/validate/verifKode";
+  static const ubahPassword = "$koneksi/validate/confirmPassword";
   static const semua = "$koneksi/menu/productAll/";
   static const makanan = "$koneksi/menu/food/";
   static const minuman = "$koneksi/menu/drink/";
