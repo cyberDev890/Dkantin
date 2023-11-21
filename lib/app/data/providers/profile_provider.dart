@@ -80,7 +80,8 @@ class CustomerProvider extends GetxController {
       // Parse the JSON response and return a Customer object
       return Customer.fromJson(json.decode(response.body));
     } else {
-      throw Exception('Failed to load customer');
+      return Customer.fromJson(json.decode(response.body));
+      // throw Exception('Failed to load customer');
     }
   }
 }
