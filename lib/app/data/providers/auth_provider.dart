@@ -193,3 +193,23 @@ class VerificationProvider extends GetConnect {
     }
   }
 }
+
+class PasswordVerificationProvider extends GetConnect {
+  Future<Response> verifyNewPassword(
+      String email, String password, String confirmPassword) async {
+    try {
+      final response = await post(
+        Api.ubahPassword, // Ganti dengan URL API yang sesuai
+        {
+          'email': email,
+          'password': password,
+          'confirmPassword': confirmPassword
+        },
+      );
+
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  }
+}

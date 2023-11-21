@@ -26,7 +26,6 @@ class ForgotPasswordController extends GetxController {
 
   void increment() => count.value++;
   Future<void> forgotPassword({required String email}) async {
-    await _provider.forgotPassword(email);
     if (email.isEmpty) {
       Get.snackbar(
         'Error',

@@ -8,6 +8,7 @@ class Api {
   static const updateFoto = '$koneksi/imageProfile';
   static const forgotPassword = "$koneksi/validate/forgotPassword";
   static const verifKode = "$koneksi/validate/verifKode";
+  static const ubahPassword = "$koneksi/validate/confirmPassword";
   static const semua = "$koneksi/menu/productAll/";
   static const makanan = "$koneksi/menu/food/";
   static const minuman = "$koneksi/menu/drink/";

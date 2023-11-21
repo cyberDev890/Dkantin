@@ -40,8 +40,12 @@ class OtpPageController extends GetxController {
 
         // print('Verification successful');
       } else {
-        // Handle failed verification
-        print('Verification failed');
+        Get.snackbar(
+          'Error',
+          'Salah gan otpnya mohon check kembali',
+          snackPosition: SnackPosition.TOP,
+          duration: Duration(seconds: 2),
+        );
       }
     } finally {
       isLoading(false);
@@ -55,7 +59,7 @@ class OtpPageController extends GetxController {
         mainAxisSize: MainAxisSize.min,
         children: [
           Lottie.asset(
-            "assets/Animation_logout.json", // Ganti dengan nama file Lottie Anda
+            "assets/checklist.json", // Ganti dengan nama file Lottie Anda
             width: 150.0,
             height: 150.0,
             fit: BoxFit.cover,
