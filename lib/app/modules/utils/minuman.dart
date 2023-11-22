@@ -56,7 +56,7 @@ class _MinumanState extends State<Minuman> {
                       decoration: InputDecoration.collapsed(
                         filled: true,
                         fillColor: Colors.transparent,
-                        hintText: "Mau makan apa hari ini ganteng ?",
+                        hintText: "Mau mamam apa hari ini ?",
                         hintStyle: TextStyle(
                             color: Colors.grey[500], fontFamily: 'Mulish'),
                         hoverColor: Colors.transparent,
@@ -91,7 +91,10 @@ class _MinumanState extends State<Minuman> {
                         physics: ScrollPhysics(),
                         itemBuilder: (BuildContext context, int index) {
                           return Container(
-                            color: Colors.white,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: Colors.white,
+                            ),
                             child: Column(
                               children: [
                                 Card(
@@ -143,7 +146,7 @@ class _MinumanState extends State<Minuman> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Container(
-                                    height: 120,
+                                    height: 110,
                                     alignment: Alignment.topRight,
                                     width: double.infinity,
                                     padding: const EdgeInsets.all(8),

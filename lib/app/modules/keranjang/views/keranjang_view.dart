@@ -36,9 +36,16 @@ class KeranjangView extends GetView<KeranjangController> {
           onTap: () {
             Get.back();
           },
-          child: Icon(
-            CarbonIcons.arrow_left,
-            color: Colors.blue,
+          child: Padding(
+            padding: const EdgeInsets.all(10),
+            child: Container(
+              decoration: BoxDecoration(
+                  color: Colors.blue, borderRadius: BorderRadius.circular(10)),
+              child: Icon(
+                CarbonIcons.arrow_left,
+                color: Colors.white,
+              ),
+            ),
           ),
         ),
       ),
@@ -299,8 +306,7 @@ class KeranjangView extends GetView<KeranjangController> {
                         ),
                         onPressed: () {
                           if (homeController.cartList.isNotEmpty) {
-                            Get.to(OrderView(),
-                                arguments: homeController.cartList);
+                            Get.to(OrderView());
                           } else {
                             Get.snackbar('Error', 'Your cart is empty');
                           }

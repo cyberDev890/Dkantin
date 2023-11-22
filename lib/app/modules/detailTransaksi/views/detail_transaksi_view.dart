@@ -48,9 +48,16 @@ class DetailTransaksiView extends GetView<DetailTransaksiController> {
           onTap: () {
             Get.back();
           },
-          child: Icon(
-            CarbonIcons.arrow_left,
-            color: Colors.blue,
+          child: Padding(
+            padding: const EdgeInsets.all(10),
+            child: Container(
+              decoration: BoxDecoration(
+                  color: Colors.blue, borderRadius: BorderRadius.circular(10)),
+              child: Icon(
+                CarbonIcons.arrow_left,
+                color: Colors.white,
+              ),
+            ),
           ),
         ),
       ),

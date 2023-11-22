@@ -14,6 +14,8 @@ abstract class Routes {
   static const REGISTER = _Paths.REGISTER;
   static const SPLASH = _Paths.SPLASH;
   static const DETAIL_TRANSAKSI = _Paths.DETAIL_TRANSAKSI;
+  static const ON_BOARDING = _Paths.ON_BOARDING;
+  static const EDIT_ALAMAT = _Paths.EDIT_ALAMAT;
 }
 
 abstract class _Paths {
@@ -30,4 +32,6 @@ abstract class _Paths {
   static const DETAIL_TRANSAKSI = '/detail-transaksi';
 
   static const SPLASH = '/splash';
+  static const ON_BOARDING = '/on-boarding';
+  static const EDIT_ALAMAT = '/edit-alamat';
 }

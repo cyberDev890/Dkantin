@@ -51,22 +51,22 @@ class PesananController extends GetxController
     _controller.forward();
   }
 
-   DataPesanan? findOrderById(String orderId) {
+  DataPesanan? findOrderById(String orderId) {
     // Cari pesanan di setiap kategori (proses, dikirim, diterima)
-    final orderProsesById =
-        orderProses.firstWhereOrNull((order) => order.transaksi?.kodeTr == orderId);
+    final orderProsesById = orderProses
+        .firstWhereOrNull((order) => order.transaksi?.kodeTr == orderId);
     if (orderProsesById != null) {
       return orderProsesById;
     }
 
-    final orderDikirimById =
-        orderDikirim.firstWhereOrNull((order) => order.transaksi?.kodeTr == orderId);
+    final orderDikirimById = orderDikirim
+        .firstWhereOrNull((order) => order.transaksi?.kodeTr == orderId);
     if (orderDikirimById != null) {
       return orderDikirimById;
     }
 
-    final orderDiterimaById =
-        orderDiterima.firstWhereOrNull((order) => order.transaksi?.kodeTr == orderId);
+    final orderDiterimaById = orderDiterima
+        .firstWhereOrNull((order) => order.transaksi?.kodeTr == orderId);
     if (orderDiterimaById != null) {
       return orderDiterimaById;
     }

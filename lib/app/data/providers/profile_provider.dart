@@ -1,9 +1,11 @@
 import 'dart:convert';
 
+import 'package:dikantin/app/data/models/customer_model.dart';
 import 'package:dikantin/app/data/providers/services.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfileProvider with ChangeNotifier {
   Future<void> editProfile({
@@ -60,5 +62,62 @@ class ProfileProvider with ChangeNotifier {
     }
 
     notifyListeners();
+  }
+}
+
+class CustomerProvider extends GetxController {
+  final String baseUrl = Api.getProfile; 
+
+  Future<Customer> getCustomer() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString('token');
+    final response = await http.get(
+      Uri.parse(baseUrl),
+      headers: {'Authorization': 'Bearer $token'},
+    );
+
+    if (response.statusCode == 200) {
+      // Parse the JSON response and return a Customer object
+      return Customer.fromJson(json.decode(response.body));
+    } else {
+      throw Exception('Failed to load customer');
+    }
+  }
+}
+
+class ProfileImageProvider extends GetxController {
+  RxBool isLoading = false.obs;
+
+  Future<void> updateProfileImage(String imagePath) async {
+    try {
+      isLoading(true);
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      String? token = prefs.getString('token');
+
+      var currentTime = DateTime.now().millisecondsSinceEpoch;
+      var fileName = 'profile_image_$currentTime.jpg';
+
+      var request = http.MultipartRequest(
+        'POST',
+        Uri.parse(Api.updateFoto),
+      );
+
+      request.headers.addAll({'Authorization': 'Bearer $token'});
+
+      request.files.add(
+        await http.MultipartFile.fromPath(
+          'foto',
+          imagePath,
+          filename: fileName,
+        ),
+      );
+
+      var response = await request.send();
+
+      isLoading(false);
+    } catch (error) {
+      print('Error updating profile image: $error');
+      isLoading(false);
+    }
   }
 }

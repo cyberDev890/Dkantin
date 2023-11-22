@@ -1,9 +1,11 @@
 class Api {
-  static const koneksi = "https://74c6-118-99-83-51.ngrok-free.app/api";
-  static const gambar = "https://74c6-118-99-83-51.ngrok-free.app/";
+  static const koneksi = "https://02e9-103-109-209-254.ngrok-free.app/api";
+  static const gambar = "https://02e9-103-109-209-254.ngrok-free.app/";
   static const signUp = "$koneksi/validate/register";
   static const signIn = "$koneksi/validate/login";
   static const updateProfile = "$koneksi/customerAccount";
+  static const getProfile = '$koneksi/profileShow';
+  static const updateFoto = '$koneksi/imageProfile';
   static const semua = "$koneksi/menu/productAll/";
   static const makanan = "$koneksi/menu/food/";
   static const minuman = "$koneksi/menu/drink/";

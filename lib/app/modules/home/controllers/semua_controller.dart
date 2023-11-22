@@ -32,6 +32,7 @@ class SemuaController extends GetxController {
           true); // Set isLoading menjadi true saat pemanggilan API dimulai
       final results = await menuProvider.value.searchSemua(keyword);
       searchResults.assignAll(results.data ?? []);
+      print(searchResults);
     } catch (e) {
       print('Error during search: $e');
       searchResults.clear();

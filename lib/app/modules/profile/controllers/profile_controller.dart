@@ -1,3 +1,4 @@
+import 'package:dikantin/app/data/models/customer_model.dart';
 import 'package:dikantin/app/data/providers/profile_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -5,17 +6,23 @@ import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfileController extends GetxController {
-  //TODO: Implement ProfileController
-  final ProfileProvider _provider = ProfileProvider();
+  final ProfileProvider provider = ProfileProvider().obs();
+  final CustomerProvider _customerProvider = CustomerProvider().obs();
+  final ProfileImageProvider imageProvider = ProfileImageProvider().obs();
+  RxBool isImageUploading = false.obs;
+  RxBool isLoading = true.obs;
+  Rx<Customer> customer = Customer().obs;
   var selectedImage = ''.obs;
   var fullNameController = TextEditingController();
   var emailController = TextEditingController();
   var phoneNumberController = TextEditingController();
   var addressController = TextEditingController();
+
   final count = 0.obs;
   @override
   void onInit() {
     super.onInit();
+    getCustomerData();
   }
 
   @override
@@ -43,11 +50,30 @@ class ProfileController extends GetxController {
   }
 
   Future<void> pickImage() async {
-    final pickedFile =
-        await ImagePicker().pickImage(source: ImageSource.gallery);
+    try {
+      final picker = ImagePicker();
+      final pickedFile = await picker.pickImage(source: ImageSource.gallery);
 
-    if (pickedFile != null) {
-      selectedImage.value = pickedFile.path;
+      if (pickedFile != null) {
+        // Upload the profile image
+        await imageProvider.updateProfileImage(pickedFile.path);
+        await getCustomerData();
+      } else {
+        print('No image selected.');
+      }
+    } catch (error) {
+      print('Error picking image: $error');
+    }
+  }
+
+  void uploadProfileImage(String imagePath) async {
+    try {
+      isImageUploading(true);
+      await imageProvider.updateProfileImage(imagePath);
+    } catch (error) {
+      print('Error uploading profile image: $error');
+    } finally {
+      isImageUploading(false);
     }
   }
 
@@ -62,13 +88,14 @@ class ProfileController extends GetxController {
 
     if (token != null) {
       try {
-        await _provider.editProfile(
+        await provider.editProfile(
           token: token,
           nama: nama,
           email: email,
           noTelepon: noTelepon,
           alamat: alamat,
         );
+        getCustomerData();
       } catch (error) {
         // Handle and print the error
         print('Error updating profile: $error');
@@ -76,6 +103,23 @@ class ProfileController extends GetxController {
     } else {
       // Handle case where token is not available (e.g., user not logged in)
       print('Token not available. User not logged in.');
+    }
+  }
+
+  Future<void> getCustomerData() async {
+    try {
+      isLoading(true);
+
+      // Call the getCustomer method from CustomerProvider
+      Customer result = await _customerProvider.getCustomer();
+
+      // Update the customer data
+      customer(result);
+
+      isLoading(false);
+    } catch (error) {
+      isLoading(false);
+      print('Error fetching data: $error');
     }
   }
 }

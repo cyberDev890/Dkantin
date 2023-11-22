@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashController extends GetxController {
   //TODO: Implement SplashController
@@ -7,14 +8,22 @@ class SplashController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    Future.delayed(Duration(seconds: 3), () {
-      Get.offAllNamed('/login');
-    });
   }
 
   @override
-  void onReady() {
+  Future<void> onReady() async {
     super.onReady();
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString('token');
+    if (token == null) {
+      Future.delayed(Duration(seconds: 3), () {
+        Get.offAllNamed('/login');
+      });
+    } else {
+      Future.delayed(Duration(seconds: 3), () {
+        Get.offAllNamed('/navigation');
+      });
+    }
   }
 
   @override
