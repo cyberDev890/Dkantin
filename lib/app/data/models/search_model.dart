@@ -38,6 +38,8 @@ class Datasearch {
   String? kategori;
   int? idKantin;
   dynamic diskon;
+  String? penjualanHariIni;
+  String? jumlahSubtotal;
   String? createdAt;
   String? updatedAt;
 
@@ -50,6 +52,8 @@ class Datasearch {
       this.kategori,
       this.idKantin,
       this.diskon,
+      this.penjualanHariIni,
+      this.jumlahSubtotal,
       this.createdAt,
       this.updatedAt});
 
@@ -62,6 +66,8 @@ class Datasearch {
     kategori = json['kategori'];
     idKantin = json['id_kantin'];
     diskon = json['diskon'];
+    penjualanHariIni = json['penjualan_hari_ini'];
+    jumlahSubtotal = json['jumlah_subtotal'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
   }
@@ -76,6 +82,8 @@ class Datasearch {
     data['kategori'] = kategori;
     data['id_kantin'] = idKantin;
     data['diskon'] = diskon;
+    data['penjualan_hari_ini'] = penjualanHariIni;
+    data['jumlah_subtotal'] = jumlahSubtotal;
     data['created_at'] = createdAt;
     data['updated_at'] = updatedAt;
     return data;

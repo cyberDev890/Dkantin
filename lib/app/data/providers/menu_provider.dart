@@ -15,7 +15,7 @@ import '../models/riwayat_model.dart';
 class MenuProvider extends GetxController {
   Future<Search> searchSemua(String keyword) async {
     final token =
-        "D3RfFBjBMeWjtpTrnAjvmJKVX9ffJpPDWpiIuNhZte2KnRPA130m3tS0j0WrsYPKRZvOcqFc0gkeeZNgCecFLpjOHeEolXyO4ZZvUOtUMV6wxG0YQ1oADmNOE7qTBNsyB2YVEWwCsPc2hjV3SseK6BUTSDggloxzfk73ugvtlwedKDEPNPhoXs9zZQcaz8I5oHeD3x5O";
+        "34dAe8IGojrALfKOewgH0eaR9y4Xsocvq9BwmUqhJhTONeL1e0NBmmW7FtBWIm9eK69abdoZKOqW8G7okMH1shBxN4C4bElWE06IseDiZRCVNR9vgwr0ky4s5oZhEY5lxusQh1FQ8mE8NLR8FXTSloi3GBMZ2KBX5ZBQuHK1QfCDnZvIZqj0wMQw3T15W1SIRFyiHsvY";
     final response = await http.get(
       Uri.parse(Api.semua + keyword), // Sesuaikan URL pencarian dengan API Anda
       headers: {
@@ -32,7 +32,7 @@ class MenuProvider extends GetxController {
 
   Future<Search> searchMakanan(String keyword) async {
     final token =
-        "D3RfFBjBMeWjtpTrnAjvmJKVX9ffJpPDWpiIuNhZte2KnRPA130m3tS0j0WrsYPKRZvOcqFc0gkeeZNgCecFLpjOHeEolXyO4ZZvUOtUMV6wxG0YQ1oADmNOE7qTBNsyB2YVEWwCsPc2hjV3SseK6BUTSDggloxzfk73ugvtlwedKDEPNPhoXs9zZQcaz8I5oHeD3x5O";
+        "34dAe8IGojrALfKOewgH0eaR9y4Xsocvq9BwmUqhJhTONeL1e0NBmmW7FtBWIm9eK69abdoZKOqW8G7okMH1shBxN4C4bElWE06IseDiZRCVNR9vgwr0ky4s5oZhEY5lxusQh1FQ8mE8NLR8FXTSloi3GBMZ2KBX5ZBQuHK1QfCDnZvIZqj0wMQw3T15W1SIRFyiHsvY";
     final response = await http.get(
       Uri.parse(Api.makanan + keyword),
       headers: {
@@ -50,7 +50,7 @@ class MenuProvider extends GetxController {
 
   Future<Search> searchMinuman(String keyword) async {
     final token =
-        "D3RfFBjBMeWjtpTrnAjvmJKVX9ffJpPDWpiIuNhZte2KnRPA130m3tS0j0WrsYPKRZvOcqFc0gkeeZNgCecFLpjOHeEolXyO4ZZvUOtUMV6wxG0YQ1oADmNOE7qTBNsyB2YVEWwCsPc2hjV3SseK6BUTSDggloxzfk73ugvtlwedKDEPNPhoXs9zZQcaz8I5oHeD3x5O";
+        "34dAe8IGojrALfKOewgH0eaR9y4Xsocvq9BwmUqhJhTONeL1e0NBmmW7FtBWIm9eK69abdoZKOqW8G7okMH1shBxN4C4bElWE06IseDiZRCVNR9vgwr0ky4s5oZhEY5lxusQh1FQ8mE8NLR8FXTSloi3GBMZ2KBX5ZBQuHK1QfCDnZvIZqj0wMQw3T15W1SIRFyiHsvY";
     final response = await http.get(
       Uri.parse(Api.minuman + keyword),
       headers: {
@@ -66,11 +66,11 @@ class MenuProvider extends GetxController {
     }
   }
 
-  Future<Riwayat> searchRiwayat(String keyword) async {
+  Future<Search> searchRiwayat(String keyword, String date) async {
     final token =
-        "D3RfFBjBMeWjtpTrnAjvmJKVX9ffJpPDWpiIuNhZte2KnRPA130m3tS0j0WrsYPKRZvOcqFc0gkeeZNgCecFLpjOHeEolXyO4ZZvUOtUMV6wxG0YQ1oADmNOE7qTBNsyB2YVEWwCsPc2hjV3SseK6BUTSDggloxzfk73ugvtlwedKDEPNPhoXs9zZQcaz8I5oHeD3x5O";
+        "34dAe8IGojrALfKOewgH0eaR9y4Xsocvq9BwmUqhJhTONeL1e0NBmmW7FtBWIm9eK69abdoZKOqW8G7okMH1shBxN4C4bElWE06IseDiZRCVNR9vgwr0ky4s5oZhEY5lxusQh1FQ8mE8NLR8FXTSloi3GBMZ2KBX5ZBQuHK1QfCDnZvIZqj0wMQw3T15W1SIRFyiHsvY";
     final response = await http.get(
-      Uri.parse(Api.riwayat + keyword),
+      Uri.parse("${Api.riwayat}?searchAll=$keyword&searcchDate=$date"),
       headers: {
         'Authorization':
             'Bearer $token', // Gantilah [TOKEN] dengan token yang sesuai
@@ -78,7 +78,7 @@ class MenuProvider extends GetxController {
     );
 
     if (response.statusCode == 200) {
-      return Riwayat.fromJson(jsonDecode(response.body));
+      return Search.fromJson(jsonDecode(response.body));
     } else {
       throw Exception('Gagal memuat data');
     }
@@ -86,7 +86,7 @@ class MenuProvider extends GetxController {
 
   Future<Search> fetchDataDiskon(String keyword) async {
     final token =
-        "D3RfFBjBMeWjtpTrnAjvmJKVX9ffJpPDWpiIuNhZte2KnRPA130m3tS0j0WrsYPKRZvOcqFc0gkeeZNgCecFLpjOHeEolXyO4ZZvUOtUMV6wxG0YQ1oADmNOE7qTBNsyB2YVEWwCsPc2hjV3SseK6BUTSDggloxzfk73ugvtlwedKDEPNPhoXs9zZQcaz8I5oHeD3x5O";
+        "34dAe8IGojrALfKOewgH0eaR9y4Xsocvq9BwmUqhJhTONeL1e0NBmmW7FtBWIm9eK69abdoZKOqW8G7okMH1shBxN4C4bElWE06IseDiZRCVNR9vgwr0ky4s5oZhEY5lxusQh1FQ8mE8NLR8FXTSloi3GBMZ2KBX5ZBQuHK1QfCDnZvIZqj0wMQw3T15W1SIRFyiHsvY";
     final response = await http.get(
       Uri.parse(Api.diskon + keyword),
       headers: {
@@ -104,7 +104,7 @@ class MenuProvider extends GetxController {
 
   Future<Penjualan> fetchDataPenjualanHariIni() async {
     final token =
-        "D3RfFBjBMeWjtpTrnAjvmJKVX9ffJpPDWpiIuNhZte2KnRPA130m3tS0j0WrsYPKRZvOcqFc0gkeeZNgCecFLpjOHeEolXyO4ZZvUOtUMV6wxG0YQ1oADmNOE7qTBNsyB2YVEWwCsPc2hjV3SseK6BUTSDggloxzfk73ugvtlwedKDEPNPhoXs9zZQcaz8I5oHeD3x5O";
+        "34dAe8IGojrALfKOewgH0eaR9y4Xsocvq9BwmUqhJhTONeL1e0NBmmW7FtBWIm9eK69abdoZKOqW8G7okMH1shBxN4C4bElWE06IseDiZRCVNR9vgwr0ky4s5oZhEY5lxusQh1FQ8mE8NLR8FXTSloi3GBMZ2KBX5ZBQuHK1QfCDnZvIZqj0wMQw3T15W1SIRFyiHsvY";
     final response = await http.get(
       Uri.parse(Api.penjualan_hari_ini),
       headers: {

@@ -1,7 +1,9 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_interpolation_to_compose_strings
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_interpolation_to_compose_strings, unnecessary_null_comparison, curly_braces_in_flow_control_structures, duplicate_ignore
 
 import 'package:dikantin/app/data/models/keranjang_model.dart';
+import 'package:dikantin/app/data/models/search_model.dart';
 import 'package:dikantin/app/data/providers/services.dart';
+import 'package:dikantin/app/modules/home/controllers/home_controller.dart';
 import 'package:dikantin/app/modules/keranjang/controllers/keranjang_controller.dart';
 import 'package:dikantin/app/modules/utils/formatDate.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +18,7 @@ import '../controllers/riwayat_controller.dart';
 class RiwayatView extends GetView<RiwayatController> {
   RiwayatView({Key? key}) : super(key: key);
   final RiwayatController riwayatController = Get.put(RiwayatController());
+  final HomeController homeController = Get.find<HomeController>();
   final TextEditingController searchController = TextEditingController();
 
   @override
@@ -52,6 +55,7 @@ class RiwayatView extends GetView<RiwayatController> {
         MediaQuery.of(context).padding.top;
     return Scaffold(
       appBar: app,
+      backgroundColor: Colors.white,
       body: RefreshIndicator(
         onRefresh: () async {
           await riwayatController.refreshData();
@@ -77,44 +81,141 @@ class RiwayatView extends GetView<RiwayatController> {
             //     ),
             //   ),
             // ),
-            Container(
-              margin: EdgeInsets.fromLTRB(30, 15, 30, 15),
-              decoration: BoxDecoration(
-                  border: Border.all(color: Color(0xFF969696), width: 1.5),
-                  borderRadius: const BorderRadius.all(
-                    Radius.circular(14.0),
-                  )),
-              child: Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Icon(
-                      Icons.search,
-                      color: Color(0xFF969696),
+            // Container(
+            //   margin: EdgeInsets.fromLTRB(30, 15, 30, 15),
+            //   decoration: BoxDecoration(
+            //       border: Border.all(color: Color(0xFF969696), width: 1.5),
+            //       borderRadius: const BorderRadius.all(
+            //         Radius.circular(14.0),
+            //       )),
+            //   child: Row(
+            //     children: [
+            //       Padding(
+            //         padding: const EdgeInsets.all(8.0),
+            //         child: Icon(
+            //           Icons.search,
+            //           color: Color(0xFF969696),
+            //         ),
+            //       ),
+            //       Expanded(
+            //           child: TextFormField(
+            //         controller: searchController,
+            //         initialValue: null,
+            //         onChanged: (text) {
+            //           controller
+            //               .search(text); // Trigger the search as the user types
+            //         },
+            //         decoration: InputDecoration.collapsed(
+            //           filled: true,
+            //           fillColor: Colors.transparent,
+            //           hintText: "Cari Disini..",
+            //           hintStyle: TextStyle(
+            //               color: Colors.grey[500], fontFamily: 'Mulish'),
+            //           hoverColor: Colors.transparent,
+            //         ),
+            //         onFieldSubmitted: (value) {
+            //           // Get.to(() => searchBuku(keywords: search.toString()));
+            //         },
+            //       ))
+            //     ],
+            //   ),
+            // ),
+
+            Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Expanded(
+                  flex: 3,
+                  child: Container(
+                    margin: EdgeInsets.fromLTRB(25, 15, 25, 15),
+                    decoration: BoxDecoration(
+                        border:
+                            Border.all(color: Color(0xFF969696), width: 1.5),
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(14.0),
+                        )),
+                    child: Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Icon(
+                            Icons.search,
+                            color: Color(0xFF969696),
+                          ),
+                        ),
+                        Expanded(
+                            child: TextFormField(
+                          controller: searchController,
+                          initialValue: null,
+                          onChanged: (text) {
+                            // controller.search(
+                            //     text); // Trigger the search as the user types
+                          },
+                          decoration: InputDecoration.collapsed(
+                            filled: true,
+                            fillColor: Colors.transparent,
+                            hintText: "Cari Disini..",
+                            hintStyle: TextStyle(
+                                color: Colors.grey[500], fontFamily: 'Mulish'),
+                            hoverColor: Colors.transparent,
+                          ),
+                          onFieldSubmitted: (value) {
+                            // Get.to(() => searchBuku(keywords: search.toString()));
+                          },
+                        ))
+                      ],
                     ),
                   ),
-                  Expanded(
-                      child: TextFormField(
-                    controller: searchController,
-                    initialValue: null,
-                    onChanged: (text) {
-                      controller
-                          .search(text); // Trigger the search as the user types
-                    },
-                    decoration: InputDecoration.collapsed(
-                      filled: true,
-                      fillColor: Colors.transparent,
-                      hintText: "Cari Disini..",
-                      hintStyle: TextStyle(
-                          color: Colors.grey[500], fontFamily: 'Mulish'),
-                      hoverColor: Colors.transparent,
-                    ),
-                    onFieldSubmitted: (value) {
-                      // Get.to(() => searchBuku(keywords: search.toString()));
-                    },
-                  ))
-                ],
-              ),
+                ),
+                Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(0, 0, 25, 0),
+                    child: Obx(() {
+                      if (riwayatController.selectedDate.value != null) {
+                        return Ink(
+                          decoration: BoxDecoration(
+                            color: Colors.blue,
+                            borderRadius: BorderRadius.all(Radius.circular(9)),
+                          ),
+                          child: IconButton.filled(
+                            padding: EdgeInsets.zero,
+                            onPressed: () {
+                              controller.chooseDate();
+                              // homeController.removeFromCart(menuData);
+                            },
+                            iconSize: mediaBody * 0.001,
+                            icon: const Icon(
+                              Icons.edit_calendar_rounded,
+                              color: Colors.white,
+                              size: 24,
+                            ),
+                          ),
+                        );
+                        // ignore: curly_braces_in_flow_control_structures
+                      } else {
+                        return Ink(
+                          decoration: BoxDecoration(
+                            color: Colors.blue,
+                            borderRadius: BorderRadius.all(Radius.circular(9)),
+                          ),
+                          child: IconButton.filled(
+                            padding: EdgeInsets.zero,
+                            onPressed: () {
+                              riwayatController.deleteDate();
+                              // homeController.removeFromCart(menuData);
+                            },
+                            iconSize: mediaBody * 0.001,
+                            icon: const Icon(
+                              Icons.close_outlined,
+                              color: Colors.white,
+                              size: 24,
+                            ),
+                          ),
+                        );
+                      }
+                      ;
+                    })),
+              ],
             ),
             Container(
               margin: EdgeInsets.only(left: 30),
@@ -185,6 +286,7 @@ class RiwayatView extends GetView<RiwayatController> {
                     itemCount: riwayatController.searchResults.length,
                     itemBuilder: (context, index) {
                       final menuData = riwayatController.searchResults[index];
+                      // final dataRiwayat = homeController.searchResults[index];
                       final harga = menuData.harga ?? 0;
                       String? tanggal = menuData.createdAt;
                       DateTime createdDate = DateTime.parse(
@@ -458,37 +560,80 @@ class RiwayatView extends GetView<RiwayatController> {
                                         ],
                                       ),
                                     ),
-                                    Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            0, 0, 15, 0),
-                                        child: TextButton(
-                                          onPressed: () {
-                                            print('Button pressed ...');
-                                            KeranjangController()
-                                                .addToCart(menuData.nama ?? '');
-                                          },
-                                          style: TextButton.styleFrom(
-                                            backgroundColor: Color.fromARGB(
-                                                208, 107, 159, 255),
-                                            padding: EdgeInsets.symmetric(
-                                                horizontal: 20),
-                                            side: BorderSide(
-                                                color: Colors.transparent,
-                                                width: 1),
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                            ),
-                                          ),
-                                          child: Text(
-                                            'Pesan Lagi',
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.w500,
-                                            ),
-                                          ),
-                                        )),
+                                    Obx(
+                                      () => homeController.cartList
+                                              .contains(menuData)
+                                          ? Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(0, 0, 15, 0),
+                                              child: TextButton(
+                                                onPressed: () {
+                                                  print('Button pressed ...');
+                                                  homeController
+                                                      .removeFromCart(menuData);
+                                                  // KeranjangController()
+                                                  //     .addToCart(menuData.nama ?? '');
+                                                },
+                                                style: TextButton.styleFrom(
+                                                  backgroundColor:
+                                                      Color.fromARGB(
+                                                          208, 184, 209, 255),
+                                                  padding: EdgeInsets.symmetric(
+                                                      horizontal: 20),
+                                                  side: BorderSide(
+                                                      color: Colors.transparent,
+                                                      width: 1),
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10),
+                                                  ),
+                                                ),
+                                                child: Text(
+                                                  'Batalkan',
+                                                  style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 14,
+                                                    fontWeight: FontWeight.w500,
+                                                  ),
+                                                ),
+                                              ))
+                                          : Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(0, 0, 15, 0),
+                                              child: TextButton(
+                                                onPressed: () {
+                                                  print(menuData);
+                                                  homeController
+                                                      .addToCart(menuData);
+                                                  // KeranjangController()
+                                                  //     .addToCart(menuData.nama ?? '');
+                                                },
+                                                style: TextButton.styleFrom(
+                                                  backgroundColor:
+                                                      Color.fromARGB(
+                                                          208, 107, 159, 255),
+                                                  padding: EdgeInsets.symmetric(
+                                                      horizontal: 20),
+                                                  side: BorderSide(
+                                                      color: Colors.transparent,
+                                                      width: 1),
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10),
+                                                  ),
+                                                ),
+                                                child: Text(
+                                                  'Pesan Lagi',
+                                                  style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 14,
+                                                    fontWeight: FontWeight.w500,
+                                                  ),
+                                                ),
+                                              )),
+                                    )
                                   ],
                                 ),
                               ],

@@ -1,15 +1,15 @@
 class Riwayat {
-  List<Data>? data;
+  List<DataRiwayat>? dataRiwayat;
   int? code;
   bool? status;
 
-  Riwayat({this.data, this.code, this.status});
+  Riwayat({this.dataRiwayat, this.code, this.status});
 
   Riwayat.fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {
-      data = <Data>[];
+      dataRiwayat = <DataRiwayat>[];
       json['data'].forEach((v) {
-        data?.add(Data.fromJson(v));
+        dataRiwayat?.add(DataRiwayat.fromJson(v));
       });
     }
     code = json['code'];
@@ -19,8 +19,8 @@ class Riwayat {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = {};
 
-    if (this.data != null) {
-      data['data'] = this.data?.map((v) => v.toJson()).toList();
+    if (this.dataRiwayat != null) {
+      data['data'] = this.dataRiwayat?.map((v) => v.toJson()).toList();
     }
     data['code'] = this.code;
     data['status'] = this.status;
@@ -29,7 +29,7 @@ class Riwayat {
   }
 }
 
-class Data {
+class DataRiwayat {
   int? idMenu;
   String? nama;
   int? harga;
@@ -43,7 +43,7 @@ class Data {
   String? createdAt;
   String? updatedAt;
 
-  Data(
+  DataRiwayat(
       {this.idMenu,
       this.nama,
       this.harga,
@@ -57,7 +57,7 @@ class Data {
       this.createdAt,
       this.updatedAt});
 
-  Data.fromJson(Map<String, dynamic> json) {
+  DataRiwayat.fromJson(Map<String, dynamic> json) {
     idMenu = json['id_menu'];
     nama = json['nama'];
     harga = json['harga'];

@@ -207,6 +207,7 @@ class _SemuaState extends State<Semua> {
                                                       },
                                                       iconSize: 18,
                                                       icon: const Icon(
+                                                          color: Colors.white,
                                                           Icons.remove),
                                                     ),
                                                   ),
@@ -227,8 +228,9 @@ class _SemuaState extends State<Semua> {
                                                                 menuData);
                                                       },
                                                       iconSize: 18,
-                                                      icon:
-                                                          const Icon(Icons.add),
+                                                      icon: const Icon(
+                                                          color: Colors.white,
+                                                          Icons.add),
                                                     ),
                                                   ),
                                                 ))

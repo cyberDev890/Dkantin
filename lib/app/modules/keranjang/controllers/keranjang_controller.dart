@@ -16,30 +16,6 @@ class KeranjangController extends GetxController {
 
   List<DataKeranjang> get cartItem => cartItems;
 
-  void addToCart(String productName) {
-    print(productName);
-
-    // Cek apakah produk dengan nama yang sama sudah ada di keranjang
-    if (cartItems.contains(productName)) {
-      print('ada produk');
-      // Produk ada di keranjang
-      final itemIndex = cartItems.indexOf(productName);
-
-      // print('object');
-      // Jika produk sudah ada di keranjang, tambahkan jumlahnya
-      // cartItems[itemIndex].qty += quantity;
-    } else {
-      print('no produk');
-      // Produk tidak ada di keranjang
-      dataKeranjang = DataKeranjang(
-        nama: productName,
-        // qty: quantity,
-      );
-      cartItems.value.add(dataKeranjang);
-      // update();
-    }
-  }
-
   // Fungsi untuk menghapus produk dari keranjang
   void removeFromCart(String productName) {
     cartItems.removeWhere((item) => item.nama == productName);
@@ -68,7 +44,6 @@ class KeranjangController extends GetxController {
   void onInit() {
     super.onInit();
     // search('');
-    print(cartItems.length);
   }
 
   @override

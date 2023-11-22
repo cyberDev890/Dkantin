@@ -1,6 +1,6 @@
 class Api {
-  static const koneksi = "https://9490-118-99-83-53.ngrok-free.app/api";
-  static const gambar = "https://9490-118-99-83-53.ngrok-free.app/";
+  static const koneksi = "https://dee1-103-109-209-254.ngrok-free.app/api";
+  static const gambar = "https://dee1-103-109-209-254.ngrok-free.app/";
   static const signUp = "$koneksi/nama_pathnya";
   static const signIn = "$koneksi/nama_pathnya";
   static const profile = "$koneksi/nama_pathnya";
