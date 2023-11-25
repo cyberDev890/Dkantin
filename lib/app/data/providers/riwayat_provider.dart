@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:dikantin/app/data/models/search_model.dart';
+import 'package:dikantin/app/data/providers/services.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 

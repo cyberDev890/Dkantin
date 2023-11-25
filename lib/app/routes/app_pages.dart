@@ -1,5 +1,9 @@
 import 'package:get/get.dart';
 
+import '../modules/detailTransaksi/bindings/detail_transaksi_binding.dart';
+import '../modules/detailTransaksi/views/detail_transaksi_view.dart';
+import '../modules/forgotPassword/bindings/forgot_password_binding.dart';
+import '../modules/forgotPassword/views/forgot_password_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/keranjang/bindings/keranjang_binding.dart';
@@ -8,21 +12,31 @@ import '../modules/login/bindings/login_binding.dart';
 import '../modules/login/views/login_view.dart';
 import '../modules/navigation/bindings/navigation_binding.dart';
 import '../modules/navigation/views/navigation_view.dart';
+import '../modules/onBoarding/bindings/on_boarding_binding.dart';
+import '../modules/onBoarding/views/on_boarding_view.dart';
 import '../modules/order/bindings/order_binding.dart';
 import '../modules/order/views/order_view.dart';
+import '../modules/otpPage/bindings/otp_page_binding.dart';
+import '../modules/otpPage/views/otp_page_view.dart';
 import '../modules/pesanan/bindings/pesanan_binding.dart';
 import '../modules/pesanan/views/pesanan_view.dart';
 import '../modules/profile/bindings/profile_binding.dart';
 import '../modules/profile/views/profile_view.dart';
+import '../modules/register/bindings/register_binding.dart';
+import '../modules/register/views/register_view.dart';
 import '../modules/riwayat/bindings/riwayat_binding.dart';
 import '../modules/riwayat/views/riwayat_view.dart';
+import '../modules/splash/bindings/splash_binding.dart';
+import '../modules/splash/views/splash_view.dart';
+import '../modules/ubahPassword/bindings/ubah_password_binding.dart';
+import '../modules/ubahPassword/views/ubah_password_view.dart';
 
 part 'app_routes.dart';
 
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.NAVIGATION;
+  static const INITIAL = Routes.FORGOT_PASSWORD;
 
   static final routes = [
     GetPage(
@@ -64,6 +78,41 @@ class AppPages {
       name: _Paths.ORDER,
       page: () => const OrderView(),
       binding: OrderBinding(),
+    ),
+    GetPage(
+      name: _Paths.REGISTER,
+      page: () => const RegisterView(),
+      binding: RegisterBinding(),
+    ),
+    GetPage(
+      name: _Paths.SPLASH,
+      page: () => const SplashView(),
+      binding: SplashBinding(),
+    ),
+    GetPage(
+      name: _Paths.DETAIL_TRANSAKSI,
+      page: () => DetailTransaksiView(),
+      binding: DetailTransaksiBinding(),
+    ),
+    GetPage(
+      name: _Paths.ON_BOARDING,
+      page: () => const OnBoardingView(),
+      binding: OnBoardingBinding(),
+    ),
+    GetPage(
+      name: _Paths.FORGOT_PASSWORD,
+      page: () => const ForgotPasswordView(),
+      binding: ForgotPasswordBinding(),
+    ),
+    GetPage(
+      name: _Paths.OTP_PAGE,
+      page: () => const OtpPageView(),
+      binding: OtpPageBinding(),
+    ),
+    GetPage(
+      name: _Paths.UBAH_PASSWORD,
+      page: () => const UbahPasswordView(),
+      binding: UbahPasswordBinding(),
     ),
   ];
 }

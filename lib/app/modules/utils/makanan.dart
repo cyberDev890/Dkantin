@@ -141,7 +141,7 @@ class _MakananState extends State<Makanan> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Container(
-                                    height: 120,
+                                    height: 110,
                                     alignment: Alignment.topRight,
                                     width: double.infinity,
                                     padding: const EdgeInsets.all(8),

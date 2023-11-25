@@ -203,7 +203,7 @@ class _FavoriteState extends State<Favorite> {
               FutureBuilder(
                 future: homeController.fetchDataPenjualan(),
                 builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting ) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
                     return Shimmer.fromColors(
                       baseColor: Color(baseColorHex),
                       highlightColor: Color(highlightColorHex),
@@ -263,7 +263,14 @@ class _FavoriteState extends State<Favorite> {
                         ),
                       ),
                     );
-                  } else if (homeController.penjualan.data!.isEmpty ) {
+                  } else if (homeController.penjualan.data == null) {
+                    return Container(
+                        height: mediaHeight * 0.25,
+                        child: Center(
+                          child: Lottie.asset('assets/animation_lokcom8c.json',
+                              repeat: false),
+                        ));
+                  } else if (homeController.penjualan.data!.isEmpty) {
                     return Container(
                         height: mediaHeight * 0.25,
                         child: Center(

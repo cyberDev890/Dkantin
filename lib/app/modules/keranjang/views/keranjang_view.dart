@@ -301,7 +301,8 @@ class KeranjangView extends GetView<KeranjangController> {
                           ),
                         ),
                         onPressed: () {
-                          Get.to(OrderView());
+                          Get.to(OrderView(),
+                              arguments: homeController.cartList);
                         },
                         child: Text("Pesan Sekarang",
                             style: GoogleFonts.poppins(

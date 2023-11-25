@@ -1,21 +1,19 @@
 // ignore_for_file: unused_import
 
 import 'dart:convert';
-
 import 'package:dikantin/app/data/providers/services.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
-
-import '../models/menu_diskon_model.dart';
-import '../models/menu_model.dart';
 import '../models/penjualan_model.dart';
 import '../models/search_model.dart';
 import '../models/riwayat_model.dart';
 
 class MenuProvider extends GetxController {
   Future<Search> searchSemua(String keyword) async {
-    final token =
-        "34dAe8IGojrALfKOewgH0eaR9y4Xsocvq9BwmUqhJhTONeL1e0NBmmW7FtBWIm9eK69abdoZKOqW8G7okMH1shBxN4C4bElWE06IseDiZRCVNR9vgwr0ky4s5oZhEY5lxusQh1FQ8mE8NLR8FXTSloi3GBMZ2KBX5ZBQuHK1QfCDnZvIZqj0wMQw3T15W1SIRFyiHsvY";
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString('token');
+
     final response = await http.get(
       Uri.parse(Api.semua + keyword), // Sesuaikan URL pencarian dengan API Anda
       headers: {
@@ -31,8 +29,8 @@ class MenuProvider extends GetxController {
   }
 
   Future<Search> searchMakanan(String keyword) async {
-    final token =
-        "34dAe8IGojrALfKOewgH0eaR9y4Xsocvq9BwmUqhJhTONeL1e0NBmmW7FtBWIm9eK69abdoZKOqW8G7okMH1shBxN4C4bElWE06IseDiZRCVNR9vgwr0ky4s5oZhEY5lxusQh1FQ8mE8NLR8FXTSloi3GBMZ2KBX5ZBQuHK1QfCDnZvIZqj0wMQw3T15W1SIRFyiHsvY";
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString('token');
     final response = await http.get(
       Uri.parse(Api.makanan + keyword),
       headers: {
@@ -49,8 +47,8 @@ class MenuProvider extends GetxController {
   }
 
   Future<Search> searchMinuman(String keyword) async {
-    final token =
-        "34dAe8IGojrALfKOewgH0eaR9y4Xsocvq9BwmUqhJhTONeL1e0NBmmW7FtBWIm9eK69abdoZKOqW8G7okMH1shBxN4C4bElWE06IseDiZRCVNR9vgwr0ky4s5oZhEY5lxusQh1FQ8mE8NLR8FXTSloi3GBMZ2KBX5ZBQuHK1QfCDnZvIZqj0wMQw3T15W1SIRFyiHsvY";
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString('token');
     final response = await http.get(
       Uri.parse(Api.minuman + keyword),
       headers: {
@@ -85,8 +83,8 @@ class MenuProvider extends GetxController {
   }
 
   Future<Search> fetchDataDiskon(String keyword) async {
-    final token =
-        "34dAe8IGojrALfKOewgH0eaR9y4Xsocvq9BwmUqhJhTONeL1e0NBmmW7FtBWIm9eK69abdoZKOqW8G7okMH1shBxN4C4bElWE06IseDiZRCVNR9vgwr0ky4s5oZhEY5lxusQh1FQ8mE8NLR8FXTSloi3GBMZ2KBX5ZBQuHK1QfCDnZvIZqj0wMQw3T15W1SIRFyiHsvY";
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString('token');
     final response = await http.get(
       Uri.parse(Api.diskon + keyword),
       headers: {
@@ -103,8 +101,8 @@ class MenuProvider extends GetxController {
   }
 
   Future<Penjualan> fetchDataPenjualanHariIni() async {
-    final token =
-        "34dAe8IGojrALfKOewgH0eaR9y4Xsocvq9BwmUqhJhTONeL1e0NBmmW7FtBWIm9eK69abdoZKOqW8G7okMH1shBxN4C4bElWE06IseDiZRCVNR9vgwr0ky4s5oZhEY5lxusQh1FQ8mE8NLR8FXTSloi3GBMZ2KBX5ZBQuHK1QfCDnZvIZqj0wMQw3T15W1SIRFyiHsvY";
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString('token');
     final response = await http.get(
       Uri.parse(Api.penjualan_hari_ini),
       headers: {
@@ -118,5 +116,49 @@ class MenuProvider extends GetxController {
     } else {
       throw Exception('Gagal memuat data');
     }
+  }
+
+  Future<http.Response> postOrder(List<Datasearch> cartList,
+      Map<String, dynamic> detailOrderan, Map<int, int> itemQuantities) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString('token');
+    var url = Uri.parse(Api.transaksi); // Pastikan ini adalah URL yang benar
+
+    var headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $token',
+    };
+
+    List<Map<String, dynamic>> orderanData = cartList.map((item) {
+      final int quantity = itemQuantities[item.idMenu!] ?? 1;
+      final num discountAmount = item.diskon != null
+          ? (item.harga! * item.diskon! / 100) * quantity
+          : 0;
+      final num totalPrice = (item.harga! * quantity) - discountAmount;
+      return {
+        "kode_menu": item.idMenu,
+        "qty_barang": quantity,
+        "total_harga_barang": totalPrice,
+      };
+    }).toList();
+
+    Map<String, dynamic> body = {
+      "detail_orderan": detailOrderan,
+      "orderan": orderanData,
+    };
+
+    var response = await http.post(
+      url,
+      headers: headers,
+      body: json.encode(body),
+    );
+
+    if (response.statusCode != 200) {
+      // Jika status code bukan 200, cetak body untuk debugging
+      print('Request failed with status: ${response.statusCode}.');
+      print('Response body: ${response.body}');
+    }
+
+    return response;
   }
 }
