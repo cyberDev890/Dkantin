@@ -51,15 +51,13 @@ class PesananView extends GetView<PesananController> {
               child: badges.Badge(
                 showBadge: true,
                 badgeAnimation: badges.BadgeAnimation.slide(),
-                badgeContent: Obx(() {
-                  return Text(
-                    pesananController.orderProses.length.toString(),
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 12,
-                    ),
-                  );
-                }),
+                badgeContent: Text(
+                  "0",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 12,
+                  ),
+                ),
                 position: badges.BadgePosition.topEnd(top: -10, end: -15),
                 badgeStyle: badges.BadgeStyle(
                   shape: badges.BadgeShape.circle,
@@ -74,16 +72,13 @@ class PesananView extends GetView<PesananController> {
               child: badges.Badge(
                 showBadge: true,
                 badgeAnimation: badges.BadgeAnimation.slide(),
-                badgeContent: Obx(() {
-                  // Update the badgeContent to display the total menus for "Diproses"
-                  return Text(
-                    pesananController.orderDikirim.length.toString(),
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 12,
-                    ),
-                  );
-                }),
+                badgeContent: Text(
+                  "0",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 12,
+                  ),
+                ),
                 position: badges.BadgePosition.topEnd(top: -10, end: -15),
                 badgeStyle: badges.BadgeStyle(
                   shape: badges.BadgeShape.circle,
@@ -98,15 +93,13 @@ class PesananView extends GetView<PesananController> {
               child: badges.Badge(
                 showBadge: true,
                 badgeAnimation: badges.BadgeAnimation.slide(),
-                badgeContent: Obx(() {
-                  return Text(
-                    pesananController.orderDiterima.length.toString(),
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 12,
-                    ),
-                  );
-                }),
+                badgeContent: Text(
+                  "0",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 12,
+                  ),
+                ),
                 position: badges.BadgePosition.topEnd(top: -12, end: -15),
                 badgeStyle: badges.BadgeStyle(
                   shape: badges.BadgeShape.circle,

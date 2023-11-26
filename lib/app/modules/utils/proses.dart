@@ -95,6 +95,8 @@ class _ProsesState extends State<Proses> {
                 child: Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: Card(
+                      key: ValueKey(
+                          orderData.transaksi?.kodeTr), // Gunakan key unik
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(
                             10.0), // Sesuaikan dengan radius yang diinginkan
@@ -206,7 +208,13 @@ class _ProsesState extends State<Proses> {
                                                 BorderRadius.circular(10.0),
                                           ),
                                         ),
-                                        onPressed: () {},
+                                        onPressed: () async {
+                                          await controller.batalkanPesanan(
+                                              orderData.transaksi!.kodeTr
+                                                  .toString());
+                                          print(orderData.transaksi!.kodeTr
+                                              .toString());
+                                        },
                                         child: Text(
                                           "Batalkan Pesanan",
                                           style: GoogleFonts.poppins(
