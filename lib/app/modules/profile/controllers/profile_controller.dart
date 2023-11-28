@@ -5,11 +5,13 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../data/providers/customer_provider.dart';
+
 class ProfileController extends GetxController {
-  //TODO: Implement ProfileController
   final ProfileProvider provider = ProfileProvider().obs();
-  final CustomerProvider _customerProvider = CustomerProvider().obs();
   final ProfileImageProvider imageProvider = ProfileImageProvider().obs();
+  final customerProvider = CustomerProvider().obs; 
+
   RxBool isImageUploading = false.obs;
   RxBool isLoading = true.obs;
   Rx<Customer> customer = Customer().obs;
@@ -18,6 +20,7 @@ class ProfileController extends GetxController {
   var emailController = TextEditingController();
   var phoneNumberController = TextEditingController();
   var addressController = TextEditingController();
+
   final count = 0.obs;
   @override
   void onInit() {
@@ -44,6 +47,15 @@ class ProfileController extends GetxController {
     Get.offAllNamed('/login');
   }
 
+
+  Future<void> editCustomer(String alamat) async {
+    try {
+      await customerProvider.value.editAlamat(alamat);
+      update();
+    } catch (error) {
+      print('Error saat membatalkan pesanan: $error');
+    }
+  }
   Future<void> clearSharedPreferences() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.clear();
@@ -111,7 +123,7 @@ class ProfileController extends GetxController {
       isLoading(true);
 
       // Call the getCustomer method from CustomerProvider
-      Customer result = await _customerProvider.getCustomer();
+      Customer result = await customerProvider.value.getCustomer();
 
       // Update the customer data
       customer(result);

@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 
 import '../modules/detailTransaksi/bindings/detail_transaksi_binding.dart';
 import '../modules/detailTransaksi/views/detail_transaksi_view.dart';
+
 import '../modules/forgotPassword/bindings/forgot_password_binding.dart';
 import '../modules/forgotPassword/views/forgot_password_view.dart';
 import '../modules/home/bindings/home_binding.dart';
@@ -36,7 +37,7 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.FORGOT_PASSWORD;
+  static const INITIAL = Routes.LOGIN;
 
   static final routes = [
     GetPage(

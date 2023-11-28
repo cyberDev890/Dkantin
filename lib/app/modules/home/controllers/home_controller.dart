@@ -1,23 +1,27 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../data/models/menu_diskon_model.dart';
 import '../../../data/models/penjualan_model.dart';
 import '../../../data/models/search_model.dart';
 import '../../../data/providers/menu_provider.dart';
+import '../../profile/controllers/profile_controller.dart';
 
 class HomeController extends GetxController with GetTickerProviderStateMixin {
-  //TODO: Implement HomeController
+  final ProfileController profileController = Get.put(ProfileController());
+  late AnimationController animationController;
   late AnimationController _controller;
   late TabController tabController; // Tambahkan variabel TabController
   final searchResults = <Datasearch>[].obs;
   final menuProvider = MenuProvider().obs;
   late Penjualan penjualan = Penjualan();
   var cartList = <Datasearch>[].obs;
+  var penjualanD = <Data>[].obs;
   var itemQuantities = <int, int>{}.obs;
   final isLoading = false.obs; // Tambahkan isLoading
+  final isCashSelected = true.obs;
+  final isPolijePaySelected = false
+      .obs; // Digunakan untuk memantau apakah metode pembayaran Polije Pay dipilih
+
 // Menghitung total harga dari semua item di keranjang, termasuk kuantitas dan diskon
   int get totalPrice {
     int total = 0;
@@ -58,6 +62,10 @@ class HomeController extends GetxController with GetTickerProviderStateMixin {
     _controller = AnimationController(
       vsync: this,
       duration: Duration(seconds: 1),
+    );
+    animationController = AnimationController(
+      duration: Duration(milliseconds: 500), // Sesuaikan durasi animasi
+      vsync: this,
     );
     tabController = TabController(length: 4, vsync: this);
     fetchDataDiskon('');
@@ -149,14 +157,14 @@ class HomeController extends GetxController with GetTickerProviderStateMixin {
 
   Future<void> fetchDataPenjualan() async {
     try {
-      setLoading(
-          true); // Set isLoading menjadi true saat pemanggilan API dimulai
-      penjualan = await menuProvider.value.fetchDataPenjualanHariIni();
-    } catch (e) {
-      print('Error: $e');
-    } finally {
-      setLoading(
-          false); // Set isLoading menjadi false saat pemanggilan API selesai
+      isLoading(true);
+      final result = await menuProvider.value.fetchDataPenjualanHariIni();
+      penjualan = result;
+      penjualanD.assignAll(result.data!);
+      isLoading(false);
+    } catch (error) {
+      isLoading(false);
+      print('Error fetching data: $error');
     }
   }
 
@@ -171,28 +179,16 @@ class HomeController extends GetxController with GetTickerProviderStateMixin {
 
   Future<void> submitOrder() async {
     setLoading(true); // Menampilkan indikator loading
-    String generateRandomString({int length = 100}) {
-      const chars =
-          'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-      final random = Random();
-      final result = StringBuffer();
-
-      for (int i = 0; i < length; i++) {
-        result.write(chars[random.nextInt(chars.length)]);
-      }
-
-      return result.toString();
-    }
-
-    final String buktiPengiriman =
-        generateRandomString(); // Fungsi ini harus Anda buat
+    String paymentMethod = isCashSelected.value
+        ? "cash"
+        : isPolijePaySelected.value
+            ? "polijepay"
+            : "Unknown Payment Method";
     Map<String, dynamic> detailOrderan = {
-      "id_customer": "CUST98273",
-      "id_kurir": "323423",
       "total_harga": totalPrice,
       "total_bayar": totalPrice,
       "kembalian": 0,
-      "model_pembayaran": "cash"
+      "model_pembayaran": paymentMethod
     };
 
     try {

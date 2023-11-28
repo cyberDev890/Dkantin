@@ -9,8 +9,7 @@ class ProfileView extends GetView<ProfileController> {
   const ProfileView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    final ProfileController profileController =
-        Get.put(ProfileController()).obs();
+    final ProfileController profileController = Get.find<ProfileController>();
     final mediaHeight = MediaQuery.of(context).size.height;
     final mediaWidth = MediaQuery.of(context).size.width;
     final bottomNavBarHeight = MediaQuery.of(context).padding.bottom;
@@ -90,7 +89,7 @@ class ProfileView extends GetView<ProfileController> {
                               ElevatedButton(
                                 child: Text('Tidak'),
                                 onPressed: () {
-                                  Navigator.pop(context);
+                                  Get.back();
                                 },
                                 style: ElevatedButton.styleFrom(
                                   shape: RoundedRectangleBorder(
@@ -136,6 +135,7 @@ class ProfileView extends GetView<ProfileController> {
                         backgroundColor: Colors.transparent,
                         backgroundImage:
                             profileController.customer.value.data?.foto != null
+                                // ignore: dead_code
                                 ? NetworkImage(
                                     Api.gambar +
                                         profileController
@@ -195,9 +195,9 @@ class ProfileView extends GetView<ProfileController> {
               padding: const EdgeInsets.only(left: 30.0, right: 25, top: 10),
               child: Obx(
                 () => TextField(
-                  controller: profileController.fullNameController,
+                  controller: profileController.fullNameController
+                    ..text = profileController.customer.value.data?.nama ?? '',
                   decoration: InputDecoration(
-                    hintText: profileController.customer.value.data?.nama ?? '',
                     contentPadding:
                         EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
                     border: OutlineInputBorder(
@@ -206,7 +206,7 @@ class ProfileView extends GetView<ProfileController> {
                     ),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10.0),
-                      borderSide: BorderSide(color: Colors.black),
+                      borderSide: BorderSide(color: const Color.fromARGB(255, 126, 70, 70)),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10.0),
@@ -243,10 +243,9 @@ class ProfileView extends GetView<ProfileController> {
               padding: const EdgeInsets.only(left: 30.0, right: 25, top: 10),
               child: Obx(
                 () => TextField(
-                  controller: profileController.emailController,
+                  controller: profileController.emailController
+                    ..text = profileController.customer.value.data?.email ?? '',
                   decoration: InputDecoration(
-                    hintText:
-                        profileController.customer.value.data?.email ?? '',
                     contentPadding:
                         EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
                     border: OutlineInputBorder(
@@ -297,11 +296,11 @@ class ProfileView extends GetView<ProfileController> {
               padding: const EdgeInsets.only(left: 30.0, right: 25, top: 10),
               child: Obx(
                 () => TextField(
-                  controller: profileController.phoneNumberController,
+                  controller: profileController.phoneNumberController
+                    ..text =
+                        profileController.customer.value.data?.noTelepon ?? '',
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
-                    hintText:
-                        profileController.customer.value.data?.noTelepon ?? '',
                     contentPadding:
                         EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
                     border: OutlineInputBorder(
@@ -352,13 +351,13 @@ class ProfileView extends GetView<ProfileController> {
               padding: const EdgeInsets.only(left: 30.0, right: 25, top: 10),
               child: Obx(
                 () => TextField(
-                  controller: profileController.addressController,
+                  controller: profileController.addressController
+                    ..text =
+                        profileController.customer.value.data?.alamat ?? '',
                   maxLines: null, // Memungkinkan input lebih dari satu baris
                   decoration: InputDecoration(
                     filled: true,
                     fillColor: Colors.grey[200], // Atur warna latar belakang
-                    hintText:
-                        profileController.customer.value.data?.alamat ?? '',
                     hintStyle: TextStyle(
                         color: Colors.black54,
                         fontSize: 12), // Atur warna teks hintText

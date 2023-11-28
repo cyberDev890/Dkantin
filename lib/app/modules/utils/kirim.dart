@@ -52,7 +52,7 @@ class _KirimState extends State<Kirim> {
                 height: mediaHeight,
                 child: ListView.builder(
                     itemCount: 5,
-                    physics: NeverScrollableScrollPhysics(),
+                    physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     itemBuilder: (BuildContext context, index) {
                       return Padding(
@@ -83,14 +83,14 @@ class _KirimState extends State<Kirim> {
         } else {
           return ListView.builder(
             itemCount: controller.pesananDikirim.data!.length,
-            physics: NeverScrollableScrollPhysics(),
+            physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
             itemBuilder: (BuildContext context, int index) {
               final orderData = controller.pesananDikirim.data![index];
               final totalHarga = orderData.transaksi!.totalHarga ?? 0;
               return GestureDetector(
                 onTap: () {
-                  Get.to(DetailTransaksiView(),
+                  Get.to(const DetailTransaksiView(),
                       arguments: orderData.transaksi?.kodeTr);
                 },
                 child: Padding(
@@ -105,7 +105,7 @@ class _KirimState extends State<Kirim> {
                       child: Column(
                         children: [
                           ListTile(
-                            leading: CircleAvatar(
+                            leading: const CircleAvatar(
                               backgroundImage: NetworkImage(
                                 "https://i.ibb.co/PGv8ZzG/me.jpg",
                               ),
@@ -113,7 +113,7 @@ class _KirimState extends State<Kirim> {
                             title: Text(
                               "#${orderData.transaksi!.kodeTr.toString()}",
                               style: GoogleFonts.poppins(
-                                  textStyle: TextStyle(
+                                  textStyle: const TextStyle(
                                       fontSize: 14,
                                       color: Colors.black,
                                       fontWeight: FontWeight.bold)),
@@ -121,13 +121,13 @@ class _KirimState extends State<Kirim> {
                             subtitle: Text(
                               orderData.transaksi!.tanggal.toString(),
                               style: GoogleFonts.poppins(
-                                  textStyle: TextStyle(
+                                  textStyle: const TextStyle(
                                       fontSize: 14,
                                       fontWeight: FontWeight.normal)),
                             ),
                           ),
                           Container(
-                            padding: EdgeInsets.all(10),
+                            padding: const EdgeInsets.all(10),
                             // color: Colors.blue,
                             child: Column(
                                 mainAxisAlignment:
@@ -140,7 +140,7 @@ class _KirimState extends State<Kirim> {
                                       Text(
                                         "Total Menu",
                                         style: GoogleFonts.poppins(
-                                            textStyle: TextStyle(
+                                            textStyle: const TextStyle(
                                                 fontSize: 14,
                                                 color: Colors.black,
                                                 fontWeight: FontWeight.normal)),
@@ -148,14 +148,14 @@ class _KirimState extends State<Kirim> {
                                       Text(
                                         "${orderData.transaksi!.detailTransaksi!.length.toString()} menu",
                                         style: GoogleFonts.poppins(
-                                            textStyle: TextStyle(
+                                            textStyle: const TextStyle(
                                                 fontSize: 14,
                                                 color: Colors.black,
                                                 fontWeight: FontWeight.bold)),
                                       ),
                                     ],
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 5,
                                   ),
                                   Row(
@@ -165,7 +165,7 @@ class _KirimState extends State<Kirim> {
                                       Text(
                                         "Total",
                                         style: GoogleFonts.poppins(
-                                            textStyle: TextStyle(
+                                            textStyle: const TextStyle(
                                                 fontSize: 14,
                                                 color: Colors.black,
                                                 fontWeight: FontWeight.normal)),
@@ -173,14 +173,14 @@ class _KirimState extends State<Kirim> {
                                       Text(
                                         totalHarga.toRupiah(),
                                         style: GoogleFonts.poppins(
-                                            textStyle: TextStyle(
+                                            textStyle: const TextStyle(
                                                 fontSize: 14,
                                                 color: Colors.black,
                                                 fontWeight: FontWeight.bold)),
                                       )
                                     ],
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 5,
                                   ),
                                   Row(
@@ -195,7 +195,7 @@ class _KirimState extends State<Kirim> {
                                       Text(
                                         orderData.status.toString(),
                                         style: GoogleFonts.poppins(
-                                            textStyle: TextStyle(
+                                            textStyle: const TextStyle(
                                                 fontSize: 14,
                                                 color: Colors.red,
                                                 fontWeight: FontWeight.bold)),
