@@ -95,129 +95,127 @@ class OrderView extends GetView<OrderController> {
                           height: MediaQuery.of(context).size.height * 0.30,
                           child: Padding(
                             padding: const EdgeInsets.all(0),
-                            child: Obx(
-                              () => Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  TextField(
-                                    controller:
-                                        profileController.addressController
-                                          ..text = orderController
-                                                  .addressMessage.value ??
-                                              '',
-                                    maxLines:
-                                        null, // Memungkinkan input lebih dari satu baris
-                                    decoration: InputDecoration(
-                                      filled: true,
-                                      fillColor: Colors.grey[
-                                          200], // Atur warna latar belakang
-                                      hintStyle: TextStyle(
-                                          color: Colors.black54,
-                                          fontSize:
-                                              12), // Atur warna teks hintText
-                                      contentPadding: EdgeInsets.symmetric(
-                                          vertical: 30.0,
-                                          horizontal:
-                                              15.0), // Sesuaikan nilai vertical
-                                      border: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(10.0),
-                                        borderSide: BorderSide.none,
-                                      ),
-                                      enabledBorder: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(10.0),
-                                        borderSide: BorderSide.none,
-                                      ),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(10.0),
-                                        borderSide: BorderSide.none,
-                                      ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                TextField(
+                                  controller:
+                                      profileController.addressController,
+                                  decoration: InputDecoration(
+                                    filled: true,
+                                    fillColor: Colors
+                                        .grey[200], // Atur warna latar belakang
+                                    hintStyle: TextStyle(
+                                        color: Colors.black54,
+                                        fontSize:
+                                            12), // Atur warna teks hintText
+                                    contentPadding: EdgeInsets.symmetric(
+                                        vertical: 30.0,
+                                        horizontal:
+                                            15.0), // Sesuaikan nilai vertical
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10.0),
+                                      borderSide: BorderSide.none,
+                                    ),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10.0),
+                                      borderSide: BorderSide.none,
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10.0),
+                                      borderSide: BorderSide.none,
                                     ),
                                   ),
-                                  SizedBox(
-                                    height: 5,
-                                  ),
-                                  Obx(() =>
-                                      Text(controller.addressMessage.value)),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
-                                    children: [
-                                      ElevatedButton(
-                                        style: ElevatedButton.styleFrom(
-                                          backgroundColor: Color(0xFF2579FD),
-                                          fixedSize: Size(
-                                              MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  0.25,
-                                              10), // Anda dapat menyesuaikan nilai ini untuk mendapatkan lebar yang diinginkan
+                                ),
+                                SizedBox(
+                                  height: 5,
+                                ),
+                                Obx(() =>
+                                    Text(controller.addressMessage.value)),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: Color(0xFF2579FD),
+                                        fixedSize: Size(
+                                            MediaQuery.of(context).size.width *
+                                                0.25,
+                                            10), // Anda dapat menyesuaikan nilai ini untuk mendapatkan lebar yang diinginkan
 
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(12),
-                                          ),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(12),
                                         ),
-                                        onPressed: () async {
-                                          await orderController
-                                              .determinePosition();
-                                          orderController
-                                                  .locationMessage.value =
-                                              "${orderController.myPosition.value.latitude} ${orderController.myPosition.value.longitude}";
-                                          orderController.getAddressFromLatLong(
-                                              orderController.myPosition.value);
-                                          // Set nilai addressMessage agar Textfield menampilkan alamat baru
-                                          profileController
-                                                  .addressController.text =
-                                              orderController
-                                                  .addressMessage.value;
-                                        },
-                                        child: Text(
-                                          'Maps',
-                                          style: GoogleFonts.poppins(
-                                            textStyle: TextStyle(
-                                              fontSize: 15,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.white,
-                                            ),
+                                      ),
+                                      onPressed: () async {
+                                        await orderController
+                                            .determinePosition();
+                                        orderController.locationMessage.value =
+                                            "${orderController.myPosition.value.latitude} ${orderController.myPosition.value.longitude}";
+                                        orderController.getAddressFromLatLong(
+                                            orderController.myPosition.value);
+                                        // Set nilai addressMessage agar Textfield menampilkan alamat baru
+                                        profileController
+                                                .addressController.text =
+                                            orderController
+                                                .addressMessage.value;
+                                      },
+                                      child: Text(
+                                        'Maps',
+                                        style: GoogleFonts.poppins(
+                                          textStyle: TextStyle(
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.white,
                                           ),
                                         ),
                                       ),
-                                      ElevatedButton(
-                                        style: ElevatedButton.styleFrom(
-                                          backgroundColor: Color(0xFF2579FD),
-                                          fixedSize: Size(
-                                              MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  0.25,
-                                              10), // Anda dapat menyesuaikan nilai ini untuk mendapatkan lebar yang diinginkan
+                                    ),
+                                    ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: Color(0xFF2579FD),
+                                        fixedSize: Size(
+                                            MediaQuery.of(context).size.width *
+                                                0.25,
+                                            10), // Anda dapat menyesuaikan nilai ini untuk mendapatkan lebar yang diinginkan
 
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(12),
-                                          ),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(12),
                                         ),
-                                        onPressed: () {
-                                          profileController.editCustomer(profileController.addressController.text);
-                                        },
-                                        child: Text(
-                                          'Simpan',
-                                          style: GoogleFonts.poppins(
-                                            textStyle: TextStyle(
-                                              fontSize: 15,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.white,
-                                            ),
+                                      ),
+                                      onPressed: () {
+                                        Future.delayed(Duration.zero, () {
+                                          if (orderController
+                                                  .addressMessage.value !=
+                                              null) {
+                                            profileController
+                                                    .addressController.text =
+                                                orderController
+                                                    .addressMessage.value;
+                                            profileController.editAlamat(
+                                              alamat: profileController
+                                                  .addressController.text,
+                                            );
+                                          }
+                                        });
+                                      },
+                                      child: Text(
+                                        'Simpan',
+                                        style: GoogleFonts.poppins(
+                                          textStyle: TextStyle(
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.white,
                                           ),
                                         ),
                                       ),
-                                    ],
-                                  ),
-                                ],
-                              ),
+                                    ),
+                                  ],
+                                ),
+                              ],
                             ),
                           ),
                         ));
