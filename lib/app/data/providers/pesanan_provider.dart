@@ -60,6 +60,34 @@ class PesananProvider extends GetxController {
     }
   }
 
+  Future<void> batalkanPesanan(String kodeTr) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? id_customer = prefs.getString('id_customer');
+    print('Ini:${id_customer}');
+    final Map<String, String> postData = {
+      "kode": "0",
+      "customer": id_customer.toString(), // sesuaikan dengan kantin yang login
+      "kode_tr": kodeTr,
+    };
+
+    final response = await http.post(
+      Uri.parse(Api.konfirmasi),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: jsonEncode(postData),
+    );
+
+    if (response.statusCode == 200) {
+      // Berhasil membatalkan pesanan
+      print('Pesanan berhasil dibatalkan');
+    } else {
+      // Gagal membatalkan pesanan
+      print('Gagal membatalkan pesanan. Status code: ${response.statusCode}');
+      throw Exception('Gagal membatalkan pesanan');
+    }
+  }
+
   Future<Pesanan> untukDikirim() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? token = prefs.getString('token');

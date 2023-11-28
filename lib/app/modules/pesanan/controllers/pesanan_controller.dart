@@ -16,6 +16,7 @@ class PesananController extends GetxController
   late Pesanan pesananProses = Pesanan();
   late Pesanan pesananDikirim = Pesanan();
   late Pesanan pesananDiterima = Pesanan();
+
   var orderProses = <DataPesanan>[].obs;
   var orderDikirim = <DataPesanan>[].obs;
   var orderDiterima = <DataPesanan>[].obs;
@@ -42,7 +43,6 @@ class PesananController extends GetxController
     _controller.dispose();
     tabController.dispose(); // Hapus TabController saat controller ditutup
 
-    super.onClose();
     super.onClose();
   }
 
@@ -80,6 +80,8 @@ class PesananController extends GetxController
       final result = await pesananProvider.value.proses();
       pesananProses = result;
       orderProses.assignAll(result.data!);
+      update(); // Memanggil update() untuk memperbarui widget
+
       isLoading(false);
     } catch (error) {
       isLoading(false);
@@ -93,6 +95,7 @@ class PesananController extends GetxController
       final result = await pesananProvider.value.dikirim();
       pesananDikirim = result;
       orderDikirim.assignAll(result.data!);
+      update(); // Memanggil update() untuk memperbarui widget
       isLoading(false);
     } catch (error) {
       isLoading(false);
@@ -106,10 +109,29 @@ class PesananController extends GetxController
       final result = await pesananProvider.value.diterima();
       pesananDiterima = result;
       orderDiterima.assignAll(result.data!);
+      update(); // Memanggil update() untuk memperbarui widget
+
       isLoading(false);
     } catch (error) {
       isLoading(false);
       print('Error fetching data: $error');
+    }
+  }
+
+  Future<void> batalkanPesanan(String kodeTr) async {
+    try {
+      isLoading(true);
+      await pesananProvider.value.batalkanPesanan(kodeTr);
+      // Refresh data setelah pembatalan pesanan berhasil
+      await loadProses();
+      update();
+
+      // loadDikirim();
+      // loadDiterima();
+      isLoading(false);
+    } catch (error) {
+      isLoading(false);
+      print('Error saat membatalkan pesanan: $error');
     }
   }
 }

@@ -64,7 +64,7 @@ class _SemuaState extends State<Semua> {
                       onFieldSubmitted: (value) {
                         // Get.to(() => searchBuku(keywords: search.toString()));
                       },
-                    ))  
+                    ))
                   ],
                 ),
               ),

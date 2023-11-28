@@ -104,7 +104,7 @@ class MenuProvider extends GetxController {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? token = prefs.getString('token');
     final response = await http.get(
-      Uri.parse(Api.penjualan_hari_ini),
+      Uri.parse(Api.penjualanHariIni),
       headers: {
         'Authorization':
             'Bearer $token', // Gantilah [TOKEN] dengan token yang sesuai

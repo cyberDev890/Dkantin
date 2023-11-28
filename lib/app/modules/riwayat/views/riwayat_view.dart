@@ -12,7 +12,11 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:intl/intl.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 
+import '../../pesanan/controllers/pesanan_controller.dart';
 import '../controllers/riwayat_controller.dart';
 
 class RiwayatView extends GetView<RiwayatController> {
@@ -20,6 +24,7 @@ class RiwayatView extends GetView<RiwayatController> {
   final RiwayatController riwayatController = Get.put(RiwayatController());
   final HomeController homeController = Get.find<HomeController>();
   final TextEditingController searchController = TextEditingController();
+  PesananController control = Get.find<PesananController>();
 
   @override
   Widget build(BuildContext context) {

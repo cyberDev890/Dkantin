@@ -21,9 +21,10 @@ class AuthProvider extends GetxController {
 
       // Extract the "token" from the JSON
       final token = jsonResponse['data']['token'];
+      final id_customer = jsonResponse['data']['id_customer'];
 
       // Save token to SharedPreferences
-      saveTokenToSharedPreferences(token);
+      saveTokenToSharedPreferences(token, id_customer);
 
       return response;
     } else {
@@ -53,9 +54,11 @@ class AuthProvider extends GetxController {
     }
   }
 
-  Future<String> saveTokenToSharedPreferences(String token) async {
+  Future<String> saveTokenToSharedPreferences(
+      String token, String id_customer) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString('token', token);
+    await prefs.setString('id_customer', id_customer);
     return token;
   }
 }

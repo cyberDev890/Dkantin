@@ -8,7 +8,7 @@ import '../../profile/controllers/profile_controller.dart';
 
 class HomeController extends GetxController with GetTickerProviderStateMixin {
   final ProfileController profileController = Get.put(ProfileController());
-
+  late AnimationController animationController;
   late AnimationController _controller;
   late TabController tabController; // Tambahkan variabel TabController
   final searchResults = <Datasearch>[].obs;
@@ -62,6 +62,10 @@ class HomeController extends GetxController with GetTickerProviderStateMixin {
     _controller = AnimationController(
       vsync: this,
       duration: Duration(seconds: 1),
+    );
+    animationController = AnimationController(
+      duration: Duration(milliseconds: 500), // Sesuaikan durasi animasi
+      vsync: this,
     );
     tabController = TabController(length: 4, vsync: this);
     fetchDataDiskon('');
@@ -175,7 +179,7 @@ class HomeController extends GetxController with GetTickerProviderStateMixin {
 
   Future<void> submitOrder() async {
     setLoading(true); // Menampilkan indikator loading
-        String paymentMethod = isCashSelected.value
+    String paymentMethod = isCashSelected.value
         ? "cash"
         : isPolijePaySelected.value
             ? "polijepay"

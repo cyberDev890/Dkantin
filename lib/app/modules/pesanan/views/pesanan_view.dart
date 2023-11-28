@@ -47,19 +47,17 @@ class PesananView extends GetView<PesananController> {
           unselectedLabelColor: Colors.black,
           controller: pesananController.tabController,
           tabs: [
-            Tab(
-              child: badges.Badge(
-                showBadge: true,
+            Tab(child: Obx(() {
+              return badges.Badge(
+                showBadge: (pesananController.orderProses.isNotEmpty ?? true),
                 badgeAnimation: badges.BadgeAnimation.slide(),
-                badgeContent: Obx(() {
-                  return Text(
-                    pesananController.orderProses.length.toString(),
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 12,
-                    ),
-                  );
-                }),
+                badgeContent: Text(
+                  (pesananController.orderProses.length ?? 0).toString(),
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 12,
+                  ),
+                ),
                 position: badges.BadgePosition.topEnd(top: -10, end: -15),
                 badgeStyle: badges.BadgeStyle(
                   shape: badges.BadgeShape.circle,
@@ -68,22 +66,19 @@ class PesananView extends GetView<PesananController> {
                 child: Text(
                   "Diproses",
                 ),
-              ),
-            ),
-            Tab(
-              child: badges.Badge(
-                showBadge: true,
+              );
+            })),
+            Tab(child: Obx(() {
+              return badges.Badge(
+                showBadge: (pesananController.orderDikirim.isNotEmpty ?? true),
                 badgeAnimation: badges.BadgeAnimation.slide(),
-                badgeContent: Obx(() {
-                  // Update the badgeContent to display the total menus for "Diproses"
-                  return Text(
-                    pesananController.orderDikirim.length.toString(),
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 12,
-                    ),
-                  );
-                }),
+                badgeContent: Text(
+                  (pesananController.orderDikirim.length ?? 0).toString(),
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 12,
+                  ),
+                ),
                 position: badges.BadgePosition.topEnd(top: -10, end: -15),
                 badgeStyle: badges.BadgeStyle(
                   shape: badges.BadgeShape.circle,
@@ -92,21 +87,19 @@ class PesananView extends GetView<PesananController> {
                 child: Text(
                   "Dikirim",
                 ),
-              ),
-            ),
-            Tab(
-              child: badges.Badge(
-                showBadge: true,
+              );
+            })),
+            Tab(child: Obx(() {
+              return badges.Badge(
+                showBadge: (pesananController.orderDiterima.isNotEmpty ?? true),
                 badgeAnimation: badges.BadgeAnimation.slide(),
-                badgeContent: Obx(() {
-                  return Text(
-                    pesananController.orderDiterima.length.toString(),
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 12,
-                    ),
-                  );
-                }),
+                badgeContent: Text(
+                  (pesananController.orderDiterima.length ?? 0).toString(),
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 12,
+                  ),
+                ),
                 position: badges.BadgePosition.topEnd(top: -12, end: -15),
                 badgeStyle: badges.BadgeStyle(
                   shape: badges.BadgeShape.circle,
@@ -115,8 +108,8 @@ class PesananView extends GetView<PesananController> {
                 child: Text(
                   "Konfirmasi",
                 ),
-              ),
-            ),
+              );
+            })),
           ],
           labelStyle: GoogleFonts.poppins(
             textStyle: TextStyle(

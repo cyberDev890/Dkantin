@@ -1,5 +1,6 @@
 // import 'package:geocoding/geocoding.dart';
 // import 'package:geolocator/geolocator.dart';
+import 'package:dikantin/app/data/providers/customer_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
@@ -7,8 +8,9 @@ import 'package:get/get.dart';
 
 class OrderController extends GetxController {
   var locationMessage = "Belum mendapatkan Lat dan Long".obs;
-  var addressMessage = "Mencari lokasi".obs;
+  var addressMessage = "".obs;
   var textEditingController = TextEditingController().obs;
+
   var myPosition = Position(
     altitudeAccuracy: 0,
     headingAccuracy: 0,
@@ -36,7 +38,6 @@ class OrderController extends GetxController {
     super.onClose();
   }
 
- 
   Future<void> determinePosition() async {
     bool serviceEnabled;
     LocationPermission locationPermission;
@@ -69,4 +70,5 @@ class OrderController extends GetxController {
     addressMessage.value =
         "${place.street}, ${place.subLocality}, ${place.locality}, ${place.postalCode}, ${place.country} ";
   }
+
 }
