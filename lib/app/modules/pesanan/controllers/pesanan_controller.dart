@@ -16,6 +16,7 @@ class PesananController extends GetxController
   late Pesanan pesananProses = Pesanan();
   late Pesanan pesananDikirim = Pesanan();
   late Pesanan pesananDiterima = Pesanan();
+
   var orderProses = <DataPesanan>[].obs;
   var orderDikirim = <DataPesanan>[].obs;
   var orderDiterima = <DataPesanan>[].obs;
@@ -42,7 +43,6 @@ class PesananController extends GetxController
     _controller.dispose();
     tabController.dispose(); // Hapus TabController saat controller ditutup
 
-    super.onClose();
     super.onClose();
   }
 

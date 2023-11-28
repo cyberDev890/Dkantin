@@ -6,23 +6,19 @@ class Customer {
   Customer({this.data, this.code, this.status});
 
   Customer.fromJson(Map<String, dynamic> json) {
-    data = json['data'] != null ? Data?.fromJson(json['data']) : null;
+    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
     code = json['code'];
     status = json['status'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> jsonData = {
-      'code': code,
-      'status': status,
-    };
-
-    if (data != null) {
-      jsonData['data'] = data!
-          .toJson(); // Memanggil toJson secara langsung dari 'data' jika tidak null
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    if (this.data != null) {
+      data['data'] = this.data!.toJson();
     }
-
-    return jsonData;
+    data['code'] = this.code;
+    data['status'] = this.status;
+    return data;
   }
 }
 
@@ -31,12 +27,12 @@ class Data {
   String? nama;
   String? noTelepon;
   int? emailVerified;
-  dynamic kodeVerified;
+  Null? kodeVerified;
   String? token;
-  dynamic tokenFcm;
+  Null? tokenFcm;
   String? alamat;
   String? email;
-  String? foto;
+  Null? foto;
   String? createdAt;
   String? updatedAt;
 
@@ -70,19 +66,19 @@ class Data {
   }
 
   Map<String, dynamic> toJson() {
-    final data = <String, dynamic>{};
-    data['id_customer'] = idCustomer;
-    data['nama'] = nama;
-    data['no_telepon'] = noTelepon;
-    data['email_verified'] = emailVerified;
-    data['kode_verified'] = kodeVerified;
-    data['token'] = token;
-    data['token_fcm'] = tokenFcm;
-    data['alamat'] = alamat;
-    data['email'] = email;
-    data['foto'] = foto;
-    data['created_at'] = createdAt;
-    data['updated_at'] = updatedAt;
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id_customer'] = this.idCustomer;
+    data['nama'] = this.nama;
+    data['no_telepon'] = this.noTelepon;
+    data['email_verified'] = this.emailVerified;
+    data['kode_verified'] = this.kodeVerified;
+    data['token'] = this.token;
+    data['token_fcm'] = this.tokenFcm;
+    data['alamat'] = this.alamat;
+    data['email'] = this.email;
+    data['foto'] = this.foto;
+    data['created_at'] = this.createdAt;
+    data['updated_at'] = this.updatedAt;
     return data;
   }
 }

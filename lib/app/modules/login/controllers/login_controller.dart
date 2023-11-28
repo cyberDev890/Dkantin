@@ -1,7 +1,6 @@
 import 'package:dikantin/app/data/providers/auth_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginController extends GetxController {
   final count = 0.obs;

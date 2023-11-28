@@ -39,7 +39,7 @@ class _FavoriteState extends State<Favorite> {
                 child: Text(
                   "Penuh Diskon",
                   style: GoogleFonts.poppins(
-                    textStyle: TextStyle(
+                    textStyle: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                     ),
@@ -59,7 +59,7 @@ class _FavoriteState extends State<Favorite> {
                         scrollDirection: Axis.horizontal,
                         itemBuilder: (BuildContext context, index) {
                           return Container(
-                            padding: EdgeInsets.all(5),
+                            padding:const EdgeInsets.all(5),
                             width: MediaQuery.of(context).size.width * 0.5,
                             child: Stack(
                               children: [
@@ -67,7 +67,7 @@ class _FavoriteState extends State<Favorite> {
                                   decoration: BoxDecoration(
                                     color: Color(baseColorHex),
                                     borderRadius:
-                                        BorderRadius.all(Radius.circular(10)),
+                                        const BorderRadius.all(Radius.circular(10)),
                                   ),
                                 ),
                                 Center(
@@ -86,10 +86,10 @@ class _FavoriteState extends State<Favorite> {
                                           color: Color(baseColorHex),
                                         ),
                                       ),
-                                      SizedBox(height: 10),
+                                      const SizedBox(height: 10),
                                       Shimmer.fromColors(
                                         baseColor: Colors.transparent,
-                                        highlightColor: Color(0xFF67667),
+                                        highlightColor: const Color(0xFF67667),
                                         child: Container(
                                           width: 150,
                                           height: 20,
@@ -106,7 +106,7 @@ class _FavoriteState extends State<Favorite> {
                       ),
                     ),
                   );
-                } else if (homeController.searchResults.isEmpty ?? true) {
+                } else if (homeController.searchResults.isEmpty) {
                   return Container(
                       height: mediaHeight * 0.25,
                       child: Center(
@@ -129,13 +129,13 @@ class _FavoriteState extends State<Favorite> {
                                 .addToCart(homeController.searchResults[index]);
                           },
                           child: Container(
-                            padding: EdgeInsets.all(5),
+                            padding: const EdgeInsets.all(5),
                             width: MediaQuery.of(context).size.width * 0.5,
                             child: Stack(
                               children: [
                                 ClipRRect(
                                   borderRadius:
-                                      BorderRadius.all(Radius.circular(10)),
+                                      const BorderRadius.all(Radius.circular(10)),
                                   child: Image.network(
                                     Api.gambar + menuData.foto.toString(),
                                     height: 300,
@@ -146,7 +146,7 @@ class _FavoriteState extends State<Favorite> {
                                 Container(
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10),
-                                    gradient: LinearGradient(
+                                    gradient: const LinearGradient(
                                       begin: Alignment.topCenter,
                                       end: Alignment.bottomCenter,
                                       colors: [
@@ -164,7 +164,7 @@ class _FavoriteState extends State<Favorite> {
                                   child: Text(
                                     menuData.nama ?? '',
                                     style: GoogleFonts.poppins(
-                                      textStyle: TextStyle(
+                                      textStyle: const TextStyle(
                                         fontSize: 13,
                                         color: Colors.white,
                                         fontWeight: FontWeight.normal,
@@ -179,9 +179,9 @@ class _FavoriteState extends State<Favorite> {
                                   child: Text(
                                     harga.toRupiah(),
                                     style: GoogleFonts.poppins(
-                                      textStyle: TextStyle(
+                                      textStyle: const TextStyle(
                                         fontSize: 15,
-                                        color: const Color.fromRGBO(
+                                        color: Color.fromRGBO(
                                             255, 255, 255, 1),
                                         fontWeight: FontWeight.bold,
                                       ),
@@ -197,13 +197,13 @@ class _FavoriteState extends State<Favorite> {
                   );
                 }
               }),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
                   "Penjualan Hari ini",
                   style: GoogleFonts.poppins(
-                    textStyle: TextStyle(
+                    textStyle: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                     ),
@@ -222,7 +222,7 @@ class _FavoriteState extends State<Favorite> {
                         scrollDirection: Axis.horizontal,
                         itemBuilder: (BuildContext context, index) {
                           return Container(
-                            padding: EdgeInsets.all(5),
+                            padding: const EdgeInsets.all(5),
                             width: MediaQuery.of(context).size.width * 0.6,
                             child: Stack(
                               children: [
@@ -230,7 +230,7 @@ class _FavoriteState extends State<Favorite> {
                                   decoration: BoxDecoration(
                                     color: Color(baseColorHex),
                                     borderRadius:
-                                        BorderRadius.all(Radius.circular(10)),
+                                        const BorderRadius.all(Radius.circular(10)),
                                   ),
                                 ),
                                 Center(
@@ -249,7 +249,7 @@ class _FavoriteState extends State<Favorite> {
                                           color: Color(baseColorHex),
                                         ),
                                       ),
-                                      SizedBox(height: 10),
+                                      const SizedBox(height: 10),
                                       Shimmer.fromColors(
                                         baseColor: Colors.transparent,
                                         highlightColor:
@@ -292,13 +292,13 @@ class _FavoriteState extends State<Favorite> {
                             kategori == 'makanan' ? 'Porsi' : 'Pcs';
 
                         return Container(
-                          padding: EdgeInsets.all(5),
+                          padding: const EdgeInsets.all(5),
                           width: MediaQuery.of(context).size.width * 0.6,
                           child: Stack(
                             children: [
                               ClipRRect(
                                 borderRadius:
-                                    BorderRadius.all(Radius.circular(10)),
+                                    const BorderRadius.all(Radius.circular(10)),
                                 child: Image.network(
                                   Api.gambar + dataPenjualan.foto.toString(),
                                   height: 300,
@@ -309,7 +309,7 @@ class _FavoriteState extends State<Favorite> {
                               Container(
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10),
-                                  gradient: LinearGradient(
+                                  gradient: const LinearGradient(
                                     begin: Alignment.topCenter,
                                     end: Alignment.bottomCenter,
                                     colors: [Colors.transparent, Colors.black],
@@ -324,7 +324,7 @@ class _FavoriteState extends State<Favorite> {
                                 child: Text(
                                   '${dataPenjualan.nama ?? ''} Kantin ${dataPenjualan.idKantin}',
                                   style: GoogleFonts.poppins(
-                                    textStyle: TextStyle(
+                                    textStyle: const TextStyle(
                                       fontSize: 13,
                                       color: Colors.white,
                                       fontWeight: FontWeight.normal,
@@ -339,7 +339,7 @@ class _FavoriteState extends State<Favorite> {
                                 child: Text(
                                   '${dataPenjualan.penjualanHariIni ?? ''} $kategoriPesan',
                                   style: GoogleFonts.poppins(
-                                    textStyle: TextStyle(
+                                    textStyle: const TextStyle(
                                       fontSize: 15,
                                       color: Colors.white,
                                       fontWeight: FontWeight.bold,

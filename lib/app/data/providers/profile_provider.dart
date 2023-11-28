@@ -65,25 +65,7 @@ class ProfileProvider with ChangeNotifier {
   }
 }
 
-class CustomerProvider extends GetxController {
-  final String baseUrl = Api.getProfile; 
 
-  Future<Customer> getCustomer() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? token = prefs.getString('token');
-    final response = await http.get(
-      Uri.parse(baseUrl),
-      headers: {'Authorization': 'Bearer $token'},
-    );
-
-    if (response.statusCode == 200) {
-      // Parse the JSON response and return a Customer object
-      return Customer.fromJson(json.decode(response.body));
-    } else {
-      throw Exception('Failed to load customer');
-    }
-  }
-}
 
 class ProfileImageProvider extends GetxController {
   RxBool isLoading = false.obs;

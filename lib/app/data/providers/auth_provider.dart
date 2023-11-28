@@ -1,4 +1,5 @@
 import 'package:dikantin/app/data/providers/services.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
@@ -108,6 +109,105 @@ class RegisterProvider {
       );
 
       throw Exception('Registration failed: $e');
+    }
+  }
+}
+
+class ForgotPasswordProvider with ChangeNotifier {
+  String _message = '';
+
+  String get message => _message;
+
+  void _setMessage(String message) {
+    _message = message;
+    notifyListeners();
+  }
+
+  Future<void> forgotPassword(String email) async {
+    final url = Uri.parse(Api.forgotPassword);
+
+    try {
+      final response = await http.post(
+        url,
+        body: {'email': email},
+      );
+      final responseBody = json.decode(response.body);
+      if (response.statusCode == 200) {
+        Get.snackbar(
+          'Berhasil',
+          'Udah Masuk gan check emailnya janlup',
+          snackPosition: SnackPosition.TOP,
+          duration: Duration(seconds: 2),
+        );
+        Get.offAllNamed("/otp-page");
+      } else {
+        Get.snackbar(
+          'Gagal gan',
+          responseBody['data'],
+          snackPosition: SnackPosition.TOP,
+          duration: Duration(seconds: 2),
+        );
+        print('Error status code: ${response.statusCode}');
+        print('Error response body: ${response.body}');
+      }
+    } catch (error) {
+      Get.snackbar(
+        'gagal gan ',
+        '$error',
+        snackPosition: SnackPosition.TOP,
+        duration: Duration(seconds: 2),
+      );
+    }
+
+    notifyListeners();
+  }
+}
+
+class VerificationProvider extends GetConnect {
+  Future<bool> verifyCode(String kode) async {
+    try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      String? email = prefs.getString('email');
+      print('Email: $email'); // Make sure email is not null
+
+      final response = await post(
+        Api.verifKode.toString(), // Convert Uri to String using toString()
+        {'email': email, 'kode': kode}, // Use 'body' directly
+      );
+
+      print('Response Code: ${response.statusCode}');
+      print('Response Body: ${response.body}');
+
+      if (response.statusCode == 200) {
+        // Successful verification
+        return true;
+      } else {
+        // Failed verification
+        return false;
+      }
+    } catch (error) {
+      print('Error verifying code: $error');
+      return false;
+    }
+  }
+}
+
+class PasswordVerificationProvider extends GetConnect {
+  Future<Response> verifyNewPassword(
+      String email, String password, String confirmPassword) async {
+    try {
+      final response = await post(
+        Api.ubahPassword, // Ganti dengan URL API yang sesuai
+        {
+          'email': email,
+          'password': password,
+          'confirmPassword': confirmPassword
+        },
+      );
+
+      return response;
+    } catch (error) {
+      throw error;
     }
   }
 }

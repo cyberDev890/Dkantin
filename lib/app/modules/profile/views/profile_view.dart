@@ -89,7 +89,7 @@ class ProfileView extends GetView<ProfileController> {
                               ElevatedButton(
                                 child: Text('Tidak'),
                                 onPressed: () {
-                                  Navigator.pop(context);
+                                  Get.back();
                                 },
                                 style: ElevatedButton.styleFrom(
                                   shape: RoundedRectangleBorder(
@@ -135,6 +135,7 @@ class ProfileView extends GetView<ProfileController> {
                         backgroundColor: Colors.transparent,
                         backgroundImage:
                             profileController.customer.value.data?.foto != null
+                                // ignore: dead_code
                                 ? NetworkImage(
                                     Api.gambar +
                                         profileController
@@ -205,7 +206,7 @@ class ProfileView extends GetView<ProfileController> {
                     ),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10.0),
-                      borderSide: BorderSide(color: Colors.black),
+                      borderSide: BorderSide(color: const Color.fromARGB(255, 126, 70, 70)),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10.0),

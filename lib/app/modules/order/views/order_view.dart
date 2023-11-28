@@ -1,5 +1,4 @@
 import 'package:carbon_icons/carbon_icons.dart';
-import 'package:dikantin/app/modules/profile/views/profile_view.dart';
 import 'package:dikantin/app/modules/utils/formatDate.dart';
 import 'package:flutter/material.dart';
 
@@ -7,7 +6,6 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 
-import '../../../data/models/search_model.dart';
 import '../../../data/providers/services.dart';
 import '../../home/controllers/home_controller.dart';
 import '../../profile/controllers/profile_controller.dart';
@@ -104,8 +102,8 @@ class OrderView extends GetView<OrderController> {
                                   TextField(
                                     controller:
                                         profileController.addressController
-                                          ..text = profileController.customer
-                                                  .value.data?.alamat ??
+                                          ..text = orderController
+                                                  .addressMessage.value ??
                                               '',
                                     maxLines:
                                         null, // Memungkinkan input lebih dari satu baris
@@ -142,8 +140,6 @@ class OrderView extends GetView<OrderController> {
                                     height: 5,
                                   ),
                                   Obx(() =>
-                                      Text(controller.myPosition.toString())),
-                                  Obx(() =>
                                       Text(controller.addressMessage.value)),
                                   Row(
                                     mainAxisAlignment:
@@ -172,6 +168,11 @@ class OrderView extends GetView<OrderController> {
                                               "${orderController.myPosition.value.latitude} ${orderController.myPosition.value.longitude}";
                                           orderController.getAddressFromLatLong(
                                               orderController.myPosition.value);
+                                          // Set nilai addressMessage agar Textfield menampilkan alamat baru
+                                          profileController
+                                                  .addressController.text =
+                                              orderController
+                                                  .addressMessage.value;
                                         },
                                         child: Text(
                                           'Maps',
@@ -199,7 +200,9 @@ class OrderView extends GetView<OrderController> {
                                                 BorderRadius.circular(12),
                                           ),
                                         ),
-                                        onPressed: () {},
+                                        onPressed: () {
+                                          profileController.editCustomer(profileController.addressController.text);
+                                        },
                                         child: Text(
                                           'Simpan',
                                           style: GoogleFonts.poppins(

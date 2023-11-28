@@ -47,12 +47,12 @@ class PesananView extends GetView<PesananController> {
           unselectedLabelColor: Colors.black,
           controller: pesananController.tabController,
           tabs: [
-            Tab(
-              child: badges.Badge(
-                showBadge: true,
+            Tab(child: Obx(() {
+              return badges.Badge(
+                showBadge: (pesananController.orderProses.isNotEmpty ?? true),
                 badgeAnimation: badges.BadgeAnimation.slide(),
                 badgeContent: Text(
-                  "0",
+                  (pesananController.orderProses.length ?? 0).toString(),
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 12,
@@ -66,14 +66,14 @@ class PesananView extends GetView<PesananController> {
                 child: Text(
                   "Diproses",
                 ),
-              ),
-            ),
-            Tab(
-              child: badges.Badge(
-                showBadge: true,
+              );
+            })),
+            Tab(child: Obx(() {
+              return badges.Badge(
+                showBadge: (pesananController.orderDikirim.isNotEmpty ?? true),
                 badgeAnimation: badges.BadgeAnimation.slide(),
                 badgeContent: Text(
-                  "0",
+                  (pesananController.orderDikirim.length ?? 0).toString(),
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 12,
@@ -87,14 +87,14 @@ class PesananView extends GetView<PesananController> {
                 child: Text(
                   "Dikirim",
                 ),
-              ),
-            ),
-            Tab(
-              child: badges.Badge(
-                showBadge: true,
+              );
+            })),
+            Tab(child: Obx(() {
+              return badges.Badge(
+                showBadge: (pesananController.orderDiterima.isNotEmpty ?? true),
                 badgeAnimation: badges.BadgeAnimation.slide(),
                 badgeContent: Text(
-                  "0",
+                  (pesananController.orderDiterima.length ?? 0).toString(),
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 12,
@@ -108,8 +108,8 @@ class PesananView extends GetView<PesananController> {
                 child: Text(
                   "Konfirmasi",
                 ),
-              ),
-            ),
+              );
+            })),
           ],
           labelStyle: GoogleFonts.poppins(
             textStyle: TextStyle(

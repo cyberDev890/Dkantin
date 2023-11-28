@@ -15,30 +15,6 @@ import '../controllers/detail_transaksi_controller.dart';
 import 'package:flutter/material.dart';
 
 class DetailTransaksiView extends GetView<DetailTransaksiController> {
-    const DetailTransaksiView({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Dashboard"),
-        actions: const [],
-      ),
-      body: SingleChildScrollView(
-        child: Container(
-          padding: const EdgeInsets.all(10.0),
-          child: Column(
-            children: [],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-
-
-/**class DetailTransaksiView extends GetView<DetailTransaksiController> {
   const DetailTransaksiView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -47,7 +23,7 @@ class DetailTransaksiView extends GetView<DetailTransaksiController> {
         Get.find<PesananController>().findOrderById(orderId ?? '');
 
     if (orderData == null) {
-      return Scaffold(
+      return const Scaffold(
         body: Center(
           child: Text('Pesanan tidak ditemukan'),
         ),
@@ -62,7 +38,7 @@ class DetailTransaksiView extends GetView<DetailTransaksiController> {
         title: Text(
           'Detail Pesanan Saya',
           style: GoogleFonts.poppins(
-            textStyle: TextStyle(
+            textStyle: const TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.w600,
               color: Colors.black,
@@ -81,7 +57,7 @@ class DetailTransaksiView extends GetView<DetailTransaksiController> {
             child: Container(
               decoration: BoxDecoration(
                   color: Colors.blue, borderRadius: BorderRadius.circular(10)),
-              child: Icon(
+              child: const Icon(
                 CarbonIcons.arrow_left,
                 color: Colors.white,
               ),
@@ -90,7 +66,7 @@ class DetailTransaksiView extends GetView<DetailTransaksiController> {
         ),
       ),
       body: Container(
-        padding: EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
@@ -105,14 +81,14 @@ class DetailTransaksiView extends GetView<DetailTransaksiController> {
                       10.0), // Sesuaikan dengan radius yang diinginkan
                 ),
                 child: Container(
-                  padding: EdgeInsets.all(20),
+                  padding: const EdgeInsets.all(20),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
                         'Detail Pesanan',
                         style: GoogleFonts.poppins(
-                          textStyle: TextStyle(
+                          textStyle: const TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w600,
                             color: Colors.black,
@@ -128,20 +104,20 @@ class DetailTransaksiView extends GetView<DetailTransaksiController> {
                           Text(
                             'Nomor Pesanan :',
                             style: GoogleFonts.poppins(
-                              textStyle: TextStyle(
+                              textStyle: const TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.normal,
                                 color: Colors.black,
                               ),
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 5,
                           ),
                           Text(
                             '#${transaksi!.kodeTr}',
                             style: GoogleFonts.poppins(
-                              textStyle: TextStyle(
+                              textStyle: const TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w700,
                                 color: Colors.black,
@@ -150,7 +126,7 @@ class DetailTransaksiView extends GetView<DetailTransaksiController> {
                           ),
                         ],
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 5,
                       ),
                       Row(
@@ -158,20 +134,20 @@ class DetailTransaksiView extends GetView<DetailTransaksiController> {
                           Text(
                             'Waktu Pemesanan :',
                             style: GoogleFonts.poppins(
-                              textStyle: TextStyle(
+                              textStyle: const TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.normal,
                                 color: Colors.black,
                               ),
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 5,
                           ),
                           Text(
                             transaksi.tanggal.toString(),
                             style: GoogleFonts.poppins(
-                              textStyle: TextStyle(
+                              textStyle: const TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.normal,
                                 color: Colors.black,
@@ -222,7 +198,7 @@ class DetailTransaksiView extends GetView<DetailTransaksiController> {
                                               borderRadius:
                                                   BorderRadius.circular(10)),
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           width: 10,
                                         ),
                                         Expanded(
@@ -239,7 +215,7 @@ class DetailTransaksiView extends GetView<DetailTransaksiController> {
                                                     .textTheme
                                                     .bodyLarge,
                                               ),
-                                              SizedBox(
+                                              const SizedBox(
                                                 height: 5,
                                               ),
                                               Row(
@@ -259,7 +235,7 @@ class DetailTransaksiView extends GetView<DetailTransaksiController> {
                                                   // ),
                                                 ],
                                               ),
-                                              SizedBox(
+                                              const SizedBox(
                                                 height: 5,
                                               ),
                                               Row(
@@ -293,7 +269,7 @@ class DetailTransaksiView extends GetView<DetailTransaksiController> {
                         ),
                       ),
                       Container(
-                        padding: EdgeInsets.all(2),
+                        padding: const EdgeInsets.all(2),
                         height: MediaQuery.of(context).size.height * 0.09,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -310,7 +286,7 @@ class DetailTransaksiView extends GetView<DetailTransaksiController> {
                                 Text(
                                   'Note :',
                                   style: GoogleFonts.poppins(
-                                    textStyle: TextStyle(
+                                    textStyle: const TextStyle(
                                       fontSize: 12,
                                       fontWeight: FontWeight.w600,
                                       color: Colors.black,
@@ -320,7 +296,7 @@ class DetailTransaksiView extends GetView<DetailTransaksiController> {
                                 Text(
                                   'Tunjukkan kode barcode di sebelah \nkepada kurir jika makanan sampai ',
                                   style: GoogleFonts.poppins(
-                                    textStyle: TextStyle(
+                                    textStyle: const TextStyle(
                                       fontSize: 10,
                                       fontWeight: FontWeight.w600,
                                       color: Colors.black,
@@ -348,14 +324,14 @@ class DetailTransaksiView extends GetView<DetailTransaksiController> {
                       10.0), // Sesuaikan dengan radius yang diinginkan
                 ),
                 child: Container(
-                  padding: EdgeInsets.fromLTRB(20, 10, 20, 0),
+                  padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
                         'Informasi Pembayaran',
                         style: GoogleFonts.poppins(
-                          textStyle: TextStyle(
+                          textStyle: const TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w600,
                             color: Colors.black,
@@ -372,7 +348,7 @@ class DetailTransaksiView extends GetView<DetailTransaksiController> {
                           Text(
                             'Metode Pembayaran  :',
                             style: GoogleFonts.poppins(
-                              textStyle: TextStyle(
+                              textStyle: const TextStyle(
                                 fontSize: 12,
                                 fontWeight: FontWeight.w500,
                                 color: Colors.black,
@@ -382,7 +358,7 @@ class DetailTransaksiView extends GetView<DetailTransaksiController> {
                           Text(
                             transaksi!.modelPembayaran.toString(),
                             style: GoogleFonts.poppins(
-                              textStyle: TextStyle(
+                              textStyle: const TextStyle(
                                 fontSize: 12,
                                 fontWeight: FontWeight.w500,
                                 color: Colors.black,
@@ -397,7 +373,7 @@ class DetailTransaksiView extends GetView<DetailTransaksiController> {
                           Text(
                             'Total :',
                             style: GoogleFonts.poppins(
-                              textStyle: TextStyle(
+                              textStyle: const TextStyle(
                                 fontSize: 12,
                                 fontWeight: FontWeight.w500,
                                 color: Colors.black,
@@ -407,7 +383,7 @@ class DetailTransaksiView extends GetView<DetailTransaksiController> {
                           Text(
                             totalBayar.toRupiah(),
                             style: GoogleFonts.poppins(
-                              textStyle: TextStyle(
+                              textStyle: const TextStyle(
                                 fontSize: 12,
                                 fontWeight: FontWeight.w500,
                                 color: Colors.black,
@@ -422,7 +398,7 @@ class DetailTransaksiView extends GetView<DetailTransaksiController> {
                           Text(
                             'Diskon :',
                             style: GoogleFonts.poppins(
-                              textStyle: TextStyle(
+                              textStyle: const TextStyle(
                                 fontSize: 12,
                                 fontWeight: FontWeight.w500,
                                 color: Colors.black,
@@ -432,7 +408,7 @@ class DetailTransaksiView extends GetView<DetailTransaksiController> {
                           Text(
                             'Rp 0',
                             style: GoogleFonts.poppins(
-                              textStyle: TextStyle(
+                              textStyle: const TextStyle(
                                 fontSize: 12,
                                 fontWeight: FontWeight.w500,
                                 color: Colors.black,
@@ -447,7 +423,7 @@ class DetailTransaksiView extends GetView<DetailTransaksiController> {
                           Text(
                             'Kembalian :',
                             style: GoogleFonts.poppins(
-                              textStyle: TextStyle(
+                              textStyle: const TextStyle(
                                 fontSize: 12,
                                 fontWeight: FontWeight.w500,
                                 color: Colors.black,
@@ -457,7 +433,7 @@ class DetailTransaksiView extends GetView<DetailTransaksiController> {
                           Text(
                             'Rp 0',
                             style: GoogleFonts.poppins(
-                              textStyle: TextStyle(
+                              textStyle: const TextStyle(
                                 fontSize: 12,
                                 fontWeight: FontWeight.w500,
                                 color: Colors.black,
@@ -472,7 +448,7 @@ class DetailTransaksiView extends GetView<DetailTransaksiController> {
                           Text(
                             'Total bayar :',
                             style: GoogleFonts.poppins(
-                              textStyle: TextStyle(
+                              textStyle: const TextStyle(
                                 fontSize: 12,
                                 fontWeight: FontWeight.w500,
                                 color: Colors.black,
@@ -482,7 +458,7 @@ class DetailTransaksiView extends GetView<DetailTransaksiController> {
                           Text(
                             totalBayar.toRupiah(),
                             style: GoogleFonts.poppins(
-                              textStyle: TextStyle(
+                              textStyle: const TextStyle(
                                 fontSize: 12,
                                 fontWeight: FontWeight.w500,
                                 color: Colors.black,
@@ -501,4 +477,4 @@ class DetailTransaksiView extends GetView<DetailTransaksiController> {
       ),
     );
   }
-}**/
+}
