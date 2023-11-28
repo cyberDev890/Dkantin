@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class ProfileController extends GetxController {
+class ProfileKurirController extends GetxController {
   final ProfileProvider provider = ProfileProvider().obs();
   final CustomerProvider _customerProvider = CustomerProvider().obs();
   final ProfileImageProvider imageProvider = ProfileImageProvider().obs();

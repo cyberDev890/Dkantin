@@ -107,11 +107,6 @@ class RegisterProvider {
 
       throw Exception('Registration failed: $e');
     }
-
-    Future<void> saveTokenToSharedPreferences(String token) async {
-      final prefs = await SharedPreferences.getInstance();
-      await prefs.setString('token', token);
-    }
   }
 }
 

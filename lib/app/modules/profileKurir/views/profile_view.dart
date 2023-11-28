@@ -5,11 +5,12 @@ import 'package:lottie/lottie.dart';
 
 import '../controllers/profile_controller.dart';
 
-class ProfileView extends GetView<ProfileController> {
-  const ProfileView({Key? key}) : super(key: key);
+class ProfileKurirView extends GetView<ProfileKurirController> {
+  const ProfileKurirView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    final ProfileController profileController = Get.find<ProfileController>();
+    final ProfileKurirController profileKurirController =
+        Get.find<ProfileKurirController>();
     final mediaHeight = MediaQuery.of(context).size.height;
     final mediaWidth = MediaQuery.of(context).size.width;
     final bottomNavBarHeight = MediaQuery.of(context).padding.bottom;
@@ -76,7 +77,7 @@ class ProfileView extends GetView<ProfileController> {
                               ElevatedButton(
                                 child: Text('Ya'),
                                 onPressed: () {
-                                  profileController.logout();
+                                  profileKurirController.logout();
                                 },
                                 style: ElevatedButton.styleFrom(
                                   shape: RoundedRectangleBorder(
@@ -134,10 +135,11 @@ class ProfileView extends GetView<ProfileController> {
                         radius: 60.0,
                         backgroundColor: Colors.transparent,
                         backgroundImage:
-                            profileController.customer.value.data?.foto != null
+                            profileKurirController.customer.value.data?.foto !=
+                                    null
                                 ? NetworkImage(
                                     Api.gambar +
-                                        profileController
+                                        profileKurirController
                                             .customer.value.data!.foto!
                                             .toString(),
                                   ) as ImageProvider<Object>
@@ -159,7 +161,7 @@ class ProfileView extends GetView<ProfileController> {
                         ),
                         onPressed: () {
                           // Panggil fungsi pickImage saat ikon edit ditekan
-                          profileController.pickImage();
+                          profileKurirController.pickImage();
                         },
                       ),
                     ),
@@ -194,8 +196,9 @@ class ProfileView extends GetView<ProfileController> {
               padding: const EdgeInsets.only(left: 30.0, right: 25, top: 10),
               child: Obx(
                 () => TextField(
-                  controller: profileController.fullNameController
-                    ..text = profileController.customer.value.data?.nama ?? '',
+                  controller: profileKurirController.fullNameController
+                    ..text =
+                        profileKurirController.customer.value.data?.nama ?? '',
                   decoration: InputDecoration(
                     contentPadding:
                         EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
@@ -242,8 +245,9 @@ class ProfileView extends GetView<ProfileController> {
               padding: const EdgeInsets.only(left: 30.0, right: 25, top: 10),
               child: Obx(
                 () => TextField(
-                  controller: profileController.emailController
-                    ..text = profileController.customer.value.data?.email ?? '',
+                  controller: profileKurirController.emailController
+                    ..text =
+                        profileKurirController.customer.value.data?.email ?? '',
                   decoration: InputDecoration(
                     contentPadding:
                         EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
@@ -295,9 +299,10 @@ class ProfileView extends GetView<ProfileController> {
               padding: const EdgeInsets.only(left: 30.0, right: 25, top: 10),
               child: Obx(
                 () => TextField(
-                  controller: profileController.phoneNumberController
+                  controller: profileKurirController.phoneNumberController
                     ..text =
-                        profileController.customer.value.data?.noTelepon ?? '',
+                        profileKurirController.customer.value.data?.noTelepon ??
+                            '',
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
                     contentPadding:
@@ -350,9 +355,10 @@ class ProfileView extends GetView<ProfileController> {
               padding: const EdgeInsets.only(left: 30.0, right: 25, top: 10),
               child: Obx(
                 () => TextField(
-                  controller: profileController.addressController
+                  controller: profileKurirController.addressController
                     ..text =
-                        profileController.customer.value.data?.alamat ?? '',
+                        profileKurirController.customer.value.data?.alamat ??
+                            '',
                   maxLines: null, // Memungkinkan input lebih dari satu baris
                   decoration: InputDecoration(
                     filled: true,
@@ -390,11 +396,11 @@ class ProfileView extends GetView<ProfileController> {
               ),
               onPressed: () async {
                 // Call editProfile function from the controller
-                await profileController.editProfile(
-                  nama: profileController.fullNameController.text,
-                  email: profileController.emailController.text,
-                  noTelepon: profileController.phoneNumberController.text,
-                  alamat: profileController.addressController.text,
+                await profileKurirController.editProfile(
+                  nama: profileKurirController.fullNameController.text,
+                  email: profileKurirController.emailController.text,
+                  noTelepon: profileKurirController.phoneNumberController.text,
+                  alamat: profileKurirController.addressController.text,
                 );
               },
             ),

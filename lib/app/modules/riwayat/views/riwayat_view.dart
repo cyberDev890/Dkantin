@@ -201,7 +201,7 @@ class RiwayatView extends GetView<RiwayatController> {
                           child: IconButton.filled(
                             padding: EdgeInsets.zero,
                             onPressed: () {
-                              riwayatController.deleteDate();
+                              // riwayatController.deleteDate();
                               // homeController.removeFromCart(menuData);
                             },
                             iconSize: mediaBody * 0.001,

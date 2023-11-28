@@ -66,7 +66,7 @@ class ProfileProvider with ChangeNotifier {
 }
 
 class CustomerProvider extends GetxController {
-  final String baseUrl = Api.getProfile; // Ganti dengan URL API Anda
+  final String baseUrl = Api.getProfile; 
 
   Future<Customer> getCustomer() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();

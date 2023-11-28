@@ -56,7 +56,7 @@ class _SemuaState extends State<Semua> {
                       decoration: InputDecoration.collapsed(
                         filled: true,
                         fillColor: Colors.transparent,
-                        hintText: "Mau makan apa hari ini ganteng ?",
+                        hintText: "Mau mamam apa hari ini ?",
                         hintStyle: TextStyle(
                             color: Colors.grey[500], fontFamily: 'Mulish'),
                         hoverColor: Colors.transparent,
@@ -64,7 +64,7 @@ class _SemuaState extends State<Semua> {
                       onFieldSubmitted: (value) {
                         // Get.to(() => searchBuku(keywords: search.toString()));
                       },
-                    ))
+                    ))  
                   ],
                 ),
               ),
@@ -91,7 +91,10 @@ class _SemuaState extends State<Semua> {
                         physics: ScrollPhysics(),
                         itemBuilder: (BuildContext context, int index) {
                           return Container(
-                            color: Colors.white,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: Colors.white,
+                            ),
                             child: Column(
                               children: [
                                 Card(

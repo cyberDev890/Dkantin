@@ -4,11 +4,12 @@ import 'package:dikantin/app/data/models/search_model.dart';
 import 'package:dikantin/app/data/providers/services.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class RiwayatProvider extends GetxController {
   Future<Search> searchRiwayat(String keyword, String date) async {
-    final token =
-        "34dAe8IGojrALfKOewgH0eaR9y4Xsocvq9BwmUqhJhTONeL1e0NBmmW7FtBWIm9eK69abdoZKOqW8G7okMH1shBxN4C4bElWE06IseDiZRCVNR9vgwr0ky4s5oZhEY5lxusQh1FQ8mE8NLR8FXTSloi3GBMZ2KBX5ZBQuHK1QfCDnZvIZqj0wMQw3T15W1SIRFyiHsvY";
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString('token');
     final response = await http.get(
       Uri.parse("${Api.riwayat}?searchAll=$keyword&searcchDate=$date"),
       headers: {
