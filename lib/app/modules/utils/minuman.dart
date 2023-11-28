@@ -215,6 +215,7 @@ class _MinumanState extends State<Minuman> {
                                                         },
                                                         iconSize: 18,
                                                         icon: const Icon(
+                                                            color: Colors.white,
                                                             Icons.remove),
                                                       ),
                                                     ),
@@ -238,6 +239,7 @@ class _MinumanState extends State<Minuman> {
                                                         },
                                                         iconSize: 18,
                                                         icon: const Icon(
+                                                            color: Colors.white,
                                                             Icons.add),
                                                       ),
                                                     ),

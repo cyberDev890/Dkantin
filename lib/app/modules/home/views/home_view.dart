@@ -32,7 +32,7 @@ class HomeView extends GetView<HomeController> {
               () => badges.Badge(
                 badgeAnimation: badges.BadgeAnimation.slide(),
                 badgeContent: Text(
-                  controller.countc.toString(),
+                  c.countc.toString(),
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 11,

@@ -1,15 +1,15 @@
-class Search {
-  List<Datasearch>? data;
+class Riwayat {
+  List<DataRiwayat>? dataRiwayat;
   int? code;
   bool? status;
 
-  Search({this.data, this.code, this.status});
+  Riwayat({this.dataRiwayat, this.code, this.status});
 
-  Search.fromJson(Map<String, dynamic> json) {
+  Riwayat.fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {
-      data = <Datasearch>[];
+      dataRiwayat = <DataRiwayat>[];
       json['data'].forEach((v) {
-        data?.add(Datasearch.fromJson(v));
+        dataRiwayat?.add(DataRiwayat.fromJson(v));
       });
     }
     code = json['code'];
@@ -19,8 +19,8 @@ class Search {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = {};
 
-    if (this.data != null) {
-      data['data'] = this.data?.map((v) => v.toJson()).toList();
+    if (this.dataRiwayat != null) {
+      data['data'] = this.dataRiwayat?.map((v) => v.toJson()).toList();
     }
     data['code'] = this.code;
     data['status'] = this.status;
@@ -29,7 +29,7 @@ class Search {
   }
 }
 
-class Datasearch {
+class DataRiwayat {
   int? idMenu;
   String? nama;
   int? harga;
@@ -43,7 +43,7 @@ class Datasearch {
   String? createdAt;
   String? updatedAt;
 
-  Datasearch(
+  DataRiwayat(
       {this.idMenu,
       this.nama,
       this.harga,
@@ -57,7 +57,7 @@ class Datasearch {
       this.createdAt,
       this.updatedAt});
 
-  Datasearch.fromJson(Map<String, dynamic> json) {
+  DataRiwayat.fromJson(Map<String, dynamic> json) {
     idMenu = json['id_menu'];
     nama = json['nama'];
     harga = json['harga'];
@@ -89,7 +89,3 @@ class Datasearch {
     return data;
   }
 }
-
-
-
-

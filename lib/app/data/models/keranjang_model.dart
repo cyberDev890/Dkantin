@@ -1,38 +1,8 @@
-class Search {
-  List<Datasearch>? data;
-  int? code;
-  bool? status;
-
-  Search({this.data, this.code, this.status});
-
-  Search.fromJson(Map<String, dynamic> json) {
-    if (json['data'] != null) {
-      data = <Datasearch>[];
-      json['data'].forEach((v) {
-        data?.add(Datasearch.fromJson(v));
-      });
-    }
-    code = json['code'];
-    status = json['status'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = {};
-
-    if (this.data != null) {
-      data['data'] = this.data?.map((v) => v.toJson()).toList();
-    }
-    data['code'] = this.code;
-    data['status'] = this.status;
-
-    return data;
-  }
-}
-
-class Datasearch {
+class DataKeranjang {
   int? idMenu;
   String? nama;
   int? harga;
+  int? qty;
   String? foto;
   String? statusStok;
   String? kategori;
@@ -43,10 +13,11 @@ class Datasearch {
   String? createdAt;
   String? updatedAt;
 
-  Datasearch(
+  DataKeranjang(
       {this.idMenu,
       this.nama,
       this.harga,
+      this.qty,
       this.foto,
       this.statusStok,
       this.kategori,
@@ -57,7 +28,7 @@ class Datasearch {
       this.createdAt,
       this.updatedAt});
 
-  Datasearch.fromJson(Map<String, dynamic> json) {
+  DataKeranjang.fromJson(Map<String, dynamic> json) {
     idMenu = json['id_menu'];
     nama = json['nama'];
     harga = json['harga'];
@@ -89,7 +60,3 @@ class Datasearch {
     return data;
   }
 }
-
-
-
-
