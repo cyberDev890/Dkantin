@@ -7,21 +7,22 @@ import 'package:lottie/lottie.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../pesanan/controllers/pesanan_controller.dart';
+import '../pesananKurir/controllers/pesananKurir_controller.dart';
 
-class Kirim extends StatefulWidget {
-  const Kirim({Key? key}) : super(key: key);
+class KirimKurir extends StatefulWidget {
+  const KirimKurir({Key? key}) : super(key: key);
 
   @override
-  State<Kirim> createState() => _KirimState();
+  State<KirimKurir> createState() => _KirimKurirState();
 }
 
-class _KirimState extends State<Kirim> {
-  PesananController controller = Get.find<PesananController>();
+class _KirimKurirState extends State<KirimKurir> {
+  PesananKurirController controllerc = Get.find<PesananKurirController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: RefreshIndicator(
-        onRefresh: () async => await controller.loadDikirim(),
+        onRefresh: () async => await controllerc.loadUntukDikirim(),
         child: CustomScrollView(
           slivers: [
             SliverList(
@@ -42,7 +43,7 @@ class _KirimState extends State<Kirim> {
         MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top;
     return Container(
       child: Obx(() {
-        if (controller.isLoading.value) {
+        if (controllerc.isLoading.value) {
           return Shimmer.fromColors(
             baseColor: Color(baseColorHex),
             highlightColor: Color(highlightColorHex),
@@ -73,7 +74,7 @@ class _KirimState extends State<Kirim> {
               ),
             ),
           );
-        } else if (controller.pesananDikirim.data?.isEmpty ?? true) {
+        } else if (controllerc.pesananUntukDikirim.data?.isEmpty ?? true) {
           return Container(
               height: mediaHeight * 0.25,
               child: Center(
@@ -82,16 +83,16 @@ class _KirimState extends State<Kirim> {
               ));
         } else {
           return ListView.builder(
-            itemCount: controller.pesananDikirim.data!.length,
+            itemCount: controllerc.pesananUntukDikirim.data!.length,
             physics: NeverScrollableScrollPhysics(),
             shrinkWrap: true,
             itemBuilder: (BuildContext context, int index) {
-              final orderData = controller.pesananDikirim.data![index];
+              final orderData = controllerc.pesananUntukDikirim.data![index];
               final totalHarga = orderData.transaksi!.totalHarga ?? 0;
               return GestureDetector(
                 onTap: () {
-                  Get.to(DetailTransaksiView(),
-                      arguments: orderData.transaksi?.kodeTr);
+                  // Get.to(DetailTransaksiView(),
+                  //     arguments: orderData.transaksi?.kodeTr);
                 },
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -199,6 +200,121 @@ class _KirimState extends State<Kirim> {
                                                 fontSize: 14,
                                                 color: Colors.red,
                                                 fontWeight: FontWeight.bold)),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                          backgroundColor: Color(0xFFD0E0FE),
+                                          shape: ContinuousRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(10.0),
+                                          ),
+                                        ),
+                                        onPressed: () async {
+                                          // await controller.batalkanPesanan(
+                                          //     orderData.transaksi!.kodeTr
+                                          //         .toString());
+                                          // print(orderData
+                                          //     .transaksi!.statusKonfirm
+                                          //     .toString());
+                                          showDialog(
+                                            context: context,
+                                            builder: (context) {
+                                              return AlertDialog(
+                                                content: Column(
+                                                  mainAxisSize:
+                                                      MainAxisSize.min,
+                                                  children: [
+                                                    Lottie.asset(
+                                                      "assets/Animation_logout.json", // Ganti dengan nama file Lottie Anda
+                                                      width: 100.0,
+                                                      height: 100.0,
+                                                      fit: BoxFit.cover,
+                                                    ),
+                                                    SizedBox(height: 20),
+                                                    Center(
+                                                      child: Text(
+                                                        "Apakah anda yakin?",
+                                                        style: TextStyle(
+                                                          color:
+                                                              Color(0xff3CA2D9),
+                                                          fontWeight:
+                                                              FontWeight.w700,
+                                                          fontSize: 18.0,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                                actions: <Widget>[
+                                                  Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      ElevatedButton(
+                                                        child: Text('Ya'),
+                                                        onPressed: () async {
+                                                          Get.back();
+
+                                                          await controllerc
+                                                              .acceptedPesanan(
+                                                                  orderData
+                                                                      .transaksi!
+                                                                      .kodeTr
+                                                                      .toString());
+                                                        },
+                                                        style: ElevatedButton
+                                                            .styleFrom(
+                                                          shape:
+                                                              RoundedRectangleBorder(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        10.0),
+                                                          ),
+                                                          backgroundColor:
+                                                              Colors.green,
+                                                        ),
+                                                      ),
+                                                      SizedBox(width: 8),
+                                                      ElevatedButton(
+                                                        child: Text('Tidak'),
+                                                        onPressed: () {
+                                                          Get.back();
+                                                        },
+                                                        style: ElevatedButton
+                                                            .styleFrom(
+                                                          shape:
+                                                              RoundedRectangleBorder(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        10.0),
+                                                          ),
+                                                          backgroundColor:
+                                                              Colors.red,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ],
+                                              );
+                                            },
+                                          );
+                                        },
+                                        child: Text(
+                                          "Antar",
+                                          style: GoogleFonts.poppins(
+                                              textStyle: TextStyle(
+                                                  fontSize: 14,
+                                                  color: Colors.blue,
+                                                  fontWeight: FontWeight.bold)),
+                                        ),
                                       ),
                                     ],
                                   ),

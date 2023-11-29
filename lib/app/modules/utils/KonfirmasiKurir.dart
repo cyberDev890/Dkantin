@@ -7,22 +7,23 @@ import 'package:shimmer/shimmer.dart';
 
 import '../detailTransaksi/views/detail_transaksi_view.dart';
 import '../pesanan/controllers/pesanan_controller.dart';
+import '../pesananKurir/controllers/pesananKurir_controller.dart';
 
-class Konfirmasi extends StatefulWidget {
-  const Konfirmasi({Key? key}) : super(key: key);
+class Konfirmasikurir extends StatefulWidget {
+  const Konfirmasikurir({Key? key}) : super(key: key);
 
   @override
-  State<Konfirmasi> createState() => _KonfirmasiState();
+  State<Konfirmasikurir> createState() => _KonfirmasikurirState();
 }
 
-class _KonfirmasiState extends State<Konfirmasi> {
-  PesananController controller = Get.find<PesananController>();
+class _KonfirmasikurirState extends State<Konfirmasikurir> {
+  PesananKurirController controller = Get.find<PesananKurirController>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: RefreshIndicator(
-        onRefresh: () async => await controller.loadDiterima(),
+        onRefresh: () async => await controller.loadKonfirmasi(),
         child: CustomScrollView(
           slivers: [
             SliverList(
@@ -74,7 +75,7 @@ class _KonfirmasiState extends State<Konfirmasi> {
               ),
             ),
           );
-        } else if (controller.pesananDiterima.data?.isEmpty ?? true) {
+        } else if (controller.pesananKonfirmasi.data?.isEmpty ?? true) {
           return Container(
               height: mediaHeight * 0.25,
               child: Center(
@@ -83,16 +84,16 @@ class _KonfirmasiState extends State<Konfirmasi> {
               ));
         } else {
           return ListView.builder(
-            itemCount: controller.pesananDiterima.data!.length,
+            itemCount: controller.pesananKonfirmasi.data!.length,
             physics: NeverScrollableScrollPhysics(),
             shrinkWrap: true,
             itemBuilder: (BuildContext context, int index) {
-              final orderData = controller.pesananDiterima.data![index];
+              final orderData = controller.pesananKonfirmasi.data![index];
               final totalHarga = orderData.transaksi!.totalHarga ?? 0;
               return GestureDetector(
                 onTap: () {
-                  Get.to(DetailTransaksiView(),
-                      arguments: orderData.transaksi?.kodeTr);
+                  // Get.to(DetailTransaksiView(),
+                  //     arguments: orderData.transaksi?.kodeTr);
                 },
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -201,6 +202,51 @@ class _KonfirmasiState extends State<Konfirmasi> {
                                                 color: Colors.red,
                                                 fontWeight: FontWeight.bold)),
                                       ),
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      orderData.status
+                                              .toString()
+                                              .contains('Selesai')
+                                          ? Text(
+                                              '', // Teks kosong jika orderData.status mengandung 'Memasak'
+                                              style: GoogleFonts.poppins(
+                                                textStyle: TextStyle(
+                                                  fontSize: 14,
+                                                  color: Colors.blue,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                            )
+                                          : ElevatedButton(
+                                              style: ElevatedButton.styleFrom(
+                                                backgroundColor:
+                                                    Color(0xFFD0E0FE),
+                                                shape:
+                                                    ContinuousRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10.0),
+                                                ),
+                                              ),
+                                              onPressed: () async {
+                                                // fungsi membuka kamera untuk scan qr code dan mengambil value nya
+                                                controller.scanQrCode(orderData
+                                                    .transaksi!.kodeTr
+                                                    .toString());
+                                              },
+                                              child: Text(
+                                                "Batalkan Pesanan",
+                                                style: GoogleFonts.poppins(
+                                                    textStyle: TextStyle(
+                                                        fontSize: 14,
+                                                        color: Colors.blue,
+                                                        fontWeight:
+                                                            FontWeight.bold)),
+                                              ),
+                                            ),
                                     ],
                                   ),
                                 ]),

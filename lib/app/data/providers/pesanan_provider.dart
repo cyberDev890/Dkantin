@@ -88,6 +88,63 @@ class PesananProvider extends GetxController {
     }
   }
 
+  Future<void> acceptPesanan(String kodeTr) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? id_kurir = prefs.getString('token');
+    print('Ini:${id_kurir}');
+    final Map<String, String> postData = {
+      "kode": "3",
+      "kurir": id_kurir.toString(), // sesuaikan dengan kantin yang login
+      "kode_tr": kodeTr,
+    };
+
+    final response = await http.post(
+      Uri.parse(Api.konfirmasi),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: jsonEncode(postData),
+    );
+
+    if (response.statusCode == 200) {
+      // Berhasil membatalkan pesanan
+      print('Pesanan berhasil dibatalkan');
+    } else {
+      // Gagal membatalkan pesanan
+      print('Gagal membatalkan pesanan. Status code: ${response.statusCode}');
+      throw Exception('Gagal membatalkan pesanan');
+    }
+  }
+
+  Future<void> konfirKurir(String kodeTr, String bukti) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? id_kurir = prefs.getString('token');
+    print('Ini:${id_kurir}');
+    final Map<String, String> postData = {
+      "kode": "4",
+      "kurir": id_kurir.toString(), // sesuaikan dengan kantin yang login
+      "kode_tr": kodeTr,
+      "bukti_pengiriman": bukti
+    };
+
+    final response = await http.post(
+      Uri.parse(Api.konfirmasi),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: jsonEncode(postData),
+    );
+
+    if (response.statusCode == 200) {
+      // Berhasil membatalkan pesanan
+      print('Pesanan berhasil dibatalkan');
+    } else {
+      // Gagal membatalkan pesanan
+      print('Gagal membatalkan pesanan. Status code: ${response.statusCode}');
+      throw Exception('Gagal membatalkan pesanan');
+    }
+  }
+
   Future<Pesanan> untukDikirim() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? token = prefs.getString('token');
@@ -110,7 +167,7 @@ class PesananProvider extends GetxController {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? token = prefs.getString('token');
     final response = await http.get(
-      Uri.parse(Api.pesananKonfirmai),
+      Uri.parse(Api.pesananKonfirmasi),
       headers: {
         'Authorization':
             'Bearer $token', // Gantilah [TOKEN] dengan token yang sesuai

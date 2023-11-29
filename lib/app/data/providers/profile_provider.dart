@@ -63,6 +63,55 @@ class ProfileProvider with ChangeNotifier {
 
     notifyListeners();
   }
+  Future<void> editAlamat({
+    required String token,
+    required String alamat,
+  }) async {
+    final url = Uri.parse(Api.updateProfile);
+
+    try {
+      final response = await http.post(
+        url,
+        headers: {
+          'Authorization': 'Bearer $token',
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode({
+          'alamat': alamat,
+        }),
+      );
+
+      if (response.statusCode == 200) {
+        Get.snackbar(
+          'Perhatian',
+          'Data Berhasil terupdate ganteng',
+          snackPosition: SnackPosition.TOP, // Menampilkan Snackbar dari atas
+          duration: Duration(seconds: 2),
+        );
+      } else {
+        final jsonResponse = jsonDecode(response.body);
+        final errorMessage = jsonResponse['data'];
+        Get.snackbar(
+          'Salah Woy',
+          '$errorMessage',
+          snackPosition: SnackPosition.TOP, // Menampilkan Snackbar dari atas
+          duration: Duration(seconds: 2),
+        );
+        print('Error status code: ${response.statusCode}');
+        print('Error response body: ${response.body}');
+      }
+    } catch (error) {
+      // Tangani kesalahan jaringan atau kesalahan lainnya
+      print('Error: $error');
+
+      if (error is http.Response) {
+        // Jika kesalahan adalah respons HTTP, cetak body respons
+        print('Response body: ${error.body}');
+      }
+    }
+
+    notifyListeners();
+  }
 }
 
 

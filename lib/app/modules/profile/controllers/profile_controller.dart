@@ -10,7 +10,7 @@ import '../../../data/providers/customer_provider.dart';
 class ProfileController extends GetxController {
   final ProfileProvider provider = ProfileProvider().obs();
   final ProfileImageProvider imageProvider = ProfileImageProvider().obs();
-  final customerProvider = CustomerProvider().obs; 
+  final customerProvider = CustomerProvider().obs;
 
   RxBool isImageUploading = false.obs;
   RxBool isLoading = true.obs;
@@ -47,15 +47,6 @@ class ProfileController extends GetxController {
     Get.offAllNamed('/login');
   }
 
-
-  Future<void> editCustomer(String alamat) async {
-    try {
-      await customerProvider.value.editAlamat(alamat);
-      update();
-    } catch (error) {
-      print('Error saat membatalkan pesanan: $error');
-    }
-  }
   Future<void> clearSharedPreferences() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.clear();
@@ -107,7 +98,31 @@ class ProfileController extends GetxController {
           noTelepon: noTelepon,
           alamat: alamat,
         );
+        await getCustomerData();
         getCustomerData();
+      } catch (error) {
+        // Handle and print the error
+        print('Error updating profile: $error');
+      }
+    } else {
+      // Handle case where token is not available (e.g., user not logged in)
+      print('Token not available. User not logged in.');
+    }
+  }
+
+  Future<void> editAlamat({
+    required String alamat,
+  }) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString('token');
+
+    if (token != null) {
+      try {
+        await provider.editAlamat(
+          token: token,
+          alamat: alamat,
+        );
+        await getCustomerData();
       } catch (error) {
         // Handle and print the error
         print('Error updating profile: $error');

@@ -6,11 +6,12 @@ import 'package:lottie/lottie.dart';
 import '../controllers/profile_controller.dart';
 
 class ProfileKurirView extends GetView<ProfileKurirController> {
-  const ProfileKurirView({Key? key}) : super(key: key);
+  ProfileKurirView({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final ProfileKurirController profileKurirController =
-        Get.find<ProfileKurirController>();
+        Get.put(ProfileKurirController());
     final mediaHeight = MediaQuery.of(context).size.height;
     final mediaWidth = MediaQuery.of(context).size.width;
     final bottomNavBarHeight = MediaQuery.of(context).padding.bottom;

@@ -14,14 +14,13 @@ class Api {
   static const makanan = "$koneksi/menu/food/";
   static const minuman = "$koneksi/menu/drink/";
   static const diskon = "$koneksi/menu/productWithDiscount/";
-  static const penjualan_hari_ini = "$koneksi/menu/productBestToday";
-  static const riwayat = "$koneksi/transaction/riwayatTransaction/";
   static const penjualanHariIni = "$koneksi/menu/productBestToday";
+  static const riwayat = "$koneksi/transaction/riwayatTransaction/";
   static const pesananProses = "$koneksi/transaction/diproses";
   static const pesananDikirim = "$koneksi/transaction/dikirim";
   static const pesananDiterima = "$koneksi/transaction/diterima";
   static const pesananUntukDikirim = "$koneksi/transaction/untukDikirim";
-  static const pesananKonfirmai = "$koneksi/transaction/konfirmasi";
+  static const pesananKonfirmasi = "$koneksi/transaction/konfirmasi";
   static const transaksi = "$koneksi/transaction";
   static const konfirmasi = "$koneksi/transaction/konfirmasiPesanan";
 }

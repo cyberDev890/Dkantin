@@ -43,7 +43,7 @@ class ProfileKurirController extends GetxController {
     await clearSharedPreferences();
 
     // Navigasi ke halaman login
-    Get.offAllNamed('/login');
+    Get.offAllNamed('/loginKurir');
   }
 
   Future<void> clearSharedPreferences() async {

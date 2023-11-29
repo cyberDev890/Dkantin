@@ -44,7 +44,7 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.LOGIN;
+  static const INITIAL = Routes.LOGIN_KURIR;
 
   static final routes = [
     GetPage(
@@ -84,7 +84,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.PROFILE_KURIR,
-      page: () => const ProfileKurirView(),
+      page: () => ProfileKurirView(),
       binding: ProfileKurirBinding(),
     ),
     GetPage(

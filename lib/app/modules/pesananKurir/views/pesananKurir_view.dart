@@ -1,5 +1,7 @@
 import 'package:dikantin/app/modules/utils/Konfirmasi.dart';
+import 'package:dikantin/app/modules/utils/KonfirmasiKurir.dart';
 import 'package:dikantin/app/modules/utils/kirim.dart';
+import 'package:dikantin/app/modules/utils/kirimKurir.dart';
 import 'package:dikantin/app/modules/utils/proses.dart';
 import 'package:flutter/material.dart';
 
@@ -11,8 +13,9 @@ import '../controllers/pesananKurir_controller.dart';
 
 class PesananKurirView extends GetView<PesananKurirController> {
   PesananKurirView({Key? key}) : super(key: key);
+
   final PesananKurirController pesananKurirController =
-      Get.find<PesananKurirController>();
+      Get.put(PesananKurirController());
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +59,7 @@ class PesananKurirView extends GetView<PesananKurirController> {
                 badgeContent: Obx(() {
                   // Update the badgeContent to display the total menus for "Diproses"
                   return Text(
-                    pesananKurirController.orderDikirim.length.toString(),
+                    pesananKurirController.orderUntukDikirim.length.toString(),
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 12,
@@ -79,7 +82,7 @@ class PesananKurirView extends GetView<PesananKurirController> {
                 badgeAnimation: badges.BadgeAnimation.slide(),
                 badgeContent: Obx(() {
                   return Text(
-                    pesananKurirController.orderDiterima.length.toString(),
+                    pesananKurirController.orderKonfirmasi.length.toString(),
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 12,
@@ -127,7 +130,7 @@ class PesananKurirView extends GetView<PesananKurirController> {
             ),
             child: TabBarView(
                 controller: pesananKurirController.tabController,
-                children: [Kirim(), Konfirmasi()]),
+                children: [KirimKurir(), Konfirmasikurir()]),
           )),
     );
   }
