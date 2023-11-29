@@ -1,13 +1,14 @@
 class Api {
-  static const koneksi = "https://a8b0-118-99-83-49.ngrok-free.app/api";
-  static const gambar = "https://a8b0-118-99-83-49.ngrok-free.app/";
+  static const koneksi = "http://dikantin.com/api";
+  static const koneksi1 = "https://a8b0-118-99-83-49.ngrok-free.app/api";
+  static const gambar = "http://dikantin.com/";
   static const signUp = "$koneksi/validate/register";
   static const signIn = "$koneksi/validate/login";
   static const updateProfile = "$koneksi/validate/customerAccount";
   static const getProfile = '$koneksi/validate/profileShow';
   static const updateFoto = '$koneksi/validate/imageProfile';
   static const semua = "$koneksi/menu/productAll/";
-  static const signInKurir = "$koneksi/validate/loginKurir";
+  static const signInKurir = "$koneksi1/validate/loginKurir";
   static const forgotPassword = "$koneksi/validate/forgotPassword";
   static const verifKode = "$koneksi/validate/verifKode";
   static const ubahPassword = "$koneksi/validate/confirmPassword";
@@ -19,8 +20,8 @@ class Api {
   static const pesananProses = "$koneksi/transaction/diproses";
   static const pesananDikirim = "$koneksi/transaction/dikirim";
   static const pesananDiterima = "$koneksi/transaction/diterima";
-  static const pesananUntukDikirim = "$koneksi/transaction/untukDikirim";
-  static const pesananKonfirmai = "$koneksi/transaction/konfirmasi";
+  static const pesananUntukDikirim = "$koneksi1/transaction/untukDikirim";
+  static const pesananKonfirmasi = "$koneksi1/transaction/konfirmasi";
   static const transaksi = "$koneksi/transaction";
   static const konfirmasi = "$koneksi/transaction/konfirmasiPesanan";
 }

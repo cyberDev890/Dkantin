@@ -290,7 +290,6 @@ class _FavoriteState extends State<Favorite> {
                             (dataPenjualan.kategori ?? '').toLowerCase();
                         String kategoriPesan =
                             kategori == 'makanan' ? 'Porsi' : 'Pcs';
-
                         return Container(
                           padding: const EdgeInsets.all(5),
                           width: MediaQuery.of(context).size.width * 0.6,

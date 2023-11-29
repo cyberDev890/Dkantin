@@ -1,6 +1,4 @@
 import 'dart:convert';
-
-import 'package:dikantin/app/data/models/customer_model.dart';
 import 'package:dikantin/app/data/providers/services.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

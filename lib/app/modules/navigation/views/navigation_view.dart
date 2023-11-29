@@ -7,10 +7,12 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
+import '../../pesanan/controllers/pesanan_controller.dart';
 import '../controllers/navigation_controller.dart';
 
 class NavigationView extends GetView<NavigationController> {
   NavigationView({Key? key}) : super(key: key);
+  final PesananController pesananController = Get.put(PesananController());
 
   @override
   Widget build(BuildContext context) {
@@ -36,6 +38,10 @@ class NavigationView extends GetView<NavigationController> {
             selectedItemColor: Colors.blue,
             unselectedItemColor: Color(0xFFD0E0FE),
             onTap: (index) {
+              if (index == 1) {
+                // Check if the selected tab is "Pesanan"
+                pesananController.refreshPesanan(); // Call the refresh function
+              }
               controller.updateCurrentScreen(index);
             },
             items: [

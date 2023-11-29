@@ -91,8 +91,8 @@ class _kirimKurirState extends State<kirimKurir> {
               final totalHarga = orderData.transaksi!.totalHarga ?? 0;
               return GestureDetector(
                 onTap: () {
-                  Get.to(DetailTransaksiView(),
-                      arguments: orderData.transaksi?.kodeTr);
+                  // Get.to(DetailTransaksiView(),
+                  //     arguments: orderData.transaksi?.kodeTr);
                 },
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),

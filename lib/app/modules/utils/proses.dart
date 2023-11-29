@@ -201,8 +201,11 @@ class _ProsesState extends State<Proses> {
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
                                       orderData.status
-                                              .toString()
-                                              .contains('Memasak')
+                                                  .toString()
+                                                  .contains('Memasak') ||
+                                              orderData.status
+                                                  .toString()
+                                                  .contains('Menunggu kurir')
                                           ? Text(
                                               '', // Teks kosong jika orderData.status mengandung 'Memasak'
                                               style: GoogleFonts.poppins(

@@ -110,7 +110,7 @@ class PesananProvider extends GetxController {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? token = prefs.getString('token');
     final response = await http.get(
-      Uri.parse(Api.pesananKonfirmai),
+      Uri.parse(Api.pesananKonfirmasi),
       headers: {
         'Authorization':
             'Bearer $token', // Gantilah [TOKEN] dengan token yang sesuai

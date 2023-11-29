@@ -15,10 +15,8 @@ class PesananKurirController extends GetxController
   final count = 0.obs;
   final isLoading = true.obs; // Define RxBool for loading state
   final pesananProvider = PesananProvider().obs; // Instantiate your provider
-  late Pesanan pesananProses = Pesanan();
   late Pesanan pesananDikirim = Pesanan();
   late Pesanan pesananDiterima = Pesanan();
-  var orderProses = <DataPesanan>[].obs;
   var orderDikirim = <DataPesanan>[].obs;
   var orderDiterima = <DataPesanan>[].obs;
   @override
@@ -53,12 +51,7 @@ class PesananKurirController extends GetxController
   }
 
   DataPesanan? findOrderById(String orderId) {
-    // Cari pesanan di setiap kategori (proses, dikirim, diterima)
-    final orderProsesById = orderProses
-        .firstWhereOrNull((order) => order.transaksi?.kodeTr == orderId);
-    if (orderProsesById != null) {
-      return orderProsesById;
-    }
+
 
     final orderDikirimById = orderDikirim
         .firstWhereOrNull((order) => order.transaksi?.kodeTr == orderId);

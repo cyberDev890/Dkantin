@@ -219,6 +219,9 @@ class DetailTransaksiView extends GetView<DetailTransaksiController> {
                                                 height: 5,
                                               ),
                                               Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
                                                 children: [
                                                   Text(
                                                     "Kantin :${detailTransaksi.menu!.idKantin.toString()}",

@@ -9,7 +9,7 @@ import '../../../data/providers/customer_provider.dart';
 
 class ProfileKurirController extends GetxController {
   final ProfileProvider provider = ProfileProvider().obs();
-  final CustomerProvider _customerProvider = CustomerProvider().obs();
+  final  _customerProvider = CustomerProvider();
   final ProfileImageProvider imageProvider = ProfileImageProvider().obs();
   RxBool isImageUploading = false.obs;
   RxBool isLoading = true.obs;
