@@ -7,11 +7,29 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class RiwayatProvider extends GetxController {
-  Future<Search> searchRiwayat(String keyword, String date) async {
+  Future<Search> searchRiwayat(String keyword,String Date) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? token = prefs.getString('token');
     final response = await http.get(
-      Uri.parse("${Api.riwayat}?searchAll=$keyword&searcchDate=$date"),
+      Uri.parse("${Api.riwayat}?searchAll=$keyword&searchDate=$Date"),
+      headers: {
+        'Authorization':
+            'Bearer $token', // Gantilah [TOKEN] dengan token yang sesuai
+      },
+    );
+
+    if (response.statusCode == 200) {
+      return Search.fromJson(jsonDecode(response.body));
+    } else {
+      throw Exception('Gagal memuat data');
+    }
+  }
+
+  Future<Search> searchRiwayatDate(String Date) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString('token');
+    final response = await http.get(
+      Uri.parse("${Api.riwayat}?searchDate=$Date"),
       headers: {
         'Authorization':
             'Bearer $token', // Gantilah [TOKEN] dengan token yang sesuai

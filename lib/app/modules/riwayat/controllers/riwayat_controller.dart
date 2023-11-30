@@ -26,10 +26,9 @@ class RiwayatController extends GetxController
   @override
   void onInit() {
     super.onInit();
-    // fetchDataDiskon('');
-    // fetchDataPenjualan();
     refreshData();
     search('', '');
+    searchDate('');
   }
 
   @override
@@ -77,8 +76,8 @@ class RiwayatController extends GetxController
         confirmText: 'Pilih');
     if (pickerDate != null && pickerDate != selectedDate.value) {
       selectedDate.value = pickerDate;
-      // await fetchDataPenjualan();
       print(selectedDate.value);
+      refreshData();
     }
   }
 
@@ -88,38 +87,6 @@ class RiwayatController extends GetxController
       update();
     }
   }
-
-  // Future<void> fetchDataPenjualan() async {
-  //   try {
-  //     penjualan =
-  //         await menuProvider.value.fetchDataPenjualanByDate(selectedDate.value);
-  //   } catch (e) {
-  //     print('Error: $e');
-  //   }
-  // }
-
-  // Future<void> fetchDataDiskon(String keyword) async {
-  //   try {
-  //     setLoading(
-  //         true); // Set isLoading menjadi true saat pemanggilan API dimulai
-  //     final results = await menuProvider.value.fetchDataDiskon(keyword);
-  //     searchResults.assignAll(results.dataRiwayat ?? []);
-  //   } catch (e) {
-  //     print('Error during search: $e');
-  //     searchResults.clear();
-  //   } finally {
-  //     setLoading(
-  //         false); // Set isLoading menjadi false saat pemanggilan API selesai
-  //   }
-  // // }
-
-  // Future<void> fetchDataPenjualan() async {
-  //   try {
-  //     penjualan = await menuProvider.value.fetchDataPenjualanHariIni();
-  //   } catch (e) {
-  //     print('Error: $e');
-  //   }
-  // }
 
   @override
   void onClose() {
@@ -139,15 +106,31 @@ class RiwayatController extends GetxController
 
   Future<void> refreshData() async {
     await search('', '');
-    // await fetchDataDiskon('');
-    // await fetchDataPenjualan();
+    await searchDate('');
   }
 
-  Future<void> search(String keyword, date) async {
+  Future<void> search(String keyword, String Date) async {
     try {
       setLoading(
           true); // Set isLoading menjadi true saat pemanggilan API dimulai
-      final results = await riwayatProvider.value.searchRiwayat(keyword, date);
+      final results = await riwayatProvider.value
+          .searchRiwayat(keyword, selectedDate.value.toString());
+      searchResults.assignAll(results.data ?? []);
+    } catch (e) {
+      print('Error during search: $e');
+      searchResults.clear();
+    } finally {
+      setLoading(
+          false); // Set isLoading menjadi false saat pemanggilan API selesai
+    }
+  }
+
+  Future<void> searchDate(String keyword) async {
+    try {
+      setLoading(
+          true); // Set isLoading menjadi true saat pemanggilan API dimulai
+      final results = await riwayatProvider.value
+          .searchRiwayatDate(selectedDate.value.toString());
       searchResults.assignAll(results.data ?? []);
     } catch (e) {
       print('Error during search: $e');

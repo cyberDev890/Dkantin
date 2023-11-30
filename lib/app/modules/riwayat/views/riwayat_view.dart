@@ -1,21 +1,13 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_interpolation_to_compose_strings, unnecessary_null_comparison, curly_braces_in_flow_control_structures, duplicate_ignore
 
-import 'package:dikantin/app/data/models/keranjang_model.dart';
-import 'package:dikantin/app/data/models/search_model.dart';
 import 'package:dikantin/app/data/providers/services.dart';
 import 'package:dikantin/app/modules/home/controllers/home_controller.dart';
-import 'package:dikantin/app/modules/keranjang/controllers/keranjang_controller.dart';
 import 'package:dikantin/app/modules/utils/formatDate.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:badges/badges.dart' as badges;
 import 'package:intl/intl.dart';
 import 'package:shimmer/shimmer.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
-
 import '../../pesanan/controllers/pesanan_controller.dart';
 import '../controllers/riwayat_controller.dart';
 
@@ -67,65 +59,6 @@ class RiwayatView extends GetView<RiwayatController> {
         },
         child: Column(
           children: [
-            // Padding(
-            //   padding: const EdgeInsets.all(8.0),
-            //   child: TextField(
-            //     controller: searchController,
-            //     onChanged: (text) {
-            //       riwayatController
-            //           .search(text); // Trigger the search as the user types
-            //     },
-            //     decoration: InputDecoration(
-            //       labelText: 'Search',
-            //       suffixIcon: IconButton(
-            //         icon: Icon(Icons.search),
-            //         onPressed: () {
-            //           riwayatController.search(searchController.text);
-            //         },
-            //       ),
-            //     ),
-            //   ),
-            // ),
-            // Container(
-            //   margin: EdgeInsets.fromLTRB(30, 15, 30, 15),
-            //   decoration: BoxDecoration(
-            //       border: Border.all(color: Color(0xFF969696), width: 1.5),
-            //       borderRadius: const BorderRadius.all(
-            //         Radius.circular(14.0),
-            //       )),
-            //   child: Row(
-            //     children: [
-            //       Padding(
-            //         padding: const EdgeInsets.all(8.0),
-            //         child: Icon(
-            //           Icons.search,
-            //           color: Color(0xFF969696),
-            //         ),
-            //       ),
-            //       Expanded(
-            //           child: TextFormField(
-            //         controller: searchController,
-            //         initialValue: null,
-            //         onChanged: (text) {
-            //           controller
-            //               .search(text); // Trigger the search as the user types
-            //         },
-            //         decoration: InputDecoration.collapsed(
-            //           filled: true,
-            //           fillColor: Colors.transparent,
-            //           hintText: "Cari Disini..",
-            //           hintStyle: TextStyle(
-            //               color: Colors.grey[500], fontFamily: 'Mulish'),
-            //           hoverColor: Colors.transparent,
-            //         ),
-            //         onFieldSubmitted: (value) {
-            //           // Get.to(() => searchBuku(keywords: search.toString()));
-            //         },
-            //       ))
-            //     ],
-            //   ),
-            // ),
-
             Row(
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -154,8 +87,10 @@ class RiwayatView extends GetView<RiwayatController> {
                           controller: searchController,
                           initialValue: null,
                           onChanged: (text) {
-                            // controller.search(
-                            //     text); // Trigger the search as the user types
+                            controller.search(
+                                text,
+                                riwayatController.selectedDate
+                                    .string); // Trigger the search as the user types
                           },
                           decoration: InputDecoration.collapsed(
                             filled: true,
@@ -185,8 +120,7 @@ class RiwayatView extends GetView<RiwayatController> {
                           child: IconButton.filled(
                             padding: EdgeInsets.zero,
                             onPressed: () {
-                              controller.chooseDate();
-                              // homeController.removeFromCart(menuData);
+                              riwayatController.chooseDate();
                             },
                             iconSize: mediaBody * 0.001,
                             icon: const Icon(
@@ -196,7 +130,6 @@ class RiwayatView extends GetView<RiwayatController> {
                             ),
                           ),
                         );
-                        // ignore: curly_braces_in_flow_control_structures
                       } else {
                         return Ink(
                           decoration: BoxDecoration(
@@ -218,7 +151,6 @@ class RiwayatView extends GetView<RiwayatController> {
                           ),
                         );
                       }
-                      ;
                     })),
               ],
             ),
