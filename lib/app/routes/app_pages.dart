@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 
 import '../modules/detailTransaksi/bindings/detail_transaksi_binding.dart';
 import '../modules/detailTransaksi/views/detail_transaksi_view.dart';
-
 import '../modules/forgotPassword/bindings/forgot_password_binding.dart';
 import '../modules/forgotPassword/views/forgot_password_view.dart';
 import '../modules/home/bindings/home_binding.dart';

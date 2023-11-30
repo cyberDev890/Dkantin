@@ -15,7 +15,7 @@ class PesananKurirView extends GetView<PesananKurirController> {
   PesananKurirView({Key? key}) : super(key: key);
 
   final PesananKurirController pesananKurirController =
-      Get.put(PesananKurirController());
+      Get.find<PesananKurirController>();
 
   @override
   Widget build(BuildContext context) {
@@ -52,20 +52,18 @@ class PesananKurirView extends GetView<PesananKurirController> {
           unselectedLabelColor: Colors.black,
           controller: pesananKurirController.tabController,
           tabs: [
-            Tab(
-              child: badges.Badge(
-                showBadge: true,
+            Tab(child: Obx(() {
+              return badges.Badge(
+                showBadge:
+                    pesananKurirController.orderUntukDikirim.isNotEmpty ?? true,
                 badgeAnimation: badges.BadgeAnimation.slide(),
-                badgeContent: Obx(() {
-                  // Update the badgeContent to display the total menus for "Diproses"
-                  return Text(
-                    pesananKurirController.orderDikirim.length.toString(),
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 12,
-                    ),
-                  );
-                }),
+                badgeContent: Text(
+                  pesananKurirController.orderUntukDikirim.length.toString(),
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 12,
+                  ),
+                ),
                 position: badges.BadgePosition.topEnd(top: -10, end: -15),
                 badgeStyle: badges.BadgeStyle(
                   shape: badges.BadgeShape.circle,
@@ -74,21 +72,20 @@ class PesananKurirView extends GetView<PesananKurirController> {
                 child: Text(
                   "Untuk dikirim",
                 ),
-              ),
-            ),
-            Tab(
-              child: badges.Badge(
-                showBadge: true,
+              );
+            })),
+            Tab(child: Obx(() {
+              return badges.Badge(
+                showBadge:
+                    pesananKurirController.orderKonfirmasi.isNotEmpty ?? true,
                 badgeAnimation: badges.BadgeAnimation.slide(),
-                badgeContent: Obx(() {
-                  return Text(
-                    pesananKurirController.orderDiterima.length.toString(),
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 12,
-                    ),
-                  );
-                }),
+                badgeContent: Text(
+                  pesananKurirController.orderKonfirmasi.length.toString(),
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 12,
+                  ),
+                ),
                 position: badges.BadgePosition.topEnd(top: -12, end: -15),
                 badgeStyle: badges.BadgeStyle(
                   shape: badges.BadgeShape.circle,
@@ -97,8 +94,8 @@ class PesananKurirView extends GetView<PesananKurirController> {
                 child: Text(
                   "Konfirmasi",
                 ),
-              ),
-            ),
+              );
+            })),
           ],
           labelStyle: GoogleFonts.poppins(
             textStyle: TextStyle(
@@ -130,7 +127,7 @@ class PesananKurirView extends GetView<PesananKurirController> {
             ),
             child: TabBarView(
                 controller: pesananKurirController.tabController,
-                children: [kirimKurir(), Konfirmasikurir()]),
+                children: [KirimKurir(), Konfirmasikurir()]),
           )),
     );
   }

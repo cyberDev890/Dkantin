@@ -75,7 +75,7 @@ class _KonfirmasikurirState extends State<Konfirmasikurir> {
               ),
             ),
           );
-        } else if (controller.pesananDiterima.data?.isEmpty ?? true) {
+        } else if (controller.pesananKonfirmasi.data?.isEmpty ?? true) {
           return Container(
               height: mediaHeight * 0.25,
               child: Center(
@@ -84,11 +84,11 @@ class _KonfirmasikurirState extends State<Konfirmasikurir> {
               ));
         } else {
           return ListView.builder(
-            itemCount: controller.pesananDiterima.data!.length,
+            itemCount: controller.pesananKonfirmasi.data!.length,
             physics: NeverScrollableScrollPhysics(),
             shrinkWrap: true,
             itemBuilder: (BuildContext context, int index) {
-              final orderData = controller.pesananDiterima.data![index];
+              final orderData = controller.pesananKonfirmasi.data![index];
               final totalHarga = orderData.transaksi!.totalHarga ?? 0;
               return GestureDetector(
                 onTap: () {
@@ -195,13 +195,92 @@ class _KonfirmasikurirState extends State<Konfirmasikurir> {
                                               color: Colors.black,
                                               fontWeight: FontWeight.normal)),
                                       Text(
-                                        orderData.status.toString(),
+                                        orderData.status
+                                                .toString()
+                                                .contains('null')
+                                            ? ''
+                                            : orderData.status.toString(),
                                         style: GoogleFonts.poppins(
                                             textStyle: TextStyle(
                                                 fontSize: 14,
                                                 color: Colors.red,
                                                 fontWeight: FontWeight.bold)),
                                       ),
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      orderData.status
+                                              .toString()
+                                              .contains('Selesai')
+                                          ? Text(
+                                              '', // Teks kosong jika orderData.status mengandung 'Selesai'
+                                              style: GoogleFonts.poppins(
+                                                textStyle: TextStyle(
+                                                  fontSize: 14,
+                                                  color: Colors.blue,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                            )
+                                          : orderData.status
+                                                  .toString()
+                                                  .contains('Menunggu 2')
+                                              ? ElevatedButton(
+                                                  style:
+                                                      ElevatedButton.styleFrom(
+                                                    backgroundColor:
+                                                        Color(0xFFD0E0FE),
+                                                    shape:
+                                                        ContinuousRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              10.0),
+                                                    ),
+                                                  ),
+                                                  onPressed: () async {},
+                                                  child: Text(
+                                                    "Foto Bukti",
+                                                    style: GoogleFonts.poppins(
+                                                        textStyle: TextStyle(
+                                                            fontSize: 14,
+                                                            color: Colors.blue,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold)),
+                                                  ),
+                                                )
+                                              : ElevatedButton(
+                                                  style:
+                                                      ElevatedButton.styleFrom(
+                                                    backgroundColor:
+                                                        Color(0xFF2579FD),
+                                                    shape:
+                                                        ContinuousRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              10.0),
+                                                    ),
+                                                  ),
+                                                  onPressed: () async {
+                                                    // fungsi membuka kamera untuk scan qr code dan mengambil value nya
+                                                    controller.scanQrCode(
+                                                        orderData
+                                                            .transaksi!.kodeTr
+                                                            .toString());
+                                                  },
+                                                  child: Text(
+                                                    "Foto Bukti",
+                                                    style: GoogleFonts.poppins(
+                                                        textStyle: TextStyle(
+                                                            fontSize: 14,
+                                                            color: Colors.white,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold)),
+                                                  ),
+                                                ),
                                     ],
                                   ),
                                 ]),

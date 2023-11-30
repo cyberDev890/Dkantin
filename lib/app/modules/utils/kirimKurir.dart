@@ -9,14 +9,14 @@ import 'package:shimmer/shimmer.dart';
 import '../pesanan/controllers/pesanan_controller.dart';
 import '../pesananKurir/controllers/pesananKurir_controller.dart';
 
-class kirimKurir extends StatefulWidget {
-  const kirimKurir({Key? key}) : super(key: key);
+class KirimKurir extends StatefulWidget {
+  const KirimKurir({Key? key}) : super(key: key);
 
   @override
-  State<kirimKurir> createState() => _kirimKurirState();
+  State<KirimKurir> createState() => _KirimKurirState();
 }
 
-class _kirimKurirState extends State<kirimKurir> {
+class _KirimKurirState extends State<KirimKurir> {
   PesananKurirController controllerc = Get.find<PesananKurirController>();
   @override
   Widget build(BuildContext context) {
@@ -74,7 +74,7 @@ class _kirimKurirState extends State<kirimKurir> {
               ),
             ),
           );
-        } else if (controllerc.pesananDikirim.data?.isEmpty ?? true) {
+        } else if (controllerc.pesananUntukDikirim.data?.isEmpty ?? true) {
           return Container(
               height: mediaHeight * 0.25,
               child: Center(
@@ -83,11 +83,11 @@ class _kirimKurirState extends State<kirimKurir> {
               ));
         } else {
           return ListView.builder(
-            itemCount: controllerc.pesananDikirim.data!.length,
+            itemCount: controllerc.pesananUntukDikirim.data!.length,
             physics: NeverScrollableScrollPhysics(),
             shrinkWrap: true,
             itemBuilder: (BuildContext context, int index) {
-              final orderData = controllerc.pesananDikirim.data![index];
+              final orderData = controllerc.pesananUntukDikirim.data![index];
               final totalHarga = orderData.transaksi!.totalHarga ?? 0;
               return GestureDetector(
                 onTap: () {
@@ -193,13 +193,128 @@ class _kirimKurirState extends State<kirimKurir> {
                                               fontSize: 14,
                                               color: Colors.black,
                                               fontWeight: FontWeight.normal)),
-                                      Text(
+                                      Text(  orderData.status.toString().contains('null')?'':
                                         orderData.status.toString(),
                                         style: GoogleFonts.poppins(
                                             textStyle: TextStyle(
                                                 fontSize: 14,
                                                 color: Colors.red,
                                                 fontWeight: FontWeight.bold)),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                          backgroundColor: Color(0xFF2579FD),
+                                          shape: ContinuousRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(10.0),
+                                          ),
+                                        ),
+                                        onPressed: () async {
+                                          // await controller.batalkanPesanan(
+                                          //     orderData.transaksi!.kodeTr
+                                          //         .toString());
+                                          // print(orderData
+                                          //     .transaksi!.statusKonfirm
+                                          //     .toString());
+                                          showDialog(
+                                            context: context,
+                                            builder: (context) {
+                                              return AlertDialog(
+                                                content: Column(
+                                                  mainAxisSize:
+                                                      MainAxisSize.min,
+                                                  children: [
+                                                    Lottie.asset(
+                                                      "assets/Animation_logout.json", // Ganti dengan nama file Lottie Anda
+                                                      width: 100.0,
+                                                      height: 100.0,
+                                                      fit: BoxFit.cover,
+                                                    ),
+                                                    SizedBox(height: 20),
+                                                    Center(
+                                                      child: Text(
+                                                        "Apakah anda yakin?",
+                                                        style: TextStyle(
+                                                          color:
+                                                              Color(0xff3CA2D9),
+                                                          fontWeight:
+                                                              FontWeight.w700,
+                                                          fontSize: 18.0,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                                actions: <Widget>[
+                                                  Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      ElevatedButton(
+                                                        child: Text('Ya'),
+                                                        onPressed: () async {
+                                                          Get.back();
+
+                                                          await controllerc
+                                                              .acceptedPesanan(
+                                                                  orderData
+                                                                      .transaksi!
+                                                                      .kodeTr
+                                                                      .toString());
+                                                        },
+                                                        style: ElevatedButton
+                                                            .styleFrom(
+                                                          shape:
+                                                              RoundedRectangleBorder(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        10.0),
+                                                          ),
+                                                          backgroundColor:
+                                                              Colors.green,
+                                                        ),
+                                                      ),
+                                                      SizedBox(width: 8),
+                                                      ElevatedButton(
+                                                        child: Text('Tidak'),
+                                                        onPressed: () {
+                                                          Get.back();
+                                                        },
+                                                        style: ElevatedButton
+                                                            .styleFrom(
+                                                          shape:
+                                                              RoundedRectangleBorder(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        10.0),
+                                                          ),
+                                                          backgroundColor:
+                                                              Colors.red,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ],
+                                              );
+                                            },
+                                          );
+                                        },
+                                        child: Text(
+                                          "Antar",
+                                          style: GoogleFonts.poppins(
+                                              textStyle: TextStyle(
+                                                  fontSize: 14,
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.bold)),
+                                        ),
                                       ),
                                     ],
                                   ),

@@ -9,11 +9,13 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
+import '../../pesananKurir/controllers/pesananKurir_controller.dart';
 import '../controllers/navigationKurir_controller.dart';
 
 class NavigationKurirView extends GetView<NavigationKurirController> {
   NavigationKurirView({Key? key}) : super(key: key);
-
+  final PesananKurirController pesananKurirController =
+      Get.put(PesananKurirController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,6 +40,11 @@ class NavigationKurirView extends GetView<NavigationKurirController> {
             selectedItemColor: Colors.blue,
             unselectedItemColor: Color(0xFFD0E0FE),
             onTap: (index) {
+              if (index == 0) {
+                // Check if the selected tab is "Pesanan"
+                pesananKurirController
+                    .refreshPesanan(); // Call the refresh function
+              }
               controller.updateCurrentScreen(index);
             },
             items: [
