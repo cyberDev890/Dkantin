@@ -23,4 +23,5 @@ class Api {
   static const pesananKonfirmasi = "$koneksi/transaction/konfirmasi";
   static const transaksi = "$koneksi/transaction";
   static const konfirmasi = "$koneksi/transaction/konfirmasiPesanan";
+  static const kurirAktif = "$koneksi/validate/editProfile";
 }

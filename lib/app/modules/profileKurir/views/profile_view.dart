@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+
 import 'package:dikantin/app/data/providers/services.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -121,289 +123,211 @@ class ProfileKurirView extends GetView<ProfileKurirController> {
         MediaQuery.of(context).padding.top;
     return Scaffold(
       appBar: myAppbar,
-      body: SingleChildScrollView(
-        child: Column(
+      backgroundColor: Colors.white,
+      body: SafeArea(
+        top: true,
+        child: Row(
+          mainAxisSize: MainAxisSize.max,
           children: [
-            Center(
-              child: Container(
-                width: 120.0,
-                height: 120.0,
-                child: Stack(
-                  alignment: Alignment.bottomRight,
-                  children: [
-                    Obx(
-                      () => CircleAvatar(
-                        radius: 60.0,
-                        backgroundColor: Colors.transparent,
-                        backgroundImage:
-                            profileKurirController.customer.value.data?.foto !=
-                                    null
-                                ? NetworkImage(
-                                    Api.gambar +
-                                        profileKurirController
-                                            .customer.value.data!.foto!
-                                            .toString(),
-                                  ) as ImageProvider<Object>
-                                : AssetImage("assets/logo_dikantin.png"),
-                      ),
-                    ),
-                    Container(
-                      width: 30.0,
-                      height: 30.0,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Colors.blue,
-                      ),
-                      child: IconButton(
-                        icon: Icon(
-                          Icons.edit,
-                          size: 16.0,
-                          color: Colors.black,
+            Expanded(
+              child: Align(
+                  alignment: AlignmentDirectional(0.00, -1.00),
+                  child: // Generated code for this Column Widget...
+                      Column(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(16, 16, 16, 16),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Container(
+                              width: 72,
+                              height: 72,
+                              decoration: BoxDecoration(
+                                color: Colors.yellow,
+                                borderRadius: BorderRadius.circular(12),
+                                border: Border.all(
+                                  color: Colors.white,
+                                  width: 2,
+                                ),
+                              ),
+                              child: Padding(
+                                padding:
+                                    EdgeInsetsDirectional.fromSTEB(2, 2, 2, 2),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: Padding(
+                                padding:
+                                    EdgeInsetsDirectional.fromSTEB(16, 4, 0, 4),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      'Casper Ghost',
+                                      style: TextStyle(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 18),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0, 4, 0, 0),
+                                      child: Text(
+                                        'casper@ghustbusters.com',
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 10),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0, 4, 0, 0),
+                                      child: Text(
+                                        '09200299322',
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 10),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            Obx(() => Switch(
+                                  value:
+                                      profileKurirController.isSwitchOn.value,
+                                  onChanged: (value) {
+                                    profileKurirController.toggleSwitch(value);
+                                  },
+                                )),
+                          ],
                         ),
-                        onPressed: () {
-                          // Panggil fungsi pickImage saat ikon edit ditekan
-                          profileKurirController.pickImage();
-                        },
                       ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Padding(
-                padding: const EdgeInsets.only(left: 40, top: 20, right: 20),
-                child: Row(
-                  children: [
-                    Text(
-                      "FULL NAME",
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
+                      Divider(
+                        height: 2,
+                        thickness: 1,
+                        color: Colors.black38,
                       ),
-                    ),
-                    Spacer(),
-                    const Icon(
-                      Icons.edit,
-                      size: 24.0,
-                      color: Colors.blue,
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 30.0, right: 25, top: 10),
-              child: Obx(
-                () => TextField(
-                  controller: profileKurirController.fullNameController
-                    ..text =
-                        profileKurirController.customer.value.data?.nama ?? '',
-                  decoration: InputDecoration(
-                    contentPadding:
-                        EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                      borderSide: BorderSide(color: Colors.black),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                      borderSide: BorderSide(color: Colors.black),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                      borderSide: BorderSide(color: Colors.blue),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Padding(
-                padding: const EdgeInsets.only(left: 40, top: 20, right: 20),
-                child: Row(
-                  children: [
-                    Text(
-                      "Email",
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
+                      Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Expanded(
+                              child: Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0, 0, 0, 12),
+                                  child: Container(
+                                    width: 200,
+                                    decoration: BoxDecoration(
+                                      color: Colors.blue[300],
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    child: Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          12, 12, 12, 12),
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Icon(
+                                            Icons.receipt_rounded,
+                                            color: Colors.white,
+                                            size: 44,
+                                          ),
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0, 8, 0, 4),
+                                            child: Text(
+                                              '2,200',
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 18),
+                                            ),
+                                          ),
+                                          Text(
+                                            'Untuk Dikirm',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 10),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  )),
+                            ),
+                            SizedBox(
+                              width: 13,
+                            ),
+                            Expanded(
+                              child: Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0, 0, 0, 12),
+                                  child: Container(
+                                    width: 200,
+                                    decoration: BoxDecoration(
+                                      color: Colors.blue[300],
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    child: Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          12, 12, 12, 12),
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        // ignore: prefer_const_literals_to_create_immutables
+                                        children: [
+                                          Icon(
+                                            Icons.ssid_chart_rounded,
+                                            color: Colors.white,
+                                            size: 44,
+                                          ),
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0, 8, 0, 4),
+                                            child: Text(
+                                              '\$212.4k',
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 18),
+                                            ),
+                                          ),
+                                          Text(
+                                            'Konfirmasi',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 10),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  )),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                    Spacer(),
-                    const Icon(
-                      Icons.edit,
-                      size: 24.0,
-                      color: Colors.blue,
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 30.0, right: 25, top: 10),
-              child: Obx(
-                () => TextField(
-                  controller: profileKurirController.emailController
-                    ..text =
-                        profileKurirController.customer.value.data?.email ?? '',
-                  decoration: InputDecoration(
-                    contentPadding:
-                        EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(
-                          10.0), // Menentukan radius untuk membuat bentuk rounded
-                      borderSide: BorderSide(
-                          color:
-                              Colors.black), // Menentukan warna garis pinggir
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                      borderSide: BorderSide(color: Colors.black),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                      borderSide: BorderSide(
-                          color: Colors
-                              .blue), // Menentukan warna garis pinggir saat fokus
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Padding(
-                padding: const EdgeInsets.only(left: 40, top: 20, right: 20),
-                child: Row(
-                  children: [
-                    Text(
-                      "Phone Number",
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Spacer(),
-                    const Icon(
-                      Icons.edit,
-                      size: 24.0,
-                      color: Colors.blue,
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 30.0, right: 25, top: 10),
-              child: Obx(
-                () => TextField(
-                  controller: profileKurirController.phoneNumberController
-                    ..text =
-                        profileKurirController.customer.value.data?.noTelepon ??
-                            '',
-                  keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
-                    contentPadding:
-                        EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(
-                          10.0), // Menentukan radius untuk membuat bentuk rounded
-                      borderSide: BorderSide(
-                          color:
-                              Colors.black), // Menentukan warna garis pinggir
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                      borderSide: BorderSide(color: Colors.black),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                      borderSide: BorderSide(
-                          color: Colors
-                              .blue), // Menentukan warna garis pinggir saat fokus
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Padding(
-                padding: const EdgeInsets.only(left: 40, top: 20, right: 20),
-                child: Row(
-                  children: [
-                    Text(
-                      "Alamat",
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Spacer(),
-                    const Icon(
-                      Icons.edit,
-                      size: 24.0,
-                      color: Colors.blue,
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 30.0, right: 25, top: 10),
-              child: Obx(
-                () => TextField(
-                  controller: profileKurirController.addressController
-                    ..text =
-                        profileKurirController.customer.value.data?.alamat ??
-                            '',
-                  maxLines: null, // Memungkinkan input lebih dari satu baris
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor: Colors.grey[200], // Atur warna latar belakang
-                    hintStyle: TextStyle(
-                        color: Colors.black54,
-                        fontSize: 12), // Atur warna teks hintText
-                    contentPadding: EdgeInsets.symmetric(
-                        vertical: 30.0,
-                        horizontal: 15.0), // Sesuaikan nilai vertical
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                      borderSide: BorderSide.none,
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                      borderSide: BorderSide.none,
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                      borderSide: BorderSide.none,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            ElevatedButton.icon(
-              icon: const Icon(Icons.save),
-              label: const Text("Save Change"),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.blue,
-              ),
-              onPressed: () async {
-                // Call editProfile function from the controller
-                await profileKurirController.editProfile(
-                  nama: profileKurirController.fullNameController.text,
-                  email: profileKurirController.emailController.text,
-                  noTelepon: profileKurirController.phoneNumberController.text,
-                  alamat: profileKurirController.addressController.text,
-                );
-              },
+                    ],
+                  )),
             ),
           ],
         ),

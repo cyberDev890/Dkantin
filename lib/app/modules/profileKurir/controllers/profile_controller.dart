@@ -5,15 +5,17 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../data/providers/authKurir_provider.dart';
 import '../../../data/providers/customer_provider.dart';
 
 class ProfileKurirController extends GetxController {
   final ProfileProvider provider = ProfileProvider().obs();
-  final  _customerProvider = CustomerProvider();
+  final _customerProvider = CustomerProvider();
   final ProfileImageProvider imageProvider = ProfileImageProvider().obs();
   RxBool isImageUploading = false.obs;
   RxBool isLoading = true.obs;
   Rx<Customer> customer = Customer().obs;
+  final AuthKurirProvider authKurirProvider = AuthKurirProvider().obs();
   var selectedImage = ''.obs;
   var fullNameController = TextEditingController();
   var emailController = TextEditingController();
@@ -35,6 +37,16 @@ class ProfileKurirController extends GetxController {
   @override
   void onClose() {
     super.onClose();
+  }
+
+  final isSwitchOn = false.obs;
+
+  void toggleSwitch(bool value) {
+    isSwitchOn.value = value;
+    authKurirProvider.kurirSwitch();
+    if (value) {
+      Get.snackbar('Switch Status', 'Switch is ON');
+    }
   }
 
   void increment() => count.value++;
