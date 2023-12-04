@@ -44,7 +44,7 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.LOGIN_KURIR;
+  static const INITIAL = Routes.LOGIN;
 
   static final routes = [
     GetPage(
@@ -104,7 +104,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.ORDER,
-      page: () => const OrderView(),
+      page: () => OrderView(),
       binding: OrderBinding(),
     ),
     GetPage(

@@ -77,7 +77,7 @@ class RiwayatController extends GetxController
     if (pickerDate != null && pickerDate != selectedDate.value) {
       selectedDate.value = pickerDate;
       print(selectedDate.value);
-      refreshData();
+      await refreshData();
     }
   }
 

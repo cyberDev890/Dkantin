@@ -1,4 +1,4 @@
-import 'package:dikantin/app/modules/detailTransaksi/views/detail_transaksi_view.dart';
+import 'package:android_intent_plus/android_intent.dart';
 import 'package:dikantin/app/modules/utils/formatDate.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -6,7 +6,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:shimmer/shimmer.dart';
 
-import '../pesanan/controllers/pesanan_controller.dart';
 import '../pesananKurir/controllers/pesananKurir_controller.dart';
 
 class KirimKurir extends StatefulWidget {
@@ -41,6 +40,7 @@ class _KirimKurirState extends State<KirimKurir> {
     final highlightColorHex = 0xFFC0C0C0;
     final mediaHeight =
         MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top;
+    String nama = "Politeknik Negeri Jember";
     return Container(
       child: Obx(() {
         if (controllerc.isLoading.value) {
@@ -88,6 +88,7 @@ class _KirimKurirState extends State<KirimKurir> {
             shrinkWrap: true,
             itemBuilder: (BuildContext context, int index) {
               final orderData = controllerc.pesananUntukDikirim.data![index];
+              final alamat = orderData.transaksi!.alamat;
               final totalHarga = orderData.transaksi!.totalHarga ?? 0;
               return GestureDetector(
                 onTap: () {
@@ -193,8 +194,12 @@ class _KirimKurirState extends State<KirimKurir> {
                                               fontSize: 14,
                                               color: Colors.black,
                                               fontWeight: FontWeight.normal)),
-                                      Text(  orderData.status.toString().contains('null')?'':
-                                        orderData.status.toString(),
+                                      Text(
+                                        orderData.status
+                                                .toString()
+                                                .contains('null')
+                                            ? ''
+                                            : orderData.status.toString(),
                                         style: GoogleFonts.poppins(
                                             textStyle: TextStyle(
                                                 fontSize: 14,
@@ -259,14 +264,26 @@ class _KirimKurirState extends State<KirimKurir> {
                                                       ElevatedButton(
                                                         child: Text('Ya'),
                                                         onPressed: () async {
-                                                          Get.back();
-
                                                           await controllerc
                                                               .acceptedPesanan(
                                                                   orderData
                                                                       .transaksi!
                                                                       .kodeTr
                                                                       .toString());
+                                                          Get.back();
+                                                          await Future.delayed(
+                                                              Duration(
+                                                                  milliseconds:
+                                                                      4100));
+
+                                                          final intent = AndroidIntent(
+                                                              action:
+                                                                  "action_view",
+                                                              data: Uri.encodeFull(
+                                                                  "google.navigation:q=$alamat&avoid=tf"),
+                                                              package:
+                                                                  "com.google.android.apps.maps");
+                                                          intent.launch();
                                                         },
                                                         style: ElevatedButton
                                                             .styleFrom(
