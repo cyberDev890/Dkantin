@@ -16,7 +16,6 @@ class Favorite extends StatefulWidget {
 
 class _FavoriteState extends State<Favorite> {
   final HomeController homeController = Get.find<HomeController>();
-
   @override
   Widget build(BuildContext context) {
     final baseColorHex = 0xFFE0E0E0;

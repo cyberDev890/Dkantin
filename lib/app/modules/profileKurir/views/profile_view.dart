@@ -397,12 +397,13 @@ class ProfileKurirView extends GetView<ProfileKurirController> {
               ),
               onPressed: () async {
                 // Call editProfile function from the controller
-                await profileKurirController.editProfile(
-                  nama: profileKurirController.fullNameController.text,
-                  email: profileKurirController.emailController.text,
-                  noTelepon: profileKurirController.phoneNumberController.text,
-                  alamat: profileKurirController.addressController.text,
-                );
+                // await profileKurirController.editProfile(
+                //   nama: profileKurirController.fullNameController.text,
+                //   email: profileKurirController.emailController.text,
+                //   noTelepon: profileKurirController.phoneNumberController.text,
+                //   alamat: profileKurirController.addressController.text,
+                // );
+            
               },
             ),
           ],

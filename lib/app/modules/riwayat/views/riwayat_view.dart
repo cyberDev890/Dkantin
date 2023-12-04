@@ -13,7 +13,7 @@ import '../controllers/riwayat_controller.dart';
 
 class RiwayatView extends GetView<RiwayatController> {
   RiwayatView({Key? key}) : super(key: key);
-  final RiwayatController riwayatController = Get.put(RiwayatController());
+  final RiwayatController riwayatController = Get.find<RiwayatController>();
   final HomeController homeController = Get.find<HomeController>();
   final TextEditingController searchController = TextEditingController();
   PesananController control = Get.find<PesananController>();

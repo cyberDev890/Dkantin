@@ -16,49 +16,70 @@ class NavigationKurirView extends GetView<NavigationKurirController> {
   NavigationKurirView({Key? key}) : super(key: key);
   final PesananKurirController pesananKurirController =
       Get.put(PesananKurirController());
+  DateTime? currentBackPressTime;
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.black, // Atur warna latar belakang Scaffold
+    Future<bool> onWillPop() async {
+      DateTime now = DateTime.now();
+      if (currentBackPressTime == null ||
+          now.difference(currentBackPressTime!) > Duration(seconds: 1)) {
+        currentBackPressTime = now;
+        ScaffoldMessenger.of(context).showSnackBar(
+          // Perubahan di sini
+          SnackBar(
+            content: Text('Tekan sekali lagi untuk keluar'),
+          ),
+        );
+        return Future.value(false);
+      }
+      return Future.value(true);
+    }
 
-      body: GetBuilder<NavigationKurirController>(
-        builder: (controller) {
-          return IndexedStack(
-            index: controller.tabIndex,
-            children: [PesananKurirView(), ProfileKurirView()],
-          );
-        },
-      ),
-      bottomNavigationBar: GetBuilder<NavigationKurirController>(
-        builder: (controller) {
-          return BottomNavigationBar(
-            type: BottomNavigationBarType.fixed,
-            elevation: 0.0, // to get rid of the shadow
-            backgroundColor: Colors
-                .white, // transparent, you could use 0x44aaaaff to make it slightly less transparent with a blue hue.
-            currentIndex: controller.tabIndex,
-            selectedItemColor: Colors.blue,
-            unselectedItemColor: Color(0xFFD0E0FE),
-            onTap: (index) {
-              if (index == 0) {
-                // Check if the selected tab is "Pesanan"
-                pesananKurirController
-                    .refreshPesanan(); // Call the refresh function
-              }
-              controller.updateCurrentScreen(index);
-            },
-            items: [
-              BottomNavigationBarItem(
-                icon: Icon(Icons.assignment_outlined, size: 30),
-                label: 'Pesanan',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(CarbonIcons.user_filled, size: 30),
-                label: 'Profil',
-              ),
-            ],
-          );
-        },
+    return WillPopScope(
+      onWillPop: onWillPop,
+      child: Scaffold(
+        backgroundColor: Colors.black, // Atur warna latar belakang Scaffold
+
+        body: GetBuilder<NavigationKurirController>(
+          builder: (controller) {
+            return IndexedStack(
+              index: controller.tabIndex,
+              children: [PesananKurirView(), ProfileKurirView()],
+            );
+          },
+        ),
+        bottomNavigationBar: GetBuilder<NavigationKurirController>(
+          builder: (controller) {
+            return BottomNavigationBar(
+              type: BottomNavigationBarType.fixed,
+              elevation: 0.0, // to get rid of the shadow
+              backgroundColor: Colors
+                  .white, // transparent, you could use 0x44aaaaff to make it slightly less transparent with a blue hue.
+              currentIndex: controller.tabIndex,
+              selectedItemColor: Colors.blue,
+              unselectedItemColor: Color(0xFFD0E0FE),
+              onTap: (index) {
+                if (index == 0) {
+                  // Check if the selected tab is "Pesanan"
+                  pesananKurirController
+                      .refreshPesanan(); // Call the refresh function
+                }
+                controller.updateCurrentScreen(index);
+              },
+              items: [
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.assignment_outlined, size: 30),
+                  label: 'Pesanan',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(CarbonIcons.user_filled, size: 30),
+                  label: 'Profil',
+                ),
+              ],
+            );
+          },
+        ),
       ),
     );
   }

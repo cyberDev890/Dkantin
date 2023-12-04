@@ -3,6 +3,7 @@ import 'package:dikantin/app/data/models/pesanan_model.dart';
 import 'package:get/get.dart';
 import "package:http/http.dart" as http;
 import 'package:shared_preferences/shared_preferences.dart';
+import '../models/pesanan_kirim_model.dart';
 import 'services.dart';
 
 class PesananProvider extends GetxController {
@@ -145,7 +146,7 @@ class PesananProvider extends GetxController {
     }
   }
 
-  Future<Pesanan> untukDikirim() async {
+  Future<PesananKirim> untukDikirim() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? token = prefs.getString('token');
     final response = await http.get(
@@ -157,13 +158,13 @@ class PesananProvider extends GetxController {
     );
 
     if (response.statusCode == 200) {
-      return Pesanan.fromJson(jsonDecode(response.body));
+      return PesananKirim.fromJson(jsonDecode(response.body));
     } else {
       throw Exception('Gagal memuat data');
     }
   }
 
-  Future<Pesanan> konfirmasi() async {
+  Future<PesananKirim> konfirmasi() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? token = prefs.getString('token');
     final response = await http.get(
@@ -175,7 +176,7 @@ class PesananProvider extends GetxController {
     );
 
     if (response.statusCode == 200) {
-      return Pesanan.fromJson(jsonDecode(response.body));
+      return PesananKirim.fromJson(jsonDecode(response.body));
     } else {
       throw Exception('Gagal memuat data');
     }

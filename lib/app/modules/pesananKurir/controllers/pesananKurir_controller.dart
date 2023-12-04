@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
+import '../../../data/models/pesanan_kirim_model.dart';
 import '../../../data/models/pesanan_model.dart';
 import '../../../data/providers/pesanan_provider.dart';
 
@@ -14,10 +15,10 @@ class PesananKurirController extends GetxController
   final count = 0.obs;
   final isLoading = true.obs; // Define RxBool for loading state
   final pesananProvider = PesananProvider().obs; // Instantiate your provider
-  late Pesanan pesananUntukDikirim = Pesanan();
-  late Pesanan pesananKonfirmasi = Pesanan();
-  var orderUntukDikirim = <DataPesanan>[].obs;
-  var orderKonfirmasi = <DataPesanan>[].obs;
+  late PesananKirim pesananUntukDikirim = PesananKirim();
+  late PesananKirim pesananKonfirmasi = PesananKirim();
+  var orderUntukDikirim = <DataPesananKirim>[].obs;
+  var orderKonfirmasi = <DataPesananKirim>[].obs;
   String scannedQrCode = '';
 
   @override
@@ -64,7 +65,7 @@ class PesananKurirController extends GetxController
     _controller.forward();
   }
 
-  DataPesanan? findOrderById(String orderId) {
+  DataPesananKirim? findOrderById(String orderId) {
     // Cari pesanan di setiap kategori (proses, dikirim, diterima)
 
     final orderDikirimById = orderUntukDikirim
@@ -146,8 +147,6 @@ class PesananKurirController extends GetxController
       await loadUntukDikirim();
       update();
 
-      // loadDikirim();
-      // loadDiterima();
       isLoading(false);
     } catch (error) {
       isLoading(false);
@@ -163,8 +162,6 @@ class PesananKurirController extends GetxController
       await loadKonfirmasi();
       update();
 
-      // loadDikirim();
-      // loadDiterima();
       isLoading(false);
     } catch (error) {
       isLoading(false);

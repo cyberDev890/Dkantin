@@ -6,14 +6,16 @@ environment:
   sdk: ">=3.1.2 <4.0.0"
 
 dependencies:
+  android_intent_plus: ^4.0.3
   badges: ^3.1.2
   carbon_icons: ^0.0.1+2
+  connectivity_plus: ^5.0.0
   cupertino_icons: ^1.0.2
   flutter:
     sdk: flutter
-  flutter_otp_text_field: ^1.1.1
   flutter_barcode_scanner: ^2.0.0
-  geocoding: ^2.1.1
+  flutter_otp_text_field: ^1.1.1
+  geocoding: ^2.1.0
   geolocator: ^10.1.0
   get: 4.6.6
   google_fonts: ^4.0.4
