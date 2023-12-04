@@ -219,6 +219,9 @@ class DetailTransaksiView extends GetView<DetailTransaksiController> {
                                                 height: 5,
                                               ),
                                               Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
                                                 children: [
                                                   Text(
                                                     "Kantin :${detailTransaksi.menu!.idKantin.toString()}",
@@ -226,13 +229,14 @@ class DetailTransaksiView extends GetView<DetailTransaksiController> {
                                                         .textTheme
                                                         .bodySmall,
                                                   ),
-
-                                                  // Text(
-                                                  // transaksi!.buktiPengiriman,
-                                                  //   style: Theme.of(context)
-                                                  //       .textTheme
-                                                  //       .bodySmall,
-                                                  // ),
+                                                  Text(
+                                                    detailTransaksi
+                                                        .statusKonfirm
+                                                        .toString(),
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .bodySmall,
+                                                  ),
                                                 ],
                                               ),
                                               const SizedBox(

@@ -11,7 +11,8 @@ import '../controllers/pesanan_controller.dart';
 
 class PesananView extends GetView<PesananController> {
   PesananView({Key? key}) : super(key: key);
-  final PesananController pesananController = Get.put(PesananController());
+    PesananController pesananController = Get.find<PesananController>();
+
   @override
   Widget build(BuildContext context) {
     final mediaHeight = MediaQuery.of(context).size.height;
@@ -132,11 +133,7 @@ class PesananView extends GetView<PesananController> {
           appBar: myAppbar,
           body: Container(
             decoration: BoxDecoration(
-              // gradient: LinearGradient(
-              //   begin: Alignment.topCenter,
-              //   end: Alignment.bottomCenter,
-              //   colors: [Color(0xFFFFFFFF), Color(0xFFAAEBFF)],
-              // ),
+             
               color: Colors.white,
             ),
             child: TabBarView(

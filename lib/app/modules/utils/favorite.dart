@@ -16,7 +16,6 @@ class Favorite extends StatefulWidget {
 
 class _FavoriteState extends State<Favorite> {
   final HomeController homeController = Get.find<HomeController>();
-
   @override
   Widget build(BuildContext context) {
     final baseColorHex = 0xFFE0E0E0;
@@ -290,7 +289,6 @@ class _FavoriteState extends State<Favorite> {
                             (dataPenjualan.kategori ?? '').toLowerCase();
                         String kategoriPesan =
                             kategori == 'makanan' ? 'Porsi' : 'Pcs';
-
                         return Container(
                           padding: const EdgeInsets.all(5),
                           width: MediaQuery.of(context).size.width * 0.6,

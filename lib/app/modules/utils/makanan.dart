@@ -213,6 +213,7 @@ class _MakananState extends State<Makanan> {
                                                         },
                                                         iconSize: 18,
                                                         icon: const Icon(
+                                                            color: Colors.white,
                                                             Icons.remove),
                                                       ),
                                                     ),
@@ -236,6 +237,7 @@ class _MakananState extends State<Makanan> {
                                                         },
                                                         iconSize: 18,
                                                         icon: const Icon(
+                                                            color: Colors.white,
                                                             Icons.add),
                                                       ),
                                                     ),

@@ -28,6 +28,8 @@ class PesananController extends GetxController
       duration: Duration(seconds: 1),
     );
     tabController = TabController(length: 3, vsync: this);
+    tabController.addListener(_handleTabSelection);
+
     loadProses();
     loadDikirim();
     loadDiterima();
@@ -44,6 +46,25 @@ class PesananController extends GetxController
     tabController.dispose(); // Hapus TabController saat controller ditutup
 
     super.onClose();
+  }
+  Future<void> refreshPesanan() async {
+    await loadProses(); 
+    await loadDikirim();
+    await loadDiterima(); 
+  }
+  void _handleTabSelection() async {
+    // Handle perubahan tab di sini
+    switch (tabController.index) {
+      case 0:
+        loadProses();
+        break;
+      case 1:
+        loadDikirim();
+        break;
+      case 2:
+        loadDiterima();
+        break;
+    }
   }
 
   void increment() => count.value++;

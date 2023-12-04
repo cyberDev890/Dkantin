@@ -1,25 +1,22 @@
 import 'dart:convert';
-
 import 'package:dikantin/app/data/providers/services.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import "package:http/http.dart" as http;
-
 import '../models/customer_model.dart';
 
 class CustomerProvider extends GetxController {
-Future<void> editAlamat(String alamat) async {
+  Future<void> editAlamat(String alamat) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? token = prefs.getString('token');
-    final Map<String, String> postData = {
-      "alamat":alamat,
+    final Map<String, dynamic> postData = {
+      "alamat": alamat,
     };
 
     final response = await http.post(
       Uri.parse(Api.updateProfile),
       headers: {
-      'Authorization':
-            'Bearer $token', // Gantilah [TOKEN] dengan token yang sesuai
+        'Authorization': 'Bearer $token',
       },
       body: jsonEncode(postData),
     );

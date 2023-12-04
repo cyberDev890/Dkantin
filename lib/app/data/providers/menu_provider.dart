@@ -1,3 +1,5 @@
+// ignore_for_file: unused_import
+
 import 'dart:convert';
 import 'package:dikantin/app/data/providers/services.dart';
 import 'package:get/get.dart';
@@ -5,6 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import '../models/penjualan_model.dart';
 import '../models/search_model.dart';
+import '../models/riwayat_model.dart';
 
 class MenuProvider extends GetxController {
   Future<Search> searchSemua(String keyword) async {
@@ -60,6 +63,24 @@ class MenuProvider extends GetxController {
       throw Exception('Gagal memuat data');
     }
   }
+
+  // Future<Search> searchRiwayat(String keyword, String date) async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   String? token = prefs.getString('token');
+  //   final response = await http.get(
+  //     Uri.parse("${Api.riwayat}?searchAll=$keyword&searcchDate=$date"),
+  //     headers: {
+  //       'Authorization':
+  //           'Bearer $token', // Gantilah [TOKEN] dengan token yang sesuai
+  //     },
+  //   );
+
+  //   if (response.statusCode == 200) {
+  //     return Search.fromJson(jsonDecode(response.body));
+  //   } else {
+  //     throw Exception('Gagal memuat data');
+  //   }
+  // }
 
   Future<Search> fetchDataDiskon(String keyword) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
