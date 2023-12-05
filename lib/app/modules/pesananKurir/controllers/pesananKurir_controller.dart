@@ -94,8 +94,9 @@ class PesananKurirController extends GetxController
       );
 
       if (scannedQrCode != "-1") {
-        Get.snackbar("Result", "QR Code " + scannedQrCode,
+        Get.snackbar("Scan Berhasil, ", "Menunggu Konfirmasi Admin",
             snackPosition: SnackPosition.BOTTOM,
+            duration: Duration(seconds: 5),
             backgroundColor: Colors.green,
             colorText: Colors.white);
         await confirmKurir(kode_tr, scannedQrCode);

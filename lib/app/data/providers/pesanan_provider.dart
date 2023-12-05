@@ -138,7 +138,7 @@ class PesananProvider extends GetxController {
 
     if (response.statusCode == 200) {
       // Berhasil membatalkan pesanan
-      print('Pesanan berhasil dibatalkan');
+      print('Konfirmasi Selesai');
     } else {
       // Gagal membatalkan pesanan
       print('Gagal membatalkan pesanan. Status code: ${response.statusCode}');
@@ -148,7 +148,7 @@ class PesananProvider extends GetxController {
 
   Future<PesananKirim> untukDikirim() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? token = prefs.getString('token');
+    String? token = prefs.getString('tokenKurir');
     final response = await http.get(
       Uri.parse(Api.pesananUntukDikirim),
       headers: {
@@ -166,7 +166,7 @@ class PesananProvider extends GetxController {
 
   Future<PesananKirim> konfirmasi() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? token = prefs.getString('token');
+    String? token = prefs.getString('tokenKurir');
     final response = await http.get(
       Uri.parse(Api.pesananKonfirmasi),
       headers: {

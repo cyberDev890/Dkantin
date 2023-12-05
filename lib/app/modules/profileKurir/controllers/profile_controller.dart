@@ -12,7 +12,7 @@ class ProfileKurirController extends GetxController {
   final ProfileProvider provider = ProfileProvider().obs();
   final _customerProvider = CustomerProvider();
   final ProfileImageProvider imageProvider = ProfileImageProvider().obs();
-  final  AuthKurirProvider authKurirProvider = AuthKurirProvider().obs();
+  final AuthKurirProvider authKurirProvider = AuthKurirProvider().obs();
   RxBool isImageUploading = false.obs;
   RxBool isLoading = true.obs;
   Rx<Customer> customer = Customer().obs;
@@ -39,6 +39,16 @@ class ProfileKurirController extends GetxController {
     super.onClose();
   }
 
+  final isSwitchOn = false.obs;
+
+  void toggleSwitch(bool value) {
+    isSwitchOn.value = value;
+    authKurirProvider.kurirSwitch();
+    if (value) {
+      Get.snackbar('Switch Status', 'Switch is ON');
+    }
+  }
+
   void increment() => count.value++;
   Future<void> logout() async {
     // Hapus data dari SharedPreferences
@@ -51,16 +61,6 @@ class ProfileKurirController extends GetxController {
   Future<void> clearSharedPreferences() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.clear();
-  }
-
-  final isSwitchOn = true.obs;
-
-  void toggleSwitch(bool value) {
-    isSwitchOn.value = value;
-    authKurirProvider.kurirSwitch();
-    if (value) {
-      Get.snackbar('Switch Status', 'Switch is ON');
-    }
   }
 
   Future<void> pickImage() async {
@@ -129,6 +129,7 @@ class ProfileKurirController extends GetxController {
 
       // Update the customer data
       customer(result);
+      // isSwitchOn.value = isKurirActive.value;
 
       isLoading(false);
     } catch (error) {
