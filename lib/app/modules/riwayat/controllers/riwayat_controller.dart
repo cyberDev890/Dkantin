@@ -41,6 +41,12 @@ class RiwayatController extends GetxController
     if (!cartList.any((element) => element.idMenu == item.idMenu)) {
       cartList.add(item);
       itemQuantities[item.idMenu!] = 1;
+      Get.snackbar(
+        'berhasil',
+        'menambahkan ke keranjang',
+        snackPosition: SnackPosition.TOP,
+        duration: Duration(seconds: 2),
+      );
     } else {
       addQuantity(item.idMenu!);
     }
@@ -52,6 +58,12 @@ class RiwayatController extends GetxController
     itemQuantities.remove(item.idMenu); // Ini akan menghapus kuantitas dari map
     itemQuantities
         .refresh(); // Memperbarui observers agar jumlah total kuantitas diperbarui di UI
+    Get.snackbar(
+      'berhasil',
+      'berhasil menghapus',
+      snackPosition: SnackPosition.TOP,
+      duration: Duration(seconds: 2),
+    );
     update(); // Memanggil update untuk memicu pembaruan UI pada widget yang terkait
   }
 
