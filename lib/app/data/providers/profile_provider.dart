@@ -61,6 +61,7 @@ class ProfileProvider with ChangeNotifier {
 
     notifyListeners();
   }
+
   Future<void> editAlamat({
     required String token,
     required String alamat,
@@ -111,8 +112,6 @@ class ProfileProvider with ChangeNotifier {
     notifyListeners();
   }
 }
-
-
 
 class ProfileImageProvider extends GetxController {
   RxBool isLoading = false.obs;

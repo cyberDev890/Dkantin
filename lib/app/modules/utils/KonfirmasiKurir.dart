@@ -199,7 +199,11 @@ class _KonfirmasikurirState extends State<Konfirmasikurir> {
                                                 .toString()
                                                 .contains('null')
                                             ? ''
-                                            : orderData.status.toString(),
+                                            : orderData.status
+                                                    .toString()
+                                                    .contains('Menunggu 2')
+                                                ? "Menunggu"
+                                                : orderData.status.toString(),
                                         style: GoogleFonts.poppins(
                                             textStyle: TextStyle(
                                                 fontSize: 14,
@@ -239,7 +243,11 @@ class _KonfirmasikurirState extends State<Konfirmasikurir> {
                                                               10.0),
                                                     ),
                                                   ),
-                                                  onPressed: () async {},
+                                                  onPressed: () async {
+                                                    Get.snackbar(
+                                                        "Menunggu !!..",
+                                                        "Konfirmasi Admin");
+                                                  },
                                                   child: Text(
                                                     "Foto Bukti",
                                                     style: GoogleFonts.poppins(

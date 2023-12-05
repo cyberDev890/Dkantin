@@ -78,8 +78,10 @@ class AuthKurirProvider extends GetxController {
     if (response.statusCode == 200) {
       isKurirActive.value = !isKurirActive.value;
       prefs.setBool('isKurirActive', isKurirActive.value);
+      isKurirActive.value = true;
       print('Akun hidup');
     } else {
+      isKurirActive.value = false;
       print('Gagal membatalkan pesanan. Status code: ${response.statusCode}');
       throw Exception('Akun eror');
     }
