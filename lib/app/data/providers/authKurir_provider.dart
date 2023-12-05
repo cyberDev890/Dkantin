@@ -6,6 +6,8 @@ import 'package:http/http.dart' as http;
 import 'dart:convert'; // Import for JSON decoding
 
 class AuthKurirProvider extends GetxController {
+    RxBool isKurirActive = false.obs;
+
   Future<http.Response> loginKurir(String username, String password) async {
     final data = {
       'email': username,
@@ -55,7 +57,31 @@ class AuthKurirProvider extends GetxController {
 
   Future<String> saveTokenToSharedPreferences(String token) async {
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setString('token', token);
+    await prefs.setString('tokenKurir', token);
     return token;
+  }
+
+ Future<void> kurirSwitch() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? tokenKurir = prefs.getString('tokenKurir');
+    final Map<String, String> postData = {};
+
+    final response = await http.post(
+      Uri.parse(Api.kurirAktif),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $tokenKurir',
+      },
+      body: jsonEncode(postData),
+    );
+
+    if (response.statusCode == 200) {
+      isKurirActive.value = !isKurirActive.value;
+      prefs.setBool('isKurirActive', isKurirActive.value);
+      print('Akun hidup');
+    } else {
+      print('Gagal membatalkan pesanan. Status code: ${response.statusCode}');
+      throw Exception('Akun eror');
+    }
   }
 }

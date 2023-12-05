@@ -5,12 +5,14 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../data/providers/authKurir_provider.dart';
 import '../../../data/providers/customer_provider.dart';
 
 class ProfileKurirController extends GetxController {
   final ProfileProvider provider = ProfileProvider().obs();
-  final  _customerProvider = CustomerProvider();
+  final _customerProvider = CustomerProvider();
   final ProfileImageProvider imageProvider = ProfileImageProvider().obs();
+  final  AuthKurirProvider authKurirProvider = AuthKurirProvider().obs();
   RxBool isImageUploading = false.obs;
   RxBool isLoading = true.obs;
   Rx<Customer> customer = Customer().obs;
@@ -49,6 +51,16 @@ class ProfileKurirController extends GetxController {
   Future<void> clearSharedPreferences() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.clear();
+  }
+
+  final isSwitchOn = true.obs;
+
+  void toggleSwitch(bool value) {
+    isSwitchOn.value = value;
+    authKurirProvider.kurirSwitch();
+    if (value) {
+      Get.snackbar('Switch Status', 'Switch is ON');
+    }
   }
 
   Future<void> pickImage() async {

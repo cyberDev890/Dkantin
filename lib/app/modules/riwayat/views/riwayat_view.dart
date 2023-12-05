@@ -90,7 +90,7 @@ class RiwayatView extends GetView<RiwayatController> {
                             controller.search(
                                 text,
                                 riwayatController.selectedDate
-                                    .string); // Trigger the search as the user types
+                                    .toString()); // Trigger the search as the user types
                           },
                           decoration: InputDecoration.collapsed(
                             filled: true,

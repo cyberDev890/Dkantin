@@ -403,9 +403,18 @@ class ProfileKurirView extends GetView<ProfileKurirController> {
                 //   noTelepon: profileKurirController.phoneNumberController.text,
                 //   alamat: profileKurirController.addressController.text,
                 // );
-            
               },
             ),
+            Obx(() => Switch(
+                  value: profileKurirController.isSwitchOn.value,
+                  onChanged: (value) {
+                    profileKurirController.toggleSwitch(value);
+                  },
+                )),
+            Obx(() => Text(
+                  'Switch Status: ${profileKurirController.isSwitchOn.value ? 'ON' : 'OFF'}',
+                  style: TextStyle(fontSize: 18),
+                )),
           ],
         ),
       ),

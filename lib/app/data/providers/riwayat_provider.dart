@@ -14,7 +14,7 @@ class RiwayatProvider extends GetxController {
       Uri.parse("${Api.riwayat}?searchAll=$keyword&searchDate=$Date"),
       headers: {
         'Authorization':
-            'Bearer $token', // Gantilah [TOKEN] dengan token yang sesuai
+            'Bearer $token', 
       },
     );
 

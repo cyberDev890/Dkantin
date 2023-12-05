@@ -231,8 +231,13 @@ class DetailTransaksiView extends GetView<DetailTransaksiController> {
                                                   ),
                                                   Text(
                                                     detailTransaksi
-                                                        .statusKonfirm
-                                                        .toString(),
+                                                            .statusKonfirm
+                                                            .toString()
+                                                            .contains("null")
+                                                        ? ""
+                                                        : detailTransaksi
+                                                            .statusKonfirm
+                                                            .toString(),
                                                     style: Theme.of(context)
                                                         .textTheme
                                                         .bodySmall,
