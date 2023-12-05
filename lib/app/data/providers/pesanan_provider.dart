@@ -119,7 +119,7 @@ class PesananProvider extends GetxController {
 
   Future<void> konfirKurir(String kodeTr, String bukti) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? id_kurir = prefs.getString('token');
+    String? id_kurir = prefs.getString('tokenKurir');
     print('Ini:${id_kurir}');
     final Map<String, String> postData = {
       "kode": "4",
@@ -132,13 +132,14 @@ class PesananProvider extends GetxController {
       Uri.parse(Api.konfirmasi),
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': 'Bearer $id_kurir',
       },
       body: jsonEncode(postData),
     );
 
     if (response.statusCode == 200) {
       // Berhasil membatalkan pesanan
-      print('Pesanan berhasil dibatalkan');
+      print('Konfirmasi Selesai');
     } else {
       // Gagal membatalkan pesanan
       print('Gagal membatalkan pesanan. Status code: ${response.statusCode}');
@@ -148,7 +149,7 @@ class PesananProvider extends GetxController {
 
   Future<PesananKirim> untukDikirim() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? token = prefs.getString('token');
+    String? token = prefs.getString('tokenKurir');
     final response = await http.get(
       Uri.parse(Api.pesananUntukDikirim),
       headers: {
@@ -166,7 +167,7 @@ class PesananProvider extends GetxController {
 
   Future<PesananKirim> konfirmasi() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? token = prefs.getString('token');
+    String? token = prefs.getString('tokenKurir');
     final response = await http.get(
       Uri.parse(Api.pesananKonfirmasi),
       headers: {
