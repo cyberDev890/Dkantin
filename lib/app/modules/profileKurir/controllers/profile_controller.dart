@@ -21,6 +21,7 @@ class ProfileKurirController extends GetxController {
   var emailController = TextEditingController();
   var phoneNumberController = TextEditingController();
   var addressController = TextEditingController();
+  RxBool isKurirActive = false.obs;
 
   final count = 0.obs;
   @override
@@ -53,7 +54,8 @@ class ProfileKurirController extends GetxController {
   Future<void> logout() async {
     // Hapus data dari SharedPreferences
     await clearSharedPreferences();
-
+    isKurirActive.value = false;
+    isSwitchOn.value = isKurirActive.value;
     // Navigasi ke halaman login
     Get.offAllNamed('/loginKurir');
   }
