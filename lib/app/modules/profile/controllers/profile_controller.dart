@@ -53,8 +53,7 @@ class ProfileController extends GetxController {
     List<String> keys = prefs.getKeys().toList();
 
     for (String key in keys) {
-      if (key != 'to
-      kenfcm') {
+      if (key != 'tokenfcm') {
         prefs.remove(key);
       }
     }

@@ -1,6 +1,8 @@
 import 'package:dikantin/app/data/providers/services.dart';
+import 'package:dikantin/app/modules/order/controllers/order_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 
 import '../controllers/profile_controller.dart';
@@ -10,9 +12,113 @@ class ProfileView extends GetView<ProfileController> {
   @override
   Widget build(BuildContext context) {
     final ProfileController profileController = Get.put(ProfileController());
+    // final OrderController orderController = Get.find<OrderController>();
+    final OrderController orderController = Get.put(OrderController());
     final mediaHeight = MediaQuery.of(context).size.height;
     final mediaWidth = MediaQuery.of(context).size.width;
     final bottomNavBarHeight = MediaQuery.of(context).padding.bottom;
+    void addressBottomsheet(BuildContext context) {
+      Get.bottomSheet(Container(
+        color: Colors.white,
+        height: MediaQuery.of(context).size.height * 0.30,
+        child: Padding(
+          padding: const EdgeInsets.all(10),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextField(
+                  controller: profileController.addressController,
+                  decoration: InputDecoration(
+                    hintText: 'Tolong Inputkan alamat dengan lengkap',
+                    filled: true,
+                    fillColor: Colors.grey[200], // Atur warna latar belakang
+                    hintStyle: TextStyle(
+                        color: Colors.black54,
+                        fontSize: 12), // Atur warna teks hintText
+                    contentPadding: EdgeInsets.symmetric(
+                        vertical: 30.0,
+                        horizontal: 15.0), // Sesuaikan nilai vertical
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                      borderSide: BorderSide.none,
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                      borderSide: BorderSide.none,
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                      borderSide: BorderSide.none,
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 5,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Color(0xFF2579FD),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                    onPressed: () async {
+                      await orderController.determinePosition();
+                      orderController.locationMessage.value =
+                          "${orderController.myPosition.value.latitude} ${orderController.myPosition.value.longitude}";
+                      orderController.getAddressFromLatLong(
+                          orderController.myPosition.value);
+                      profileController.addressController.text =
+                          orderController.addressMessage.value;
+                    },
+                    child: Text(
+                      'Lokasi saat ini',
+                      style: GoogleFonts.poppins(
+                        textStyle: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Color(0xFF2579FD),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                    onPressed: () {
+                      profileController.editAlamat(
+                          alamat: profileController.addressController.text);
+                      Get.back();
+                    },
+                    child: Text(
+                      'Simpan',
+                      style: GoogleFonts.poppins(
+                        textStyle: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ));
+    }
+
     final myAppbar = AppBar(
       centerTitle: true,
       title: Text(
@@ -182,11 +288,6 @@ class ProfileView extends GetView<ProfileController> {
                       ),
                     ),
                     Spacer(),
-                    const Icon(
-                      Icons.edit,
-                      size: 24.0,
-                      color: Colors.blue,
-                    ),
                   ],
                 ),
               ),
@@ -231,11 +332,6 @@ class ProfileView extends GetView<ProfileController> {
                       ),
                     ),
                     Spacer(),
-                    const Icon(
-                      Icons.edit,
-                      size: 24.0,
-                      color: Colors.blue,
-                    ),
                   ],
                 ),
               ),
@@ -284,11 +380,6 @@ class ProfileView extends GetView<ProfileController> {
                       ),
                     ),
                     Spacer(),
-                    const Icon(
-                      Icons.edit,
-                      size: 24.0,
-                      color: Colors.blue,
-                    ),
                   ],
                 ),
               ),
@@ -339,11 +430,16 @@ class ProfileView extends GetView<ProfileController> {
                       ),
                     ),
                     Spacer(),
-                    const Icon(
-                      Icons.edit,
-                      size: 24.0,
-                      color: Colors.blue,
-                    ),
+                    GestureDetector(
+                      onTap: () {
+                        addressBottomsheet(context);
+                      },
+                      child: Icon(
+                        Icons.edit,
+                        size: 24.0,
+                        color: Colors.blue,
+                      ),
+                    )
                   ],
                 ),
               ),
