@@ -9,7 +9,7 @@ class ProfileView extends GetView<ProfileController> {
   const ProfileView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    final ProfileController profileController = Get.find<ProfileController>();
+    final ProfileController profileController = Get.put(ProfileController());
     final mediaHeight = MediaQuery.of(context).size.height;
     final mediaWidth = MediaQuery.of(context).size.width;
     final bottomNavBarHeight = MediaQuery.of(context).padding.bottom;
@@ -134,12 +134,12 @@ class ProfileView extends GetView<ProfileController> {
                         radius: 60.0,
                         backgroundColor: Colors.transparent,
                         backgroundImage:
-                            profileController.customer.value.data?.foto != null
+                            profileController.profile.value.data?.foto != null
                                 // ignore: dead_code
                                 ? NetworkImage(
                                     Api.gambar +
                                         profileController
-                                            .customer.value.data!.foto!
+                                            .profile.value.data!.foto!
                                             .toString(),
                                   ) as ImageProvider<Object>
                                 : AssetImage("assets/logo_dikantin.png"),
@@ -196,7 +196,7 @@ class ProfileView extends GetView<ProfileController> {
               child: Obx(
                 () => TextField(
                   controller: profileController.fullNameController
-                    ..text = profileController.customer.value.data?.nama ?? '',
+                    ..text = profileController.profile.value.data?.nama ?? '',
                   decoration: InputDecoration(
                     contentPadding:
                         EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
@@ -206,7 +206,8 @@ class ProfileView extends GetView<ProfileController> {
                     ),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10.0),
-                      borderSide: BorderSide(color: const Color.fromARGB(255, 126, 70, 70)),
+                      borderSide: BorderSide(
+                          color: const Color.fromARGB(255, 126, 70, 70)),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10.0),
@@ -244,7 +245,7 @@ class ProfileView extends GetView<ProfileController> {
               child: Obx(
                 () => TextField(
                   controller: profileController.emailController
-                    ..text = profileController.customer.value.data?.email ?? '',
+                    ..text = profileController.profile.value.data?.email ?? '',
                   decoration: InputDecoration(
                     contentPadding:
                         EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
@@ -298,7 +299,7 @@ class ProfileView extends GetView<ProfileController> {
                 () => TextField(
                   controller: profileController.phoneNumberController
                     ..text =
-                        profileController.customer.value.data?.noTelepon ?? '',
+                        profileController.profile.value.data?.noTelepon ?? '',
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
                     contentPadding:
@@ -352,8 +353,7 @@ class ProfileView extends GetView<ProfileController> {
               child: Obx(
                 () => TextField(
                   controller: profileController.addressController
-                    ..text =
-                        profileController.customer.value.data?.alamat ?? '',
+                    ..text = profileController.profile.value.data?.alamat ?? '',
                   maxLines: null, // Memungkinkan input lebih dari satu baris
                   decoration: InputDecoration(
                     filled: true,

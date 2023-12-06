@@ -75,7 +75,7 @@ class OrderView extends GetView<OrderController> {
                     SizedBox(
                       height: 5,
                     ),
-                    Text(profileController.customer.value.data?.alamat ?? '',
+                    Text(profileController.profile.value.data?.alamat ?? '',
                         style: GoogleFonts.poppins(fontSize: 16)),
                     SizedBox(
                       height: 5,

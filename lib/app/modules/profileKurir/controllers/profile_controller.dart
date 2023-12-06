@@ -1,4 +1,5 @@
 import 'package:dikantin/app/data/models/customer_model.dart';
+import 'package:dikantin/app/data/models/profile_model.dart';
 import 'package:dikantin/app/data/providers/profile_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -9,11 +10,11 @@ import '../../../data/providers/customer_provider.dart';
 
 class ProfileKurirController extends GetxController {
   final ProfileProvider provider = ProfileProvider().obs();
-  final  _customerProvider = CustomerProvider();
+  final _customerProvider = CustomerProvider().obs;
   final ProfileImageProvider imageProvider = ProfileImageProvider().obs();
   RxBool isImageUploading = false.obs;
   RxBool isLoading = true.obs;
-  Rx<Customer> customer = Customer().obs;
+  Rx<Profile> profile = Profile().obs;
   var selectedImage = ''.obs;
   var fullNameController = TextEditingController();
   var emailController = TextEditingController();
@@ -113,15 +114,15 @@ class ProfileKurirController extends GetxController {
       isLoading(true);
 
       // Call the getCustomer method from CustomerProvider
-      Customer result = await _customerProvider.getCustomer();
+      Profile result = await _customerProvider.value.fetchDatacus();
 
       // Update the customer data
-      customer(result);
+      profile(result);
 
       isLoading(false);
     } catch (error) {
       isLoading(false);
-      print('Error fetching data: $error');
+      print('Error fetching dataprofile: $error');
     }
   }
 }

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:dikantin/app/data/models/profile_model.dart';
 import 'package:dikantin/app/data/providers/services.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -31,20 +32,21 @@ class CustomerProvider extends GetxController {
     }
   }
 
-  Future<Customer> getCustomer() async {
+  Future<Profile> fetchDatacus() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? token = prefs.getString('token');
     final response = await http.get(
       Uri.parse(Api.getProfile),
-      headers: {'Authorization': 'Bearer $token'},
+      headers: {
+        'Authorization':
+            'Bearer $token', // Gantilah [TOKEN] dengan token yang sesuai
+      },
     );
-
+    print(response.body);
     if (response.statusCode == 200) {
-      // Parse the JSON response and return a Customer object
-      return Customer.fromJson(json.decode(response.body));
+      return Profile.fromJson(jsonDecode(response.body));
     } else {
-      return Customer.fromJson(json.decode(response.body));
-      // throw Exception('Failed to load customer');
+      throw Exception('Gagal memuat data');
     }
   }
 }

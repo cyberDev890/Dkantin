@@ -136,12 +136,12 @@ class ProfileKurirView extends GetView<ProfileKurirController> {
                         radius: 60.0,
                         backgroundColor: Colors.transparent,
                         backgroundImage:
-                            profileKurirController.customer.value.data?.foto !=
+                            profileKurirController.profile.value.data?.foto !=
                                     null
                                 ? NetworkImage(
                                     Api.gambar +
                                         profileKurirController
-                                            .customer.value.data!.foto!
+                                            .profile.value.data!.foto!
                                             .toString(),
                                   ) as ImageProvider<Object>
                                 : AssetImage("assets/logo_dikantin.png"),
@@ -199,7 +199,7 @@ class ProfileKurirView extends GetView<ProfileKurirController> {
                 () => TextField(
                   controller: profileKurirController.fullNameController
                     ..text =
-                        profileKurirController.customer.value.data?.nama ?? '',
+                        profileKurirController.profile.value.data?.nama ?? '',
                   decoration: InputDecoration(
                     contentPadding:
                         EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
@@ -248,7 +248,7 @@ class ProfileKurirView extends GetView<ProfileKurirController> {
                 () => TextField(
                   controller: profileKurirController.emailController
                     ..text =
-                        profileKurirController.customer.value.data?.email ?? '',
+                        profileKurirController.profile.value.data?.email ?? '',
                   decoration: InputDecoration(
                     contentPadding:
                         EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
@@ -302,7 +302,7 @@ class ProfileKurirView extends GetView<ProfileKurirController> {
                 () => TextField(
                   controller: profileKurirController.phoneNumberController
                     ..text =
-                        profileKurirController.customer.value.data?.noTelepon ??
+                        profileKurirController.profile.value.data?.noTelepon ??
                             '',
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
@@ -358,8 +358,7 @@ class ProfileKurirView extends GetView<ProfileKurirController> {
                 () => TextField(
                   controller: profileKurirController.addressController
                     ..text =
-                        profileKurirController.customer.value.data?.alamat ??
-                            '',
+                        profileKurirController.profile.value.data?.alamat ?? '',
                   maxLines: null, // Memungkinkan input lebih dari satu baris
                   decoration: InputDecoration(
                     filled: true,

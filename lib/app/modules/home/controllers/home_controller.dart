@@ -7,7 +7,6 @@ import '../../../data/providers/menu_provider.dart';
 import '../../profile/controllers/profile_controller.dart';
 
 class HomeController extends GetxController with GetTickerProviderStateMixin {
-  final ProfileController profileController = Get.put(ProfileController());
   late AnimationController animationController;
   late AnimationController _controller;
   late TabController tabController; // Tambahkan variabel TabController
