@@ -43,8 +43,8 @@ class ProfileKurirView extends GetView<ProfileKurirController> {
               child: IconButton(
                 icon: Icon(
                   Icons.logout,
-                  size: 20.0,
-                  color: Colors.black,
+                  size: 17.0,
+                  color: Colors.white,
                 ),
                 onPressed: () {
                   showDialog(

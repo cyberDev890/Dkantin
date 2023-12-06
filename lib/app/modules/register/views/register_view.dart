@@ -26,8 +26,10 @@ class RegisterView extends GetView<RegisterController> {
               Padding(
                 padding: const EdgeInsets.only(top: 25),
                 child: Text("Register",
-                    style:
-                        TextStyle(fontSize: 40, fontWeight: FontWeight.bold)),
+                    style: TextStyle(
+                        fontSize: 40,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white)),
               ),
               SizedBox(
                 height: MediaQuery.of(context).size.height / 8,

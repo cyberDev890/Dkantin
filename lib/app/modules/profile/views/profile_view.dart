@@ -39,8 +39,8 @@ class ProfileView extends GetView<ProfileController> {
               child: IconButton(
                 icon: Icon(
                   Icons.logout,
-                  size: 20.0,
-                  color: Colors.black,
+                  size: 17.0,
+                  color: Colors.white,
                 ),
                 onPressed: () {
                   showDialog(
@@ -156,7 +156,7 @@ class ProfileView extends GetView<ProfileController> {
                         icon: Icon(
                           Icons.edit,
                           size: 16.0,
-                          color: Colors.black,
+                          color: Colors.white,
                         ),
                         onPressed: () {
                           // Panggil fungsi pickImage saat ikon edit ditekan
@@ -206,7 +206,8 @@ class ProfileView extends GetView<ProfileController> {
                     ),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10.0),
-                      borderSide: BorderSide(color: const Color.fromARGB(255, 126, 70, 70)),
+                      borderSide: BorderSide(
+                          color: const Color.fromARGB(255, 126, 70, 70)),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10.0),

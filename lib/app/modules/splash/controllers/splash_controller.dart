@@ -15,15 +15,38 @@ class SplashController extends GetxController {
     super.onReady();
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? token = prefs.getString('token');
-    if (token == null) {
-      Future.delayed(Duration(seconds: 3), () {
-        Get.offAllNamed('/login');
-      });
-    } else {
-      Future.delayed(Duration(seconds: 3), () {
-        Get.offAllNamed('/navigation');
-      });
+    String? tokenKurir = prefs.getString('tokenKurir');
+
+    // If both tokens are null, go to login
+    if (token == null && tokenKurir == null) {
+      _navigateToLogin();
     }
+    // If token is not null and tokenKurir is null, go to navigation
+    else if (token != null && tokenKurir == null) {
+      _navigateToNavigation();
+    }
+    // If token is null and tokenKurir is not null, go to navigationKurir
+    else if (token == null && tokenKurir != null) {
+      _navigateToNavigationKurir();
+    }
+  }
+
+  void _navigateToLogin() {
+    Future.delayed(Duration(seconds: 3), () {
+      Get.offAllNamed('/login');
+    });
+  }
+
+  void _navigateToNavigation() {
+    Future.delayed(Duration(seconds: 3), () {
+      Get.offAllNamed('/navigation');
+    });
+  }
+
+  void _navigateToNavigationKurir() {
+    Future.delayed(Duration(seconds: 3), () {
+      Get.offAllNamed('/navigationKurir');
+    });
   }
 
   @override
