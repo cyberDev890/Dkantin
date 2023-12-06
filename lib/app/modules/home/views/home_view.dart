@@ -161,7 +161,7 @@ class HomeView extends GetView<HomeController> {
                               Container(
                                 // padding: EdgeInsets.only(right: x * 0.25),
                                 child: Text(
-                                  "Rp. 1.000.000",
+                                  "Rp. 0",
                                   style: GoogleFonts.poppins(
                                     textStyle: TextStyle(
                                       color: Colors.black,

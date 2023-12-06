@@ -46,18 +46,19 @@ class ProfileKurirController extends GetxController {
     isSwitchOn.value = value;
     authKurirProvider.kurirSwitch();
     if (value) {
-      Get.snackbar('Switch Status', 'Switch is ON');
+      Get.snackbar('Akun status', 'ON');
     }
   }
 
   void increment() => count.value++;
   Future<void> logout() async {
     // Hapus data dari SharedPreferences
+    await authKurirProvider.kurirLogout();
     await clearSharedPreferences();
     isKurirActive.value = false;
     isSwitchOn.value = isKurirActive.value;
     // Navigasi ke halaman login
-    Get.offAllNamed('/loginKurir');
+    Get.offAllNamed('/login');
   }
 
   Future<void> clearSharedPreferences() async {
