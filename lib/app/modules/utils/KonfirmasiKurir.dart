@@ -90,6 +90,13 @@ class _KonfirmasikurirState extends State<Konfirmasikurir> {
             itemBuilder: (BuildContext context, int index) {
               final orderData = controller.pesananKonfirmasi.data![index];
               final totalHarga = orderData.transaksi!.totalHarga ?? 0;
+              bool isStatusSelesai =
+                  orderData.status.toString().contains('Selesai');
+
+              // Jika status 'Selesai', maka item tidak ditampilkan
+              if (isStatusSelesai) {
+                return Container(); // Container kosong untuk item yang disembunyikan
+              }
               return GestureDetector(
                 onTap: () {
                   // Get.to(DetailTransaksiView(),

@@ -5,15 +5,18 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 
+import '../../pesananKurir/controllers/pesananKurir_controller.dart';
 import '../controllers/profile_controller.dart';
 
 class ProfileKurirView extends GetView<ProfileKurirController> {
   ProfileKurirView({Key? key}) : super(key: key);
+  final ProfileKurirController profileKurirController =
+      Get.put(ProfileKurirController());
+  final PesananKurirController pesananKurirController =
+      Get.find<PesananKurirController>();
 
   @override
   Widget build(BuildContext context) {
-    final ProfileKurirController profileKurirController =
-        Get.put(ProfileKurirController());
     final mediaHeight = MediaQuery.of(context).size.height;
     final mediaWidth = MediaQuery.of(context).size.width;
     final bottomNavBarHeight = MediaQuery.of(context).padding.bottom;
@@ -43,8 +46,8 @@ class ProfileKurirView extends GetView<ProfileKurirController> {
               child: IconButton(
                 icon: Icon(
                   Icons.logout,
-                  size: 17.0,
-                  color: Colors.white,
+                  size: 20.0,
+                  color: Colors.black,
                 ),
                 onPressed: () {
                   showDialog(
@@ -137,67 +140,104 @@ class ProfileKurirView extends GetView<ProfileKurirController> {
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(16, 16, 16, 16),
+                        padding: EdgeInsets.all(0),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           children: [
-                            Container(
-                              width: 72,
-                              height: 72,
-                              decoration: BoxDecoration(
-                                color: Colors.yellow,
-                                borderRadius: BorderRadius.circular(12),
-                                border: Border.all(
-                                  color: Colors.white,
-                                  width: 2,
-                                ),
-                              ),
-                              child: Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(2, 2, 2, 2),
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                              ),
-                            ),
+                            Stack(
+                                alignment: AlignmentDirectional(1, 0.5),
+                                children: [
+                                  Obx(
+                                    () => CircleAvatar(
+                                      radius: 60.0,
+                                      backgroundColor: Colors.transparent,
+                                      backgroundImage: profileKurirController
+                                                  .profileKurir
+                                                  .value
+                                                  .data
+                                                  ?.foto !=
+                                              null
+                                          // ignore: dead_code
+                                          ? NetworkImage(
+                                              Api.gambar +
+                                                  profileKurirController
+                                                      .profileKurir
+                                                      .value
+                                                      .data!
+                                                      .foto!
+                                                      .toString(),
+                                            ) as ImageProvider<Object>
+                                          : AssetImage(
+                                              "assets/logo_dikantin.png"),
+                                    ),
+                                  ),
+                                  Container(
+                                    width: 30.0,
+                                    height: 30.0,
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: Colors.blue,
+                                    ),
+                                    child: IconButton(
+                                      icon: Icon(
+                                        Icons.edit,
+                                        size: 16.0,
+                                        color: Colors.white,
+                                      ),
+                                      onPressed: () {
+                                        // Panggil fungsi pickImage saat ikon edit ditekan
+                                        profileKurirController.pickImage();
+                                      },
+                                    ),
+                                  ),
+                                ]),
                             Expanded(
                               child: Padding(
                                 padding:
                                     EdgeInsetsDirectional.fromSTEB(16, 4, 0, 4),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      'Casper Ghost',
-                                      style: TextStyle(
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 18),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0, 4, 0, 0),
-                                      child: Text(
-                                        'casper@ghustbusters.com',
+                                child: Obx(
+                                  () => Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        profileKurirController.profileKurir
+                                                .value.data?.nama ??
+                                            '',
                                         style: TextStyle(
                                             color: Colors.black,
                                             fontWeight: FontWeight.bold,
-                                            fontSize: 10),
+                                            fontSize: 18),
                                       ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0, 4, 0, 0),
-                                      child: Text(
-                                        '09200299322',
-                                        style: TextStyle(
-                                            color: Colors.black,
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 10),
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0, 4, 0, 0),
+                                        child: Text(
+                                          profileKurirController.profileKurir
+                                                  .value.data?.email ??
+                                              '',
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 12),
+                                        ),
                                       ),
-                                    ),
-                                  ],
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0, 4, 0, 0),
+                                        child: Text(
+                                          profileKurirController.profileKurir
+                                                  .value.data?.telepon ??
+                                              '',
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 15),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
@@ -248,13 +288,17 @@ class ProfileKurirView extends GetView<ProfileKurirController> {
                                             padding:
                                                 EdgeInsetsDirectional.fromSTEB(
                                                     0, 8, 0, 4),
-                                            child: Text(
-                                              '2,200',
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 18),
+                                            child: Obx(
+                                              () => Text(
+                                                pesananKurirController
+                                                    .orderUntukDikirim.length
+                                                    .toString(),
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 18),
+                                              ),
                                             ),
                                           ),
                                           Text(
@@ -263,7 +307,7 @@ class ProfileKurirView extends GetView<ProfileKurirController> {
                                             style: TextStyle(
                                                 color: Colors.white,
                                                 fontWeight: FontWeight.bold,
-                                                fontSize: 10),
+                                                fontSize: 15),
                                           ),
                                         ],
                                       ),
@@ -301,13 +345,17 @@ class ProfileKurirView extends GetView<ProfileKurirController> {
                                             padding:
                                                 EdgeInsetsDirectional.fromSTEB(
                                                     0, 8, 0, 4),
-                                            child: Text(
-                                              '\$212.4k',
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 18),
+                                            child: Obx(
+                                              () => Text(
+                                                pesananKurirController
+                                                    .orderKonfirmasi.length
+                                                    .toString(),
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 18),
+                                              ),
                                             ),
                                           ),
                                           Text(
@@ -316,7 +364,7 @@ class ProfileKurirView extends GetView<ProfileKurirController> {
                                             style: TextStyle(
                                                 color: Colors.white,
                                                 fontWeight: FontWeight.bold,
-                                                fontSize: 10),
+                                                fontSize: 15),
                                           ),
                                         ],
                                       ),

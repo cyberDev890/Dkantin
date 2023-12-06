@@ -1,6 +1,7 @@
 import 'package:dikantin/app/data/providers/auth_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../data/providers/authKurir_provider.dart';
 import '../../../repository/ConnectivityHelper..dart';
@@ -15,8 +16,11 @@ class LoginController extends GetxController {
   final ConnectivityHelper connectivityHelper = Get.put(ConnectivityHelper());
 
   @override
-  void onInit() {
+  Future<void> onInit() async {
     super.onInit();
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? tokenfcm = prefs.getString('tokenfcm');
+    print(tokenfcm);
   }
 
   @override

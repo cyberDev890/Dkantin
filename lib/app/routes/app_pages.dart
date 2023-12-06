@@ -146,7 +146,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.RIWAYAT_KURIR,
-      page: () => const RiwayatKurirView(),
+      page: () => RiwayatKurirView(),
       binding: RiwayatKurirBinding(),
     ),
   ];

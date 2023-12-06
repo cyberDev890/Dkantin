@@ -70,11 +70,8 @@ class OrderView extends GetView<OrderController> {
                     SizedBox(
                       height: 5,
                     ),
-                    Obx(
-                      () => Text(
-                          profileController.customer.value.data?.alamat ?? '',
-                          style: GoogleFonts.poppins(fontSize: 16)),
-                    ),
+                    Text(profileController.profile.value.data?.alamat ?? '',
+                        style: GoogleFonts.poppins(fontSize: 16)),
                     SizedBox(
                       height: 5,
                     ),
