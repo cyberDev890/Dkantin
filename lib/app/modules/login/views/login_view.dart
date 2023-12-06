@@ -1,6 +1,7 @@
 import 'package:carbon_icons/carbon_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../controllers/login_controller.dart';
 
 class LoginView extends GetView<LoginController> {
@@ -24,13 +25,16 @@ class LoginView extends GetView<LoginController> {
             children: [
               Center(
                 child: Image.asset(
-                  'assets/logo_dikantin.png', // Ganti dengan path gambar Anda
+                  'assets/logoBaru.png', // Ganti dengan path gambar Anda
                   width: 200, // Sesuaikan dengan ukuran yang Anda inginkan
                   height: 200,
                 ),
               ),
               Text("Login",
-                  style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold)),
+                  style: TextStyle(
+                      fontSize: 40,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white)),
               SizedBox(
                 height: MediaQuery.of(context).size.height / 8,
               ),
@@ -98,7 +102,16 @@ class LoginView extends GetView<LoginController> {
                       c.login(
                           c.emailController.text, c.passwordController.text);
                     },
-                    child: const Text("Login"),
+                    child: Text(
+                      "Login",
+                      style: GoogleFonts.poppins(
+                        textStyle: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -117,10 +130,14 @@ class LoginView extends GetView<LoginController> {
                     onPressed: () {
                       Get.toNamed('/register');
                     },
-                    child: const Text(
+                    child: Text(
                       "Register",
-                      style: const TextStyle(
-                        color: Colors.black54,
+                      style: GoogleFonts.poppins(
+                        textStyle: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.black,
+                        ),
                       ),
                     ),
                   ),
@@ -129,18 +146,36 @@ class LoginView extends GetView<LoginController> {
               SizedBox(
                 height: 30,
               ),
-              GestureDetector(
-                onTap: () {
-                  Get.offAllNamed("/forgot-password");
-                },
-                child: Text(
-                  "Forgot Password?",
-                  style: TextStyle(
-                      fontSize: 15.0,
-                      color: Color(0xff514D4E),
-                      fontWeight: FontWeight.bold),
-                ),
-              )
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      Get.offAllNamed("/forgot-password");
+                    },
+                    child: Text(
+                      "Forgot Password?",
+                      style: TextStyle(
+                          fontSize: 15.0,
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      c.loginKurir(
+                          c.emailController.text, c.passwordController.text);
+                    },
+                    child: Text(
+                      "Login Sebagai Kurir",
+                      style: TextStyle(
+                          fontSize: 15.0,
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ],
+              ),
             ],
           ),
         ),

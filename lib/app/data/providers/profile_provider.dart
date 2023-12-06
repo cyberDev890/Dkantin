@@ -111,6 +111,9 @@ class ProfileProvider with ChangeNotifier {
 
     notifyListeners();
   }
+
+
+
 }
 
 class ProfileImageProvider extends GetxController {
