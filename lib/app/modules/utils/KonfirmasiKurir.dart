@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../../data/providers/services.dart';
 import '../detailTransaksi/views/detail_transaksi_view.dart';
 import '../pesanan/controllers/pesanan_controller.dart';
 import '../pesananKurir/controllers/pesananKurir_controller.dart';
@@ -90,6 +91,13 @@ class _KonfirmasikurirState extends State<Konfirmasikurir> {
             itemBuilder: (BuildContext context, int index) {
               final orderData = controller.pesananKonfirmasi.data![index];
               final totalHarga = orderData.transaksi!.totalHarga ?? 0;
+              bool isStatusSelesai =
+                  orderData.status.toString().contains('Selesai');
+
+              // Jika status 'Selesai', maka item tidak ditampilkan
+              if (isStatusSelesai) {
+                return Container(); // Container kosong untuk item yang disembunyikan
+              }
               return GestureDetector(
                 onTap: () {
                   // Get.to(DetailTransaksiView(),
@@ -108,10 +116,14 @@ class _KonfirmasikurirState extends State<Konfirmasikurir> {
                         children: [
                           ListTile(
                             leading: CircleAvatar(
-                              backgroundImage: NetworkImage(
-                                "https://i.ibb.co/PGv8ZzG/me.jpg",
-                              ),
-                            ),
+                                backgroundImage: orderData.transaksi!.foto !=
+                                        null
+                                    ? NetworkImage(
+                                        Api.gambar +
+                                            orderData.transaksi!.foto
+                                                .toString(),
+                                      ) as ImageProvider<Object>
+                                    : AssetImage("assets/logo_dikantin.png")),
                             title: Text(
                               "#${orderData.transaksi!.kodeTr.toString()}",
                               style: GoogleFonts.poppins(

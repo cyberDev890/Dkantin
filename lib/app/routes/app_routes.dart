@@ -23,6 +23,7 @@ abstract class Routes {
   static const OTP_PAGE = _Paths.OTP_PAGE;
   static const UBAH_PASSWORD = _Paths.UBAH_PASSWORD;
   static const EDIT_ALAMAT = _Paths.EDIT_ALAMAT;
+  static const RIWAYAT_KURIR = _Paths.RIWAYAT_KURIR;
 }
 
 abstract class _Paths {
@@ -47,4 +48,5 @@ abstract class _Paths {
   static const OTP_PAGE = '/otp-page';
   static const UBAH_PASSWORD = '/ubah-password';
   static const EDIT_ALAMAT = '/edit-alamat';
+  static const RIWAYAT_KURIR = '/riwayat-kurir';
 }

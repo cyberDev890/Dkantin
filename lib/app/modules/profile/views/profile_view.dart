@@ -1,6 +1,8 @@
 import 'package:dikantin/app/data/providers/services.dart';
+import 'package:dikantin/app/modules/order/controllers/order_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 
 import '../controllers/profile_controller.dart';
@@ -9,10 +11,114 @@ class ProfileView extends GetView<ProfileController> {
   const ProfileView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    final ProfileController profileController = Get.find<ProfileController>();
+    final ProfileController profileController = Get.put(ProfileController());
+    // final OrderController orderController = Get.find<OrderController>();
+    final OrderController orderController = Get.put(OrderController());
     final mediaHeight = MediaQuery.of(context).size.height;
     final mediaWidth = MediaQuery.of(context).size.width;
     final bottomNavBarHeight = MediaQuery.of(context).padding.bottom;
+    void addressBottomsheet(BuildContext context) {
+      Get.bottomSheet(Container(
+        color: Colors.white,
+        height: MediaQuery.of(context).size.height * 0.30,
+        child: Padding(
+          padding: const EdgeInsets.all(10),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextField(
+                  controller: profileController.addressController,
+                  decoration: InputDecoration(
+                    hintText: 'Tolong Inputkan alamat dengan lengkap',
+                    filled: true,
+                    fillColor: Colors.grey[200], // Atur warna latar belakang
+                    hintStyle: TextStyle(
+                        color: Colors.black54,
+                        fontSize: 12), // Atur warna teks hintText
+                    contentPadding: EdgeInsets.symmetric(
+                        vertical: 30.0,
+                        horizontal: 15.0), // Sesuaikan nilai vertical
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                      borderSide: BorderSide.none,
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                      borderSide: BorderSide.none,
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                      borderSide: BorderSide.none,
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 5,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Color(0xFF2579FD),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                    onPressed: () async {
+                      await orderController.determinePosition();
+                      orderController.locationMessage.value =
+                          "${orderController.myPosition.value.latitude} ${orderController.myPosition.value.longitude}";
+                      orderController.getAddressFromLatLong(
+                          orderController.myPosition.value);
+                      profileController.addressController.text =
+                          orderController.addressMessage.value;
+                    },
+                    child: Text(
+                      'Lokasi saat ini',
+                      style: GoogleFonts.poppins(
+                        textStyle: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Color(0xFF2579FD),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                    onPressed: () {
+                      profileController.editAlamat(
+                          alamat: profileController.addressController.text);
+                      Get.back();
+                    },
+                    child: Text(
+                      'Simpan',
+                      style: GoogleFonts.poppins(
+                        textStyle: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ));
+    }
+
     final myAppbar = AppBar(
       centerTitle: true,
       title: Text(
@@ -39,8 +145,8 @@ class ProfileView extends GetView<ProfileController> {
               child: IconButton(
                 icon: Icon(
                   Icons.logout,
-                  size: 20.0,
-                  color: Colors.black,
+                  size: 17.0,
+                  color: Colors.white,
                 ),
                 onPressed: () {
                   showDialog(
@@ -134,12 +240,12 @@ class ProfileView extends GetView<ProfileController> {
                         radius: 60.0,
                         backgroundColor: Colors.transparent,
                         backgroundImage:
-                            profileController.customer.value.data?.foto != null
+                            profileController.profile.value.data?.foto != null
                                 // ignore: dead_code
                                 ? NetworkImage(
                                     Api.gambar +
                                         profileController
-                                            .customer.value.data!.foto!
+                                            .profile.value.data!.foto!
                                             .toString(),
                                   ) as ImageProvider<Object>
                                 : AssetImage("assets/logo_dikantin.png"),
@@ -156,7 +262,7 @@ class ProfileView extends GetView<ProfileController> {
                         icon: Icon(
                           Icons.edit,
                           size: 16.0,
-                          color: Colors.black,
+                          color: Colors.white,
                         ),
                         onPressed: () {
                           // Panggil fungsi pickImage saat ikon edit ditekan
@@ -182,11 +288,6 @@ class ProfileView extends GetView<ProfileController> {
                       ),
                     ),
                     Spacer(),
-                    const Icon(
-                      Icons.edit,
-                      size: 24.0,
-                      color: Colors.blue,
-                    ),
                   ],
                 ),
               ),
@@ -196,7 +297,7 @@ class ProfileView extends GetView<ProfileController> {
               child: Obx(
                 () => TextField(
                   controller: profileController.fullNameController
-                    ..text = profileController.customer.value.data?.nama ?? '',
+                    ..text = profileController.profile.value.data?.nama ?? '',
                   decoration: InputDecoration(
                     contentPadding:
                         EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
@@ -206,7 +307,8 @@ class ProfileView extends GetView<ProfileController> {
                     ),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10.0),
-                      borderSide: BorderSide(color: const Color.fromARGB(255, 126, 70, 70)),
+                      borderSide: BorderSide(
+                          color: const Color.fromARGB(255, 126, 70, 70)),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10.0),
@@ -230,11 +332,6 @@ class ProfileView extends GetView<ProfileController> {
                       ),
                     ),
                     Spacer(),
-                    const Icon(
-                      Icons.edit,
-                      size: 24.0,
-                      color: Colors.blue,
-                    ),
                   ],
                 ),
               ),
@@ -244,7 +341,7 @@ class ProfileView extends GetView<ProfileController> {
               child: Obx(
                 () => TextField(
                   controller: profileController.emailController
-                    ..text = profileController.customer.value.data?.email ?? '',
+                    ..text = profileController.profile.value.data?.email ?? '',
                   decoration: InputDecoration(
                     contentPadding:
                         EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
@@ -283,11 +380,6 @@ class ProfileView extends GetView<ProfileController> {
                       ),
                     ),
                     Spacer(),
-                    const Icon(
-                      Icons.edit,
-                      size: 24.0,
-                      color: Colors.blue,
-                    ),
                   ],
                 ),
               ),
@@ -298,7 +390,7 @@ class ProfileView extends GetView<ProfileController> {
                 () => TextField(
                   controller: profileController.phoneNumberController
                     ..text =
-                        profileController.customer.value.data?.noTelepon ?? '',
+                        profileController.profile.value.data?.noTelepon ?? '',
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
                     contentPadding:
@@ -338,11 +430,16 @@ class ProfileView extends GetView<ProfileController> {
                       ),
                     ),
                     Spacer(),
-                    const Icon(
-                      Icons.edit,
-                      size: 24.0,
-                      color: Colors.blue,
-                    ),
+                    GestureDetector(
+                      onTap: () {
+                        addressBottomsheet(context);
+                      },
+                      child: Icon(
+                        Icons.edit,
+                        size: 24.0,
+                        color: Colors.blue,
+                      ),
+                    )
                   ],
                 ),
               ),
@@ -352,8 +449,7 @@ class ProfileView extends GetView<ProfileController> {
               child: Obx(
                 () => TextField(
                   controller: profileController.addressController
-                    ..text =
-                        profileController.customer.value.data?.alamat ?? '',
+                    ..text = profileController.profile.value.data?.alamat ?? '',
                   maxLines: null, // Memungkinkan input lebih dari satu baris
                   decoration: InputDecoration(
                     filled: true,

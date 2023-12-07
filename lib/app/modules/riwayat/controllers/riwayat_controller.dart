@@ -27,6 +27,7 @@ class RiwayatController extends GetxController
   void onInit() {
     super.onInit();
     refreshData();
+    searchAll();
     search('', '');
     searchDate('');
   }
@@ -143,6 +144,21 @@ class RiwayatController extends GetxController
           true); // Set isLoading menjadi true saat pemanggilan API dimulai
       final results = await riwayatProvider.value
           .searchRiwayatDate(selectedDate.value.toString());
+      searchResults.assignAll(results.data ?? []);
+    } catch (e) {
+      print('Error during search: $e');
+      searchResults.clear();
+    } finally {
+      setLoading(
+          false); // Set isLoading menjadi false saat pemanggilan API selesai
+    }
+  }
+
+  Future<void> searchAll() async {
+    try {
+      setLoading(
+          true); // Set isLoading menjadi true saat pemanggilan API dimulai
+      final results = await riwayatProvider.value.searchRiwayatall();
       searchResults.assignAll(results.data ?? []);
     } catch (e) {
       print('Error during search: $e');

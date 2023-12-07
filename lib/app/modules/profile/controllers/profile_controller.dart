@@ -5,16 +5,17 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../data/models/profile_model.dart';
 import '../../../data/providers/customer_provider.dart';
 
 class ProfileController extends GetxController {
   final ProfileProvider provider = ProfileProvider().obs();
   final ProfileImageProvider imageProvider = ProfileImageProvider().obs();
-  final customerProvider = CustomerProvider().obs;
+  final _customerProvider = CustomerProvider().obs;
+  Rx<Profile> profile = Profile().obs;
 
   RxBool isImageUploading = false.obs;
   RxBool isLoading = true.obs;
-  Rx<Customer> customer = Customer().obs;
   var selectedImage = ''.obs;
   var fullNameController = TextEditingController();
   var emailController = TextEditingController();
@@ -49,7 +50,13 @@ class ProfileController extends GetxController {
 
   Future<void> clearSharedPreferences() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.clear();
+    List<String> keys = prefs.getKeys().toList();
+
+    for (String key in keys) {
+      if (key != 'tokenfcm') {
+        prefs.remove(key);
+      }
+    }
   }
 
   Future<void> pickImage() async {
@@ -138,15 +145,15 @@ class ProfileController extends GetxController {
       isLoading(true);
 
       // Call the getCustomer method from CustomerProvider
-      Customer result = await customerProvider.value.getCustomer();
+      Profile result = await _customerProvider.value.fetchDatacus();
 
       // Update the customer data
-      customer(result);
+      profile(result);
 
       isLoading(false);
     } catch (error) {
       isLoading(false);
-      print('Error fetching data: $error');
+      print('Error fetching dataprofile: $error');
     }
   }
 }

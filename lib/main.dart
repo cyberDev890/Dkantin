@@ -17,6 +17,7 @@ Future<void> main() async {
   FCMService().initialize();
   runApp(
     GetMaterialApp(
+      debugShowCheckedModeBanner: false,
       initialRoute: AppPages.INITIAL,
       getPages: AppPages.routes,
     ),

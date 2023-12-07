@@ -5,7 +5,9 @@ class Api {
   static const signIn = "$koneksi/validate/login";
   static const updateProfile = "$koneksi/validate/customerAccount";
   static const getProfile = '$koneksi/validate/profileShow';
+  static const getProfilekurir = '$koneksi/validate/kurirShow';
   static const updateFoto = '$koneksi/validate/imageProfile';
+  static const updateFotoKurir = '$koneksi/validate/kurirProfile';
   static const semua = "$koneksi/menu/productAll/";
   static const signInKurir = "$koneksi/validate/loginKurir";
   static const forgotPassword = "$koneksi/validate/forgotPassword";
@@ -21,6 +23,7 @@ class Api {
   static const pesananDiterima = "$koneksi/transaction/diterima";
   static const pesananUntukDikirim = "$koneksi/transaction/untukDikirim";
   static const pesananKonfirmasi = "$koneksi/transaction/konfirmasi";
+  static const riwayatKurir = "$koneksi/transaction/riwayatKurir";
   static const transaksi = "$koneksi/transaction";
   static const kurirAktif = "$koneksi/validate/editProfile";
   static const kurirLogout = "$koneksi/validate/logoutKurir";

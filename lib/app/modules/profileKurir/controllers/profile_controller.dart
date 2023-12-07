@@ -1,21 +1,24 @@
 import 'package:dikantin/app/data/models/customer_model.dart';
+import 'package:dikantin/app/data/models/profile_model.dart';
 import 'package:dikantin/app/data/providers/profile_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../data/models/profile_kurir_model.dart';
 import '../../../data/providers/authKurir_provider.dart';
 import '../../../data/providers/customer_provider.dart';
 
 class ProfileKurirController extends GetxController {
   final ProfileProvider provider = ProfileProvider().obs();
-  final _customerProvider = CustomerProvider();
+  final _customerProvider = CustomerProvider().obs;
+
   final ProfileImageProvider imageProvider = ProfileImageProvider().obs();
   final AuthKurirProvider authKurirProvider = AuthKurirProvider().obs();
   RxBool isImageUploading = false.obs;
   RxBool isLoading = true.obs;
-  Rx<Customer> customer = Customer().obs;
+  Rx<ProfileKurir> profileKurir = ProfileKurir().obs;
   var selectedImage = ''.obs;
   var fullNameController = TextEditingController();
   var emailController = TextEditingController();
@@ -63,7 +66,13 @@ class ProfileKurirController extends GetxController {
 
   Future<void> clearSharedPreferences() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.clear();
+    List<String> keys = prefs.getKeys().toList();
+
+    for (String key in keys) {
+      if (key != 'tokenfcm') {
+        prefs.remove(key);
+      }
+    }
   }
 
   Future<void> pickImage() async {
@@ -73,7 +82,7 @@ class ProfileKurirController extends GetxController {
 
       if (pickedFile != null) {
         // Upload the profile image
-        await imageProvider.updateProfileImage(pickedFile.path);
+        await imageProvider.updateProfileKurirImage(pickedFile.path);
         await getCustomerData();
       } else {
         print('No image selected.');
@@ -86,7 +95,7 @@ class ProfileKurirController extends GetxController {
   void uploadProfileImage(String imagePath) async {
     try {
       isImageUploading(true);
-      await imageProvider.updateProfileImage(imagePath);
+      await imageProvider.updateProfileKurirImage(imagePath);
     } catch (error) {
       print('Error uploading profile image: $error');
     } finally {
@@ -128,16 +137,15 @@ class ProfileKurirController extends GetxController {
       isLoading(true);
 
       // Call the getCustomer method from CustomerProvider
-      Customer result = await _customerProvider.getCustomer();
+      ProfileKurir result = await _customerProvider.value.fetchDatakur();
 
       // Update the customer data
-      customer(result);
-      // isSwitchOn.value = isKurirActive.value;
+      profileKurir(result);
 
       isLoading(false);
     } catch (error) {
       isLoading(false);
-      print('Error fetching data: $error');
+      print('Error fetching dataprofile: $error');
     }
   }
 }

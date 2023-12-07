@@ -36,7 +36,7 @@ class LoginView extends GetView<LoginController> {
                       fontWeight: FontWeight.bold,
                       color: Colors.white)),
               SizedBox(
-                height: MediaQuery.of(context).size.height / 8,
+                height: MediaQuery.of(context).size.height / 13,
               ),
               Padding(
                 padding: const EdgeInsets.only(right: 20, left: 20),
@@ -85,15 +85,51 @@ class LoginView extends GetView<LoginController> {
                   ),
                 );
               }),
+              SizedBox(
+                height: 10,
+              ),
               Padding(
-                padding: const EdgeInsets.only(top: 20.0),
+                padding: const EdgeInsets.only(right: 25, left: 25),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        c.loginKurir(
+                            c.emailController.text, c.passwordController.text);
+                      },
+                      child: Text(
+                        "Login sebagai kurir",
+                        style: TextStyle(
+                            fontSize: 15.0,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        Get.toNamed("/forgot-password");
+                      },
+                      child: Text(
+                        "Forgot Password?",
+                        style: TextStyle(
+                            fontSize: 15.0,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 70.0),
                 child: SizedBox(
-                  width: 300,
+                  width: 350,
                   height: 40,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30.0),
+                        borderRadius: BorderRadius.circular(10.0),
                       ),
                       backgroundColor: Color.fromARGB(255, 55, 156, 211),
                     ),
@@ -118,12 +154,12 @@ class LoginView extends GetView<LoginController> {
               Padding(
                 padding: const EdgeInsets.only(top: 20.0),
                 child: SizedBox(
-                  width: 300,
+                  width: 350,
                   height: 40,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30.0),
+                        borderRadius: BorderRadius.circular(10.0),
                       ),
                       backgroundColor: Colors.white,
                     ),
@@ -136,7 +172,7 @@ class LoginView extends GetView<LoginController> {
                         textStyle: TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.w400,
-                          color: Colors.black,
+                          color: Color.fromARGB(255, 55, 156, 211),
                         ),
                       ),
                     ),
@@ -144,37 +180,21 @@ class LoginView extends GetView<LoginController> {
                 ),
               ),
               SizedBox(
-                height: 30,
+                height: 50,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      Get.offAllNamed("/forgot-password");
-                    },
-                    child: Text(
-                      "Forgot Password?",
-                      style: TextStyle(
-                          fontSize: 15.0,
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      c.loginKurir(
-                          c.emailController.text, c.passwordController.text);
-                    },
-                    child: Text(
-                      "Login Sebagai Kurir",
-                      style: TextStyle(
-                          fontSize: 15.0,
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                ],
+              Text(
+                "Copyright By : ",
+                style: TextStyle(
+                    fontSize: 15.0,
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold),
+              ),
+              Center(
+                child: Image.asset(
+                  'assets/jti_nova.png', // Ganti dengan path gambar Anda
+                  width: 80, // Sesuaikan dengan ukuran yang Anda inginkan
+                  height: 80,
+                ),
               ),
             ],
           ),

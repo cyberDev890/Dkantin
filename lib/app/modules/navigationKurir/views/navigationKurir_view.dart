@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../pesananKurir/controllers/pesananKurir_controller.dart';
+import '../../riwayatKurir/views/riwayat_kurir_view.dart';
 import '../controllers/navigationKurir_controller.dart';
 
 class NavigationKurirView extends GetView<NavigationKurirController> {
@@ -45,7 +46,11 @@ class NavigationKurirView extends GetView<NavigationKurirController> {
           builder: (controller) {
             return IndexedStack(
               index: controller.tabIndex,
-              children: [PesananKurirView(), ProfileKurirView()],
+              children: [
+                PesananKurirView(),
+                RiwayatKurirView(),
+                ProfileKurirView()
+              ],
             );
           },
         ),
@@ -69,11 +74,15 @@ class NavigationKurirView extends GetView<NavigationKurirController> {
               },
               items: [
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.assignment_outlined, size: 30),
+                  icon: Icon(Icons.my_library_books, size: 30),
                   label: 'Pesanan',
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(CarbonIcons.user_filled, size: 30),
+                  icon: Icon(Icons.history_rounded, size: 30),
+                  label: 'Riwayat',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(CarbonIcons.user_avatar_filled, size: 30),
                   label: 'Profil',
                 ),
               ],
