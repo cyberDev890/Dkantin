@@ -91,7 +91,7 @@ class PesananProvider extends GetxController {
 
   Future<void> acceptPesanan(String kodeTr) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? id_kurir = prefs.getString('token');
+    String? id_kurir = prefs.getString('tokenKurir');
     print('Ini:${id_kurir}');
     final Map<String, String> postData = {
       "kode": "3",
@@ -103,6 +103,7 @@ class PesananProvider extends GetxController {
       Uri.parse(Api.konfirmasi),
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': 'Bearer $id_kurir',
       },
       body: jsonEncode(postData),
     );
