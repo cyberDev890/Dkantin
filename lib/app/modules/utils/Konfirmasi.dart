@@ -5,8 +5,10 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../../data/providers/services.dart';
 import '../detailTransaksi/views/detail_transaksi_view.dart';
 import '../pesanan/controllers/pesanan_controller.dart';
+import '../profile/controllers/profile_controller.dart';
 
 class Konfirmasi extends StatefulWidget {
   const Konfirmasi({Key? key}) : super(key: key);
@@ -17,6 +19,7 @@ class Konfirmasi extends StatefulWidget {
 
 class _KonfirmasiState extends State<Konfirmasi> {
   PesananController controller = Get.find<PesananController>();
+  ProfileController profileController = Get.find<ProfileController>();
 
   @override
   Widget build(BuildContext context) {
@@ -107,9 +110,17 @@ class _KonfirmasiState extends State<Konfirmasi> {
                         children: [
                           ListTile(
                             leading: CircleAvatar(
-                              backgroundImage: NetworkImage(
-                                "https://i.ibb.co/PGv8ZzG/me.jpg",
-                              ),
+                              backgroundImage:
+                                  profileController.profile.value.data?.foto !=
+                                          null
+                                      // ignore: dead_code
+                                      ? NetworkImage(
+                                          Api.gambar +
+                                              profileController
+                                                  .profile.value.data!.foto!
+                                                  .toString(),
+                                        ) as ImageProvider<Object>
+                                      : AssetImage("assets/logo_dikantin.png"),
                             ),
                             title: Text(
                               "#${orderData.transaksi!.kodeTr.toString()}",

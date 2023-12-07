@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../../../data/providers/services.dart';
 import '../../pesananKurir/controllers/pesananKurir_controller.dart';
 import '../controllers/riwayat_kurir_controller.dart';
 
@@ -24,7 +25,7 @@ class RiwayatKurirView extends GetView<RiwayatKurirController> {
             child: Padding(
               padding: const EdgeInsets.all(10.0),
               child: Text(
-                "Pesanan Customer ",
+                "Riwayat Kurir ",
                 style: GoogleFonts.poppins(
                     textStyle: TextStyle(
                         fontSize: 20,
@@ -45,7 +46,7 @@ class RiwayatKurirView extends GetView<RiwayatKurirController> {
         ),
       ),
       body: RefreshIndicator(
-        onRefresh: () async => await controllerc.loadKonfirmasi(),
+        onRefresh: () async => await controllerc.loadRiwayatKurir(),
         child: CustomScrollView(
           slivers: [
             SliverList(
@@ -97,7 +98,7 @@ class RiwayatKurirView extends GetView<RiwayatKurirController> {
               ),
             ),
           );
-        } else if (controllerc.pesananKonfirmasi.data?.isEmpty ?? true) {
+        } else if (controllerc.loadRiwayat.data?.isEmpty ?? true) {
           return Container(
               height: mediaHeight * 0.25,
               child: Center(
@@ -106,11 +107,11 @@ class RiwayatKurirView extends GetView<RiwayatKurirController> {
               ));
         } else {
           return ListView.builder(
-            itemCount: controllerc.pesananKonfirmasi.data!.length,
+            itemCount: controllerc.loadRiwayat.data!.length,
             physics: NeverScrollableScrollPhysics(),
             shrinkWrap: true,
             itemBuilder: (BuildContext context, int index) {
-              final orderData = controllerc.pesananKonfirmasi.data![index];
+              final orderData = controllerc.loadRiwayat.data![index];
               final totalHarga = orderData.transaksi!.totalHarga ?? 0;
 
               // Check apakah orderData.status mengandung 'Selesai'
@@ -137,10 +138,14 @@ class RiwayatKurirView extends GetView<RiwayatKurirController> {
                           children: [
                             ListTile(
                               leading: CircleAvatar(
-                                backgroundImage: NetworkImage(
-                                  "https://i.ibb.co/PGv8ZzG/me.jpg",
-                                ),
-                              ),
+                                  backgroundImage: orderData.transaksi!.foto !=
+                                          null
+                                      ? NetworkImage(
+                                          Api.gambar +
+                                              orderData.transaksi!.foto
+                                                  .toString(),
+                                        ) as ImageProvider<Object>
+                                      : AssetImage("assets/logo_dikantin.png")),
                               title: Text(
                                 "#${orderData.transaksi!.kodeTr.toString()}",
                                 style: GoogleFonts.poppins(

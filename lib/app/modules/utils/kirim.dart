@@ -5,8 +5,10 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:dikantin/app/data/providers/services.dart';
 
 import '../pesanan/controllers/pesanan_controller.dart';
+import '../profile/controllers/profile_controller.dart';
 
 class Kirim extends StatefulWidget {
   const Kirim({Key? key}) : super(key: key);
@@ -17,6 +19,8 @@ class Kirim extends StatefulWidget {
 
 class _KirimState extends State<Kirim> {
   PesananController controller = Get.find<PesananController>();
+  ProfileController profileController = Get.find<ProfileController>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -105,10 +109,18 @@ class _KirimState extends State<Kirim> {
                       child: Column(
                         children: [
                           ListTile(
-                            leading: const CircleAvatar(
-                              backgroundImage: NetworkImage(
-                                "https://i.ibb.co/PGv8ZzG/me.jpg",
-                              ),
+                            leading: CircleAvatar(
+                              backgroundImage:
+                                  profileController.profile.value.data?.foto !=
+                                          null
+                                      // ignore: dead_code
+                                      ? NetworkImage(
+                                          Api.gambar +
+                                              profileController
+                                                  .profile.value.data!.foto!
+                                                  .toString(),
+                                        ) as ImageProvider<Object>
+                                      : AssetImage("assets/logo_dikantin.png"),
                             ),
                             title: Text(
                               "#${orderData.transaksi!.kodeTr.toString()}",

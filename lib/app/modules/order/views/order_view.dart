@@ -118,12 +118,6 @@ class OrderView extends GetView<OrderController> {
             ),
             Expanded(
               child: Container(
-                // //ini container list view
-                // decoration: BoxDecoration(
-                //     border: Border.all(
-                //   width: 1.0,
-                //   color: Colors.grey[900]!,
-                // )),
                 child: Obx(
                   () => homeController.cartList.isEmpty
                       ? Center(

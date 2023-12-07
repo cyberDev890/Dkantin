@@ -9,10 +9,12 @@ class AuthKurirProvider extends GetxController {
   RxBool isKurirActive = false.obs;
 
   Future<http.Response> loginKurir(String username, String password) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? tokenfcm = prefs.getString('tokenfcm');
     final data = {
       'email': username,
       'password': password,
-      'token_fcm': "anjaysdgayg"
+      'token_fcm': tokenfcm
     };
 
     final response = await http.post(Uri.parse(Api.signInKurir), body: data);

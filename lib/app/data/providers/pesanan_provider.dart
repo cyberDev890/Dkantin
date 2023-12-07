@@ -184,4 +184,21 @@ Future<void> acceptPesanan(String kodeTr) async {
       throw Exception('Gagal memuat data');
     }
   }
+  Future<PesananKirim> riwayatKurir() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString('tokenKurir');
+    final response = await http.get(
+      Uri.parse(Api.riwayatKurir),
+      headers: {
+        'Authorization':
+            'Bearer $token', // Gantilah [TOKEN] dengan token yang sesuai
+      },
+    );
+
+    if (response.statusCode == 200) {
+      return PesananKirim.fromJson(jsonDecode(response.body));
+    } else {
+      throw Exception('Gagal memuat data');
+    }
+  }
 }

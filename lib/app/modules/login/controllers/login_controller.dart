@@ -84,6 +84,18 @@ class LoginController extends GetxController {
 
   Future<void> loginKurir(String username, String password) async {
     try {
+      if (!connectivityHelper.hasConnection.value) {
+        // Tampilkan Snackbar bahwa tidak ada koneksi
+        Get.snackbar(
+          'Connection Error',
+          'Check your internet connection',
+          backgroundColor: Colors.red,
+          colorText: Colors.white,
+          duration: Duration(seconds: 2),
+          snackPosition: SnackPosition.BOTTOM,
+        );
+        return;
+      }
       isLoading.value = true;
       final response =
           await loginKurirProvider.value.loginKurir(username, password);

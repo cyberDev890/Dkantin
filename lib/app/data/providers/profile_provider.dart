@@ -111,9 +111,6 @@ class ProfileProvider with ChangeNotifier {
 
     notifyListeners();
   }
-
-
-
 }
 
 class ProfileImageProvider extends GetxController {
@@ -131,6 +128,39 @@ class ProfileImageProvider extends GetxController {
       var request = http.MultipartRequest(
         'POST',
         Uri.parse(Api.updateFoto),
+      );
+
+      request.headers.addAll({'Authorization': 'Bearer $token'});
+
+      request.files.add(
+        await http.MultipartFile.fromPath(
+          'foto',
+          imagePath,
+          filename: fileName,
+        ),
+      );
+
+      var response = await request.send();
+
+      isLoading(false);
+    } catch (error) {
+      print('Error updating profile image: $error');
+      isLoading(false);
+    }
+  }
+
+  Future<void> updateProfileKurirImage(String imagePath) async {
+    try {
+      isLoading(true);
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      String? token = prefs.getString('tokenKurir');
+
+      var currentTime = DateTime.now().millisecondsSinceEpoch;
+      var fileName = 'profile_image_$currentTime.jpg';
+
+      var request = http.MultipartRequest(
+        'POST',
+        Uri.parse(Api.updateFotoKurir),
       );
 
       request.headers.addAll({'Authorization': 'Bearer $token'});

@@ -140,7 +140,7 @@ class ProfileKurirView extends GetView<ProfileKurirController> {
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Padding(
-                        padding: EdgeInsets.all(0),
+                        padding: EdgeInsets.only(bottom: 10, left: 10),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           children: [
@@ -148,27 +148,23 @@ class ProfileKurirView extends GetView<ProfileKurirController> {
                                 alignment: AlignmentDirectional(1, 0.5),
                                 children: [
                                   Obx(
-                                    () => CircleAvatar(
-                                      radius: 60.0,
-                                      backgroundColor: Colors.transparent,
-                                      backgroundImage: profileKurirController
-                                                  .profileKurir
-                                                  .value
-                                                  .data
-                                                  ?.foto !=
-                                              null
-                                          // ignore: dead_code
-                                          ? NetworkImage(
-                                              Api.gambar +
-                                                  profileKurirController
-                                                      .profileKurir
-                                                      .value
-                                                      .data!
-                                                      .foto!
-                                                      .toString(),
-                                            ) as ImageProvider<Object>
-                                          : AssetImage(
-                                              "assets/logo_dikantin.png"),
+                                    () => ClipOval(
+                                      child: Image.network(
+                                        profileKurirController.profileKurir
+                                                    .value.data?.foto !=
+                                                null
+                                            ? Api.gambar +
+                                                profileKurirController
+                                                    .profileKurir
+                                                    .value
+                                                    .data!
+                                                    .foto!
+                                                    .toString()
+                                            : "assets/logo_dikantin.png",
+                                        width: 90.0, // Sesuaikan lebar gambar
+                                        height: 90.0, // Sesuaikan tinggi gambar
+                                        fit: BoxFit.cover,
+                                      ),
                                     ),
                                   ),
                                   Container(

@@ -66,7 +66,13 @@ class ProfileKurirController extends GetxController {
 
   Future<void> clearSharedPreferences() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.clear();
+    List<String> keys = prefs.getKeys().toList();
+
+    for (String key in keys) {
+      if (key != 'tokenfcm') {
+        prefs.remove(key);
+      }
+    }
   }
 
   Future<void> pickImage() async {
@@ -76,7 +82,7 @@ class ProfileKurirController extends GetxController {
 
       if (pickedFile != null) {
         // Upload the profile image
-        await imageProvider.updateProfileImage(pickedFile.path);
+        await imageProvider.updateProfileKurirImage(pickedFile.path);
         await getCustomerData();
       } else {
         print('No image selected.');
@@ -89,7 +95,7 @@ class ProfileKurirController extends GetxController {
   void uploadProfileImage(String imagePath) async {
     try {
       isImageUploading(true);
-      await imageProvider.updateProfileImage(imagePath);
+      await imageProvider.updateProfileKurirImage(imagePath);
     } catch (error) {
       print('Error uploading profile image: $error');
     } finally {

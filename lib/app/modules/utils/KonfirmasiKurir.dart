@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../../data/providers/services.dart';
 import '../detailTransaksi/views/detail_transaksi_view.dart';
 import '../pesanan/controllers/pesanan_controller.dart';
 import '../pesananKurir/controllers/pesananKurir_controller.dart';
@@ -115,10 +116,14 @@ class _KonfirmasikurirState extends State<Konfirmasikurir> {
                         children: [
                           ListTile(
                             leading: CircleAvatar(
-                              backgroundImage: NetworkImage(
-                                "https://i.ibb.co/PGv8ZzG/me.jpg",
-                              ),
-                            ),
+                                backgroundImage: orderData.transaksi!.foto !=
+                                        null
+                                    ? NetworkImage(
+                                        Api.gambar +
+                                            orderData.transaksi!.foto
+                                                .toString(),
+                                      ) as ImageProvider<Object>
+                                    : AssetImage("assets/logo_dikantin.png")),
                             title: Text(
                               "#${orderData.transaksi!.kodeTr.toString()}",
                               style: GoogleFonts.poppins(
