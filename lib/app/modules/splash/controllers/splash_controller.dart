@@ -1,3 +1,4 @@
+import 'package:dikantin/app/modules/fcm/fcm.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -8,6 +9,16 @@ class SplashController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    FcmService fcmService = new FcmService();
+    fcmService.requestNotificationPermission();
+    fcmService.forgroundMessage();
+    fcmService.firebaseInit(Get.context!);
+    fcmService.setupInteractMessage(Get.context!);
+    fcmService.isTokenRefresh();
+
+    fcmService.getDeviceToken().then((value) {
+      print("token fcm service" + value);
+    });
   }
 
   @override
