@@ -1,6 +1,3 @@
-import 'package:dikantin/app/modules/loginKurir/bindings/loginKurir_binding.dart';
-import 'package:dikantin/app/modules/navigationKurir/bindings/navigationKurir_binding.dart';
-import 'package:dikantin/app/modules/navigationKurir/views/navigationKurir_view.dart';
 import 'package:get/get.dart';
 
 import '../modules/detailTransaksi/bindings/detail_transaksi_binding.dart';
@@ -13,9 +10,12 @@ import '../modules/keranjang/bindings/keranjang_binding.dart';
 import '../modules/keranjang/views/keranjang_view.dart';
 import '../modules/login/bindings/login_binding.dart';
 import '../modules/login/views/login_view.dart';
+import '../modules/loginKurir/bindings/loginKurir_binding.dart';
 import '../modules/loginKurir/views/loginKurir_view.dart';
 import '../modules/navigation/bindings/navigation_binding.dart';
 import '../modules/navigation/views/navigation_view.dart';
+import '../modules/navigationKurir/bindings/navigationKurir_binding.dart';
+import '../modules/navigationKurir/views/navigationKurir_view.dart';
 import '../modules/onBoarding/bindings/on_boarding_binding.dart';
 import '../modules/onBoarding/views/on_boarding_view.dart';
 import '../modules/order/bindings/order_binding.dart';
@@ -34,6 +34,8 @@ import '../modules/register/bindings/register_binding.dart';
 import '../modules/register/views/register_view.dart';
 import '../modules/riwayat/bindings/riwayat_binding.dart';
 import '../modules/riwayat/views/riwayat_view.dart';
+import '../modules/riwayatKurir/bindings/riwayat_kurir_binding.dart';
+import '../modules/riwayatKurir/views/riwayat_kurir_view.dart';
 import '../modules/splash/bindings/splash_binding.dart';
 import '../modules/splash/views/splash_view.dart';
 import '../modules/ubahPassword/bindings/ubah_password_binding.dart';
@@ -44,7 +46,7 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.LOGIN_KURIR;
+  static const INITIAL = Routes.SPLASH;
 
   static final routes = [
     GetPage(
@@ -141,6 +143,11 @@ class AppPages {
       name: _Paths.UBAH_PASSWORD,
       page: () => const UbahPasswordView(),
       binding: UbahPasswordBinding(),
+    ),
+    GetPage(
+      name: _Paths.RIWAYAT_KURIR,
+      page: () => RiwayatKurirView(),
+      binding: RiwayatKurirBinding(),
     ),
   ];
 }

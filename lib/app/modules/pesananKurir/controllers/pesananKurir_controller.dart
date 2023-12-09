@@ -17,8 +17,10 @@ class PesananKurirController extends GetxController
   final pesananProvider = PesananProvider().obs; // Instantiate your provider
   late PesananKirim pesananUntukDikirim = PesananKirim();
   late PesananKirim pesananKonfirmasi = PesananKirim();
+  late PesananKirim loadRiwayat = PesananKirim();
   var orderUntukDikirim = <DataPesananKirim>[].obs;
   var orderKonfirmasi = <DataPesananKirim>[].obs;
+  var riwayatKurir = <DataPesananKirim>[].obs;
   String scannedQrCode = '';
 
   @override
@@ -33,6 +35,7 @@ class PesananKurirController extends GetxController
 
     loadUntukDikirim();
     loadKonfirmasi();
+    loadRiwayatKurir();
   }
 
   @override
@@ -133,6 +136,18 @@ class PesananKurirController extends GetxController
       final result = await pesananProvider.value.konfirmasi();
       pesananKonfirmasi = result;
       orderKonfirmasi.assignAll(result.data!);
+      isLoading(false);
+    } catch (error) {
+      isLoading(false);
+      print('Error fetching data: $error');
+    }
+  }
+  Future<void> loadRiwayatKurir() async {
+    try {
+      isLoading(true);
+      final result = await pesananProvider.value.riwayatKurir();
+      loadRiwayat = result;
+      riwayatKurir.assignAll(result.data!);
       isLoading(false);
     } catch (error) {
       isLoading(false);

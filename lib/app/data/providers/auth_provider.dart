@@ -7,10 +7,12 @@ import 'dart:convert'; // Import for JSON decoding
 
 class AuthProvider extends GetxController {
   Future<http.Response> login(String username, String password) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? tokenfcm = prefs.getString('tokenfcm');
     final data = {
       'email': username,
       'password': password,
-      'token_fcm': "anjaysdgayg"
+      'token_fcm': tokenfcm,
     };
 
     final response = await http.post(Uri.parse(Api.signIn), body: data);

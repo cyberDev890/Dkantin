@@ -6,7 +6,9 @@ import 'package:dikantin/app/modules/utils/formatDate.dart';
 import 'package:lottie/lottie.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../../data/providers/services.dart';
 import '../detailTransaksi/views/detail_transaksi_view.dart';
+import '../profile/controllers/profile_controller.dart';
 
 class Proses extends StatefulWidget {
   const Proses({Key? key}) : super(key: key);
@@ -17,6 +19,8 @@ class Proses extends StatefulWidget {
 
 class _ProsesState extends State<Proses> {
   PesananController controller = Get.find<PesananController>();
+  ProfileController profileController = Get.find<ProfileController>();
+
   @override
   Widget build(BuildContext context) {
     return RefreshIndicator(
@@ -107,9 +111,17 @@ class _ProsesState extends State<Proses> {
                         children: [
                           ListTile(
                             leading: CircleAvatar(
-                              backgroundImage: NetworkImage(
-                                "https://i.ibb.co/PGv8ZzG/me.jpg",
-                              ),
+                              backgroundImage:
+                                  profileController.profile.value.data?.foto !=
+                                          null
+                                      // ignore: dead_code
+                                      ? NetworkImage(
+                                          Api.gambar +
+                                              profileController
+                                                  .profile.value.data!.foto!
+                                                  .toString(),
+                                        ) as ImageProvider<Object>
+                                      : AssetImage("assets/logo_dikantin.png"),
                             ),
                             title: Text(
                               "#${orderData.transaksi!.kodeTr.toString()}",

@@ -70,11 +70,8 @@ class OrderView extends GetView<OrderController> {
                     SizedBox(
                       height: 5,
                     ),
-                    Obx(
-                      () => Text(
-                          profileController.customer.value.data?.alamat ?? '',
-                          style: GoogleFonts.poppins(fontSize: 16)),
-                    ),
+                    Text(profileController.profile.value.data?.alamat ?? '',
+                        style: GoogleFonts.poppins(fontSize: 16)),
                     SizedBox(
                       height: 5,
                     ),
@@ -121,12 +118,6 @@ class OrderView extends GetView<OrderController> {
             ),
             Expanded(
               child: Container(
-                // //ini container list view
-                // decoration: BoxDecoration(
-                //     border: Border.all(
-                //   width: 1.0,
-                //   color: Colors.grey[900]!,
-                // )),
                 child: Obx(
                   () => homeController.cartList.isEmpty
                       ? Center(

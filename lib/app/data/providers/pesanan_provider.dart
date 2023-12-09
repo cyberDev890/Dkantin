@@ -89,7 +89,7 @@ class PesananProvider extends GetxController {
     }
   }
 
-  Future<void> acceptPesanan(String kodeTr) async {
+Future<void> acceptPesanan(String kodeTr) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? id_kurir = prefs.getString('tokenKurir');
     print('Ini:${id_kurir}');
@@ -117,6 +117,7 @@ class PesananProvider extends GetxController {
       throw Exception('Gagal membatalkan pesanan');
     }
   }
+
 
   Future<void> konfirKurir(String kodeTr, String bukti) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -171,6 +172,23 @@ class PesananProvider extends GetxController {
     String? token = prefs.getString('tokenKurir');
     final response = await http.get(
       Uri.parse(Api.pesananKonfirmasi),
+      headers: {
+        'Authorization':
+            'Bearer $token', // Gantilah [TOKEN] dengan token yang sesuai
+      },
+    );
+
+    if (response.statusCode == 200) {
+      return PesananKirim.fromJson(jsonDecode(response.body));
+    } else {
+      throw Exception('Gagal memuat data');
+    }
+  }
+  Future<PesananKirim> riwayatKurir() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString('tokenKurir');
+    final response = await http.get(
+      Uri.parse(Api.riwayatKurir),
       headers: {
         'Authorization':
             'Bearer $token', // Gantilah [TOKEN] dengan token yang sesuai

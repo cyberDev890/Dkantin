@@ -161,7 +161,7 @@ class HomeView extends GetView<HomeController> {
                               Container(
                                 // padding: EdgeInsets.only(right: x * 0.25),
                                 child: Text(
-                                  "Rp. 1.000.000",
+                                  "Rp. 0",
                                   style: GoogleFonts.poppins(
                                     textStyle: TextStyle(
                                       color: Colors.black,
@@ -248,7 +248,7 @@ class HomeView extends GetView<HomeController> {
                           onTap: () => Get.toNamed('/keranjang'),
                           child: Container(
                             //ini container info
-                            height: mediaHeight / 13,
+                            height: mediaHeight / 15,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
                               color: Color(0xFF2579FD),
@@ -262,36 +262,42 @@ class HomeView extends GetView<HomeController> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Container(
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              "${controller.countc.toString()} ITEM",
-                                              style: GoogleFonts.poppins(
-                                                textStyle: const TextStyle(
-                                                  fontSize: 16,
-                                                  color: Colors.white,
-                                                  fontWeight: FontWeight.w500,
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            top: 3, left: 15),
+                                        child: Container(
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                "${controller.countc.toString()}  ITEM",
+                                                style: GoogleFonts.poppins(
+                                                  textStyle: const TextStyle(
+                                                    fontSize: 16,
+                                                    color: Colors.white,
+                                                    fontWeight: FontWeight.w500,
+                                                  ),
                                                 ),
                                               ),
-                                            ),
-                                            Text(
-                                              "Siap mengantar pesanan",
-                                              style: GoogleFonts.poppins(
-                                                textStyle: const TextStyle(
-                                                  fontSize: 11,
-                                                  color: Colors.white,
-                                                  fontWeight: FontWeight.normal,
+                                              Text(
+                                                "Siap mengantar pesanan",
+                                                style: GoogleFonts.poppins(
+                                                  textStyle: const TextStyle(
+                                                    fontSize: 11,
+                                                    color: Colors.white,
+                                                    fontWeight:
+                                                        FontWeight.normal,
+                                                  ),
                                                 ),
                                               ),
-                                            ),
-                                          ],
+                                            ],
+                                          ),
                                         ),
                                       ),
                                       Container(
-                                        padding: EdgeInsets.only(top: 10),
+                                        padding:
+                                            EdgeInsets.only(top: 10, right: 8),
                                         child: Center(
                                           child: Row(
                                             children: [

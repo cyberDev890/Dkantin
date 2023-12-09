@@ -70,25 +70,25 @@ class NavigationView extends GetView<NavigationController> {
                 } else if (index == 1) {
                   pesananController.refreshPesanan();
                 } else if (index == 2) {
-                  riwayatController.refreshData();
+                  riwayatController.searchAll();
                 }
                 controller.updateCurrentScreen(index);
               },
               items: [
                 BottomNavigationBarItem(
-                  icon: Icon(CarbonIcons.home, size: 30),
+                  icon: Icon(Icons.home_rounded, size: 30),
                   label: 'Beranda',
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.assignment_outlined, size: 30),
+                  icon: Icon(Icons.my_library_books, size: 30),
                   label: 'Pesanan',
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(CarbonIcons.recently_viewed, size: 30),
+                  icon: Icon(Icons.history_rounded, size: 30),
                   label: 'Riwayat',
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(CarbonIcons.user_filled, size: 30),
+                  icon: Icon(CarbonIcons.user_avatar_filled, size: 30),
                   label: 'Profil',
                 ),
               ],

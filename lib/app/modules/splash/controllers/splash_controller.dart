@@ -15,15 +15,51 @@ class SplashController extends GetxController {
     super.onReady();
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? token = prefs.getString('token');
-    if (token == null) {
-      Future.delayed(Duration(seconds: 3), () {
-        Get.offAllNamed('/login');
-      });
-    } else {
-      Future.delayed(Duration(seconds: 3), () {
-        Get.offAllNamed('/navigation');
-      });
+    String? tokenKurir = prefs.getString('tokenKurir');
+
+    // Jika kedua token bernilai null, pergi ke halaman login
+    if (token == null && tokenKurir == null) {
+      _navigateToLogin();
     }
+    // Jika token tidak null dan tokenKurir null, pergi ke halaman navigation
+    else if (token != null && tokenKurir == null) {
+      _navigateToNavigation();
+    }
+    // Jika token null dan tokenKurir tidak null, pergi ke halaman navigationKurir
+    else if (token == null && tokenKurir != null) {
+      _navigateToNavigationKurir();
+    }
+  }
+
+  void _navigateToLogin() {
+    Future.delayed(Duration(seconds: 3), () {
+      Get.offAllNamed('/login');
+    });
+  }
+
+  void _navigateToNavigation() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    Future.delayed(Duration(seconds: 3), () {
+      // Periksa apakah token tidak null sebelum navigasi
+      if (prefs.getString('token') != null) {
+        Get.offAllNamed('/navigation');
+      } else {
+        _navigateToLogin(); // Pergi ke halaman login jika token bernilai null
+      }
+    });
+  }
+
+  void _navigateToNavigationKurir() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    Future.delayed(Duration(seconds: 3), () {
+      // Periksa apakah tokenKurir tidak null sebelum navigasi
+      if (prefs.getString('tokenKurir') != null) {
+        Get.offAllNamed('/navigationKurir');
+      } else {
+        _navigateToLogin(); // Pergi ke halaman login jika tokenKurir bernilai null
+      }
+    });
   }
 
   @override

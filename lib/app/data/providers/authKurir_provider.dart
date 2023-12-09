@@ -9,10 +9,12 @@ class AuthKurirProvider extends GetxController {
   RxBool isKurirActive = false.obs;
 
   Future<http.Response> loginKurir(String username, String password) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? tokenfcm = prefs.getString('tokenfcm');
     final data = {
       'email': username,
       'password': password,
-      'token_fcm': "anjaysdgayg"
+      'token_fcm': tokenfcm
     };
 
     final response = await http.post(Uri.parse(Api.signInKurir), body: data);
@@ -64,6 +66,8 @@ class AuthKurirProvider extends GetxController {
   Future<void> kurirSwitch() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? tokenKurir = prefs.getString('tokenKurir');
+    print('Token Kurir pada saat logout: $tokenKurir'); // Tambahkan ini
+
     final Map<String, String> postData = {};
 
     final response = await http.post(
@@ -82,6 +86,30 @@ class AuthKurirProvider extends GetxController {
       print('Akun hidup');
     } else {
       isKurirActive.value = false;
+      print('Gagal membatalkan pesanan. Status code: ${response.statusCode}');
+      throw Exception('Akun eror');
+    }
+  }
+
+  Future<void> kurirLogout() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? tokenKurir = prefs.getString('tokenKurir');
+    print('Token Kurir pada saat logout: $tokenKurir'); // Tambahkan ini
+
+    final Map<String, String> postData = {};
+
+    final response = await http.post(
+      Uri.parse(Api.kurirLogout),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $tokenKurir',
+      },
+      body: jsonEncode(postData),
+    );
+
+    if (response.statusCode == 200) {
+      print('Akun Mati');
+    } else {
       print('Gagal membatalkan pesanan. Status code: ${response.statusCode}');
       throw Exception('Akun eror');
     }

@@ -8,7 +8,8 @@ class Customer {
   Customer.fromJson(Map<String, dynamic> json) {
     data = json['data'] != null ? new Data.fromJson(json['data']) : null;
     code = json['code'];
-    status = json['status'];
+    status = json['status'] ??
+        false; // Tambahkan pengecekan null dan berikan nilai default
   }
 
   Map<String, dynamic> toJson() {

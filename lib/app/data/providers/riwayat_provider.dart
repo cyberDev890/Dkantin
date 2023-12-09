@@ -14,7 +14,24 @@ class RiwayatProvider extends GetxController {
       Uri.parse("${Api.riwayat}?searchAll=$keyword&searchDate=$Date"),
       headers: {
         'Authorization':
-            'Bearer $token', // Gantilah [TOKEN] dengan token yang sesuai
+            'Bearer $token', 
+      },
+    );
+
+    if (response.statusCode == 200) {
+      return Search.fromJson(jsonDecode(response.body));
+    } else {
+      throw Exception('Gagal memuat data');
+    }
+  }
+  Future<Search> searchRiwayatall() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString('token');
+    final response = await http.get(
+      Uri.parse(Api.riwayat),
+      headers: {
+        'Authorization':
+            'Bearer $token', 
       },
     );
 
