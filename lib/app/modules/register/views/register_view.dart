@@ -37,6 +37,7 @@ class RegisterView extends GetView<RegisterController> {
               Padding(
                 padding: const EdgeInsets.only(top: 20, right: 20, left: 20),
                 child: TextField(
+                  keyboardType: TextInputType.name,
                   controller: c.nameController,
                   decoration: InputDecoration(
                     filled: true,
@@ -55,6 +56,7 @@ class RegisterView extends GetView<RegisterController> {
               Padding(
                 padding: const EdgeInsets.only(top: 20, right: 20, left: 20),
                 child: TextField(
+                  keyboardType: TextInputType.name,
                   controller: c.emailController,
                   decoration: InputDecoration(
                     filled: true,
@@ -77,6 +79,7 @@ class RegisterView extends GetView<RegisterController> {
                       .phoneController, // Anda dapat mengganti controller sesuai kebutuhan
                   keyboardType: TextInputType
                       .phone, // Menentukan jenis keyboard untuk nomor telepon
+                  maxLength: 12,
                   decoration: InputDecoration(
                     filled: true,
                     fillColor: Colors.white,
@@ -96,7 +99,7 @@ class RegisterView extends GetView<RegisterController> {
                 child: TextField(
                   controller: c.addressController,
                   keyboardType: TextInputType
-                      .text, // Menentukan jenis keyboard untuk teks
+                      .streetAddress, // Menentukan jenis keyboard untuk teks
                   decoration: InputDecoration(
                     filled: true,
                     fillColor: Colors.white,
@@ -116,6 +119,7 @@ class RegisterView extends GetView<RegisterController> {
                   padding: const EdgeInsets.only(top: 20, right: 20, left: 20),
                   child: TextField(
                     controller: c.passwordController,
+                    keyboardType: TextInputType.streetAddress,
                     decoration: InputDecoration(
                       filled: true,
                       fillColor: Colors.white,

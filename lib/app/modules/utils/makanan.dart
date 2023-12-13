@@ -164,6 +164,8 @@ class _MakananState extends State<Makanan> {
                                           MainAxisAlignment.spaceEvenly,
                                       children: [
                                         Text(
+                                          maxLines: 3,
+                                          overflow: TextOverflow.ellipsis,
                                           menuData.nama ?? '',
                                           style: Theme.of(context)
                                               .textTheme

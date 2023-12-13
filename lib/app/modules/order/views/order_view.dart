@@ -178,11 +178,21 @@ class OrderView extends GetView<OrderController> {
                                               ),
                                               Row(
                                                 children: [
-                                                  Text(
-                                                    menuData.nama ?? '',
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .bodyLarge,
+                                                  Container(
+                                                    width:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .width *
+                                                            0.67,
+                                                    child: Text(
+                                                      maxLines: 1,
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                      menuData.nama ?? '',
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .bodyLarge,
+                                                    ),
                                                   ),
                                                 ],
                                               ),

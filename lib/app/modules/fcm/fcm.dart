@@ -1,15 +1,10 @@
 import 'dart:convert';
 import 'dart:io';
-
-
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:path_provider/path_provider.dart';
 
 class FcmService {
   //initialising firebase message plugin
@@ -18,17 +13,14 @@ class FcmService {
   //initialising firebase message plugin
   final FlutterLocalNotificationsPlugin _flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
-
   //function to initialise flutter local notification plugin to show notifications for android when app is active
   void initLocalNotifications(
       BuildContext context, RemoteMessage message) async {
     var androidInitializationSettings =
         const AndroidInitializationSettings('@mipmap/ic_launcher');
     var iosInitializationSettings = const DarwinInitializationSettings();
-
     var initializationSetting = InitializationSettings(
         android: androidInitializationSettings, iOS: iosInitializationSettings);
-
     await _flutterLocalNotificationsPlugin.initialize(initializationSetting,
         onDidReceiveNotificationResponse: (payload) {
       // handle interaction when app is active for android
@@ -40,14 +32,12 @@ class FcmService {
     FirebaseMessaging.onMessage.listen((message) {
       RemoteNotification? notification = message.notification;
       AndroidNotification? android = message.notification!.android;
-
       if (kDebugMode) {
         print("notifications title:${notification!.title}");
         print("notifications body:${notification.body}");
         print('count:${android!.count}');
         print('data:${message.data.toString()}');
       }
-
       if (Platform.isIOS) {
         forgroundMessage();
       }

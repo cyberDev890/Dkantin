@@ -58,15 +58,15 @@ class _FavoriteState extends State<Favorite> {
                         scrollDirection: Axis.horizontal,
                         itemBuilder: (BuildContext context, index) {
                           return Container(
-                            padding:const EdgeInsets.all(5),
+                            padding: const EdgeInsets.all(5),
                             width: MediaQuery.of(context).size.width * 0.5,
                             child: Stack(
                               children: [
                                 Container(
                                   decoration: BoxDecoration(
                                     color: Color(baseColorHex),
-                                    borderRadius:
-                                        const BorderRadius.all(Radius.circular(10)),
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(10)),
                                   ),
                                 ),
                                 Center(
@@ -133,8 +133,8 @@ class _FavoriteState extends State<Favorite> {
                             child: Stack(
                               children: [
                                 ClipRRect(
-                                  borderRadius:
-                                      const BorderRadius.all(Radius.circular(10)),
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(10)),
                                   child: Image.network(
                                     Api.gambar + menuData.foto.toString(),
                                     height: 300,
@@ -180,8 +180,7 @@ class _FavoriteState extends State<Favorite> {
                                     style: GoogleFonts.poppins(
                                       textStyle: const TextStyle(
                                         fontSize: 15,
-                                        color: Color.fromRGBO(
-                                            255, 255, 255, 1),
+                                        color: Color.fromRGBO(255, 255, 255, 1),
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
@@ -228,8 +227,8 @@ class _FavoriteState extends State<Favorite> {
                                 Container(
                                   decoration: BoxDecoration(
                                     color: Color(baseColorHex),
-                                    borderRadius:
-                                        const BorderRadius.all(Radius.circular(10)),
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(10)),
                                   ),
                                 ),
                                 Center(
@@ -320,7 +319,7 @@ class _FavoriteState extends State<Favorite> {
                                 left: 15,
                                 right: 10,
                                 child: Text(
-                                  '${dataPenjualan.nama ?? ''} Kantin ${dataPenjualan.idKantin}',
+                                  '${dataPenjualan.nama ?? ''} Kantin ${dataPenjualan.idKantin}z',
                                   style: GoogleFonts.poppins(
                                     textStyle: const TextStyle(
                                       fontSize: 13,
