@@ -205,7 +205,11 @@ class _KirimState extends State<Kirim> {
                                               color: Colors.black,
                                               fontWeight: FontWeight.normal)),
                                       Text(
-                                        orderData.status.toString(),
+                                        orderData.status
+                                                .toString()
+                                                .contains('null')
+                                            ? ''
+                                            : orderData.status.toString(),
                                         style: GoogleFonts.poppins(
                                             textStyle: const TextStyle(
                                                 fontSize: 14,

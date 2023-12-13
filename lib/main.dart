@@ -1,6 +1,4 @@
 import 'dart:io';
-
-import 'package:dikantin/app/modules/fcm/fcm.dart';
 import 'package:dikantin/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -36,9 +34,6 @@ Future<void> main() async {
           // debugPrint(fmcToken);
           FirebaseMessaging messaging = FirebaseMessaging.instance;
           messaging.requestPermission();
-
-          
-          
 
           FirebaseMessaging.onMessage.listen(
             (RemoteMessage message) async {

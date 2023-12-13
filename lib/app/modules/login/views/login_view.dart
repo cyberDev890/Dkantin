@@ -2,6 +2,7 @@ import 'package:carbon_icons/carbon_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../controllers/login_controller.dart';
 
 class LoginView extends GetView<LoginController> {
@@ -94,9 +95,12 @@ class LoginView extends GetView<LoginController> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     GestureDetector(
-                      onTap: () {
-                        c.loginKurir(
-                            c.emailController.text, c.passwordController.text);
+                      onTap: () async {
+                        SharedPreferences sharedPreferences =
+                            await SharedPreferences.getInstance();
+                        String? token = sharedPreferences.getString('tokenFcm');
+                        c.loginKurir(c.emailController.text,
+                            c.passwordController.text, token!);
                       },
                       child: Text(
                         "Login sebagai kurir",
@@ -133,10 +137,12 @@ class LoginView extends GetView<LoginController> {
                       ),
                       backgroundColor: Color.fromARGB(255, 55, 156, 211),
                     ),
-                    onPressed: () {
-                      // Add code to handle the login button action
-                      c.login(
-                          c.emailController.text, c.passwordController.text);
+                    onPressed: () async {
+                      SharedPreferences sharedPreferences =
+                          await SharedPreferences.getInstance();
+                      String? token = sharedPreferences.getString('tokenFcm');
+                      c.login(c.emailController.text, c.passwordController.text,
+                          token!);
                     },
                     child: Text(
                       "Login",

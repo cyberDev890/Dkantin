@@ -120,7 +120,7 @@ class _SemuaState extends State<Semua> {
                   } else {
                     return GridView.builder(
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        childAspectRatio: 0.80,
+                        childAspectRatio: 0.77,
                         crossAxisCount: 2,
                         mainAxisSpacing: 10,
                         crossAxisSpacing: 10,
@@ -138,48 +138,42 @@ class _SemuaState extends State<Semua> {
                             borderRadius: BorderRadius.all(Radius.circular(10)),
                             side: BorderSide(color: Colors.grey.shade200),
                           ),
-                          child: SingleChildScrollView(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Container(
-                                  height: 110,
-                                  alignment: Alignment.topRight,
-                                  width: double.infinity,
-                                  padding: const EdgeInsets.all(8),
-                                  decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                      image: NetworkImage(Api.gambar +
-                                          menuData.foto.toString()),
-                                      fit: BoxFit.cover,
-                                    ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                height: 110,
+                                alignment: Alignment.topRight,
+                                width: double.infinity,
+                                padding: const EdgeInsets.all(8),
+                                decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                    image: NetworkImage(
+                                        Api.gambar + menuData.foto.toString()),
+                                    fit: BoxFit.cover,
                                   ),
                                 ),
-                                Padding(
+                              ),
+                              Expanded(
+                                child: Padding(
                                   padding: const EdgeInsets.all(10.0),
                                   child: Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
                                     children: [
-                                      Padding(
-                                        padding:
-                                            const EdgeInsets.only(bottom: 8.0),
-                                        child: Text(
-                                          menuData.nama ?? '',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyLarge,
-                                        ),
+                                      Text(
+                                        menuData.nama ?? '',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyLarge,
                                       ),
-                                      Padding(
-                                        padding:
-                                            const EdgeInsets.only(bottom: 8.0),
-                                        child: Text(
-                                          'Kantin: ${menuData.idKantin ?? ''}',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyLarge,
-                                        ),
+                                      Text(
+                                        'Kantin: ${menuData.idKantin ?? ''}',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyLarge,
                                       ),
                                       Row(
                                         mainAxisAlignment:
@@ -241,9 +235,9 @@ class _SemuaState extends State<Semua> {
                                       )
                                     ],
                                   ),
-                                )
-                              ],
-                            ),
+                                ),
+                              )
+                            ],
                           ),
                         );
                       },

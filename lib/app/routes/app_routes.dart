@@ -24,6 +24,7 @@ abstract class Routes {
   static const UBAH_PASSWORD = _Paths.UBAH_PASSWORD;
   static const EDIT_ALAMAT = _Paths.EDIT_ALAMAT;
   static const RIWAYAT_KURIR = _Paths.RIWAYAT_KURIR;
+  static const KANTIN = _Paths.KANTIN;
 }
 
 abstract class _Paths {
@@ -49,4 +50,5 @@ abstract class _Paths {
   static const UBAH_PASSWORD = '/ubah-password';
   static const EDIT_ALAMAT = '/edit-alamat';
   static const RIWAYAT_KURIR = '/riwayat-kurir';
+  static const KANTIN = '/kantin';
 }

@@ -6,12 +6,12 @@ import '../modules/forgotPassword/bindings/forgot_password_binding.dart';
 import '../modules/forgotPassword/views/forgot_password_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
+import '../modules/kantin/bindings/kantin_binding.dart';
+import '../modules/kantin/views/kantin_view.dart';
 import '../modules/keranjang/bindings/keranjang_binding.dart';
 import '../modules/keranjang/views/keranjang_view.dart';
 import '../modules/login/bindings/login_binding.dart';
 import '../modules/login/views/login_view.dart';
-import '../modules/loginKurir/bindings/loginKurir_binding.dart';
-import '../modules/loginKurir/views/loginKurir_view.dart';
 import '../modules/navigation/bindings/navigation_binding.dart';
 import '../modules/navigation/views/navigation_view.dart';
 import '../modules/navigationKurir/bindings/navigationKurir_binding.dart';
@@ -46,7 +46,7 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.SPLASH;
+  static const INITIAL = Routes.LOGIN;
 
   static final routes = [
     GetPage(
@@ -100,11 +100,6 @@ class AppPages {
       binding: LoginBinding(),
     ),
     GetPage(
-      name: _Paths.LOGIN_KURIR,
-      page: () => const LoginKurirView(),
-      binding: LoginKurirBinding(),
-    ),
-    GetPage(
       name: _Paths.ORDER,
       page: () => OrderView(),
       binding: OrderBinding(),
@@ -148,6 +143,11 @@ class AppPages {
       name: _Paths.RIWAYAT_KURIR,
       page: () => RiwayatKurirView(),
       binding: RiwayatKurirBinding(),
+    ),
+    GetPage(
+      name: _Paths.KANTIN,
+      page: () => const KantinView(),
+      binding: KantinBinding(),
     ),
   ];
 }

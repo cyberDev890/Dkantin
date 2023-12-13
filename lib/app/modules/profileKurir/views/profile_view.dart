@@ -149,22 +149,31 @@ class ProfileKurirView extends GetView<ProfileKurirController> {
                                 children: [
                                   Obx(
                                     () => ClipOval(
-                                      child: Image.network(
-                                        profileKurirController.profileKurir
-                                                    .value.data?.foto !=
-                                                null
-                                            ? Api.gambar +
-                                                profileKurirController
-                                                    .profileKurir
-                                                    .value
-                                                    .data!
-                                                    .foto!
-                                                    .toString()
-                                            : "assets/logo_dikantin.png",
-                                        width: 90.0, // Sesuaikan lebar gambar
-                                        height: 90.0, // Sesuaikan tinggi gambar
-                                        fit: BoxFit.cover,
-                                      ),
+                                      child: profileKurirController.profileKurir
+                                                  .value.data?.foto !=
+                                              null
+                                          ? Image.network(
+                                              Api.gambar +
+                                                  profileKurirController
+                                                      .profileKurir
+                                                      .value
+                                                      .data!
+                                                      .foto!
+                                                      .toString(),
+                                              width:
+                                                  90.0, // Sesuaikan lebar gambar
+                                              height:
+                                                  90.0, // Sesuaikan tinggi gambar
+                                              fit: BoxFit.cover,
+                                            )
+                                          : Image.asset(
+                                              "assets/logo_dikantin.png", // Ganti dengan path gambar default Anda
+                                              width:
+                                                  90.0, // Sesuaikan lebar gambar
+                                              height:
+                                                  90.0, // Sesuaikan tinggi gambar
+                                              fit: BoxFit.cover,
+                                            ),
                                     ),
                                   ),
                                   Container(

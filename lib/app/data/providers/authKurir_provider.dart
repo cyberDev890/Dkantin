@@ -8,9 +8,8 @@ import 'dart:convert'; // Import for JSON decoding
 class AuthKurirProvider extends GetxController {
   RxBool isKurirActive = false.obs;
 
-  Future<http.Response> loginKurir(String username, String password) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? tokenfcm = prefs.getString('tokenfcm');
+  Future<http.Response> loginKurir(
+      String username, String password, String tokenfcm) async {
     final data = {
       'email': username,
       'password': password,

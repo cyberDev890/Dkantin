@@ -2,6 +2,7 @@
     <uses-permission android:name="android.permission.ACCES FINE LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <application
+        android:usesCleartextTraffic="true"
         android:label="dikantin"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon">
