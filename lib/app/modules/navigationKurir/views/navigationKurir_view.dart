@@ -3,6 +3,7 @@ import 'package:dikantin/app/modules/home/views/home_view.dart';
 import 'package:dikantin/app/modules/pesanan/views/pesanan_view.dart';
 import 'package:dikantin/app/modules/pesananKurir/views/pesananKurir_view.dart';
 import 'package:dikantin/app/modules/profile/views/profile_view.dart';
+import 'package:dikantin/app/modules/profileKurir/controllers/profile_controller.dart';
 import 'package:dikantin/app/modules/profileKurir/views/profile_view.dart';
 import 'package:dikantin/app/modules/riwayat/views/riwayat_view.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +18,8 @@ class NavigationKurirView extends GetView<NavigationKurirController> {
   NavigationKurirView({Key? key}) : super(key: key);
   final PesananKurirController pesananKurirController =
       Get.put(PesananKurirController());
+  final ProfileKurirController profileKurirController =
+      Get.put(ProfileKurirController());
   DateTime? currentBackPressTime;
 
   @override
@@ -69,6 +72,9 @@ class NavigationKurirView extends GetView<NavigationKurirController> {
                   // Check if the selected tab is "Pesanan"
                   pesananKurirController
                       .refreshPesanan(); // Call the refresh function
+                }
+                if (index == 2) {
+                  profileKurirController.getPenghasilanKurir();
                 }
                 controller.updateCurrentScreen(index);
               },

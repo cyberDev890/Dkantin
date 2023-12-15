@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:dikantin/app/data/providers/services.dart';
+import 'package:dikantin/app/modules/utils/formatDate.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
@@ -11,7 +12,7 @@ import '../controllers/profile_controller.dart';
 class ProfileKurirView extends GetView<ProfileKurirController> {
   ProfileKurirView({Key? key}) : super(key: key);
   final ProfileKurirController profileKurirController =
-      Get.put(ProfileKurirController());
+      Get.find<ProfileKurirController>();
   final PesananKurirController pesananKurirController =
       Get.find<PesananKurirController>();
 
@@ -47,7 +48,7 @@ class ProfileKurirView extends GetView<ProfileKurirController> {
                 icon: Icon(
                   Icons.logout,
                   size: 20.0,
-                  color: Colors.black,
+                  color: Colors.white,
                 ),
                 onPressed: () {
                   showDialog(
@@ -147,26 +148,26 @@ class ProfileKurirView extends GetView<ProfileKurirController> {
                             Stack(
                                 alignment: AlignmentDirectional(1, 0.5),
                                 children: [
-                                  Obx(
-                                    () => ClipOval(
-                                      child: Image.network(
-                                        profileKurirController.profileKurir
-                                                    .value.data?.foto !=
-                                                null
-                                            ? Api.gambar +
-                                                profileKurirController
-                                                    .profileKurir
-                                                    .value
-                                                    .data!
-                                                    .foto!
-                                                    .toString()
-                                            : "assets/logo_dikantin.png",
-                                        width: 90.0, // Sesuaikan lebar gambar
-                                        height: 90.0, // Sesuaikan tinggi gambar
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ),
-                                  ),
+                                  // Obx(
+                                  //   () => ClipOval(
+                                  //     child: Image.network(
+                                  //       profileKurirController.profileKurir
+                                  //                   .value.data?.foto !=
+                                  //               null
+                                  //           ? Api.gambar +
+                                  //               profileKurirController
+                                  //                   .profileKurir
+                                  //                   .value
+                                  //                   .data!
+                                  //                   .foto!
+                                  //                   .toString()
+                                  //           : "assets/logo_dikantin.png",
+                                  //       width: 90.0, // Sesuaikan lebar gambar
+                                  //       height: 90.0, // Sesuaikan tinggi gambar
+                                  //       fit: BoxFit.cover,
+                                  //     ),
+                                  //   ),
+                                  // ),
                                   Container(
                                     width: 30.0,
                                     height: 30.0,
@@ -253,6 +254,82 @@ class ProfileKurirView extends GetView<ProfileKurirController> {
                         color: Colors.black38,
                       ),
                       Padding(
+                        padding:
+                            const EdgeInsets.only(right: 20, left: 20, top: 15),
+                        child: Container(
+                          width: x,
+                          decoration: BoxDecoration(
+                            color: Colors.blue[300],
+                            borderRadius: BorderRadius.circular(8),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.5),
+                                spreadRadius: 2,
+                                blurRadius: 7,
+                                offset: Offset(
+                                    0, 3), // changes the position of the shadow
+                              ),
+                            ],
+                          ),
+                          child: Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    top: 8, left: 8, bottom: 8),
+                                child: Align(
+                                  alignment: Alignment.topLeft,
+                                  child: Text(
+                                    'Pendapatan Kurir',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 13),
+                                  ),
+                                ),
+                              ),
+                              Divider(
+                                height: 2,
+                                thickness: 1,
+                                color: Color.fromARGB(96, 70, 70, 70),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    top: 30, right: 15, bottom: 15),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Align(
+                                      alignment: Alignment.centerRight,
+                                      child: Text(
+                                        controller.today.value.toRupiah(),
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 23),
+                                      ),
+                                    ),
+                                    Align(
+                                      alignment: Alignment.centerRight,
+                                      child: Text(
+                                        'Total Pendapatan Hari ini',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 13),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      Padding(
                         padding: const EdgeInsets.all(20.0),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
@@ -264,8 +341,22 @@ class ProfileKurirView extends GetView<ProfileKurirController> {
                                   child: Container(
                                     width: 200,
                                     decoration: BoxDecoration(
-                                      color: Colors.blue[300],
+                                      color: Color.fromARGB(255, 255, 255, 255),
                                       borderRadius: BorderRadius.circular(8),
+                                      // border: Border.all(
+                                      //     color: Color.fromARGB(
+                                      //         255, 167, 167, 167),
+                                      //     width: 1 // Lebar border
+                                      //     ),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.grey.withOpacity(0.5),
+                                          spreadRadius: 1,
+                                          blurRadius: 3,
+                                          offset: Offset(0,
+                                              2), // changes the position of the shadow
+                                        ),
+                                      ],
                                     ),
                                     child: Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
@@ -277,8 +368,8 @@ class ProfileKurirView extends GetView<ProfileKurirController> {
                                         children: [
                                           Icon(
                                             Icons.receipt_rounded,
-                                            color: Colors.white,
-                                            size: 44,
+                                            color: Colors.blue[600],
+                                            size: 30,
                                           ),
                                           Padding(
                                             padding:
@@ -291,9 +382,9 @@ class ProfileKurirView extends GetView<ProfileKurirController> {
                                                     .toString(),
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(
-                                                    color: Colors.white,
+                                                    color: Colors.black,
                                                     fontWeight: FontWeight.bold,
-                                                    fontSize: 18),
+                                                    fontSize: 17),
                                               ),
                                             ),
                                           ),
@@ -301,9 +392,9 @@ class ProfileKurirView extends GetView<ProfileKurirController> {
                                             'Untuk Dikirm',
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
-                                                color: Colors.white,
+                                                color: Colors.black,
                                                 fontWeight: FontWeight.bold,
-                                                fontSize: 15),
+                                                fontSize: 12),
                                           ),
                                         ],
                                       ),
@@ -320,8 +411,22 @@ class ProfileKurirView extends GetView<ProfileKurirController> {
                                   child: Container(
                                     width: 200,
                                     decoration: BoxDecoration(
-                                      color: Colors.blue[300],
+                                      color: Color.fromARGB(255, 255, 255, 255),
                                       borderRadius: BorderRadius.circular(8),
+                                      // border: Border.all(
+                                      //     color: Color.fromARGB(
+                                      //         255, 167, 167, 167),
+                                      //     width: 1 // Lebar border
+                                      //     ),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.grey.withOpacity(0.5),
+                                          spreadRadius: 1,
+                                          blurRadius: 3,
+                                          offset: Offset(0,
+                                              2), // changes the position of the shadow
+                                        ),
+                                      ],
                                     ),
                                     child: Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
@@ -334,8 +439,8 @@ class ProfileKurirView extends GetView<ProfileKurirController> {
                                         children: [
                                           Icon(
                                             Icons.ssid_chart_rounded,
-                                            color: Colors.white,
-                                            size: 44,
+                                            color: Colors.blue[600],
+                                            size: 30,
                                           ),
                                           Padding(
                                             padding:
@@ -348,9 +453,9 @@ class ProfileKurirView extends GetView<ProfileKurirController> {
                                                     .toString(),
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(
-                                                    color: Colors.white,
+                                                    color: Colors.black,
                                                     fontWeight: FontWeight.bold,
-                                                    fontSize: 18),
+                                                    fontSize: 17),
                                               ),
                                             ),
                                           ),
@@ -358,9 +463,9 @@ class ProfileKurirView extends GetView<ProfileKurirController> {
                                             'Konfirmasi',
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
-                                                color: Colors.white,
+                                                color: Colors.black,
                                                 fontWeight: FontWeight.bold,
-                                                fontSize: 15),
+                                                fontSize: 12),
                                           ),
                                         ],
                                       ),
