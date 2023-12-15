@@ -19,6 +19,8 @@ class PesananKurirView extends GetView<PesananKurirController> {
 
   @override
   Widget build(BuildContext context) {
+    double textScaleFactor = MediaQuery.of(context).textScaleFactor;
+
     final mediaHeight = MediaQuery.of(context).size.height;
     final myAppbar = AppBar(
       elevation: 5, // Menghilangkan shadow di bawah AppBar
@@ -61,7 +63,7 @@ class PesananKurirView extends GetView<PesananKurirController> {
                   pesananKurirController.orderUntukDikirim.length.toString(),
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: 12,
+                    fontSize: textScaleFactor <= 1.15 ? 12 : 12,
                   ),
                 ),
                 position: badges.BadgePosition.topEnd(top: -10, end: -15),
@@ -83,7 +85,7 @@ class PesananKurirView extends GetView<PesananKurirController> {
                   pesananKurirController.orderKonfirmasi.length.toString(),
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: 12,
+                    fontSize: textScaleFactor <= 1.15 ? 12 : 12,
                   ),
                 ),
                 position: badges.BadgePosition.topEnd(top: -12, end: -15),
@@ -99,14 +101,14 @@ class PesananKurirView extends GetView<PesananKurirController> {
           ],
           labelStyle: GoogleFonts.poppins(
             textStyle: TextStyle(
-              fontSize: 14,
+              fontSize: textScaleFactor <= 1.15 ? 14 : 12,
               color: Colors.black,
               fontWeight: FontWeight.bold, // Font Weight untuk yang terpilih
             ),
           ),
           unselectedLabelStyle: GoogleFonts.poppins(
             textStyle: TextStyle(
-              fontSize: 14,
+              fontSize: textScaleFactor <= 1.15 ? 14 : 12,
               fontWeight:
                   FontWeight.normal, // Font Weight untuk yang tidak terpilih
             ),

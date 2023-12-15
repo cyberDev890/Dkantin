@@ -9,7 +9,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../data/models/search_model.dart';
 import '../../../data/providers/services.dart';
 import '../../home/controllers/home_controller.dart';
 import '../controllers/keranjang_controller.dart';
@@ -20,6 +22,8 @@ class KeranjangView extends GetView<KeranjangController> {
 
   @override
   Widget build(BuildContext context) {
+    double textScaleFactor = MediaQuery.of(context).textScaleFactor;
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -69,6 +73,7 @@ class KeranjangView extends GetView<KeranjangController> {
                         itemBuilder: (BuildContext context, int index) {
                           final menuData = homeController.cartList[index];
                           final harga = menuData.harga ?? 0;
+                          Datasearch item = homeController.cartList[index];
 
                           final int priceAfterDiscount = homeController
                               .calculatePriceAfterDiscount(menuData);
@@ -91,7 +96,7 @@ class KeranjangView extends GetView<KeranjangController> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.start,
                                       crossAxisAlignment:
-                                          CrossAxisAlignment.center,
+                                          CrossAxisAlignment.start,
                                       children: [
                                         Container(
                                           height: 80,
@@ -126,15 +131,21 @@ class KeranjangView extends GetView<KeranjangController> {
                                                         MediaQuery.of(context)
                                                                 .size
                                                                 .width *
-                                                            0.57,
+                                                            0.55,
                                                     child: Text(
                                                       maxLines: 1,
                                                       overflow:
                                                           TextOverflow.ellipsis,
                                                       menuData.nama ?? '',
-                                                      style: Theme.of(context)
-                                                          .textTheme
-                                                          .bodyLarge,
+                                                      style: TextStyle(
+                                                          fontSize:
+                                                              textScaleFactor <=
+                                                                      1.15
+                                                                  ? 15
+                                                                  : 12,
+                                                          color: Colors.black,
+                                                          fontWeight:
+                                                              FontWeight.w500),
                                                     ),
                                                   ),
                                                   InkWell(
@@ -142,6 +153,9 @@ class KeranjangView extends GetView<KeranjangController> {
                                                       homeController
                                                           .removeFromCart(
                                                               menuData);
+                                                      homeController
+                                                          .catatanController
+                                                          .clear();
                                                     },
                                                     child: const Icon(
                                                       Icons.delete,
@@ -155,9 +169,15 @@ class KeranjangView extends GetView<KeranjangController> {
                                                   Text(
                                                     priceAfterDiscount
                                                         .toRupiah(),
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .bodyLarge,
+                                                    style: TextStyle(
+                                                        fontSize:
+                                                            textScaleFactor <=
+                                                                    1.15
+                                                                ? 15
+                                                                : 12,
+                                                        color: Colors.black,
+                                                        fontWeight:
+                                                            FontWeight.w500),
                                                   ),
                                                   SizedBox(
                                                     width: 10,
@@ -169,7 +189,11 @@ class KeranjangView extends GetView<KeranjangController> {
                                                           : harga.toRupiah(),
                                                       style:
                                                           GoogleFonts.poppins(
-                                                        fontSize: 12,
+                                                        fontSize:
+                                                            textScaleFactor <=
+                                                                    1.15
+                                                                ? 15
+                                                                : 12,
                                                         decoration:
                                                             TextDecoration
                                                                 .lineThrough,
@@ -208,7 +232,16 @@ class KeranjangView extends GetView<KeranjangController> {
                                                                         .circular(
                                                                             5)),
                                                             child: InkWell(
-                                                              onTap: () {
+                                                              onTap: () async {
+                                                                SharedPreferences
+                                                                    prefs =
+                                                                    await SharedPreferences
+                                                                        .getInstance();
+                                                                String?
+                                                                    catatan =
+                                                                    prefs.getString(
+                                                                        'catatan');
+                                                                print(catatan);
                                                                 homeController
                                                                     .subtractQuantity(
                                                                         menuData
@@ -227,7 +260,11 @@ class KeranjangView extends GetView<KeranjangController> {
 
                                                               style: GoogleFonts
                                                                   .poppins(
-                                                                fontSize: 14,
+                                                                fontSize:
+                                                                    textScaleFactor <=
+                                                                            1.15
+                                                                        ? 15
+                                                                        : 12,
                                                               )),
                                                           Container(
                                                             decoration: BoxDecoration(
@@ -243,6 +280,8 @@ class KeranjangView extends GetView<KeranjangController> {
                                                                     .addQuantity(
                                                                         menuData
                                                                             .idMenu!);
+                                                                print(
+                                                                    textScaleFactor);
                                                               },
                                                               child: Icon(
                                                                 color: Colors
@@ -261,12 +300,168 @@ class KeranjangView extends GetView<KeranjangController> {
                                                               menuData.idMenu!)
                                                           .toRupiah(),
                                                       style: TextStyle(
-                                                        fontSize: 14.0,
-                                                      ),
+                                                          fontSize:
+                                                              textScaleFactor <=
+                                                                      1.15
+                                                                  ? 15
+                                                                  : 12,
+                                                          fontWeight:
+                                                              FontWeight.w500),
                                                     ),
                                                   ],
                                                 ),
                                               ),
+                                              SizedBox(
+                                                height: 5,
+                                              ),
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.end,
+                                                children: [
+                                                  ElevatedButton.icon(
+                                                    icon: Icon(
+                                                      Icons.note_alt,
+                                                      size: textScaleFactor <=
+                                                              1.15
+                                                          ? 18
+                                                          : 18,
+                                                      color: Colors.black,
+                                                    ),
+                                                    label: Text(
+                                                      "Catatan",
+                                                      style: TextStyle(
+                                                          fontSize:
+                                                              textScaleFactor <=
+                                                                      1.15
+                                                                  ? 10
+                                                                  : 9,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          color: Colors.black),
+                                                    ),
+                                                    style: ElevatedButton
+                                                        .styleFrom(
+                                                      backgroundColor:
+                                                          Colors.white,
+                                                      shape:
+                                                          ContinuousRectangleBorder(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(20.0),
+                                                      ),
+                                                    ),
+                                                    onPressed: () {
+                                                      Get.bottomSheet(
+                                                        Container(
+                                                          height: MediaQuery.of(
+                                                                  context)
+                                                              .size
+                                                              .height,
+                                                          decoration: BoxDecoration(
+                                                              color:
+                                                                  Colors.white,
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          10)),
+                                                          child: Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(8.0),
+                                                            child: ListView(
+                                                              children: [
+                                                                TextFormField(
+                                                                  controller: homeController
+                                                                      .catatanController
+                                                                    ..text = homeController
+                                                                        .getNoteForMenu(
+                                                                            item.idMenu!),
+                                                                  style:
+                                                                      TextStyle(
+                                                                    fontSize:
+                                                                        textScaleFactor <=
+                                                                                1.15
+                                                                            ? 14
+                                                                            : 14,
+                                                                  ), // Adjust the fontSize as needed
+
+                                                                  decoration:
+                                                                      InputDecoration(
+                                                                    hintText:
+                                                                        'Contoh: Nasi setengah ya!',
+                                                                    enabledBorder:
+                                                                        OutlineInputBorder(
+                                                                      borderRadius:
+                                                                          BorderRadius.circular(
+                                                                              20),
+                                                                      borderSide: BorderSide(
+                                                                          color: Colors
+                                                                              .purple,
+                                                                          width:
+                                                                              1),
+                                                                    ),
+                                                                  ),
+                                                                  keyboardType:
+                                                                      TextInputType
+                                                                          .multiline,
+                                                                  maxLines: 10,
+                                                                  maxLength:
+                                                                      250,
+                                                                ),
+                                                                Row(
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .end,
+                                                                  children: [
+                                                                    ElevatedButton(
+                                                                      style: ElevatedButton
+                                                                          .styleFrom(
+                                                                        backgroundColor:
+                                                                            Colors.blue,
+                                                                        shape:
+                                                                            RoundedRectangleBorder(
+                                                                          borderRadius:
+                                                                              BorderRadius.circular(10),
+                                                                        ),
+                                                                      ),
+                                                                      onPressed:
+                                                                          () async {
+                                                                        // Mendapatkan catatan dari controller
+                                                                        String catatan = homeController
+                                                                            .catatanController
+                                                                            .text;
+
+                                                                        // Menyimpan catatan untuk item menu yang sesuai
+                                                                        homeController.saveNoteForMenu(
+                                                                            menuData.idMenu!,
+                                                                            catatan);
+                                                                        Get.back();
+                                                                      },
+                                                                      child: Text(
+                                                                          "Simpan",
+                                                                          style:
+                                                                              GoogleFonts.poppins(
+                                                                            fontSize: textScaleFactor <= 1.15
+                                                                                ? 16
+                                                                                : 13,
+                                                                          )),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      );
+                                                    },
+                                                  ),
+                                                ],
+                                              ),
+                                              // Obx(
+                                              //   () => Text(homeController
+                                              //       .getNoteForMenu(
+                                              //           item.idMenu!)),
+                                              // ),
                                             ],
                                           ),
                                         ),
@@ -303,13 +498,15 @@ class KeranjangView extends GetView<KeranjangController> {
                 children: [
                   Text("Jumlah : ${homeController.count}",
                       style: GoogleFonts.poppins(
-                          fontSize: 16, fontWeight: FontWeight.bold)),
+                          fontSize: textScaleFactor <= 1.15 ? 16 : 13,
+                          fontWeight: FontWeight.bold)),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(homeController.totalPrice.toRupiah(),
                           style: GoogleFonts.poppins(
-                              fontSize: 20, fontWeight: FontWeight.bold)),
+                              fontSize: textScaleFactor <= 1.15 ? 15 : 13,
+                              fontWeight: FontWeight.bold)),
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.blue,
@@ -326,7 +523,7 @@ class KeranjangView extends GetView<KeranjangController> {
                         },
                         child: Text("Pesan Sekarang",
                             style: GoogleFonts.poppins(
-                              fontSize: 16,
+                              fontSize: textScaleFactor <= 1.15 ? 16 : 13,
                             )),
                       ),
                     ],

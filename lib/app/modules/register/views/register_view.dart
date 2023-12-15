@@ -9,6 +9,8 @@ class RegisterView extends GetView<RegisterController> {
   const RegisterView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    double textScaleFactor = MediaQuery.of(context).textScaleFactor;
+
     final RegisterController c = Get.put(RegisterController());
     return Scaffold(
       body: Container(
@@ -27,7 +29,7 @@ class RegisterView extends GetView<RegisterController> {
                 padding: const EdgeInsets.only(top: 25),
                 child: Text("Register",
                     style: TextStyle(
-                        fontSize: 40,
+                        fontSize: textScaleFactor <= 1.15 ? 40 : 40,
                         fontWeight: FontWeight.bold,
                         color: Colors.white)),
               ),
@@ -37,6 +39,9 @@ class RegisterView extends GetView<RegisterController> {
               Padding(
                 padding: const EdgeInsets.only(top: 20, right: 20, left: 20),
                 child: TextField(
+                  style: TextStyle(
+                    fontSize: textScaleFactor <= 1.15 ? 14 : 14,
+                  ),
                   keyboardType: TextInputType.name,
                   controller: c.nameController,
                   decoration: InputDecoration(
@@ -56,6 +61,9 @@ class RegisterView extends GetView<RegisterController> {
               Padding(
                 padding: const EdgeInsets.only(top: 20, right: 20, left: 20),
                 child: TextField(
+                  style: TextStyle(
+                    fontSize: textScaleFactor <= 1.15 ? 14 : 14,
+                  ),
                   keyboardType: TextInputType.name,
                   controller: c.emailController,
                   decoration: InputDecoration(
@@ -75,6 +83,9 @@ class RegisterView extends GetView<RegisterController> {
               Padding(
                 padding: const EdgeInsets.only(top: 20, right: 20, left: 20),
                 child: TextField(
+                  style: TextStyle(
+                    fontSize: textScaleFactor <= 1.15 ? 14 : 14,
+                  ),
                   controller: c
                       .phoneController, // Anda dapat mengganti controller sesuai kebutuhan
                   keyboardType: TextInputType
@@ -97,6 +108,9 @@ class RegisterView extends GetView<RegisterController> {
               Padding(
                 padding: const EdgeInsets.only(top: 20, right: 20, left: 20),
                 child: TextField(
+                  style: TextStyle(
+                    fontSize: textScaleFactor <= 1.15 ? 14 : 14,
+                  ),
                   controller: c.addressController,
                   keyboardType: TextInputType
                       .streetAddress, // Menentukan jenis keyboard untuk teks
@@ -118,6 +132,9 @@ class RegisterView extends GetView<RegisterController> {
                 return Padding(
                   padding: const EdgeInsets.only(top: 20, right: 20, left: 20),
                   child: TextField(
+                    style: TextStyle(
+                      fontSize: textScaleFactor <= 1.15 ? 14 : 14,
+                    ),
                     controller: c.passwordController,
                     keyboardType: TextInputType.streetAddress,
                     decoration: InputDecoration(
@@ -173,7 +190,12 @@ class RegisterView extends GetView<RegisterController> {
                         print('Pendaftaran gagal: $e');
                       }
                     },
-                    child: const Text("Register"),
+                    child: Text(
+                      "Register",
+                      style: TextStyle(
+                        fontSize: textScaleFactor <= 1.15 ? 14 : 14,
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -192,10 +214,11 @@ class RegisterView extends GetView<RegisterController> {
                     onPressed: () {
                       Get.toNamed('/login');
                     },
-                    child: const Text(
+                    child: Text(
                       "Login",
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: Colors.black54,
+                        fontSize: textScaleFactor <= 1.15 ? 14 : 14,
                       ),
                     ),
                   ),

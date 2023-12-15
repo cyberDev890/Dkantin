@@ -18,6 +18,8 @@ class HomeView extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     final mediaHeight = MediaQuery.of(context).size.height;
+    final mediaWidth = MediaQuery.of(context).size.width;
+    double textScaleFactor = MediaQuery.of(context).textScaleFactor;
     final app = AppBar(
       elevation: 0, // Menghilangkan shadow di bawah AppBar
       backgroundColor: Colors.white, // Membuat AppBar transparan
@@ -63,6 +65,7 @@ class HomeView extends GetView<HomeController> {
     final mediaBody = mediaHeight -
         app.preferredSize.height -
         MediaQuery.of(context).padding.top;
+
     return DefaultTabController(
       length: 4,
       child: Scaffold(
@@ -235,7 +238,7 @@ class HomeView extends GetView<HomeController> {
             Align(
                 alignment: Alignment.bottomCenter,
                 child: Padding(
-                  padding: const EdgeInsets.all(15),
+                  padding: const EdgeInsets.all(20),
                   child: Obx(
                     () => AnimatedOpacity(
                       duration: Duration(
@@ -245,16 +248,20 @@ class HomeView extends GetView<HomeController> {
                       child: Visibility(
                         visible: controller.countc > 0,
                         child: InkWell(
-                          onTap: () => Get.toNamed('/keranjang'),
+                          onTap: () {
+                            Get.toNamed('/keranjang');
+                            print(textScaleFactor);
+                          },
                           child: Container(
                             //ini container info
-                            height: mediaHeight / 15,
+                            height: mediaHeight *
+                                0.07, // Use a percentage of the screen height
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
                               color: Color(0xFF2579FD),
                             ),
                             child: Padding(
-                              padding: const EdgeInsets.fromLTRB(7, 5, 7, 5),
+                              padding: const EdgeInsets.fromLTRB(7, 2, 7, 0),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -264,30 +271,45 @@ class HomeView extends GetView<HomeController> {
                                     children: [
                                       Padding(
                                         padding: const EdgeInsets.only(
-                                            top: 3, left: 15),
+                                            top: 0, left: 15),
                                         child: Container(
                                           child: Column(
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
                                             children: [
                                               Text(
-                                                "${controller.countc.toString()}  ITEM",
+                                                "${controller.countc.toString()} item",
                                                 style: GoogleFonts.poppins(
-                                                  textStyle: const TextStyle(
-                                                    fontSize: 16,
+                                                  textStyle: TextStyle(
+                                                    fontSize:
+                                                        textScaleFactor <= 1.15
+                                                            ? 12
+                                                            : 12,
                                                     color: Colors.white,
                                                     fontWeight: FontWeight.w500,
                                                   ),
                                                 ),
                                               ),
-                                              Text(
-                                                "Siap mengantar pesanan",
-                                                style: GoogleFonts.poppins(
-                                                  textStyle: const TextStyle(
-                                                    fontSize: 11,
-                                                    color: Colors.white,
-                                                    fontWeight:
-                                                        FontWeight.normal,
+                                              Container(
+                                                width: mediaWidth * 0.5,
+                                                child: Text(
+                                                  "Siap mengantar pesanan ",
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  maxLines:
+                                                      1, // Set a maximum number of lines
+
+                                                  style: GoogleFonts.poppins(
+                                                    textStyle: TextStyle(
+                                                      fontSize:
+                                                          textScaleFactor <=
+                                                                  1.15
+                                                              ? 12
+                                                              : 12,
+                                                      color: Colors.white,
+                                                      fontWeight:
+                                                          FontWeight.normal,
+                                                    ),
                                                   ),
                                                 ),
                                               ),
@@ -305,8 +327,11 @@ class HomeView extends GetView<HomeController> {
                                                 controller.totalPrice
                                                     .toRupiah(),
                                                 style: GoogleFonts.poppins(
-                                                  textStyle: const TextStyle(
-                                                    fontSize: 14,
+                                                  textStyle: TextStyle(
+                                                    fontSize:
+                                                        textScaleFactor <= 1.15
+                                                            ? 13
+                                                            : 13,
                                                     color: Colors.white,
                                                     fontWeight: FontWeight.w600,
                                                   ),
@@ -317,7 +342,9 @@ class HomeView extends GetView<HomeController> {
                                               ),
                                               Icon(
                                                 Icons.shopping_cart,
-                                                size: 24,
+                                                size: textScaleFactor <= 1.15
+                                                    ? 24
+                                                    : 24,
                                                 color: Colors.white,
                                               ),
                                             ],

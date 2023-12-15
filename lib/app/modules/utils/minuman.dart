@@ -20,6 +20,8 @@ class _MinumanState extends State<Minuman> {
 
   @override
   Widget build(BuildContext context) {
+    double textScaleFactor = MediaQuery.of(context).textScaleFactor;
+
     return RefreshIndicator(
       onRefresh: () async {
         await controller.refreshData();
@@ -120,7 +122,7 @@ class _MinumanState extends State<Minuman> {
                   } else {
                     return GridView.builder(
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        childAspectRatio: 0.77,
+                        childAspectRatio: 0.70,
                         crossAxisCount: 2,
                         mainAxisSpacing: 10,
                         crossAxisSpacing: 10,
@@ -170,15 +172,23 @@ class _MinumanState extends State<Minuman> {
                                           maxLines: 3,
                                           overflow: TextOverflow.ellipsis,
                                           menuData.nama ?? '',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyLarge,
+                                          style: TextStyle(
+                                            fontSize: textScaleFactor <= 1.15
+                                                ? 15
+                                                : 12,
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.w500,
+                                          ),
                                         ),
                                         Text(
                                           'Kantin: ${menuData.idKantin ?? ''}',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyLarge,
+                                          style: TextStyle(
+                                            fontSize: textScaleFactor <= 1.15
+                                                ? 15
+                                                : 12,
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.w500,
+                                          ),
                                         ),
                                         Row(
                                           mainAxisAlignment:
@@ -186,9 +196,14 @@ class _MinumanState extends State<Minuman> {
                                           children: [
                                             Text(
                                               harga.toRupiah(),
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .bodyLarge,
+                                              style: TextStyle(
+                                                fontSize:
+                                                    textScaleFactor <= 1.15
+                                                        ? 15
+                                                        : 12,
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.w500,
+                                              ),
                                             ),
                                             Obx(() => homeController.cartList
                                                     .contains(menuData)
@@ -229,9 +244,13 @@ class _MinumanState extends State<Minuman> {
                                                         padding:
                                                             EdgeInsets.zero,
                                                         onPressed: () {
-                                                          homeController
-                                                              .addToCart(
-                                                                  menuData);
+                                                          homeController.addToCart(
+                                                              menuData,
+                                                              homeController
+                                                                  .catatanController
+                                                                  .text);
+                                                                     homeController
+                                                                  .catatanController.clear();
                                                         },
                                                         iconSize: 18,
                                                         icon: const Icon(

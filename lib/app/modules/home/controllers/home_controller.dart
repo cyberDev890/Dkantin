@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 import '../../../data/models/penjualan_model.dart';
@@ -7,6 +8,8 @@ import '../../../data/providers/menu_provider.dart';
 import '../../profile/controllers/profile_controller.dart';
 
 class HomeController extends GetxController with GetTickerProviderStateMixin {
+  final TextEditingController catatanController = TextEditingController();
+  final notesMap = <int, String>{}.obs;
   late AnimationController animationController;
   late AnimationController _controller;
   late TabController tabController; // Tambahkan variabel TabController
@@ -84,22 +87,44 @@ class HomeController extends GetxController with GetTickerProviderStateMixin {
     super.onClose();
   }
 
-  void addToCart(Datasearch item) {
-    // Cek apakah item sudah ada di keranjang
+  void saveNoteForMenu(int idMenu, String note) {
+    notesMap[idMenu] = note;
+  }
+
+  String getNoteForMenu(int idMenu) {
+    return notesMap[idMenu] ?? '';
+  }
+
+  void clearNoteForMenu(int idMenu) {
+    notesMap.remove(idMenu);
+  }
+
+  void addToCart(Datasearch item, String note) {
+    int idMenu = item.idMenu!;
+    // Cek apakah item sudah ada di keranjangz
     if (!cartList.any((element) => element.idMenu == item.idMenu)) {
       cartList.add(item);
       itemQuantities[item.idMenu!] = 1;
+      saveNoteForMenu(item.idMenu!, catatanController.text);
     } else {
       addQuantity(item.idMenu!);
     }
+    // Save or update the note for the item
+    notesMap[idMenu] = note;
+
+    // Refresh itemQuantities and notesMap
     itemQuantities.refresh();
+    notesMap.refresh();
   }
 
   void removeFromCart(Datasearch item) {
-    cartList.removeWhere((element) => element.nama == item.nama);
+    int idMenu = item.idMenu!;
+    clearNoteForMenu(idMenu);
+    cartList.removeWhere((element) => element.idMenu == item.idMenu);
     itemQuantities.remove(item.idMenu); // Ini akan menghapus kuantitas dari map
-    itemQuantities
-        .refresh(); // Memperbarui observers agar jumlah total kuantitas diperbarui di UI
+    itemQuantities.refresh();
+    notesMap.refresh();
+// Memperbarui observers agar jumlah total kuantitas diperbarui di UI
     update(); // Memanggil update untuk memicu pembaruan UI pada widget yang terkait
   }
 
@@ -191,8 +216,12 @@ class HomeController extends GetxController with GetTickerProviderStateMixin {
     };
 
     try {
-      final response = await menuProvider.value
-          .postOrder(cartList, detailOrderan, itemQuantities);
+      final response = await menuProvider.value.postOrder(
+        cartList,
+        detailOrderan,
+        itemQuantities,
+        notesMap.toJson(), // Mengambil catatan dari notesMap
+      );
 
       if (response.statusCode == 200) {
         // Proses order berhasil
@@ -200,6 +229,9 @@ class HomeController extends GetxController with GetTickerProviderStateMixin {
         // Reset cart dan quantities atau navigasi ke halaman berikutnya
         cartList.clear();
         itemQuantities.clear();
+        notesMap.clear();
+        catatanController
+            .clear(); // Mengosongkan notesMap setelah order berhasil
       } else {
         // Proses order gagal
         Get.snackbar("Error", "Failed to submit order: ${response.body}");

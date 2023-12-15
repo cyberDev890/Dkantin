@@ -15,8 +15,8 @@ class ProfileView extends GetView<ProfileController> {
     // final OrderController orderController = Get.find<OrderController>();
     final OrderController orderController = Get.put(OrderController());
     final mediaHeight = MediaQuery.of(context).size.height;
-    final mediaWidth = MediaQuery.of(context).size.width;
-    final bottomNavBarHeight = MediaQuery.of(context).padding.bottom;
+    double textScaleFactor = MediaQuery.of(context).textScaleFactor;
+
     void addressBottomsheet(BuildContext context) {
       Get.bottomSheet(Container(
         color: Colors.white,
@@ -285,6 +285,7 @@ class ProfileView extends GetView<ProfileController> {
                       style: TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
+                        fontSize: textScaleFactor <= 1.15 ? 13 : 12,
                       ),
                     ),
                     Spacer(),
@@ -296,6 +297,9 @@ class ProfileView extends GetView<ProfileController> {
               padding: const EdgeInsets.only(left: 30.0, right: 25, top: 10),
               child: Obx(
                 () => TextField(
+                  style: TextStyle(
+                    fontSize: textScaleFactor <= 1.15 ? 14 : 14,
+                  ),
                   controller: profileController.fullNameController
                     ..text = profileController.profile.value.data?.nama ?? '',
                   decoration: InputDecoration(
@@ -329,6 +333,7 @@ class ProfileView extends GetView<ProfileController> {
                       style: TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
+                        fontSize: textScaleFactor <= 1.15 ? 13 : 12,
                       ),
                     ),
                     Spacer(),
@@ -340,6 +345,9 @@ class ProfileView extends GetView<ProfileController> {
               padding: const EdgeInsets.only(left: 30.0, right: 25, top: 10),
               child: Obx(
                 () => TextField(
+                  style: TextStyle(
+                    fontSize: textScaleFactor <= 1.15 ? 14 : 14,
+                  ),
                   controller: profileController.emailController
                     ..text = profileController.profile.value.data?.email ?? '',
                   decoration: InputDecoration(
@@ -377,6 +385,7 @@ class ProfileView extends GetView<ProfileController> {
                       style: TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
+                        fontSize: textScaleFactor <= 1.15 ? 13 : 12,
                       ),
                     ),
                     Spacer(),
@@ -388,6 +397,9 @@ class ProfileView extends GetView<ProfileController> {
               padding: const EdgeInsets.only(left: 30.0, right: 25, top: 10),
               child: Obx(
                 () => TextField(
+                  style: TextStyle(
+                    fontSize: textScaleFactor <= 1.15 ? 14 : 14,
+                  ),
                   controller: profileController.phoneNumberController
                     ..text =
                         profileController.profile.value.data?.noTelepon ?? '',
@@ -428,6 +440,7 @@ class ProfileView extends GetView<ProfileController> {
                       style: TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
+                        fontSize: textScaleFactor <= 1.15 ? 13 : 12,
                       ),
                     ),
                     Spacer(),
@@ -449,6 +462,9 @@ class ProfileView extends GetView<ProfileController> {
               padding: const EdgeInsets.only(left: 30.0, right: 25, top: 10),
               child: Obx(
                 () => TextField(
+                  style: TextStyle(
+                    fontSize: textScaleFactor <= 1.15 ? 14 : 14,
+                  ),
                   controller: profileController.addressController
                     ..text = profileController.profile.value.data?.alamat ?? '',
                   maxLines: null, // Memungkinkan input lebih dari satu baris
@@ -494,6 +510,7 @@ class ProfileView extends GetView<ProfileController> {
                   noTelepon: profileController.phoneNumberController.text,
                   alamat: profileController.addressController.text,
                 );
+                await profileController.getCustomerData();
               },
             ),
           ],

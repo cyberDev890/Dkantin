@@ -61,6 +61,8 @@ class RiwayatKurirView extends GetView<RiwayatKurirController> {
   }
 
   Widget content(BuildContext context) {
+    double textScaleFactor = MediaQuery.of(context).textScaleFactor;
+
     final baseColorHex = 0xFFE0E0E0;
     final highlightColorHex = 0xFFC0C0C0;
     final mediaHeight =
@@ -158,7 +160,8 @@ class RiwayatKurirView extends GetView<RiwayatKurirController> {
                                 orderData.transaksi!.tanggal.toString(),
                                 style: GoogleFonts.poppins(
                                     textStyle: TextStyle(
-                                        fontSize: 14,
+                                        fontSize:
+                                            textScaleFactor <= 1.15 ? 14 : 12,
                                         fontWeight: FontWeight.normal)),
                               ),
                             ),
@@ -177,7 +180,10 @@ class RiwayatKurirView extends GetView<RiwayatKurirController> {
                                           "Total Menu",
                                           style: GoogleFonts.poppins(
                                               textStyle: TextStyle(
-                                                  fontSize: 14,
+                                                  fontSize:
+                                                      textScaleFactor <= 1.15
+                                                          ? 14
+                                                          : 12,
                                                   color: Colors.black,
                                                   fontWeight:
                                                       FontWeight.normal)),
@@ -186,7 +192,10 @@ class RiwayatKurirView extends GetView<RiwayatKurirController> {
                                           "${orderData.transaksi!.detailTransaksi!.length.toString()} menu",
                                           style: GoogleFonts.poppins(
                                               textStyle: TextStyle(
-                                                  fontSize: 14,
+                                                  fontSize:
+                                                      textScaleFactor <= 1.15
+                                                          ? 14
+                                                          : 12,
                                                   color: Colors.black,
                                                   fontWeight: FontWeight.bold)),
                                         ),
@@ -203,7 +212,10 @@ class RiwayatKurirView extends GetView<RiwayatKurirController> {
                                           "Total",
                                           style: GoogleFonts.poppins(
                                               textStyle: TextStyle(
-                                                  fontSize: 14,
+                                                  fontSize:
+                                                      textScaleFactor <= 1.15
+                                                          ? 14
+                                                          : 12,
                                                   color: Colors.black,
                                                   fontWeight:
                                                       FontWeight.normal)),
@@ -212,7 +224,10 @@ class RiwayatKurirView extends GetView<RiwayatKurirController> {
                                           totalHarga.toRupiah(),
                                           style: GoogleFonts.poppins(
                                               textStyle: TextStyle(
-                                                  fontSize: 14,
+                                                  fontSize:
+                                                      textScaleFactor <= 1.15
+                                                          ? 14
+                                                          : 12,
                                                   color: Colors.black,
                                                   fontWeight: FontWeight.bold)),
                                         )
@@ -227,7 +242,10 @@ class RiwayatKurirView extends GetView<RiwayatKurirController> {
                                       children: [
                                         Text("Status",
                                             style: GoogleFonts.poppins(
-                                                fontSize: 14,
+                                                fontSize:
+                                                    textScaleFactor <= 1.15
+                                                        ? 14
+                                                        : 12,
                                                 color: Colors.black,
                                                 fontWeight: FontWeight.normal)),
                                         Text(
@@ -242,7 +260,10 @@ class RiwayatKurirView extends GetView<RiwayatKurirController> {
                                                   : orderData.status.toString(),
                                           style: GoogleFonts.poppins(
                                               textStyle: TextStyle(
-                                                  fontSize: 14,
+                                                  fontSize:
+                                                      textScaleFactor <= 1.15
+                                                          ? 14
+                                                          : 12,
                                                   color: Colors.red,
                                                   fontWeight: FontWeight.bold)),
                                         ),
@@ -288,7 +309,11 @@ class RiwayatKurirView extends GetView<RiwayatKurirController> {
                                                       "Foto Bukti",
                                                       style: GoogleFonts.poppins(
                                                           textStyle: TextStyle(
-                                                              fontSize: 14,
+                                                              fontSize:
+                                                                  textScaleFactor <=
+                                                                          1.15
+                                                                      ? 14
+                                                                      : 12,
                                                               color:
                                                                   Colors.blue,
                                                               fontWeight:
@@ -319,7 +344,11 @@ class RiwayatKurirView extends GetView<RiwayatKurirController> {
                                                       "Foto Bukti",
                                                       style: GoogleFonts.poppins(
                                                           textStyle: TextStyle(
-                                                              fontSize: 14,
+                                                              fontSize:
+                                                                  textScaleFactor <=
+                                                                          1.15
+                                                                      ? 14
+                                                                      : 12,
                                                               color:
                                                                   Colors.white,
                                                               fontWeight:

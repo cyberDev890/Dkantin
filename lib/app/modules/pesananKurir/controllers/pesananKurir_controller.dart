@@ -96,7 +96,15 @@ class PesananKurirController extends GetxController
         ScanMode.QR,
       );
 
-      if (scannedQrCode != "-1") {
+      if (kode_tr != scannedQrCode) {
+        Get.snackbar("Scan Gagal, ", "Kode Tidak Sesuai",
+            snackPosition: SnackPosition.BOTTOM,
+            duration: Duration(seconds: 5),
+            backgroundColor: Colors.red,
+            colorText: Colors.white);
+      }
+
+      if (scannedQrCode == kode_tr) {
         Get.snackbar("Scan Berhasil, ", "Menunggu Konfirmasi Admin",
             snackPosition: SnackPosition.BOTTOM,
             duration: Duration(seconds: 5),
@@ -142,6 +150,7 @@ class PesananKurirController extends GetxController
       print('Error fetching data: $error');
     }
   }
+
   Future<void> loadRiwayatKurir() async {
     try {
       isLoading(true);

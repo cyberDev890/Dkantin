@@ -19,6 +19,8 @@ class OrderView extends GetView<OrderController> {
 
   @override
   Widget build(BuildContext context) {
+    double textScaleFactor = MediaQuery.of(context).textScaleFactor;
+
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -61,58 +63,67 @@ class OrderView extends GetView<OrderController> {
               height: MediaQuery.of(context).size.height * 0.16,
               child: Padding(
                 padding: const EdgeInsets.only(left: 10),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text("Delivery Address",
-                        style: GoogleFonts.poppins(
-                            fontSize: 16, fontWeight: FontWeight.bold)),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    Text(profileController.profile.value.data?.alamat ?? '',
-                        style: GoogleFonts.poppins(fontSize: 16)),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    InkWell(
-                      onTap: () {
-                        addressBottomsheet(context);
-                      },
-                      child: FittedBox(
-                        child: Container(
-                          decoration: BoxDecoration(
-                              border: Border.all(
-                                width: 1.0,
-                                color: Colors.grey,
-                              ),
-                              borderRadius: BorderRadius.circular(10)),
-                          padding: EdgeInsets.all(4),
-                          child: Row(
-                            children: [
-                              SizedBox(
-                                width: 5,
-                              ),
-                              const Icon(
-                                CarbonIcons.request_quote,
-                                size: 14.0,
-                              ),
-                              SizedBox(
-                                width: 5,
-                              ),
-                              Text("Edit Address"),
-                              SizedBox(
-                                width: 5,
-                              ),
-                            ],
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text("Delivery Address",
+                          style: GoogleFonts.poppins(
+                              fontSize: textScaleFactor <= 1.15 ? 15 : 13,
+                              fontWeight: FontWeight.bold)),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      Text(profileController.profile.value.data?.alamat ?? '',
+                          style: GoogleFonts.poppins(
+                            fontSize: textScaleFactor <= 1.15 ? 15 : 12,
+                          )),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      InkWell(
+                        onTap: () {
+                          addressBottomsheet(context);
+                        },
+                        child: FittedBox(
+                          child: Container(
+                            decoration: BoxDecoration(
+                                border: Border.all(
+                                  width: 1.0,
+                                  color: Colors.grey,
+                                ),
+                                borderRadius: BorderRadius.circular(10)),
+                            padding: EdgeInsets.all(4),
+                            child: Row(
+                              children: [
+                                SizedBox(
+                                  width: 5,
+                                ),
+                                const Icon(
+                                  CarbonIcons.request_quote,
+                                  size: 14.0,
+                                ),
+                                SizedBox(
+                                  width: 5,
+                                ),
+                                Text(
+                                  "Edit Address",
+                                  style: TextStyle(
+                                      fontSize:
+                                          textScaleFactor <= 1.15 ? 15 : 12,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                                SizedBox(
+                                  width: 5,
+                                ),
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                    )
-                  ],
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -189,9 +200,15 @@ class OrderView extends GetView<OrderController> {
                                                       overflow:
                                                           TextOverflow.ellipsis,
                                                       menuData.nama ?? '',
-                                                      style: Theme.of(context)
-                                                          .textTheme
-                                                          .bodyLarge,
+                                                      style: TextStyle(
+                                                          fontSize:
+                                                              textScaleFactor <=
+                                                                      1.15
+                                                                  ? 15
+                                                                  : 12,
+                                                          color: Colors.black,
+                                                          fontWeight:
+                                                              FontWeight.w500),
                                                     ),
                                                   ),
                                                 ],
@@ -218,17 +235,31 @@ class OrderView extends GetView<OrderController> {
                                                         Text(
                                                           priceAfterDiscount
                                                               .toRupiah(),
-                                                          style:
-                                                              Theme.of(context)
-                                                                  .textTheme
-                                                                  .bodyLarge,
+                                                          style: TextStyle(
+                                                              fontSize:
+                                                                  textScaleFactor <=
+                                                                          1.15
+                                                                      ? 15
+                                                                      : 12,
+                                                              color:
+                                                                  Colors.black,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500),
                                                         ),
                                                         Text(
                                                           "* ${quantity.toString()}",
-                                                          style:
-                                                              Theme.of(context)
-                                                                  .textTheme
-                                                                  .bodyLarge,
+                                                          style: TextStyle(
+                                                              fontSize:
+                                                                  textScaleFactor <=
+                                                                          1.15
+                                                                      ? 15
+                                                                      : 12,
+                                                              color:
+                                                                  Colors.black,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500),
                                                         ),
                                                       ],
                                                     ),
@@ -238,9 +269,15 @@ class OrderView extends GetView<OrderController> {
                                                         .calculateSubtotal(
                                                             menuData.idMenu!)
                                                         .toRupiah(),
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .bodyLarge,
+                                                    style: TextStyle(
+                                                        fontSize:
+                                                            textScaleFactor <=
+                                                                    1.15
+                                                                ? 15
+                                                                : 12,
+                                                        color: Colors.black,
+                                                        fontWeight:
+                                                            FontWeight.w500),
                                                   ),
                                                 ],
                                               ),
@@ -277,7 +314,7 @@ class OrderView extends GetView<OrderController> {
                           'Total Payment',
                           style: GoogleFonts.poppins(
                             textStyle: TextStyle(
-                              fontSize: 15,
+                              fontSize: textScaleFactor <= 1.15 ? 15 : 12,
                               fontWeight: FontWeight.bold,
                               color: Colors.black,
                             ),
@@ -287,7 +324,7 @@ class OrderView extends GetView<OrderController> {
                           homeController.totalPrice.toRupiah(),
                           style: GoogleFonts.poppins(
                             textStyle: TextStyle(
-                              fontSize: 15,
+                              fontSize: textScaleFactor <= 1.15 ? 15 : 12,
                               fontWeight: FontWeight.bold,
                               color: Colors.black,
                             ),
@@ -302,11 +339,6 @@ class OrderView extends GetView<OrderController> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Container(
-                          // decoration: BoxDecoration(
-                          //     border: Border.all(
-                          //   width: 1.0,
-                          //   color: Colors.grey[900]!,
-                          // )),
                           child: Row(
                             children: [
                               Icon(
@@ -333,7 +365,8 @@ class OrderView extends GetView<OrderController> {
                                         : ' Polije Pay ',
                                     style: GoogleFonts.poppins(
                                       textStyle: TextStyle(
-                                        fontSize: 15,
+                                        fontSize:
+                                            textScaleFactor <= 1.15 ? 15 : 12,
                                         fontWeight: FontWeight.normal,
                                         color: Colors.blue,
                                       ),
@@ -399,7 +432,7 @@ class OrderView extends GetView<OrderController> {
                         'Pesan',
                         style: GoogleFonts.poppins(
                           textStyle: TextStyle(
-                            fontSize: 15,
+                            fontSize: textScaleFactor <= 1.15 ? 15 : 12,
                             fontWeight: FontWeight.bold,
                             color: Colors.white,
                           ),

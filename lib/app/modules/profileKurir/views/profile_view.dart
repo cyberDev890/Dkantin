@@ -18,8 +18,8 @@ class ProfileKurirView extends GetView<ProfileKurirController> {
   @override
   Widget build(BuildContext context) {
     final mediaHeight = MediaQuery.of(context).size.height;
-    final mediaWidth = MediaQuery.of(context).size.width;
-    final bottomNavBarHeight = MediaQuery.of(context).padding.bottom;
+    double textScaleFactor = MediaQuery.of(context).textScaleFactor;
+
     final myAppbar = AppBar(
       centerTitle: true,
       title: Text(
@@ -83,6 +83,7 @@ class ProfileKurirView extends GetView<ProfileKurirController> {
                               ElevatedButton(
                                 child: Text('Ya'),
                                 onPressed: () {
+                                  print("logout clicked");
                                   profileKurirController.logout();
                                 },
                                 style: ElevatedButton.styleFrom(
@@ -211,9 +212,11 @@ class ProfileKurirView extends GetView<ProfileKurirController> {
                                                 .value.data?.nama ??
                                             '',
                                         style: TextStyle(
-                                            color: Colors.black,
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 18),
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize:
+                                              textScaleFactor <= 1.15 ? 14 : 12,
+                                        ),
                                       ),
                                       Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
@@ -223,9 +226,12 @@ class ProfileKurirView extends GetView<ProfileKurirController> {
                                                   .value.data?.email ??
                                               '',
                                           style: TextStyle(
-                                              color: Colors.black,
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 12),
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: textScaleFactor <= 1.15
+                                                ? 12
+                                                : 12,
+                                          ),
                                         ),
                                       ),
                                       Padding(
@@ -236,9 +242,12 @@ class ProfileKurirView extends GetView<ProfileKurirController> {
                                                   .value.data?.telepon ??
                                               '',
                                           style: TextStyle(
-                                              color: Colors.black,
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 15),
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: textScaleFactor <= 1.15
+                                                ? 14
+                                                : 12,
+                                          ),
                                         ),
                                       ),
                                     ],
@@ -300,19 +309,26 @@ class ProfileKurirView extends GetView<ProfileKurirController> {
                                                     .toString(),
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 18),
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize:
+                                                      textScaleFactor <= 1.15
+                                                          ? 14
+                                                          : 12,
+                                                ),
                                               ),
                                             ),
                                           ),
                                           Text(
-                                            'Untuk Dikirm',
+                                            'Untuk Dikirim',
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 15),
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: textScaleFactor <= 1.15
+                                                  ? 14
+                                                  : 13,
+                                            ),
                                           ),
                                         ],
                                       ),
@@ -357,9 +373,13 @@ class ProfileKurirView extends GetView<ProfileKurirController> {
                                                     .toString(),
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 18),
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize:
+                                                      textScaleFactor <= 1.15
+                                                          ? 14
+                                                          : 12,
+                                                ),
                                               ),
                                             ),
                                           ),
@@ -367,9 +387,12 @@ class ProfileKurirView extends GetView<ProfileKurirController> {
                                             'Konfirmasi',
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 15),
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: textScaleFactor <= 1.15
+                                                  ? 14
+                                                  : 13,
+                                            ),
                                           ),
                                         ],
                                       ),

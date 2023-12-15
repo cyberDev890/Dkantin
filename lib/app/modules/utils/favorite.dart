@@ -18,6 +18,8 @@ class _FavoriteState extends State<Favorite> {
   final HomeController homeController = Get.find<HomeController>();
   @override
   Widget build(BuildContext context) {
+    double textScaleFactor = MediaQuery.of(context).textScaleFactor;
+
     final baseColorHex = 0xFFE0E0E0;
     final highlightColorHex = 0xFFC0C0C0;
     final mediaHeight =
@@ -124,8 +126,10 @@ class _FavoriteState extends State<Favorite> {
                         final harga = menuData.harga ?? 0;
                         return GestureDetector(
                           onTap: () {
-                            homeController
-                                .addToCart(homeController.searchResults[index]);
+                            homeController.addToCart(
+                                homeController.searchResults[index],
+                                homeController.catatanController.text);
+                            homeController.catatanController.clear();
                           },
                           child: Container(
                             padding: const EdgeInsets.all(5),
@@ -319,10 +323,11 @@ class _FavoriteState extends State<Favorite> {
                                 left: 15,
                                 right: 10,
                                 child: Text(
-                                  '${dataPenjualan.nama ?? ''} Kantin ${dataPenjualan.idKantin}z',
+                                  '${dataPenjualan.nama ?? ''} Kantin ${dataPenjualan.idKantin}',
                                   style: GoogleFonts.poppins(
-                                    textStyle: const TextStyle(
-                                      fontSize: 13,
+                                    textStyle: TextStyle(
+                                      fontSize:
+                                          textScaleFactor <= 1.15 ? 13 : 13,
                                       color: Colors.white,
                                       fontWeight: FontWeight.normal,
                                     ),
@@ -336,8 +341,9 @@ class _FavoriteState extends State<Favorite> {
                                 child: Text(
                                   '${dataPenjualan.penjualanHariIni ?? ''} $kategoriPesan',
                                   style: GoogleFonts.poppins(
-                                    textStyle: const TextStyle(
-                                      fontSize: 15,
+                                    textStyle: TextStyle(
+                                      fontSize:
+                                          textScaleFactor <= 1.15 ? 13 : 13,
                                       color: Colors.white,
                                       fontWeight: FontWeight.bold,
                                     ),

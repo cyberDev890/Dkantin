@@ -64,24 +64,6 @@ class MenuProvider extends GetxController {
     }
   }
 
-  // Future<Search> searchRiwayat(String keyword, String date) async {
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   String? token = prefs.getString('token');
-  //   final response = await http.get(
-  //     Uri.parse("${Api.riwayat}?searchAll=$keyword&searcchDate=$date"),
-  //     headers: {
-  //       'Authorization':
-  //           'Bearer $token', // Gantilah [TOKEN] dengan token yang sesuai
-  //     },
-  //   );
-
-  //   if (response.statusCode == 200) {
-  //     return Search.fromJson(jsonDecode(response.body));
-  //   } else {
-  //     throw Exception('Gagal memuat data');
-  //   }
-  // }
-
   Future<Search> fetchDataDiskon(String keyword) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? token = prefs.getString('token');
@@ -118,8 +100,11 @@ class MenuProvider extends GetxController {
     }
   }
 
-  Future<http.Response> postOrder(List<Datasearch> cartList,
-      Map<String, dynamic> detailOrderan, Map<int, int> itemQuantities) async {
+  Future<http.Response> postOrder(
+      List<Datasearch> cartList,
+      Map<String, dynamic> detailOrderan,
+      Map<int, int> itemQuantities,
+      Map<int, String> itemNotes) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? token = prefs.getString('token');
     var url = Uri.parse(Api.transaksi); // Pastikan ini adalah URL yang benar
@@ -139,6 +124,7 @@ class MenuProvider extends GetxController {
         "kode_menu": item.idMenu,
         "qty_barang": quantity,
         "total_harga_barang": totalPrice,
+        "catatan": itemNotes[item.idMenu!], // Menyertakan catatan
       };
     }).toList();
 

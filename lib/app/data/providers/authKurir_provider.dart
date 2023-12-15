@@ -105,6 +105,7 @@ class AuthKurirProvider extends GetxController {
       },
       body: jsonEncode(postData),
     );
+    
 
     if (response.statusCode == 200) {
       print('Akun Mati');

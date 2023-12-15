@@ -50,6 +50,8 @@ class RiwayatView extends GetView<RiwayatController> {
     final mediaBody = mediaHeight -
         app.preferredSize.height -
         MediaQuery.of(context).padding.top;
+    double textScaleFactor = MediaQuery.of(context).textScaleFactor;
+
     return Scaffold(
       appBar: app,
       backgroundColor: Colors.white,
@@ -97,7 +99,9 @@ class RiwayatView extends GetView<RiwayatController> {
                             fillColor: Colors.transparent,
                             hintText: "Cari Disini..",
                             hintStyle: TextStyle(
-                                color: Colors.grey[500], fontFamily: 'Mulish'),
+                                fontSize: textScaleFactor <= 1.15 ? 15 : 12,
+                                color: Colors.grey[500],
+                                fontFamily: 'Mulish'),
                             hoverColor: Colors.transparent,
                           ),
                           onFieldSubmitted: (value) {
@@ -161,7 +165,7 @@ class RiwayatView extends GetView<RiwayatController> {
                 "Pesan Lagi Yuk !! ...",
                 style: GoogleFonts.poppins(
                   textStyle: TextStyle(
-                    fontSize: 11,
+                    fontSize: textScaleFactor <= 1.15 ? 14 : 11,
                     fontWeight: FontWeight.w400,
                   ),
                 ),
@@ -178,6 +182,8 @@ class RiwayatView extends GetView<RiwayatController> {
   }
 
   Widget content(BuildContext context) {
+    double textScaleFactor = MediaQuery.of(context).textScaleFactor;
+
     return Expanded(
       child: Obx(() {
         if (riwayatController.isLoading.value) {
@@ -309,7 +315,9 @@ class RiwayatView extends GetView<RiwayatController> {
                                           style: GoogleFonts.poppins(
                                               textStyle: TextStyle(
                                             color: Color(0xFF101518),
-                                            fontSize: 16,
+                                            fontSize: textScaleFactor <= 1.15
+                                                ? 14
+                                                : 13,
                                             fontWeight: FontWeight.bold,
                                           )),
                                         ),
@@ -322,7 +330,9 @@ class RiwayatView extends GetView<RiwayatController> {
                                           style: GoogleFonts.poppins(
                                               textStyle: TextStyle(
                                             color: Color(0xFF101518),
-                                            fontSize: 11,
+                                            fontSize: textScaleFactor <= 1.15
+                                                ? 13
+                                                : 11,
                                             fontWeight: FontWeight.w500,
                                           )),
                                         ),
@@ -335,14 +345,16 @@ class RiwayatView extends GetView<RiwayatController> {
                                           style: GoogleFonts.poppins(
                                               textStyle: TextStyle(
                                             color: Color(0xFF101518),
-                                            fontSize: 10,
+                                            fontSize: textScaleFactor <= 1.15
+                                                ? 13
+                                                : 10,
                                             fontWeight: FontWeight.w500,
                                           )),
                                         ),
                                       ),
                                       Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
-                                            0, 11, 0, 0),
+                                            0, 5, 0, 0),
                                         child: Row(
                                           mainAxisSize: MainAxisSize.max,
                                           mainAxisAlignment:
@@ -356,7 +368,10 @@ class RiwayatView extends GetView<RiwayatController> {
                                                 style: GoogleFonts.poppins(
                                                     textStyle: TextStyle(
                                                   color: Color(0xFF101518),
-                                                  fontSize: 12,
+                                                  fontSize:
+                                                      textScaleFactor <= 1.15
+                                                          ? 13
+                                                          : 12,
                                                   fontWeight: FontWeight.w500,
                                                 )),
                                               ),
@@ -369,7 +384,10 @@ class RiwayatView extends GetView<RiwayatController> {
                                                 style: GoogleFonts.poppins(
                                                     textStyle: TextStyle(
                                                   color: Color(0xFF101518),
-                                                  fontSize: 12,
+                                                  fontSize:
+                                                      textScaleFactor <= 1.15
+                                                          ? 13
+                                                          : 12,
                                                   fontWeight: FontWeight.w500,
                                                 )),
                                               ),
@@ -383,7 +401,7 @@ class RiwayatView extends GetView<RiwayatController> {
                                         child: Row(
                                           mainAxisSize: MainAxisSize.max,
                                           mainAxisAlignment:
-                                              MainAxisAlignment.end,
+                                              MainAxisAlignment.start,
                                           children: [
                                             Padding(
                                               padding: EdgeInsetsDirectional
@@ -393,7 +411,10 @@ class RiwayatView extends GetView<RiwayatController> {
                                                 style: GoogleFonts.poppins(
                                                     textStyle: TextStyle(
                                                   color: Color(0xFF101518),
-                                                  fontSize: 12,
+                                                  fontSize:
+                                                      textScaleFactor <= 1.15
+                                                          ? 13
+                                                          : 12,
                                                   fontWeight: FontWeight.w500,
                                                 )),
                                               ),
@@ -406,7 +427,10 @@ class RiwayatView extends GetView<RiwayatController> {
                                                 style: GoogleFonts.poppins(
                                                     textStyle: TextStyle(
                                                   color: Color(0xFF101518),
-                                                  fontSize: 12,
+                                                  fontSize:
+                                                      textScaleFactor <= 1.15
+                                                          ? 13
+                                                          : 12,
                                                   fontWeight: FontWeight.bold,
                                                 )),
                                               ),
@@ -445,7 +469,8 @@ class RiwayatView extends GetView<RiwayatController> {
                                     style: GoogleFonts.poppins(
                                         textStyle: TextStyle(
                                       color: Color(0xFF101518),
-                                      fontSize: 13,
+                                      fontSize:
+                                          textScaleFactor <= 1.15 ? 13 : 12,
                                       fontWeight: FontWeight.w500,
                                     )),
                                   ),
@@ -457,7 +482,8 @@ class RiwayatView extends GetView<RiwayatController> {
                                       style: GoogleFonts.poppins(
                                           textStyle: TextStyle(
                                         color: Colors.black,
-                                        fontSize: 13,
+                                        fontSize:
+                                            textScaleFactor <= 1.15 ? 13 : 13,
                                         fontWeight: FontWeight.bold,
                                       )),
                                     ),
@@ -495,7 +521,9 @@ class RiwayatView extends GetView<RiwayatController> {
                                           'Batalkan',
                                           style: TextStyle(
                                             color: Colors.white,
-                                            fontSize: 14,
+                                            fontSize: textScaleFactor <= 1.15
+                                                ? 13
+                                                : 13,
                                             fontWeight: FontWeight.w500,
                                           ),
                                         ),
@@ -506,7 +534,10 @@ class RiwayatView extends GetView<RiwayatController> {
                                       child: TextButton(
                                         onPressed: () {
                                           print(menuData);
-                                          homeController.addToCart(menuData);
+                                          homeController.addToCart(
+                                              menuData,
+                                              homeController
+                                                  .catatanController.text);
                                           // KeranjangController()
                                           //     .addToCart(menuData.nama ?? '');
                                         },
@@ -527,7 +558,9 @@ class RiwayatView extends GetView<RiwayatController> {
                                           'Pesan Lagi',
                                           style: TextStyle(
                                             color: Colors.white,
-                                            fontSize: 14,
+                                            fontSize: textScaleFactor <= 1.15
+                                                ? 13
+                                                : 13,
                                             fontWeight: FontWeight.w500,
                                           ),
                                         ),

@@ -10,6 +10,8 @@ class LoginView extends GetView<LoginController> {
 
   @override
   Widget build(BuildContext context) {
+    double textScaleFactor = MediaQuery.of(context).textScaleFactor;
+
     final LoginController c = Get.put(LoginController());
     return Scaffold(
       body: Container(
@@ -33,7 +35,7 @@ class LoginView extends GetView<LoginController> {
               ),
               Text("Login",
                   style: TextStyle(
-                      fontSize: 40,
+                      fontSize: textScaleFactor <= 1.15 ? 40 : 40,
                       fontWeight: FontWeight.bold,
                       color: Colors.white)),
               SizedBox(
@@ -42,6 +44,9 @@ class LoginView extends GetView<LoginController> {
               Padding(
                 padding: const EdgeInsets.only(right: 20, left: 20),
                 child: TextField(
+                  style: TextStyle(
+                    fontSize: textScaleFactor <= 1.15 ? 14 : 14,
+                  ),
                   controller: c.emailController,
                   decoration: InputDecoration(
                     filled: true,
@@ -62,6 +67,9 @@ class LoginView extends GetView<LoginController> {
                 return Padding(
                   padding: const EdgeInsets.only(right: 20, left: 20),
                   child: TextField(
+                    style: TextStyle(
+                      fontSize: textScaleFactor <= 1.15 ? 14 : 14,
+                    ),
                     controller: c.passwordController,
                     decoration: InputDecoration(
                       filled: true,
@@ -105,7 +113,7 @@ class LoginView extends GetView<LoginController> {
                       child: Text(
                         "Login sebagai kurir",
                         style: TextStyle(
-                            fontSize: 15.0,
+                            fontSize: textScaleFactor <= 1.15 ? 14 : 14,
                             color: Colors.white,
                             fontWeight: FontWeight.bold),
                       ),
@@ -117,7 +125,7 @@ class LoginView extends GetView<LoginController> {
                       child: Text(
                         "Forgot Password?",
                         style: TextStyle(
-                            fontSize: 15.0,
+                            fontSize: textScaleFactor <= 1.15 ? 14 : 14,
                             color: Colors.white,
                             fontWeight: FontWeight.bold),
                       ),
@@ -148,7 +156,7 @@ class LoginView extends GetView<LoginController> {
                       "Login",
                       style: GoogleFonts.poppins(
                         textStyle: TextStyle(
-                          fontSize: 15,
+                          fontSize: textScaleFactor <= 1.15 ? 15 : 15,
                           fontWeight: FontWeight.w400,
                           color: Colors.white,
                         ),
@@ -176,9 +184,9 @@ class LoginView extends GetView<LoginController> {
                       "Register",
                       style: GoogleFonts.poppins(
                         textStyle: TextStyle(
-                          fontSize: 15,
+                          fontSize: textScaleFactor <= 1.15 ? 15 : 15,
                           fontWeight: FontWeight.w400,
-                          color: Color.fromARGB(255, 55, 156, 211),
+                          color: Color.fromARGB(255, 77, 83, 87),
                         ),
                       ),
                     ),
@@ -191,7 +199,7 @@ class LoginView extends GetView<LoginController> {
               Text(
                 "Copyright By : ",
                 style: TextStyle(
-                    fontSize: 15.0,
+                    fontSize: textScaleFactor <= 1.15 ? 15 : 15,
                     color: Colors.black,
                     fontWeight: FontWeight.bold),
               ),

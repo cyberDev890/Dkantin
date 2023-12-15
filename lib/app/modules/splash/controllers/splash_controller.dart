@@ -8,6 +8,7 @@ class SplashController extends GetxController {
   final count = 0.obs;
   @override
   void onInit() {
+    print('dsd0');
     super.onInit();
     FcmService fcmService = new FcmService();
     fcmService.requestNotificationPermission();
@@ -23,23 +24,25 @@ class SplashController extends GetxController {
 
   @override
   Future<void> onReady() async {
+    print('onr0');
     super.onReady();
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? token = prefs.getString('token');
     String? tokenKurir = prefs.getString('tokenKurir');
-
+    print(token);
+    print(tokenKurir);
     // Jika kedua token bernilai null, pergi ke halaman login
     if (token == null && tokenKurir == null) {
       _navigateToLogin();
-    }
-    // Jika token tidak null dan tokenKurir null, pergi ke halaman navigation
-    else if (token != null && tokenKurir == null) {
+    } else if (token == null && tokenKurir != null) {
+      _navigateToNavigationKurir();
+    } else if (token != null && tokenKurir == null) {
+      _navigateToNavigation();
+    } else if (token != null && tokenKurir != null) {
+      await prefs.remove('tokenKurir');
       _navigateToNavigation();
     }
-    // Jika token null dan tokenKurir tidak null, pergi ke halaman navigationKurir
-    else if (token == null && tokenKurir != null) {
-      _navigateToNavigationKurir();
-    }
+    // Jika token tidak null dan tokenKurir null, per gi ke halaman navigation
   }
 
   void _navigateToLogin() {

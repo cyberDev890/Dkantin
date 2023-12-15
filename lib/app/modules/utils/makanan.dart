@@ -17,6 +17,8 @@ class _MakananState extends State<Makanan> {
   Widget build(BuildContext context) {
     final MakananController controller = Get.put(MakananController());
     final HomeController homeController = Get.find<HomeController>();
+    double textScaleFactor = MediaQuery.of(context).textScaleFactor;
+
     return RefreshIndicator(
       onRefresh: () async {
         await controller.refreshData();
@@ -117,7 +119,7 @@ class _MakananState extends State<Makanan> {
                   } else {
                     return GridView.builder(
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        childAspectRatio: 0.77,
+                        childAspectRatio: 0.70,
                         crossAxisCount: 2,
                         mainAxisSpacing: 10,
                         crossAxisSpacing: 10,
@@ -167,15 +169,23 @@ class _MakananState extends State<Makanan> {
                                           maxLines: 3,
                                           overflow: TextOverflow.ellipsis,
                                           menuData.nama ?? '',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyLarge,
+                                          style: TextStyle(
+                                            fontSize: textScaleFactor <= 1.15
+                                                ? 15
+                                                : 12,
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.w500,
+                                          ),
                                         ),
                                         Text(
                                           'Kantin: ${menuData.idKantin ?? ''}',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyLarge,
+                                          style: TextStyle(
+                                            fontSize: textScaleFactor <= 1.15
+                                                ? 15
+                                                : 12,
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.w500,
+                                          ),
                                         ),
                                         Row(
                                           mainAxisAlignment:
@@ -183,9 +193,14 @@ class _MakananState extends State<Makanan> {
                                           children: [
                                             Text(
                                               harga.toRupiah(),
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .bodyLarge,
+                                              style: TextStyle(
+                                                fontSize:
+                                                    textScaleFactor <= 1.15
+                                                        ? 15
+                                                        : 12,
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.w500,
+                                              ),
                                             ),
                                             Obx(() => homeController.cartList
                                                     .contains(menuData)
@@ -228,7 +243,9 @@ class _MakananState extends State<Makanan> {
                                                         onPressed: () {
                                                           homeController
                                                               .addToCart(
-                                                                  menuData);
+                                                                  menuData,homeController.catatanController.text);
+                                                                    homeController
+                                                                  .catatanController.clear();
                                                         },
                                                         iconSize: 18,
                                                         icon: const Icon(
