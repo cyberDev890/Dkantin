@@ -24,125 +24,295 @@ class _FavoriteState extends State<Favorite> {
     final highlightColorHex = 0xFFC0C0C0;
     final mediaHeight =
         MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top;
-
-    return RefreshIndicator(
-      onRefresh: () async {
-        await homeController.refreshData();
-      },
-      child: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.only(left: 15),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  "Penuh Diskon",
-                  style: GoogleFonts.poppins(
-                    textStyle: const TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
+    final query = MediaQuery.of(context);
+    print('textscalefactor: ${query.textScaleFactor}');
+    print('devicePixelRatio: ${query.devicePixelRatio}');
+    return MediaQuery(
+      data: query.copyWith(
+          textScaleFactor: query.textScaleFactor.clamp(1.0, 1.15)),
+      child: RefreshIndicator(
+        onRefresh: () async {
+          await homeController.refreshData();
+        },
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.only(left: 15),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    "Penuh Diskon",
+                    style: GoogleFonts.poppins(
+                      textStyle: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                 ),
-              ),
-              Obx(() {
-                if (homeController.isLoading.value) {
-                  return Shimmer.fromColors(
-                    baseColor: Color(baseColorHex),
-                    highlightColor: Color(highlightColorHex),
-                    child: Container(
+                Obx(() {
+                  if (homeController.isLoading.value) {
+                    return Shimmer.fromColors(
+                      baseColor: Color(baseColorHex),
+                      highlightColor: Color(highlightColorHex),
+                      child: Container(
+                        height: mediaHeight * 0.40,
+                        child: ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: 5,
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (BuildContext context, index) {
+                            return Container(
+                              padding: const EdgeInsets.all(5),
+                              width: MediaQuery.of(context).size.width * 0.5,
+                              child: Stack(
+                                children: [
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      color: Color(baseColorHex),
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(10)),
+                                    ),
+                                  ),
+                                  Center(
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Shimmer.fromColors(
+                                          baseColor: Colors.transparent,
+                                          highlightColor:
+                                              Color(highlightColorHex),
+                                          child: Container(
+                                            width: 100,
+                                            height: 20,
+                                            color: Color(baseColorHex),
+                                          ),
+                                        ),
+                                        const SizedBox(height: 10),
+                                        Shimmer.fromColors(
+                                          baseColor: Colors.transparent,
+                                          highlightColor:
+                                              const Color(0xFF67667),
+                                          child: Container(
+                                            width: 150,
+                                            height: 20,
+                                            color: Color(baseColorHex),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    );
+                  } else if (homeController.searchResults.isEmpty) {
+                    return Container(
+                        height: mediaHeight * 0.25,
+                        child: Center(
+                          child: Lottie.asset('assets/animation_lokcom8c.json',
+                              repeat: false),
+                        ));
+                  } else {
+                    return Container(
                       height: mediaHeight * 0.40,
                       child: ListView.builder(
                         shrinkWrap: true,
-                        itemCount: 5,
+                        itemCount: homeController.searchResults.length,
                         scrollDirection: Axis.horizontal,
                         itemBuilder: (BuildContext context, index) {
-                          return Container(
-                            padding: const EdgeInsets.all(5),
-                            width: MediaQuery.of(context).size.width * 0.5,
-                            child: Stack(
-                              children: [
-                                Container(
-                                  decoration: BoxDecoration(
-                                    color: Color(baseColorHex),
+                          final menuData = homeController.searchResults[index];
+                          final harga = menuData.harga ?? 0;
+                          return GestureDetector(
+                            onTap: () {
+                              homeController.addToCart(
+                                  homeController.searchResults[index],
+                                  homeController.catatanController.text);
+                              homeController.catatanController.clear();
+                            },
+                            child: Container(
+                              padding: const EdgeInsets.all(5),
+                              width: MediaQuery.of(context).size.width * 0.5,
+                              child: Stack(
+                                children: [
+                                  ClipRRect(
                                     borderRadius: const BorderRadius.all(
                                         Radius.circular(10)),
+                                    child: Image.network(
+                                      Api.gambar + menuData.foto.toString(),
+                                      height: 300,
+                                      width: 450,
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
-                                ),
-                                Center(
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Shimmer.fromColors(
-                                        baseColor: Colors.transparent,
-                                        highlightColor:
-                                            Color(highlightColorHex),
-                                        child: Container(
-                                          width: 100,
-                                          height: 20,
-                                          color: Color(baseColorHex),
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      gradient: const LinearGradient(
+                                        begin: Alignment.topCenter,
+                                        end: Alignment.bottomCenter,
+                                        colors: [
+                                          Colors.transparent,
+                                          Colors.black
+                                        ],
+                                        stops: [0.7, 1.0],
+                                      ),
+                                    ),
+                                  ),
+                                  Positioned(
+                                    bottom: 30,
+                                    left: 15,
+                                    right: 10,
+                                    child: Text(
+                                      menuData.nama ?? '',
+                                      style: GoogleFonts.poppins(
+                                        textStyle: const TextStyle(
+                                          fontSize: 13,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.normal,
                                         ),
                                       ),
-                                      const SizedBox(height: 10),
-                                      Shimmer.fromColors(
-                                        baseColor: Colors.transparent,
-                                        highlightColor: const Color(0xFF67667),
-                                        child: Container(
-                                          width: 150,
-                                          height: 20,
-                                          color: Color(baseColorHex),
+                                    ),
+                                  ),
+                                  Positioned(
+                                    bottom: 10,
+                                    left: 15,
+                                    right: 10,
+                                    child: Text(
+                                      harga.toRupiah(),
+                                      style: GoogleFonts.poppins(
+                                        textStyle: const TextStyle(
+                                          fontSize: 15,
+                                          color:
+                                              Color.fromRGBO(255, 255, 255, 1),
+                                          fontWeight: FontWeight.bold,
                                         ),
                                       ),
-                                    ],
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           );
                         },
                       ),
+                    );
+                  }
+                }),
+                const SizedBox(height: 10),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    "Pembelian Hari ini",
+                    style: GoogleFonts.poppins(
+                      textStyle: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  );
-                } else if (homeController.searchResults.isEmpty) {
-                  return Container(
-                      height: mediaHeight * 0.25,
-                      child: Center(
-                        child: Lottie.asset('assets/animation_lokcom8c.json',
-                            repeat: false),
-                      ));
-                } else {
-                  return Container(
-                    height: mediaHeight * 0.40,
-                    child: ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: homeController.searchResults.length,
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (BuildContext context, index) {
-                        final menuData = homeController.searchResults[index];
-                        final harga = menuData.harga ?? 0;
-                        return GestureDetector(
-                          onTap: () {
-                            homeController.addToCart(
-                                homeController.searchResults[index],
-                                homeController.catatanController.text);
-                            homeController.catatanController.clear();
+                  ),
+                ),
+                Obx(() {
+                  if (homeController.isLoading.value) {
+                    return Shimmer.fromColors(
+                      baseColor: Color(baseColorHex),
+                      highlightColor: Color(highlightColorHex),
+                      child: Container(
+                        height: mediaHeight * 0.20,
+                        child: ListView.builder(
+                          itemCount: 5,
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (BuildContext context, index) {
+                            return Container(
+                              padding: const EdgeInsets.all(5),
+                              width: MediaQuery.of(context).size.width * 0.6,
+                              child: Stack(
+                                children: [
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      color: Color(baseColorHex),
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(10)),
+                                    ),
+                                  ),
+                                  Center(
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Shimmer.fromColors(
+                                          baseColor: Colors.transparent,
+                                          highlightColor:
+                                              Color(highlightColorHex),
+                                          child: Container(
+                                            width: 200,
+                                            height: 20,
+                                            color: Color(baseColorHex),
+                                          ),
+                                        ),
+                                        const SizedBox(height: 10),
+                                        Shimmer.fromColors(
+                                          baseColor: Colors.transparent,
+                                          highlightColor:
+                                              Color(highlightColorHex),
+                                          child: Container(
+                                            width: 100,
+                                            height: 20,
+                                            color: Color(baseColorHex),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            );
                           },
-                          child: Container(
+                        ),
+                      ),
+                    );
+                  } else if (homeController.penjualan.data?.isEmpty ?? true) {
+                    return Container(
+                        height: mediaHeight * 0.25,
+                        child: Center(
+                          child: Lottie.asset('assets/animation_lokcom8c.json',
+                              repeat: false),
+                        ));
+                  } else {
+                    return Container(
+                      height: mediaHeight * 0.20,
+                      child: ListView.builder(
+                        itemCount: homeController.penjualan.data?.length ?? 0,
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (BuildContext context, index) {
+                          final dataPenjualan =
+                              homeController.penjualan.data![index];
+                          String kategori =
+                              (dataPenjualan.kategori ?? '').toLowerCase();
+                          String kategoriPesan =
+                              kategori == 'makanan' ? 'Porsi' : 'Pcs';
+                          return Container(
                             padding: const EdgeInsets.all(5),
-                            width: MediaQuery.of(context).size.width * 0.5,
+                            width: MediaQuery.of(context).size.width * 0.6,
                             child: Stack(
                               children: [
                                 ClipRRect(
                                   borderRadius: const BorderRadius.all(
                                       Radius.circular(10)),
                                   child: Image.network(
-                                    Api.gambar + menuData.foto.toString(),
+                                    Api.gambar + dataPenjualan.foto.toString(),
                                     height: 300,
-                                    width: 450,
+                                    width: 300,
                                     fit: BoxFit.cover,
                                   ),
                                 ),
@@ -156,7 +326,7 @@ class _FavoriteState extends State<Favorite> {
                                         Colors.transparent,
                                         Colors.black
                                       ],
-                                      stops: [0.7, 1.0],
+                                      stops: [0.4, 1.0],
                                     ),
                                   ),
                                 ),
@@ -165,10 +335,11 @@ class _FavoriteState extends State<Favorite> {
                                   left: 15,
                                   right: 10,
                                   child: Text(
-                                    menuData.nama ?? '',
+                                    '${dataPenjualan.nama ?? ''} Kantin ${dataPenjualan.idKantin}',
                                     style: GoogleFonts.poppins(
-                                      textStyle: const TextStyle(
-                                        fontSize: 13,
+                                      textStyle: TextStyle(
+                                        fontSize:
+                                            textScaleFactor <= 1.15 ? 13 : 13,
                                         color: Colors.white,
                                         fontWeight: FontWeight.normal,
                                       ),
@@ -180,11 +351,12 @@ class _FavoriteState extends State<Favorite> {
                                   left: 15,
                                   right: 10,
                                   child: Text(
-                                    harga.toRupiah(),
+                                    '${dataPenjualan.penjualanHariIni ?? ''} $kategoriPesan',
                                     style: GoogleFonts.poppins(
-                                      textStyle: const TextStyle(
-                                        fontSize: 15,
-                                        color: Color.fromRGBO(255, 255, 255, 1),
+                                      textStyle: TextStyle(
+                                        fontSize:
+                                            textScaleFactor <= 1.15 ? 13 : 13,
+                                        color: Colors.white,
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
@@ -192,173 +364,14 @@ class _FavoriteState extends State<Favorite> {
                                 ),
                               ],
                             ),
-                          ),
-                        );
-                      },
-                    ),
-                  );
-                }
-              }),
-              const SizedBox(height: 10),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  "Penjualan Hari ini",
-                  style: GoogleFonts.poppins(
-                    textStyle: const TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ),
-              Obx(() {
-                if (homeController.isLoading.value) {
-                  return Shimmer.fromColors(
-                    baseColor: Color(baseColorHex),
-                    highlightColor: Color(highlightColorHex),
-                    child: Container(
-                      height: mediaHeight * 0.20,
-                      child: ListView.builder(
-                        itemCount: 5,
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (BuildContext context, index) {
-                          return Container(
-                            padding: const EdgeInsets.all(5),
-                            width: MediaQuery.of(context).size.width * 0.6,
-                            child: Stack(
-                              children: [
-                                Container(
-                                  decoration: BoxDecoration(
-                                    color: Color(baseColorHex),
-                                    borderRadius: const BorderRadius.all(
-                                        Radius.circular(10)),
-                                  ),
-                                ),
-                                Center(
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Shimmer.fromColors(
-                                        baseColor: Colors.transparent,
-                                        highlightColor:
-                                            Color(highlightColorHex),
-                                        child: Container(
-                                          width: 200,
-                                          height: 20,
-                                          color: Color(baseColorHex),
-                                        ),
-                                      ),
-                                      const SizedBox(height: 10),
-                                      Shimmer.fromColors(
-                                        baseColor: Colors.transparent,
-                                        highlightColor:
-                                            Color(highlightColorHex),
-                                        child: Container(
-                                          width: 100,
-                                          height: 20,
-                                          color: Color(baseColorHex),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
                           );
                         },
                       ),
-                    ),
-                  );
-                } else if (homeController.penjualan.data?.isEmpty ?? true) {
-                  return Container(
-                      height: mediaHeight * 0.25,
-                      child: Center(
-                        child: Lottie.asset('assets/animation_lokcom8c.json',
-                            repeat: false),
-                      ));
-                } else {
-                  return Container(
-                    height: mediaHeight * 0.20,
-                    child: ListView.builder(
-                      itemCount: homeController.penjualan.data?.length ?? 0,
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (BuildContext context, index) {
-                        final dataPenjualan =
-                            homeController.penjualan.data![index];
-                        String kategori =
-                            (dataPenjualan.kategori ?? '').toLowerCase();
-                        String kategoriPesan =
-                            kategori == 'makanan' ? 'Porsi' : 'Pcs';
-                        return Container(
-                          padding: const EdgeInsets.all(5),
-                          width: MediaQuery.of(context).size.width * 0.6,
-                          child: Stack(
-                            children: [
-                              ClipRRect(
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(10)),
-                                child: Image.network(
-                                  Api.gambar + dataPenjualan.foto.toString(),
-                                  height: 300,
-                                  width: 300,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                              Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  gradient: const LinearGradient(
-                                    begin: Alignment.topCenter,
-                                    end: Alignment.bottomCenter,
-                                    colors: [Colors.transparent, Colors.black],
-                                    stops: [0.4, 1.0],
-                                  ),
-                                ),
-                              ),
-                              Positioned(
-                                bottom: 30,
-                                left: 15,
-                                right: 10,
-                                child: Text(
-                                  '${dataPenjualan.nama ?? ''} Kantin ${dataPenjualan.idKantin}',
-                                  style: GoogleFonts.poppins(
-                                    textStyle: TextStyle(
-                                      fontSize:
-                                          textScaleFactor <= 1.15 ? 13 : 13,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.normal,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Positioned(
-                                bottom: 10,
-                                left: 15,
-                                right: 10,
-                                child: Text(
-                                  '${dataPenjualan.penjualanHariIni ?? ''} $kategoriPesan',
-                                  style: GoogleFonts.poppins(
-                                    textStyle: TextStyle(
-                                      fontSize:
-                                          textScaleFactor <= 1.15 ? 13 : 13,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        );
-                      },
-                    ),
-                  );
-                }
-              })
-            ],
+                    );
+                  }
+                })
+              ],
+            ),
           ),
         ),
       ),

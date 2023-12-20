@@ -114,23 +114,30 @@ class PesananKurirView extends GetView<PesananKurirController> {
             ),
           )),
     );
-    return DefaultTabController(
-      length: 3,
-      child: Scaffold(
-          appBar: myAppbar,
-          body: Container(
-            decoration: BoxDecoration(
-              // gradient: LinearGradient(
-              //   begin: Alignment.topCenter,
-              //   end: Alignment.bottomCenter,
-              //   colors: [Color(0xFFFFFFFF), Color(0xFFAAEBFF)],
-              // ),
-              color: Colors.white,
-            ),
-            child: TabBarView(
-                controller: pesananKurirController.tabController,
-                children: [KirimKurir(), Konfirmasikurir()]),
-          )),
+    final query = MediaQuery.of(context);
+    print('textscalefactor: ${query.textScaleFactor}');
+    print('devicePixelRatio: ${query.devicePixelRatio}');
+    return MediaQuery(
+      data: query.copyWith(
+          textScaleFactor: query.textScaleFactor.clamp(1.0, 1.15)),
+      child: DefaultTabController(
+        length: 3,
+        child: Scaffold(
+            appBar: myAppbar,
+            body: Container(
+              decoration: BoxDecoration(
+                // gradient: LinearGradient(
+                //   begin: Alignment.topCenter,
+                //   end: Alignment.bottomCenter,
+                //   colors: [Color(0xFFFFFFFF), Color(0xFFAAEBFF)],
+                // ),
+                color: Colors.white,
+              ),
+              child: TabBarView(
+                  controller: pesananKurirController.tabController,
+                  children: [KirimKurir(), Konfirmasikurir()]),
+            )),
+      ),
     );
   }
 }

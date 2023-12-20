@@ -33,7 +33,7 @@ class ProfileProvider with ChangeNotifier {
       if (response.statusCode == 200) {
         Get.snackbar(
           'Perhatian',
-          'Data Berhasil terupdate ganteng',
+          'Data Berhasil Diperbarui ',
           snackPosition: SnackPosition.TOP, // Menampilkan Snackbar dari atas
           duration: Duration(seconds: 2),
         );
@@ -83,7 +83,7 @@ class ProfileProvider with ChangeNotifier {
       if (response.statusCode == 200) {
         Get.snackbar(
           'Perhatian',
-          'Data Berhasil terupdate ganteng',
+          'Alamat Berhasil diganti',
           snackPosition: SnackPosition.TOP, // Menampilkan Snackbar dari atas
           duration: Duration(seconds: 2),
         );
@@ -91,7 +91,7 @@ class ProfileProvider with ChangeNotifier {
         final jsonResponse = jsonDecode(response.body);
         final errorMessage = jsonResponse['data'];
         Get.snackbar(
-          'Salah Woy',
+          'Perhatian Eror',
           '$errorMessage',
           snackPosition: SnackPosition.TOP, // Menampilkan Snackbar dari atas
           duration: Duration(seconds: 2),

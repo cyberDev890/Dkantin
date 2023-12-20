@@ -5,11 +5,22 @@ import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../../data/models/profile_model.dart';
+import '../../../data/providers/profile_provider.dart';
 
 class OrderController extends GetxController {
   var locationMessage = "Belum mendapatkan Lat dan Long".obs;
   var addressMessage = "".obs;
   var textEditingController = TextEditingController().obs;
+  final ProfileProvider provider = ProfileProvider().obs();
+  final _customerProvider = CustomerProvider().obs;
+  Rx<Profile> profile = Profile().obs;
+  var addressController = TextEditingController();
+
+  RxBool isImageUploading = false.obs;
+  RxBool isLoading = true.obs;
 
   var myPosition = Position(
     altitudeAccuracy: 0,
@@ -71,4 +82,43 @@ class OrderController extends GetxController {
         "${place.street}, ${place.subLocality}, ${place.locality}, ${place.postalCode}, ${place.country} ";
   }
 
+  Future<void> getCustomerData() async {
+    try {
+      isLoading(true);
+
+      // Call the getCustomer method from CustomerProvider
+      Profile result = await _customerProvider.value.fetchDatacus();
+
+      // Update the customer data
+      profile(result);
+
+      isLoading(false);
+    } catch (error) {
+      isLoading(false);
+      print('Error fetching dataprofile: $error');
+    }
+  }
+
+  Future<void> editAlamat({
+    required String alamat,
+  }) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString('token');
+
+    if (token != null) {
+      try {
+        await provider.editAlamat(
+          token: token,
+          alamat: alamat,
+        );
+        await getCustomerData();
+      } catch (error) {
+        // Handle and print the error
+        print('Error updating profile: $error');
+      }
+    } else {
+      // Handle case where token is not available (e.g., user not logged in)
+      print('Token not available. User not logged in.');
+    }
+  }
 }

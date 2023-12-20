@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../../data/providers/services.dart';
 import '../pesananKurir/controllers/pesananKurir_controller.dart';
 
 class KirimKurir extends StatefulWidget {
@@ -20,18 +21,24 @@ class _KirimKurirState extends State<KirimKurir> {
   @override
   Widget build(BuildContext context) {
     double textScaleFactor = MediaQuery.of(context).textScaleFactor;
-
-    return Scaffold(
-      body: RefreshIndicator(
-        onRefresh: () async => await controllerc.loadUntukDikirim(),
-        child: CustomScrollView(
-          slivers: [
-            SliverList(
-              delegate: SliverChildListDelegate([
-                content(context),
-              ]),
-            )
-          ],
+    final query = MediaQuery.of(context);
+    print('textscalefactor: ${query.textScaleFactor}');
+    print('devicePixelRatio: ${query.devicePixelRatio}');
+    return MediaQuery(
+      data: query.copyWith(
+          textScaleFactor: query.textScaleFactor.clamp(1.0, 1.15)),
+      child: Scaffold(
+        body: RefreshIndicator(
+          onRefresh: () async => await controllerc.loadUntukDikirim(),
+          child: CustomScrollView(
+            slivers: [
+              SliverList(
+                delegate: SliverChildListDelegate([
+                  content(context),
+                ]),
+              )
+            ],
+          ),
         ),
       ),
     );
@@ -111,10 +118,14 @@ class _KirimKurirState extends State<KirimKurir> {
                         children: [
                           ListTile(
                             leading: CircleAvatar(
-                              backgroundImage: NetworkImage(
-                                "https://i.ibb.co/PGv8ZzG/me.jpg",
-                              ),
-                            ),
+                                backgroundImage: orderData.transaksi!.foto !=
+                                        null
+                                    ? NetworkImage(
+                                        Api.gambar +
+                                            orderData.transaksi!.foto
+                                                .toString(),
+                                      ) as ImageProvider<Object>
+                                    : AssetImage("assets/logo_dikantin.png")),
                             title: Text(
                               "#${orderData.transaksi!.kodeTr.toString()}",
                               style: GoogleFonts.poppins(

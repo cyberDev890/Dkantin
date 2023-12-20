@@ -6,8 +6,7 @@ import '../modules/forgotPassword/bindings/forgot_password_binding.dart';
 import '../modules/forgotPassword/views/forgot_password_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
-import '../modules/kantin/bindings/kantin_binding.dart';
-import '../modules/kantin/views/kantin_view.dart';
+
 import '../modules/keranjang/bindings/keranjang_binding.dart';
 import '../modules/keranjang/views/keranjang_view.dart';
 import '../modules/login/bindings/login_binding.dart';
@@ -143,11 +142,6 @@ class AppPages {
       name: _Paths.RIWAYAT_KURIR,
       page: () => RiwayatKurirView(),
       binding: RiwayatKurirBinding(),
-    ),
-    GetPage(
-      name: _Paths.KANTIN,
-      page: () => const KantinView(),
-      binding: KantinBinding(),
     ),
   ];
 }

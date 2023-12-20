@@ -24,16 +24,23 @@ class _ProsesState extends State<Proses> {
   @override
   Widget build(BuildContext context) {
     double textScaleFactor = MediaQuery.of(context).textScaleFactor;
-    return RefreshIndicator(
-      onRefresh: () async => await controller.loadProses(),
-      child: CustomScrollView(
-        slivers: [
-          SliverList(
-            delegate: SliverChildListDelegate([
-              content(context),
-            ]),
-          )
-        ],
+    final query = MediaQuery.of(context);
+    print('textscalefactor: ${query.textScaleFactor}');
+    print('devicePixelRatio: ${query.devicePixelRatio}');
+    return MediaQuery(
+      data: query.copyWith(
+          textScaleFactor: query.textScaleFactor.clamp(1.0, 1.15)),
+      child: RefreshIndicator(
+        onRefresh: () async => await controller.loadProses(),
+        child: CustomScrollView(
+          slivers: [
+            SliverList(
+              delegate: SliverChildListDelegate([
+                content(context),
+              ]),
+            )
+          ],
+        ),
       ),
     );
   }

@@ -141,18 +141,25 @@ class PesananView extends GetView<PesananController> {
             ),
           )),
     );
-    return DefaultTabController(
-      length: 3,
-      child: Scaffold(
-          appBar: myAppbar,
-          body: Container(
-            decoration: BoxDecoration(
-              color: Colors.white,
-            ),
-            child: TabBarView(
-                controller: pesananController.tabController,
-                children: [Proses(), Kirim(), Konfirmasi()]),
-          )),
+    final query = MediaQuery.of(context);
+    print('textscalefactor: ${query.textScaleFactor}');
+    print('devicePixelRatio: ${query.devicePixelRatio}');
+    return MediaQuery(
+      data: query.copyWith(
+          textScaleFactor: query.textScaleFactor.clamp(1.0, 1.15)),
+      child: DefaultTabController(
+        length: 3,
+        child: Scaffold(
+            appBar: myAppbar,
+            body: Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+              ),
+              child: TabBarView(
+                  controller: pesananController.tabController,
+                  children: [Proses(), Kirim(), Konfirmasi()]),
+            )),
+      ),
     );
   }
 }

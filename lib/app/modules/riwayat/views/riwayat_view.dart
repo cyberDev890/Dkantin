@@ -52,130 +52,136 @@ class RiwayatView extends GetView<RiwayatController> {
         MediaQuery.of(context).padding.top;
     double textScaleFactor = MediaQuery.of(context).textScaleFactor;
 
-    return Scaffold(
-      appBar: app,
-      backgroundColor: Colors.white,
-      body: RefreshIndicator(
-        onRefresh: () async {
-          await riwayatController.searchAll();
-        },
-        child: Column(
-          children: [
-            Row(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Expanded(
-                  flex: 3,
-                  child: Container(
-                    margin: EdgeInsets.fromLTRB(25, 15, 25, 15),
-                    decoration: BoxDecoration(
-                        border:
-                            Border.all(color: Color(0xFF969696), width: 1.5),
-                        borderRadius: const BorderRadius.all(
-                          Radius.circular(14.0),
-                        )),
-                    child: Row(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Icon(
-                            Icons.search,
-                            color: Color(0xFF969696),
+  final query = MediaQuery.of(context);
+    print('textscalefactor: ${query.textScaleFactor}');
+    print('devicePixelRatio: ${query.devicePixelRatio}');
+    return MediaQuery(
+      data: query.copyWith(
+          textScaleFactor: query.textScaleFactor.clamp(1.0, 1.15)),      child: Scaffold(
+        appBar: app,
+        backgroundColor: Colors.white,
+        body: RefreshIndicator(
+          onRefresh: () async {
+            await riwayatController.searchAll();
+          },
+          child: Column(
+            children: [
+              Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Expanded(
+                    flex: 3,
+                    child: Container(
+                      margin: EdgeInsets.fromLTRB(25, 15, 25, 15),
+                      decoration: BoxDecoration(
+                          border:
+                              Border.all(color: Color(0xFF969696), width: 1.5),
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(14.0),
+                          )),
+                      child: Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Icon(
+                              Icons.search,
+                              color: Color(0xFF969696),
+                            ),
                           ),
-                        ),
-                        Expanded(
-                            child: TextFormField(
-                          controller: searchController,
-                          initialValue: null,
-                          onChanged: (text) {
-                            controller.search(
-                                text,
-                                riwayatController.selectedDate
-                                    .toString()); // Trigger the search as the user types
-                          },
-                          decoration: InputDecoration.collapsed(
-                            filled: true,
-                            fillColor: Colors.transparent,
-                            hintText: "Cari Disini..",
-                            hintStyle: TextStyle(
-                                fontSize: textScaleFactor <= 1.15 ? 15 : 12,
-                                color: Colors.grey[500],
-                                fontFamily: 'Mulish'),
-                            hoverColor: Colors.transparent,
-                          ),
-                          onFieldSubmitted: (value) {
-                            // Get.to(() => searchBuku(keywords: search.toString()));
-                          },
-                        ))
-                      ],
+                          Expanded(
+                              child: TextFormField(
+                            controller: searchController,
+                            initialValue: null,
+                            onChanged: (text) {
+                              controller.search(
+                                  text,
+                                  riwayatController.selectedDate
+                                      .toString()); // Trigger the search as the user types
+                            },
+                            decoration: InputDecoration.collapsed(
+                              filled: true,
+                              fillColor: Colors.transparent,
+                              hintText: "Cari Disini..",
+                              hintStyle: TextStyle(
+                                  fontSize: textScaleFactor <= 1.15 ? 15 : 12,
+                                  color: Colors.grey[500],
+                                  fontFamily: 'Mulish'),
+                              hoverColor: Colors.transparent,
+                            ),
+                            onFieldSubmitted: (value) {
+                              // Get.to(() => searchBuku(keywords: search.toString()));
+                            },
+                          ))
+                        ],
+                      ),
+                    ),
+                  ),
+                  Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(0, 0, 25, 0),
+                      child: Obx(() {
+                        if (riwayatController.selectedDate.value != null) {
+                          return Ink(
+                            decoration: BoxDecoration(
+                              color: Colors.blue,
+                              borderRadius: BorderRadius.all(Radius.circular(9)),
+                            ),
+                            child: IconButton.filled(
+                              padding: EdgeInsets.zero,
+                              onPressed: () {
+                                riwayatController.chooseDate();
+                              },
+                              iconSize: mediaBody * 0.001,
+                              icon: const Icon(
+                                Icons.edit_calendar_rounded,
+                                color: Colors.white,
+                                size: 24,
+                              ),
+                            ),
+                          );
+                        } else {
+                          return Ink(
+                            decoration: BoxDecoration(
+                              color: Colors.blue,
+                              borderRadius: BorderRadius.all(Radius.circular(9)),
+                            ),
+                            child: IconButton.filled(
+                              padding: EdgeInsets.zero,
+                              onPressed: () {
+                                // riwayatController.deleteDate();
+                                // homeController.removeFromCart(menuData);
+                              },
+                              iconSize: mediaBody * 0.001,
+                              icon: const Icon(
+                                Icons.close_outlined,
+                                color: Colors.white,
+                                size: 24,
+                              ),
+                            ),
+                          );
+                        }
+                      })),
+                ],
+              ),
+              Container(
+                margin: EdgeInsets.only(left: 30),
+                alignment: Alignment.bottomLeft,
+                child: Text(
+                  "Pesan Lagi Yuk !! ...",
+                  style: GoogleFonts.poppins(
+                    textStyle: TextStyle(
+                      fontSize: textScaleFactor <= 1.15 ? 14 : 11,
+                      fontWeight: FontWeight.w400,
                     ),
                   ),
                 ),
-                Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0, 0, 25, 0),
-                    child: Obx(() {
-                      if (riwayatController.selectedDate.value != null) {
-                        return Ink(
-                          decoration: BoxDecoration(
-                            color: Colors.blue,
-                            borderRadius: BorderRadius.all(Radius.circular(9)),
-                          ),
-                          child: IconButton.filled(
-                            padding: EdgeInsets.zero,
-                            onPressed: () {
-                              riwayatController.chooseDate();
-                            },
-                            iconSize: mediaBody * 0.001,
-                            icon: const Icon(
-                              Icons.edit_calendar_rounded,
-                              color: Colors.white,
-                              size: 24,
-                            ),
-                          ),
-                        );
-                      } else {
-                        return Ink(
-                          decoration: BoxDecoration(
-                            color: Colors.blue,
-                            borderRadius: BorderRadius.all(Radius.circular(9)),
-                          ),
-                          child: IconButton.filled(
-                            padding: EdgeInsets.zero,
-                            onPressed: () {
-                              // riwayatController.deleteDate();
-                              // homeController.removeFromCart(menuData);
-                            },
-                            iconSize: mediaBody * 0.001,
-                            icon: const Icon(
-                              Icons.close_outlined,
-                              color: Colors.white,
-                              size: 24,
-                            ),
-                          ),
-                        );
-                      }
-                    })),
-              ],
-            ),
-            Container(
-              margin: EdgeInsets.only(left: 30),
-              alignment: Alignment.bottomLeft,
-              child: Text(
-                "Pesan Lagi Yuk !! ...",
-                style: GoogleFonts.poppins(
-                  textStyle: TextStyle(
-                    fontSize: textScaleFactor <= 1.15 ? 14 : 11,
-                    fontWeight: FontWeight.w400,
-                  ),
-                ),
               ),
-            ),
-            SizedBox(
-              height: mediaBody * 0.008,
-            ),
-            content(context),
-          ],
+              SizedBox(
+                height: mediaBody * 0.008,
+              ),
+              content(context),
+            ],
+          ),
         ),
       ),
     );
@@ -407,13 +413,13 @@ class RiwayatView extends GetView<RiwayatController> {
                                               padding: EdgeInsetsDirectional
                                                   .fromSTEB(4, 0, 0, 0),
                                               child: Text(
-                                                'Biaya Sebenarnya :',
+                                                'Harga Awal:',
                                                 style: GoogleFonts.poppins(
                                                     textStyle: TextStyle(
                                                   color: Color(0xFF101518),
                                                   fontSize:
                                                       textScaleFactor <= 1.15
-                                                          ? 13
+                                                          ? 12
                                                           : 12,
                                                   fontWeight: FontWeight.w500,
                                                 )),

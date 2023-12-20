@@ -1,5 +1,4 @@
 import 'package:dikantin/app/data/providers/auth_provider.dart';
-import 'package:dikantin/app/modules/kantin/views/kantin_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -20,7 +19,7 @@ class LoginController extends GetxController {
   @override
   Future<void> onInit() async {
     super.onInit();
-      FcmService fcmService = FcmService();
+    FcmService fcmService = FcmService();
     var token = await fcmService.getDeviceToken();
     // save token ketika login view di render
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
@@ -48,7 +47,7 @@ class LoginController extends GetxController {
     obscureText.value = !obscureText.value;
   }
 
-  Future<void> login(String username, String password,String fcmtoken) async {
+  Future<void> login(String username, String password, String fcmtoken) async {
     print("object");
 
     try {
@@ -66,7 +65,8 @@ class LoginController extends GetxController {
         return;
       }
       isLoading.value = true;
-      final response = await loginProvider.value.login(username, password,fcmtoken);
+      final response =
+          await loginProvider.value.login(username, password, fcmtoken);
 
       if (response.statusCode == 200) {
         Get.offAllNamed('/navigation');
@@ -89,7 +89,8 @@ class LoginController extends GetxController {
     }
   }
 
-  Future<void> loginKurir(String username, String password,String fcmtoken) async {
+  Future<void> loginKurir(
+      String username, String password, String fcmtoken) async {
     try {
       if (!connectivityHelper.hasConnection.value) {
         // Tampilkan Snackbar bahwa tidak ada koneksi
@@ -104,8 +105,8 @@ class LoginController extends GetxController {
         return;
       }
       isLoading.value = true;
-      final response =
-          await loginKurirProvider.value.loginKurir(username, password,fcmtoken);
+      final response = await loginKurirProvider.value
+          .loginKurir(username, password, fcmtoken);
 
       if (response.statusCode == 200) {
         Get.offAllNamed('/navigationKurir');
@@ -127,7 +128,6 @@ class LoginController extends GetxController {
       isLoading.value = false;
     }
   }
-
 
   void initializeLoginProvider() {
     Get.put(AuthKurirProvider());
