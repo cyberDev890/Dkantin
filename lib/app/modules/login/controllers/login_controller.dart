@@ -5,6 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../data/providers/authKurir_provider.dart';
 import '../../../repository/ConnectivityHelper..dart';
+import '../../fcm/fcm.dart';
 
 class LoginController extends GetxController {
   final count = 0.obs;
@@ -18,9 +19,12 @@ class LoginController extends GetxController {
   @override
   Future<void> onInit() async {
     super.onInit();
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? tokenfcm = prefs.getString('tokenfcm');
-    print(tokenfcm);
+    FcmService fcmService = FcmService();
+    var token = await fcmService.getDeviceToken();
+    // save token ketika login view di render
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    sharedPreferences.setString('tokenFcm', token);
+    print(token);
   }
 
   @override
@@ -43,14 +47,16 @@ class LoginController extends GetxController {
     obscureText.value = !obscureText.value;
   }
 
-  Future<void> login(String username, String password) async {
+  Future<void> login(String username, String password, String fcmtoken) async {
+    print("object");
+
     try {
       // Periksa status koneksi sebelum melakukan login
       if (!connectivityHelper.hasConnection.value) {
         // Tampilkan Snackbar bahwa tidak ada koneksi
         Get.snackbar(
-          'Connection Error',
-          'Check your internet connection',
+          'Koneksi Eror',
+          'Cek Koneksi Internet anda',
           backgroundColor: Colors.red,
           colorText: Colors.white,
           duration: Duration(seconds: 2),
@@ -59,7 +65,8 @@ class LoginController extends GetxController {
         return;
       }
       isLoading.value = true;
-      final response = await loginProvider.value.login(username, password);
+      final response =
+          await loginProvider.value.login(username, password, fcmtoken);
 
       if (response.statusCode == 200) {
         Get.offAllNamed('/navigation');
@@ -76,19 +83,20 @@ class LoginController extends GetxController {
       }
     } catch (error) {
       // Tangani pengecualian di sini, jika diperlukan
-      print('An error occurred: $error');
+      print('An error occurred login: $error');
     } finally {
       isLoading.value = false;
     }
   }
 
-  Future<void> loginKurir(String username, String password) async {
+  Future<void> loginKurir(
+      String username, String password, String fcmtoken) async {
     try {
       if (!connectivityHelper.hasConnection.value) {
         // Tampilkan Snackbar bahwa tidak ada koneksi
         Get.snackbar(
-          'Connection Error',
-          'Check your internet connection',
+          'Koneksi Eror',
+          'Cek Koneksi Internet anda',
           backgroundColor: Colors.red,
           colorText: Colors.white,
           duration: Duration(seconds: 2),
@@ -97,8 +105,8 @@ class LoginController extends GetxController {
         return;
       }
       isLoading.value = true;
-      final response =
-          await loginKurirProvider.value.loginKurir(username, password);
+      final response = await loginKurirProvider.value
+          .loginKurir(username, password, fcmtoken);
 
       if (response.statusCode == 200) {
         Get.offAllNamed('/navigationKurir');

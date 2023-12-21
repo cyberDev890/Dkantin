@@ -1,5 +1,4 @@
 import 'package:dikantin/app/data/providers/services.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
@@ -8,9 +7,8 @@ import 'dart:convert'; // Import for JSON decoding
 class AuthKurirProvider extends GetxController {
   RxBool isKurirActive = false.obs;
 
-  Future<http.Response> loginKurir(String username, String password) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? tokenfcm = prefs.getString('tokenfcm');
+  Future<http.Response> loginKurir(
+      String username, String password, String tokenfcm) async {
     final data = {
       'email': username,
       'password': password,

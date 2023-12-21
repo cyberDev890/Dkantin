@@ -1,14 +1,14 @@
-import 'package:dikantin/app/data/models/customer_model.dart';
-import 'package:dikantin/app/data/models/profile_model.dart';
 import 'package:dikantin/app/data/providers/profile_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../data/models/pendapatanKurir_model.dart';
 import '../../../data/models/profile_kurir_model.dart';
 import '../../../data/providers/authKurir_provider.dart';
 import '../../../data/providers/customer_provider.dart';
+import '../../../data/providers/pesanan_provider.dart';
 
 class ProfileKurirController extends GetxController {
   final ProfileProvider provider = ProfileProvider().obs();
@@ -19,18 +19,23 @@ class ProfileKurirController extends GetxController {
   RxBool isImageUploading = false.obs;
   RxBool isLoading = true.obs;
   Rx<ProfileKurir> profileKurir = ProfileKurir().obs;
+  final penghasilanKurir = PesananProvider().obs;
+  late PendapatanKurir pendapatanKurir = PendapatanKurir();
+  var pendapatanKurirHariIni = <DataPendapatanKurir>[].obs;
   var selectedImage = ''.obs;
   var fullNameController = TextEditingController();
   var emailController = TextEditingController();
   var phoneNumberController = TextEditingController();
   var addressController = TextEditingController();
   RxBool isKurirActive = false.obs;
+  var today = 0.obs;
 
   final count = 0.obs;
   @override
   void onInit() {
     super.onInit();
     getCustomerData();
+    getPenghasilanKurir();
   }
 
   @override
@@ -57,9 +62,9 @@ class ProfileKurirController extends GetxController {
   Future<void> logout() async {
     // Hapus data dari SharedPreferences
     await authKurirProvider.kurirLogout();
-    await clearSharedPreferences();
     isKurirActive.value = false;
     isSwitchOn.value = isKurirActive.value;
+    await clearSharedPreferences();
     // Navigasi ke halaman login
     Get.offAllNamed('/login');
   }
@@ -146,6 +151,23 @@ class ProfileKurirController extends GetxController {
     } catch (error) {
       isLoading(false);
       print('Error fetching dataprofile: $error');
+    }
+  }
+
+  Future<void> getPenghasilanKurir() async {
+    print("yayaya");
+    try {
+      isLoading(true);
+      final result = await penghasilanKurir.value.pendapatanKurir();
+      pendapatanKurir = result;
+      print(result.data);
+      print(result.data!.today!);
+      today.value = pendapatanKurir.data!.today ?? 0;
+      // pendapatanKurirHariIni.assignAll();
+      isLoading(false);
+    } catch (error) {
+      isLoading(false);
+      print('Error fetching data: $error');
     }
   }
 }

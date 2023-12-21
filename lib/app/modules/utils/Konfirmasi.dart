@@ -23,23 +23,32 @@ class _KonfirmasiState extends State<Konfirmasi> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: RefreshIndicator(
-        onRefresh: () async => await controller.loadDiterima(),
-        child: CustomScrollView(
-          slivers: [
-            SliverList(
-              delegate: SliverChildListDelegate([
-                content(context),
-              ]),
-            )
-          ],
+    final query = MediaQuery.of(context);
+    print('textscalefactor: ${query.textScaleFactor}');
+    print('devicePixelRatio: ${query.devicePixelRatio}');
+    return MediaQuery(
+      data: query.copyWith(
+          textScaleFactor: query.textScaleFactor.clamp(1.0, 1.15)),
+      child: Scaffold(
+        body: RefreshIndicator(
+          onRefresh: () async => await controller.loadDiterima(),
+          child: CustomScrollView(
+            slivers: [
+              SliverList(
+                delegate: SliverChildListDelegate([
+                  content(context),
+                ]),
+              )
+            ],
+          ),
         ),
       ),
     );
   }
 
   Widget content(BuildContext context) {
+    double textScaleFactor = MediaQuery.of(context).textScaleFactor;
+
     final baseColorHex = 0xFFE0E0E0;
     final highlightColorHex = 0xFFC0C0C0;
     final mediaHeight =
@@ -134,7 +143,7 @@ class _KonfirmasiState extends State<Konfirmasi> {
                               orderData.transaksi!.tanggal.toString(),
                               style: GoogleFonts.poppins(
                                   textStyle: TextStyle(
-                                      fontSize: 14,
+                                      fontSize: 12,
                                       fontWeight: FontWeight.normal)),
                             ),
                           ),
@@ -205,7 +214,11 @@ class _KonfirmasiState extends State<Konfirmasi> {
                                               color: Colors.black,
                                               fontWeight: FontWeight.normal)),
                                       Text(
-                                        orderData.status.toString(),
+                                        orderData.status
+                                                .toString()
+                                                .contains('null')
+                                            ? ""
+                                            : orderData.status.toString(),
                                         style: GoogleFonts.poppins(
                                             textStyle: TextStyle(
                                                 fontSize: 14,

@@ -11,10 +11,12 @@ import '../controllers/pesanan_controller.dart';
 
 class PesananView extends GetView<PesananController> {
   PesananView({Key? key}) : super(key: key);
-    PesananController pesananController = Get.find<PesananController>();
+  PesananController pesananController = Get.find<PesananController>();
 
   @override
   Widget build(BuildContext context) {
+    double textScaleFactor = MediaQuery.of(context).textScaleFactor;
+
     final mediaHeight = MediaQuery.of(context).size.height;
     final myAppbar = AppBar(
       elevation: 5, // Menghilangkan shadow di bawah AppBar
@@ -56,7 +58,7 @@ class PesananView extends GetView<PesananController> {
                   (pesananController.orderProses.length ?? 0).toString(),
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: 12,
+                    fontSize: 10,
                   ),
                 ),
                 position: badges.BadgePosition.topEnd(top: -10, end: -15),
@@ -66,6 +68,10 @@ class PesananView extends GetView<PesananController> {
                 ),
                 child: Text(
                   "Diproses",
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: Colors.black,
+                  ),
                 ),
               );
             })),
@@ -77,7 +83,7 @@ class PesananView extends GetView<PesananController> {
                   (pesananController.orderDikirim.length ?? 0).toString(),
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: 12,
+                    fontSize: 10,
                   ),
                 ),
                 position: badges.BadgePosition.topEnd(top: -10, end: -15),
@@ -87,6 +93,10 @@ class PesananView extends GetView<PesananController> {
                 ),
                 child: Text(
                   "Dikirim",
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: Colors.black,
+                  ),
                 ),
               );
             })),
@@ -98,16 +108,20 @@ class PesananView extends GetView<PesananController> {
                   (pesananController.orderDiterima.length ?? 0).toString(),
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: 12,
+                    fontSize: 10,
                   ),
                 ),
-                position: badges.BadgePosition.topEnd(top: -12, end: -15),
+                position: badges.BadgePosition.topEnd(top: -10, end: -9),
                 badgeStyle: badges.BadgeStyle(
                   shape: badges.BadgeShape.circle,
                   badgeColor: Colors.orange,
                 ),
                 child: Text(
                   "Konfirmasi",
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: Colors.black,
+                  ),
                 ),
               );
             })),
@@ -127,19 +141,25 @@ class PesananView extends GetView<PesananController> {
             ),
           )),
     );
-    return DefaultTabController(
-      length: 3,
-      child: Scaffold(
-          appBar: myAppbar,
-          body: Container(
-            decoration: BoxDecoration(
-             
-              color: Colors.white,
-            ),
-            child: TabBarView(
-                controller: pesananController.tabController,
-                children: [Proses(), Kirim(), Konfirmasi()]),
-          )),
+    final query = MediaQuery.of(context);
+    print('textscalefactor: ${query.textScaleFactor}');
+    print('devicePixelRatio: ${query.devicePixelRatio}');
+    return MediaQuery(
+      data: query.copyWith(
+          textScaleFactor: query.textScaleFactor.clamp(1.0, 1.15)),
+      child: DefaultTabController(
+        length: 3,
+        child: Scaffold(
+            appBar: myAppbar,
+            body: Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+              ),
+              child: TabBarView(
+                  controller: pesananController.tabController,
+                  children: [Proses(), Kirim(), Konfirmasi()]),
+            )),
+      ),
     );
   }
 }

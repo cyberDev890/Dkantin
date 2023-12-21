@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:dikantin/app/data/models/pendapatanKurir_model.dart';
 import 'package:dikantin/app/data/models/pesanan_model.dart';
 import 'package:get/get.dart';
 import "package:http/http.dart" as http;
@@ -89,7 +90,7 @@ class PesananProvider extends GetxController {
     }
   }
 
-Future<void> acceptPesanan(String kodeTr) async {
+  Future<void> acceptPesanan(String kodeTr) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? id_kurir = prefs.getString('tokenKurir');
     print('Ini:${id_kurir}');
@@ -117,7 +118,6 @@ Future<void> acceptPesanan(String kodeTr) async {
       throw Exception('Gagal membatalkan pesanan');
     }
   }
-
 
   Future<void> konfirKurir(String kodeTr, String bukti) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -184,6 +184,7 @@ Future<void> acceptPesanan(String kodeTr) async {
       throw Exception('Gagal memuat data');
     }
   }
+
   Future<PesananKirim> riwayatKurir() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? token = prefs.getString('tokenKurir');
@@ -197,6 +198,25 @@ Future<void> acceptPesanan(String kodeTr) async {
 
     if (response.statusCode == 200) {
       return PesananKirim.fromJson(jsonDecode(response.body));
+    } else {
+      throw Exception('Gagal memuat data');
+    }
+  }
+
+  Future<PendapatanKurir> pendapatanKurir() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString('tokenKurir');
+    print(token);
+    final response = await http.get(
+      Uri.parse(Api.pendapatanKurir),
+      headers: {
+        'Authorization':
+            'Bearer $token', // Gantilah [TOKEN] dengan token yang sesuai
+      },
+    );
+
+    if (response.statusCode == 200) {
+      return PendapatanKurir.fromJson(jsonDecode(response.body));
     } else {
       throw Exception('Gagal memuat data');
     }

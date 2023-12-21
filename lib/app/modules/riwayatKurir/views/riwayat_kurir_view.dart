@@ -13,54 +13,62 @@ import '../controllers/riwayat_kurir_controller.dart';
 class RiwayatKurirView extends GetView<RiwayatKurirController> {
   RiwayatKurirView({Key? key}) : super(key: key);
   PesananKurirController controllerc = Get.find<PesananKurirController>();
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        elevation: 5, // Menghilangkan shadow di bawah AppBar
-        backgroundColor: Colors.white,
-        actions: [
-          Center(
-            child: Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Text(
-                "Riwayat Kurir ",
-                style: GoogleFonts.poppins(
-                    textStyle: TextStyle(
-                        fontSize: 20,
-                        color: Colors.black,
-                        fontWeight: FontWeight.w600)),
+    final query = MediaQuery.of(context);
+    print('textscalefactor: ${query.textScaleFactor}');
+    print('devicePixelRatio: ${query.devicePixelRatio}');
+    return MediaQuery(
+      data: query.copyWith(
+          textScaleFactor: query.textScaleFactor.clamp(1.0, 1.15)),
+      child: Scaffold(
+        appBar: AppBar(
+          elevation: 5, // Menghilangkan shadow di bawah AppBar
+          backgroundColor: Colors.white,
+          actions: [
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Text(
+                  "Riwayat Kurir ",
+                  style: GoogleFonts.poppins(
+                      textStyle: TextStyle(
+                          fontSize: 20,
+                          color: Colors.black,
+                          fontWeight: FontWeight.w600)),
+                ),
               ),
             ),
-          ),
-        ],
-        title: Container(
-          padding: EdgeInsets.fromLTRB(0, 5, 10, 0),
-          child: Image.asset(
-            'assets/logo_dikantin.png',
-            height: 90, // Sesuaikan dengan tinggi yang Anda inginkan
-            width: 90, // Sesuaikan dengan lebar yang Anda inginkan
-            fit: BoxFit.cover,
+          ],
+          title: Container(
+            padding: EdgeInsets.fromLTRB(0, 5, 10, 0),
+            child: Image.asset(
+              'assets/logo_dikantin.png',
+              height: 90, // Sesuaikan dengan tinggi yang Anda inginkan
+              width: 90, // Sesuaikan dengan lebar yang Anda inginkan
+              fit: BoxFit.cover,
+            ),
           ),
         ),
-      ),
-      body: RefreshIndicator(
-        onRefresh: () async => await controllerc.loadRiwayatKurir(),
-        child: CustomScrollView(
-          slivers: [
-            SliverList(
-              delegate: SliverChildListDelegate([
-                content(context),
-              ]),
-            )
-          ],
+        body: RefreshIndicator(
+          onRefresh: () async => await controllerc.loadRiwayatKurir(),
+          child: CustomScrollView(
+            slivers: [
+              SliverList(
+                delegate: SliverChildListDelegate([
+                  content(context),
+                ]),
+              )
+            ],
+          ),
         ),
       ),
     );
   }
 
   Widget content(BuildContext context) {
+    double textScaleFactor = MediaQuery.of(context).textScaleFactor;
+
     final baseColorHex = 0xFFE0E0E0;
     final highlightColorHex = 0xFFC0C0C0;
     final mediaHeight =
@@ -158,7 +166,7 @@ class RiwayatKurirView extends GetView<RiwayatKurirController> {
                                 orderData.transaksi!.tanggal.toString(),
                                 style: GoogleFonts.poppins(
                                     textStyle: TextStyle(
-                                        fontSize: 14,
+                                        fontSize: 12,
                                         fontWeight: FontWeight.normal)),
                               ),
                             ),
@@ -288,7 +296,11 @@ class RiwayatKurirView extends GetView<RiwayatKurirController> {
                                                       "Foto Bukti",
                                                       style: GoogleFonts.poppins(
                                                           textStyle: TextStyle(
-                                                              fontSize: 14,
+                                                              fontSize:
+                                                                  textScaleFactor <=
+                                                                          1.15
+                                                                      ? 14
+                                                                      : 12,
                                                               color:
                                                                   Colors.blue,
                                                               fontWeight:
@@ -319,7 +331,11 @@ class RiwayatKurirView extends GetView<RiwayatKurirController> {
                                                       "Foto Bukti",
                                                       style: GoogleFonts.poppins(
                                                           textStyle: TextStyle(
-                                                              fontSize: 14,
+                                                              fontSize:
+                                                                  textScaleFactor <=
+                                                                          1.15
+                                                                      ? 14
+                                                                      : 12,
                                                               color:
                                                                   Colors.white,
                                                               fontWeight:

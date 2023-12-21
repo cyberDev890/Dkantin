@@ -1,8 +1,5 @@
-import 'package:dikantin/app/modules/utils/Konfirmasi.dart';
 import 'package:dikantin/app/modules/utils/KonfirmasiKurir.dart';
-import 'package:dikantin/app/modules/utils/kirim.dart';
 import 'package:dikantin/app/modules/utils/kirimKurir.dart';
-import 'package:dikantin/app/modules/utils/proses.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -19,6 +16,8 @@ class PesananKurirView extends GetView<PesananKurirController> {
 
   @override
   Widget build(BuildContext context) {
+    double textScaleFactor = MediaQuery.of(context).textScaleFactor;
+
     final mediaHeight = MediaQuery.of(context).size.height;
     final myAppbar = AppBar(
       elevation: 5, // Menghilangkan shadow di bawah AppBar
@@ -112,23 +111,30 @@ class PesananKurirView extends GetView<PesananKurirController> {
             ),
           )),
     );
-    return DefaultTabController(
-      length: 3,
-      child: Scaffold(
-          appBar: myAppbar,
-          body: Container(
-            decoration: BoxDecoration(
-              // gradient: LinearGradient(
-              //   begin: Alignment.topCenter,
-              //   end: Alignment.bottomCenter,
-              //   colors: [Color(0xFFFFFFFF), Color(0xFFAAEBFF)],
-              // ),
-              color: Colors.white,
-            ),
-            child: TabBarView(
-                controller: pesananKurirController.tabController,
-                children: [KirimKurir(), Konfirmasikurir()]),
-          )),
+    final query = MediaQuery.of(context);
+    print('textscalefactor: ${query.textScaleFactor}');
+    print('devicePixelRatio: ${query.devicePixelRatio}');
+    return MediaQuery(
+      data: query.copyWith(
+          textScaleFactor: query.textScaleFactor.clamp(1.0, 1.15)),
+      child: DefaultTabController(
+        length: 3,
+        child: Scaffold(
+            appBar: myAppbar,
+            body: Container(
+              decoration: BoxDecoration(
+                // gradient: LinearGradient(
+                //   begin: Alignment.topCenter,
+                //   end: Alignment.bottomCenter,
+                //   colors: [Color(0xFFFFFFFF), Color(0xFFAAEBFF)],
+                // ),
+                color: Colors.white,
+              ),
+              child: TabBarView(
+                  controller: pesananKurirController.tabController,
+                  children: [KirimKurir(), Konfirmasikurir()]),
+            )),
+      ),
     );
   }
 }

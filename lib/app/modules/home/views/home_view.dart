@@ -18,6 +18,8 @@ class HomeView extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     final mediaHeight = MediaQuery.of(context).size.height;
+    final mediaWidth = MediaQuery.of(context).size.width;
+    double textScaleFactor = MediaQuery.of(context).textScaleFactor;
     final app = AppBar(
       elevation: 0, // Menghilangkan shadow di bawah AppBar
       backgroundColor: Colors.white, // Membuat AppBar transparan
@@ -63,279 +65,302 @@ class HomeView extends GetView<HomeController> {
     final mediaBody = mediaHeight -
         app.preferredSize.height -
         MediaQuery.of(context).padding.top;
-    return DefaultTabController(
-      length: 4,
-      child: Scaffold(
-        appBar: app,
-        body: Stack(
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-              ),
-              child: NestedScrollView(
-                headerSliverBuilder: (context, isScrolled) {
-                  return <Widget>[
-                    SliverAppBar(
-                      expandedHeight: 120.0,
-                      // collapsedHeight: 100,
-                      floating: false,
-                      pinned: false,
-                      flexibleSpace: SingleChildScrollView(
-                        physics: NeverScrollableScrollPhysics(),
-                        child: Container(
-                          height: mediaBody * 0.20,
-                          padding: EdgeInsets.fromLTRB(20, 30, 10, 0),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Container(
-                                    // margin: EdgeInsets.only(left: 10),
-                                    child: Text(
-                                      "Saldo Polije Pay ",
-                                      style: GoogleFonts.poppins(
-                                        textStyle: TextStyle(
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.bold,
+
+    final query = MediaQuery.of(context);
+    print('textscalefactor: ${query.textScaleFactor}');
+    print('devicePixelRatio: ${query.devicePixelRatio}');
+    return MediaQuery(
+      data: query.copyWith(
+          textScaleFactor: query.textScaleFactor.clamp(1.0, 1.15)),
+      child: DefaultTabController(
+        length: 4,
+        child: Scaffold(
+          appBar: app,
+          body: Stack(
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                ),
+                child: NestedScrollView(
+                  headerSliverBuilder: (context, isScrolled) {
+                    return <Widget>[
+                      SliverAppBar(
+                        expandedHeight: 120.0,
+                        // collapsedHeight: 100,
+                        floating: false,
+                        pinned: false,
+                        flexibleSpace: SingleChildScrollView(
+                          physics: NeverScrollableScrollPhysics(),
+                          child: Container(
+                            height: mediaBody * 0.20,
+                            padding: EdgeInsets.fromLTRB(20, 30, 10, 0),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Container(
+                                      // margin: EdgeInsets.only(left: 10),
+                                      child: Text(
+                                        "Saldo Polije Pay ",
+                                        style: GoogleFonts.poppins(
+                                          textStyle: TextStyle(
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.bold,
+                                          ),
                                         ),
                                       ),
                                     ),
-                                  ),
-                                  SizedBox(
-                                    width: mediaBody * 0.02,
-                                  ),
-                                  Container(
-                                    height: 22,
-                                    // width: 64,
-                                    decoration: BoxDecoration(
-                                        border: Border.all(
-                                            color: Color(0xFF00C2FF),
-                                            width: 1.5),
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(7))),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        SizedBox(
-                                          width: 5,
-                                        ),
-                                        Container(
-                                          child: Text(
-                                            "Top Up",
-                                            style: GoogleFonts.poppins(
-                                              textStyle: TextStyle(
-                                                color: Color(0xFF00C2FF),
-                                                fontSize: 10,
-                                                fontWeight: FontWeight.bold,
+                                    SizedBox(
+                                      width: mediaBody * 0.02,
+                                    ),
+                                    Container(
+                                      height: 22,
+                                      // width: 64,
+                                      decoration: BoxDecoration(
+                                          border: Border.all(
+                                              color: Color(0xFF00C2FF),
+                                              width: 1.5),
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(7))),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          SizedBox(
+                                            width: 5,
+                                          ),
+                                          Container(
+                                            child: Text(
+                                              "Top Up",
+                                              style: GoogleFonts.poppins(
+                                                textStyle: TextStyle(
+                                                  color: Color(0xFF00C2FF),
+                                                  fontSize: 12,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
                                               ),
                                             ),
                                           ),
-                                        ),
-                                        SizedBox(
-                                          width: 5,
-                                        ),
-                                        Container(
-                                            child: Icon(
-                                          Icons.add_circle_rounded,
-                                          size: 15,
-                                          color: Color(0xFF00C2FF),
-                                        )),
-                                        SizedBox(
-                                          width: 5,
-                                        ),
-                                      ],
+                                          SizedBox(
+                                            width: 5,
+                                          ),
+                                          Container(
+                                              child: Icon(
+                                            Icons.add_circle_rounded,
+                                            size: 15,
+                                            color: Color(0xFF00C2FF),
+                                          )),
+                                          SizedBox(
+                                            width: 5,
+                                          ),
+                                        ],
+                                      ),
                                     ),
-                                  ),
-                                ],
-                              ),
-                              SizedBox(
-                                height: mediaBody / 400,
-                              ),
-                              Container(
-                                // padding: EdgeInsets.only(right: x * 0.25),
-                                child: Text(
-                                  "Rp. 0",
-                                  style: GoogleFonts.poppins(
-                                    textStyle: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 30,
-                                      fontWeight: FontWeight.bold,
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: mediaBody / 400,
+                                ),
+                                Container(
+                                  // padding: EdgeInsets.only(right: x * 0.25),
+                                  child: Text(
+                                    "Rp. 0",
+                                    style: GoogleFonts.poppins(
+                                      textStyle: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 30,
+                                        fontWeight: FontWeight.bold,
+                                      ),
                                     ),
                                   ),
                                 ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      SliverPersistentHeader(
+                        floating: true,
+                        pinned: true,
+                        delegate: MyTabBarDelegate(
+                          TabBar(
+                            controller: controller.tabController,
+                            labelColor: Colors.black,
+                            unselectedLabelColor: Colors.black,
+                            isScrollable: true,
+                            indicator:
+                                DotTabIndicator(color: Color(0xFF00C2FF)),
+                            tabs: [
+                              Tab(
+                                child: Text(
+                                  "Favorit",
+                                ),
+                              ),
+                              Tab(
+                                child: Text(
+                                  "Semua",
+                                ),
+                              ),
+                              Tab(
+                                child: Text(
+                                  "Makanan",
+                                ),
+                              ),
+                              Tab(
+                                child: Text(
+                                  "Minuman",
+                                ),
                               ),
                             ],
-                          ),
-                        ),
-                      ),
-                    ),
-                    SliverPersistentHeader(
-                      floating: true,
-                      pinned: true,
-                      delegate: MyTabBarDelegate(
-                        TabBar(
-                          controller: controller.tabController,
-                          labelColor: Colors.black,
-                          unselectedLabelColor: Colors.black,
-                          isScrollable: true,
-                          indicator: DotTabIndicator(color: Color(0xFF00C2FF)),
-                          tabs: [
-                            Tab(
-                              child: Text(
-                                "Favorit",
+                            labelStyle: GoogleFonts.poppins(
+                              textStyle: TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight
+                                    .bold, // Font Weight untuk yang terpilih
                               ),
                             ),
-                            Tab(
-                              child: Text(
-                                "Semua",
+                            unselectedLabelStyle: GoogleFonts.poppins(
+                              textStyle: TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight
+                                    .normal, // Font Weight untuk yang tidak terpilih
                               ),
-                            ),
-                            Tab(
-                              child: Text(
-                                "Makanan",
-                              ),
-                            ),
-                            Tab(
-                              child: Text(
-                                "Minuman",
-                              ),
-                            ),
-                          ],
-                          labelStyle: GoogleFonts.poppins(
-                            textStyle: TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight
-                                  .bold, // Font Weight untuk yang terpilih
-                            ),
-                          ),
-                          unselectedLabelStyle: GoogleFonts.poppins(
-                            textStyle: TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight
-                                  .normal, // Font Weight untuk yang tidak terpilih
                             ),
                           ),
                         ),
                       ),
-                    ),
-                  ];
-                },
-                body: TabBarView(
-                    controller: controller.tabController,
-                    children: [Favorite(), Semua(), Makanan(), Minuman()]),
+                    ];
+                  },
+                  body: TabBarView(
+                      controller: controller.tabController,
+                      children: [Favorite(), Semua(), Makanan(), Minuman()]),
+                ),
               ),
-            ),
-            Align(
-                alignment: Alignment.bottomCenter,
-                child: Padding(
-                  padding: const EdgeInsets.all(15),
-                  child: Obx(
-                    () => AnimatedOpacity(
-                      duration: Duration(
-                          milliseconds:
-                              500), // Sesuaikan durasi fade in dan fade out
-                      opacity: controller.countc > 0 ? 1.0 : 0.0,
-                      child: Visibility(
-                        visible: controller.countc > 0,
-                        child: InkWell(
-                          onTap: () => Get.toNamed('/keranjang'),
-                          child: Container(
-                            //ini container info
-                            height: mediaHeight / 15,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: Color(0xFF2579FD),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.fromLTRB(7, 5, 7, 5),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.only(
-                                            top: 3, left: 15),
-                                        child: Container(
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                "${controller.countc.toString()}  ITEM",
-                                                style: GoogleFonts.poppins(
-                                                  textStyle: const TextStyle(
-                                                    fontSize: 16,
-                                                    color: Colors.white,
-                                                    fontWeight: FontWeight.w500,
+              Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: Obx(
+                      () => AnimatedOpacity(
+                        duration: Duration(
+                            milliseconds:
+                                500), // Sesuaikan durasi fade in dan fade out
+                        opacity: controller.countc > 0 ? 1.0 : 0.0,
+                        child: Visibility(
+                          visible: controller.countc > 0,
+                          child: InkWell(
+                            onTap: () {
+                              Get.toNamed('/keranjang');
+                              print(textScaleFactor);
+                            },
+                            child: Container(
+                              //ini container info
+                              height: mediaHeight *
+                                  0.07, // Use a percentage of the screen height
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: Color(0xFF2579FD),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.fromLTRB(7, 2, 7, 0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                              top: 0, left: 15),
+                                          child: Container(
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  "${controller.countc.toString()} item",
+                                                  style: GoogleFonts.poppins(
+                                                    textStyle: TextStyle(
+                                                      fontSize: 12,
+                                                      color: Colors.white,
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                    ),
                                                   ),
                                                 ),
-                                              ),
-                                              Text(
-                                                "Siap mengantar pesanan",
-                                                style: GoogleFonts.poppins(
-                                                  textStyle: const TextStyle(
-                                                    fontSize: 11,
-                                                    color: Colors.white,
-                                                    fontWeight:
-                                                        FontWeight.normal,
+                                                Container(
+                                                  width: mediaWidth * 0.5,
+                                                  child: Text(
+                                                    "Siap mengantar pesanan ",
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                    maxLines:
+                                                        1, // Set a maximum number of lines
+
+                                                    style: GoogleFonts.poppins(
+                                                      textStyle: TextStyle(
+                                                        fontSize: 12,
+                                                        color: Colors.white,
+                                                        fontWeight:
+                                                            FontWeight.normal,
+                                                      ),
+                                                    ),
                                                   ),
                                                 ),
-                                              ),
-                                            ],
+                                              ],
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                      Container(
-                                        padding:
-                                            EdgeInsets.only(top: 10, right: 8),
-                                        child: Center(
-                                          child: Row(
-                                            children: [
-                                              Text(
-                                                controller.totalPrice
-                                                    .toRupiah(),
-                                                style: GoogleFonts.poppins(
-                                                  textStyle: const TextStyle(
-                                                    fontSize: 14,
-                                                    color: Colors.white,
-                                                    fontWeight: FontWeight.w600,
+                                        Container(
+                                          padding: EdgeInsets.only(
+                                              top: 10, right: 8),
+                                          child: Center(
+                                            child: Row(
+                                              children: [
+                                                Text(
+                                                  controller.totalPrice
+                                                      .toRupiah(),
+                                                  style: GoogleFonts.poppins(
+                                                    textStyle: TextStyle(
+                                                      fontSize: 13,
+                                                      color: Colors.white,
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                    ),
                                                   ),
                                                 ),
-                                              ),
-                                              SizedBox(
-                                                width: 10,
-                                              ),
-                                              Icon(
-                                                Icons.shopping_cart,
-                                                size: 24,
-                                                color: Colors.white,
-                                              ),
-                                            ],
+                                                SizedBox(
+                                                  width: 10,
+                                                ),
+                                                Icon(
+                                                  Icons.shopping_cart,
+                                                  size: 24,
+                                                  color: Colors.white,
+                                                ),
+                                              ],
+                                            ),
                                           ),
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ],
+                                        )
+                                      ],
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                )),
-          ],
+                  )),
+            ],
+          ),
         ),
       ),
     );

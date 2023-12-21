@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../../data/providers/services.dart';
 import '../pesananKurir/controllers/pesananKurir_controller.dart';
 
 class KirimKurir extends StatefulWidget {
@@ -19,28 +20,37 @@ class _KirimKurirState extends State<KirimKurir> {
   PesananKurirController controllerc = Get.find<PesananKurirController>();
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: RefreshIndicator(
-        onRefresh: () async => await controllerc.loadUntukDikirim(),
-        child: CustomScrollView(
-          slivers: [
-            SliverList(
-              delegate: SliverChildListDelegate([
-                content(context),
-              ]),
-            )
-          ],
+    double textScaleFactor = MediaQuery.of(context).textScaleFactor;
+    final query = MediaQuery.of(context);
+    print('textscalefactor: ${query.textScaleFactor}');
+    print('devicePixelRatio: ${query.devicePixelRatio}');
+    return MediaQuery(
+      data: query.copyWith(
+          textScaleFactor: query.textScaleFactor.clamp(1.0, 1.15)),
+      child: Scaffold(
+        body: RefreshIndicator(
+          onRefresh: () async => await controllerc.loadUntukDikirim(),
+          child: CustomScrollView(
+            slivers: [
+              SliverList(
+                delegate: SliverChildListDelegate([
+                  content(context),
+                ]),
+              )
+            ],
+          ),
         ),
       ),
     );
   }
 
   Widget content(BuildContext context) {
+    double textScaleFactor = MediaQuery.of(context).textScaleFactor;
+
     final baseColorHex = 0xFFE0E0E0;
     final highlightColorHex = 0xFFC0C0C0;
     final mediaHeight =
         MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top;
-    String nama = "Politeknik Negeri Jember";
     return Container(
       child: Obx(() {
         if (controllerc.isLoading.value) {
@@ -108,12 +118,14 @@ class _KirimKurirState extends State<KirimKurir> {
                         children: [
                           ListTile(
                             leading: CircleAvatar(
-
-                              
-                              backgroundImage: NetworkImage(
-                                "https://i.ibb.co/PGv8ZzG/me.jpg",
-                              ),
-                            ),
+                                backgroundImage: orderData.transaksi!.foto !=
+                                        null
+                                    ? NetworkImage(
+                                        Api.gambar +
+                                            orderData.transaksi!.foto
+                                                .toString(),
+                                      ) as ImageProvider<Object>
+                                    : AssetImage("assets/logo_dikantin.png")),
                             title: Text(
                               "#${orderData.transaksi!.kodeTr.toString()}",
                               style: GoogleFonts.poppins(
@@ -126,7 +138,7 @@ class _KirimKurirState extends State<KirimKurir> {
                               orderData.transaksi!.tanggal.toString(),
                               style: GoogleFonts.poppins(
                                   textStyle: TextStyle(
-                                      fontSize: 14,
+                                      fontSize: 12,
                                       fontWeight: FontWeight.normal)),
                             ),
                           ),
@@ -251,7 +263,11 @@ class _KirimKurirState extends State<KirimKurir> {
                                                               Color(0xff3CA2D9),
                                                           fontWeight:
                                                               FontWeight.w700,
-                                                          fontSize: 18.0,
+                                                          fontSize:
+                                                              textScaleFactor <=
+                                                                      1.15
+                                                                  ? 14
+                                                                  : 14,
                                                         ),
                                                       ),
                                                     ),

@@ -23,23 +23,32 @@ class _KirimState extends State<Kirim> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: RefreshIndicator(
-        onRefresh: () async => await controller.loadDikirim(),
-        child: CustomScrollView(
-          slivers: [
-            SliverList(
-              delegate: SliverChildListDelegate([
-                content(context),
-              ]),
-            )
-          ],
+    final query = MediaQuery.of(context);
+    print('textscalefactor: ${query.textScaleFactor}');
+    print('devicePixelRatio: ${query.devicePixelRatio}');
+    return MediaQuery(
+      data: query.copyWith(
+          textScaleFactor: query.textScaleFactor.clamp(1.0, 1.15)),
+      child: Scaffold(
+        body: RefreshIndicator(
+          onRefresh: () async => await controller.loadDikirim(),
+          child: CustomScrollView(
+            slivers: [
+              SliverList(
+                delegate: SliverChildListDelegate([
+                  content(context),
+                ]),
+              )
+            ],
+          ),
         ),
       ),
     );
   }
 
   Widget content(BuildContext context) {
+    double textScaleFactor = MediaQuery.of(context).textScaleFactor;
+
     final baseColorHex = 0xFFE0E0E0;
     final highlightColorHex = 0xFFC0C0C0;
     final mediaHeight =
@@ -125,7 +134,7 @@ class _KirimState extends State<Kirim> {
                             title: Text(
                               "#${orderData.transaksi!.kodeTr.toString()}",
                               style: GoogleFonts.poppins(
-                                  textStyle: const TextStyle(
+                                  textStyle: TextStyle(
                                       fontSize: 14,
                                       color: Colors.black,
                                       fontWeight: FontWeight.bold)),
@@ -133,8 +142,8 @@ class _KirimState extends State<Kirim> {
                             subtitle: Text(
                               orderData.transaksi!.tanggal.toString(),
                               style: GoogleFonts.poppins(
-                                  textStyle: const TextStyle(
-                                      fontSize: 14,
+                                  textStyle: TextStyle(
+                                      fontSize: 12,
                                       fontWeight: FontWeight.normal)),
                             ),
                           ),
@@ -152,7 +161,7 @@ class _KirimState extends State<Kirim> {
                                       Text(
                                         "Total Menu",
                                         style: GoogleFonts.poppins(
-                                            textStyle: const TextStyle(
+                                            textStyle: TextStyle(
                                                 fontSize: 14,
                                                 color: Colors.black,
                                                 fontWeight: FontWeight.normal)),
@@ -160,7 +169,7 @@ class _KirimState extends State<Kirim> {
                                       Text(
                                         "${orderData.transaksi!.detailTransaksi!.length.toString()} menu",
                                         style: GoogleFonts.poppins(
-                                            textStyle: const TextStyle(
+                                            textStyle: TextStyle(
                                                 fontSize: 14,
                                                 color: Colors.black,
                                                 fontWeight: FontWeight.bold)),
@@ -177,7 +186,7 @@ class _KirimState extends State<Kirim> {
                                       Text(
                                         "Total",
                                         style: GoogleFonts.poppins(
-                                            textStyle: const TextStyle(
+                                            textStyle: TextStyle(
                                                 fontSize: 14,
                                                 color: Colors.black,
                                                 fontWeight: FontWeight.normal)),
@@ -185,7 +194,7 @@ class _KirimState extends State<Kirim> {
                                       Text(
                                         totalHarga.toRupiah(),
                                         style: GoogleFonts.poppins(
-                                            textStyle: const TextStyle(
+                                            textStyle: TextStyle(
                                                 fontSize: 14,
                                                 color: Colors.black,
                                                 fontWeight: FontWeight.bold)),
@@ -205,9 +214,13 @@ class _KirimState extends State<Kirim> {
                                               color: Colors.black,
                                               fontWeight: FontWeight.normal)),
                                       Text(
-                                        orderData.status.toString(),
+                                        orderData.status
+                                                .toString()
+                                                .contains('null')
+                                            ? ''
+                                            : orderData.status.toString(),
                                         style: GoogleFonts.poppins(
-                                            textStyle: const TextStyle(
+                                            textStyle: TextStyle(
                                                 fontSize: 14,
                                                 color: Colors.red,
                                                 fontWeight: FontWeight.bold)),

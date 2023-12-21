@@ -1,10 +1,8 @@
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import '../../../data/models/pesanan_kirim_model.dart';
-import '../../../data/models/pesanan_model.dart';
 import '../../../data/providers/pesanan_provider.dart';
 
 class PesananKurirController extends GetxController
@@ -96,7 +94,15 @@ class PesananKurirController extends GetxController
         ScanMode.QR,
       );
 
-      if (scannedQrCode != "-1") {
+      if (kode_tr != scannedQrCode) {
+        Get.snackbar("Scan Gagal, ", "Kode Tidak Sesuai",
+            snackPosition: SnackPosition.BOTTOM,
+            duration: Duration(seconds: 5),
+            backgroundColor: Colors.red,
+            colorText: Colors.white);
+      }
+
+      if (scannedQrCode == kode_tr) {
         Get.snackbar("Scan Berhasil, ", "Menunggu Konfirmasi Admin",
             snackPosition: SnackPosition.BOTTOM,
             duration: Duration(seconds: 5),
@@ -142,6 +148,7 @@ class PesananKurirController extends GetxController
       print('Error fetching data: $error');
     }
   }
+
   Future<void> loadRiwayatKurir() async {
     try {
       isLoading(true);

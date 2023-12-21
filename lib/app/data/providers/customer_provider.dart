@@ -4,7 +4,6 @@ import 'package:dikantin/app/data/providers/services.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import "package:http/http.dart" as http;
-import '../models/customer_model.dart';
 import '../models/profile_kurir_model.dart';
 
 class CustomerProvider extends GetxController {
