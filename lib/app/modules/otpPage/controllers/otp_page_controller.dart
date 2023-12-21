@@ -1,11 +1,7 @@
 import 'package:dikantin/app/data/providers/auth_provider.dart';
-import 'package:dikantin/app/data/providers/services.dart';
-import 'package:dikantin/app/modules/forgotPassword/controllers/forgot_password_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:http/http.dart';
 import 'package:lottie/lottie.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class OtpPageController extends GetxController {
   //TODO: Implement OtpPageController

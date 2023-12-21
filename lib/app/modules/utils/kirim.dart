@@ -135,8 +135,7 @@ class _KirimState extends State<Kirim> {
                               "#${orderData.transaksi!.kodeTr.toString()}",
                               style: GoogleFonts.poppins(
                                   textStyle: TextStyle(
-                                      fontSize:
-                                          textScaleFactor <= 1.15 ? 14 : 12,
+                                      fontSize: 14,
                                       color: Colors.black,
                                       fontWeight: FontWeight.bold)),
                             ),
@@ -144,8 +143,7 @@ class _KirimState extends State<Kirim> {
                               orderData.transaksi!.tanggal.toString(),
                               style: GoogleFonts.poppins(
                                   textStyle: TextStyle(
-                                      fontSize:
-                                          textScaleFactor <= 1.15 ? 14 : 12,
+                                      fontSize: 12,
                                       fontWeight: FontWeight.normal)),
                             ),
                           ),
@@ -164,10 +162,7 @@ class _KirimState extends State<Kirim> {
                                         "Total Menu",
                                         style: GoogleFonts.poppins(
                                             textStyle: TextStyle(
-                                                fontSize:
-                                                    textScaleFactor <= 1.15
-                                                        ? 14
-                                                        : 12,
+                                                fontSize: 14,
                                                 color: Colors.black,
                                                 fontWeight: FontWeight.normal)),
                                       ),
@@ -175,10 +170,7 @@ class _KirimState extends State<Kirim> {
                                         "${orderData.transaksi!.detailTransaksi!.length.toString()} menu",
                                         style: GoogleFonts.poppins(
                                             textStyle: TextStyle(
-                                                fontSize:
-                                                    textScaleFactor <= 1.15
-                                                        ? 14
-                                                        : 12,
+                                                fontSize: 14,
                                                 color: Colors.black,
                                                 fontWeight: FontWeight.bold)),
                                       ),
@@ -195,10 +187,7 @@ class _KirimState extends State<Kirim> {
                                         "Total",
                                         style: GoogleFonts.poppins(
                                             textStyle: TextStyle(
-                                                fontSize:
-                                                    textScaleFactor <= 1.15
-                                                        ? 14
-                                                        : 12,
+                                                fontSize: 14,
                                                 color: Colors.black,
                                                 fontWeight: FontWeight.normal)),
                                       ),
@@ -206,10 +195,7 @@ class _KirimState extends State<Kirim> {
                                         totalHarga.toRupiah(),
                                         style: GoogleFonts.poppins(
                                             textStyle: TextStyle(
-                                                fontSize:
-                                                    textScaleFactor <= 1.15
-                                                        ? 14
-                                                        : 12,
+                                                fontSize: 14,
                                                 color: Colors.black,
                                                 fontWeight: FontWeight.bold)),
                                       )
@@ -224,9 +210,7 @@ class _KirimState extends State<Kirim> {
                                     children: [
                                       Text("Status",
                                           style: GoogleFonts.poppins(
-                                              fontSize: textScaleFactor <= 1.15
-                                                  ? 14
-                                                  : 12,
+                                              fontSize: 14,
                                               color: Colors.black,
                                               fontWeight: FontWeight.normal)),
                                       Text(
@@ -237,10 +221,7 @@ class _KirimState extends State<Kirim> {
                                             : orderData.status.toString(),
                                         style: GoogleFonts.poppins(
                                             textStyle: TextStyle(
-                                                fontSize:
-                                                    textScaleFactor <= 1.15
-                                                        ? 14
-                                                        : 12,
+                                                fontSize: 14,
                                                 color: Colors.red,
                                                 fontWeight: FontWeight.bold)),
                                       ),

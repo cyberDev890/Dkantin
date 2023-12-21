@@ -141,7 +141,7 @@ class HomeView extends GetView<HomeController> {
                                               style: GoogleFonts.poppins(
                                                 textStyle: TextStyle(
                                                   color: Color(0xFF00C2FF),
-                                                  fontSize: 10,
+                                                  fontSize: 12,
                                                   fontWeight: FontWeight.bold,
                                                 ),
                                               ),
@@ -288,11 +288,7 @@ class HomeView extends GetView<HomeController> {
                                                   "${controller.countc.toString()} item",
                                                   style: GoogleFonts.poppins(
                                                     textStyle: TextStyle(
-                                                      fontSize:
-                                                          textScaleFactor <=
-                                                                  1.15
-                                                              ? 12
-                                                              : 12,
+                                                      fontSize: 12,
                                                       color: Colors.white,
                                                       fontWeight:
                                                           FontWeight.w500,
@@ -310,11 +306,7 @@ class HomeView extends GetView<HomeController> {
 
                                                     style: GoogleFonts.poppins(
                                                       textStyle: TextStyle(
-                                                        fontSize:
-                                                            textScaleFactor <=
-                                                                    1.15
-                                                                ? 12
-                                                                : 12,
+                                                        fontSize: 12,
                                                         color: Colors.white,
                                                         fontWeight:
                                                             FontWeight.normal,
@@ -337,11 +329,7 @@ class HomeView extends GetView<HomeController> {
                                                       .toRupiah(),
                                                   style: GoogleFonts.poppins(
                                                     textStyle: TextStyle(
-                                                      fontSize:
-                                                          textScaleFactor <=
-                                                                  1.15
-                                                              ? 13
-                                                              : 13,
+                                                      fontSize: 13,
                                                       color: Colors.white,
                                                       fontWeight:
                                                           FontWeight.w600,
@@ -353,9 +341,7 @@ class HomeView extends GetView<HomeController> {
                                                 ),
                                                 Icon(
                                                   Icons.shopping_cart,
-                                                  size: textScaleFactor <= 1.15
-                                                      ? 24
-                                                      : 24,
+                                                  size: 24,
                                                   color: Colors.white,
                                                 ),
                                               ],

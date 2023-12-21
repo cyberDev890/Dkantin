@@ -1,7 +1,6 @@
 // ignore_for_file: unused_local_variable
 
 import 'package:carbon_icons/carbon_icons.dart';
-import 'package:dikantin/app/data/models/keranjang_model.dart';
 import 'package:dikantin/app/modules/order/views/order_view.dart';
 import 'package:dikantin/app/modules/utils/formatDate.dart';
 import 'package:flutter/material.dart';
@@ -458,7 +457,7 @@ class KeranjangView extends GetView<KeranjangController> {
                                                                             "Simpan",
                                                                             style:
                                                                                 GoogleFonts.poppins(
-                                                                              fontSize: textScaleFactor <= 1.15 ? 16 : 13,
+                                                                              fontSize: 14,
                                                                             )),
                                                                       ),
                                                                     ],
@@ -513,15 +512,13 @@ class KeranjangView extends GetView<KeranjangController> {
                   children: [
                     Text("Jumlah : ${homeController.count}",
                         style: GoogleFonts.poppins(
-                            fontSize: textScaleFactor <= 1.15 ? 16 : 13,
-                            fontWeight: FontWeight.bold)),
+                            fontSize: 14, fontWeight: FontWeight.bold)),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(homeController.totalPrice.toRupiah(),
                             style: GoogleFonts.poppins(
-                                fontSize: textScaleFactor <= 1.15 ? 15 : 13,
-                                fontWeight: FontWeight.bold)),
+                                fontSize: 14, fontWeight: FontWeight.bold)),
                         ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.blue,
@@ -538,8 +535,7 @@ class KeranjangView extends GetView<KeranjangController> {
                           },
                           child: Text("Pesan Sekarang",
                               style: GoogleFonts.poppins(
-                                fontSize: textScaleFactor <= 1.15 ? 16 : 13,
-                              )),
+                                  fontSize: 14, fontWeight: FontWeight.w500)),
                         ),
                       ],
                     ),

@@ -83,7 +83,7 @@ class ProfileProvider with ChangeNotifier {
       if (response.statusCode == 200) {
         Get.snackbar(
           'Perhatian',
-          'Alamat Berhasil diganti',
+          'Alamat Berhasil Diubah',
           snackPosition: SnackPosition.TOP, // Menampilkan Snackbar dari atas
           duration: Duration(seconds: 2),
         );

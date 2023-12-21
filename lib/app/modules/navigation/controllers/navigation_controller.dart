@@ -1,7 +1,4 @@
-import 'package:dikantin/app/modules/home/views/home_view.dart';
-import 'package:dikantin/app/modules/pesanan/views/pesanan_view.dart';
 import 'package:get/get.dart';
-import 'package:flutter/material.dart';
 
 class NavigationController extends GetxController {
   //TODO: Implement NavigationController

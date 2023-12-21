@@ -1,8 +1,5 @@
-import 'package:dikantin/app/modules/utils/Konfirmasi.dart';
 import 'package:dikantin/app/modules/utils/KonfirmasiKurir.dart';
-import 'package:dikantin/app/modules/utils/kirim.dart';
 import 'package:dikantin/app/modules/utils/kirimKurir.dart';
-import 'package:dikantin/app/modules/utils/proses.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -63,7 +60,7 @@ class PesananKurirView extends GetView<PesananKurirController> {
                   pesananKurirController.orderUntukDikirim.length.toString(),
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: textScaleFactor <= 1.15 ? 12 : 12,
+                    fontSize: 12,
                   ),
                 ),
                 position: badges.BadgePosition.topEnd(top: -10, end: -15),
@@ -85,7 +82,7 @@ class PesananKurirView extends GetView<PesananKurirController> {
                   pesananKurirController.orderKonfirmasi.length.toString(),
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: textScaleFactor <= 1.15 ? 12 : 12,
+                    fontSize: 12,
                   ),
                 ),
                 position: badges.BadgePosition.topEnd(top: -12, end: -15),
@@ -101,14 +98,14 @@ class PesananKurirView extends GetView<PesananKurirController> {
           ],
           labelStyle: GoogleFonts.poppins(
             textStyle: TextStyle(
-              fontSize: textScaleFactor <= 1.15 ? 14 : 12,
+              fontSize: 14,
               color: Colors.black,
               fontWeight: FontWeight.bold, // Font Weight untuk yang terpilih
             ),
           ),
           unselectedLabelStyle: GoogleFonts.poppins(
             textStyle: TextStyle(
-              fontSize: textScaleFactor <= 1.15 ? 14 : 12,
+              fontSize: 14,
               fontWeight:
                   FontWeight.normal, // Font Weight untuk yang tidak terpilih
             ),

@@ -94,7 +94,7 @@ class FcmService {
       channelDescription: 'your channel description',
       importance: Importance.high,
       priority: Priority.high,
-      playSound: true,
+      playSound :true,
       ticker: 'ticker',
       //     sound: RawResourceAndroidNotificationSound('jetsons_doorbell')
       //  icon: largeIconPath

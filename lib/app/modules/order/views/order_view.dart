@@ -76,8 +76,7 @@ class OrderView extends GetView<OrderController> {
                       children: [
                         Text("Delivery Address",
                             style: GoogleFonts.poppins(
-                                fontSize: textScaleFactor <= 1.15 ? 15 : 13,
-                                fontWeight: FontWeight.bold)),
+                                fontSize: 14, fontWeight: FontWeight.bold)),
                         SizedBox(
                           height: 5,
                         ),
@@ -120,8 +119,7 @@ class OrderView extends GetView<OrderController> {
                                   Text(
                                     "Edit Address",
                                     style: TextStyle(
-                                        fontSize:
-                                            textScaleFactor <= 1.15 ? 15 : 12,
+                                        fontSize: 12,
                                         color: Colors.black,
                                         fontWeight: FontWeight.w500),
                                   ),
@@ -328,7 +326,7 @@ class OrderView extends GetView<OrderController> {
                             'Total Payment',
                             style: GoogleFonts.poppins(
                               textStyle: TextStyle(
-                                fontSize: textScaleFactor <= 1.15 ? 15 : 12,
+                                fontSize: 14,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.black,
                               ),
@@ -338,7 +336,7 @@ class OrderView extends GetView<OrderController> {
                             homeController.totalPrice.toRupiah(),
                             style: GoogleFonts.poppins(
                               textStyle: TextStyle(
-                                fontSize: textScaleFactor <= 1.15 ? 15 : 12,
+                                fontSize: 14,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.black,
                               ),
@@ -379,8 +377,7 @@ class OrderView extends GetView<OrderController> {
                                           : ' Polije Pay ',
                                       style: GoogleFonts.poppins(
                                         textStyle: TextStyle(
-                                          fontSize:
-                                              textScaleFactor <= 1.15 ? 15 : 12,
+                                          fontSize: 14,
                                           fontWeight: FontWeight.normal,
                                           color: Colors.blue,
                                         ),
@@ -446,7 +443,7 @@ class OrderView extends GetView<OrderController> {
                           'Pesan',
                           style: GoogleFonts.poppins(
                             textStyle: TextStyle(
-                              fontSize: textScaleFactor <= 1.15 ? 15 : 12,
+                              fontSize: 14,
                               fontWeight: FontWeight.bold,
                               color: Colors.white,
                             ),

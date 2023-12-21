@@ -55,8 +55,8 @@ class LoginController extends GetxController {
       if (!connectivityHelper.hasConnection.value) {
         // Tampilkan Snackbar bahwa tidak ada koneksi
         Get.snackbar(
-          'Connection Error',
-          'Check your internet connection',
+          'Koneksi Eror',
+          'Cek Koneksi Internet anda',
           backgroundColor: Colors.red,
           colorText: Colors.white,
           duration: Duration(seconds: 2),
@@ -95,8 +95,8 @@ class LoginController extends GetxController {
       if (!connectivityHelper.hasConnection.value) {
         // Tampilkan Snackbar bahwa tidak ada koneksi
         Get.snackbar(
-          'Connection Error',
-          'Check your internet connection',
+          'Koneksi Eror',
+          'Cek Koneksi Internet anda',
           backgroundColor: Colors.red,
           colorText: Colors.white,
           duration: Duration(seconds: 2),

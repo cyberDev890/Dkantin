@@ -12,8 +12,6 @@ import '../controllers/detail_transaksi_controller.dart';
 
 // ignore_for_file: camel_case_types, prefer_typing_uninitialized_variables
 
-import 'package:flutter/material.dart';
-
 class DetailTransaksiView extends GetView<DetailTransaksiController> {
   const DetailTransaksiView({Key? key}) : super(key: key);
   @override
@@ -115,7 +113,7 @@ class DetailTransaksiView extends GetView<DetailTransaksiController> {
                                 'Nomor Pesanan :',
                                 style: GoogleFonts.poppins(
                                   textStyle: TextStyle(
-                                    fontSize: textScaleFactor <= 1.15 ? 15 : 12,
+                                    fontSize: 14,
                                     fontWeight: FontWeight.normal,
                                     color: Colors.black,
                                   ),
@@ -128,7 +126,7 @@ class DetailTransaksiView extends GetView<DetailTransaksiController> {
                                 '#${transaksi!.kodeTr}',
                                 style: GoogleFonts.poppins(
                                   textStyle: TextStyle(
-                                    fontSize: textScaleFactor <= 1.15 ? 14 : 11,
+                                    fontSize: 12,
                                     fontWeight: FontWeight.w700,
                                     color: Colors.black,
                                   ),
@@ -145,7 +143,7 @@ class DetailTransaksiView extends GetView<DetailTransaksiController> {
                                 'Waktu Pemesanan :',
                                 style: GoogleFonts.poppins(
                                   textStyle: TextStyle(
-                                    fontSize: textScaleFactor <= 1.15 ? 15 : 12,
+                                    fontSize: 14,
                                     fontWeight: FontWeight.normal,
                                     color: Colors.black,
                                   ),
@@ -158,7 +156,7 @@ class DetailTransaksiView extends GetView<DetailTransaksiController> {
                                 transaksi.tanggal.toString(),
                                 style: GoogleFonts.poppins(
                                   textStyle: TextStyle(
-                                    fontSize: textScaleFactor <= 1.15 ? 14 : 11,
+                                    fontSize: 12,
                                     fontWeight: FontWeight.normal,
                                     color: Colors.black,
                                   ),
@@ -228,11 +226,7 @@ class DetailTransaksiView extends GetView<DetailTransaksiController> {
                                                     detailTransaksi.menu!.nama
                                                         .toString(),
                                                     style: TextStyle(
-                                                        fontSize:
-                                                            textScaleFactor <=
-                                                                    1.15
-                                                                ? 15
-                                                                : 12,
+                                                        fontSize: 12,
                                                         color: Colors.black,
                                                         fontWeight:
                                                             FontWeight.w500),
@@ -248,11 +242,7 @@ class DetailTransaksiView extends GetView<DetailTransaksiController> {
                                                       Text(
                                                         "Kantin: ${detailTransaksi.menu!.idKantin.toString()}",
                                                         style: TextStyle(
-                                                            fontSize:
-                                                                textScaleFactor <=
-                                                                        1.15
-                                                                    ? 15
-                                                                    : 12,
+                                                            fontSize: 12,
                                                             color: Colors.grey,
                                                             fontWeight:
                                                                 FontWeight
@@ -269,11 +259,7 @@ class DetailTransaksiView extends GetView<DetailTransaksiController> {
                                                                 .statusKonfirm
                                                                 .toString(),
                                                         style: TextStyle(
-                                                            fontSize:
-                                                                textScaleFactor <=
-                                                                        1.15
-                                                                    ? 15
-                                                                    : 12,
+                                                            fontSize: 12,
                                                             color: Colors.grey,
                                                             fontWeight:
                                                                 FontWeight
@@ -292,11 +278,7 @@ class DetailTransaksiView extends GetView<DetailTransaksiController> {
                                                         Text(
                                                           harga.toRupiah(),
                                                           style: TextStyle(
-                                                              fontSize:
-                                                                  textScaleFactor <=
-                                                                          1.15
-                                                                      ? 15
-                                                                      : 12,
+                                                              fontSize: 12,
                                                               color:
                                                                   Colors.black,
                                                               fontWeight:
@@ -306,11 +288,7 @@ class DetailTransaksiView extends GetView<DetailTransaksiController> {
                                                         Text(
                                                           "* ${detailTransaksi.qTY.toString()}",
                                                           style: TextStyle(
-                                                              fontSize:
-                                                                  textScaleFactor <=
-                                                                          1.15
-                                                                      ? 15
-                                                                      : 12,
+                                                              fontSize: 12,
                                                               color:
                                                                   Colors.black,
                                                               fontWeight:
@@ -349,8 +327,7 @@ class DetailTransaksiView extends GetView<DetailTransaksiController> {
                                       'Note :',
                                       style: GoogleFonts.poppins(
                                         textStyle: TextStyle(
-                                          fontSize:
-                                              textScaleFactor <= 1.15 ? 13 : 11,
+                                          fontSize: 12,
                                           fontWeight: FontWeight.w600,
                                           color: Colors.black,
                                         ),
@@ -360,8 +337,7 @@ class DetailTransaksiView extends GetView<DetailTransaksiController> {
                                       'Tunjukkan kode barcode di sebelah \nkepada kurir jika makanan sampai ',
                                       style: GoogleFonts.poppins(
                                         textStyle: TextStyle(
-                                          fontSize:
-                                              textScaleFactor <= 1.15 ? 10 : 10,
+                                          fontSize: 10,
                                           fontWeight: FontWeight.w600,
                                           color: Colors.black,
                                         ),
@@ -397,7 +373,7 @@ class DetailTransaksiView extends GetView<DetailTransaksiController> {
                             'Informasi Pembayaran',
                             style: GoogleFonts.poppins(
                               textStyle: TextStyle(
-                                fontSize: textScaleFactor <= 1.15 ? 14 : 13,
+                                fontSize: 14,
                                 fontWeight: FontWeight.w600,
                                 color: Colors.black,
                               ),
@@ -414,7 +390,7 @@ class DetailTransaksiView extends GetView<DetailTransaksiController> {
                                 'Metode Pembayaran  :',
                                 style: GoogleFonts.poppins(
                                   textStyle: TextStyle(
-                                    fontSize: textScaleFactor <= 1.15 ? 12 : 12,
+                                    fontSize: 12,
                                     fontWeight: FontWeight.w500,
                                     color: Colors.black,
                                   ),
@@ -424,7 +400,7 @@ class DetailTransaksiView extends GetView<DetailTransaksiController> {
                                 transaksi!.modelPembayaran.toString(),
                                 style: GoogleFonts.poppins(
                                   textStyle: TextStyle(
-                                    fontSize: textScaleFactor <= 1.15 ? 12 : 12,
+                                    fontSize: 12,
                                     fontWeight: FontWeight.w500,
                                     color: Colors.black,
                                   ),
@@ -439,7 +415,7 @@ class DetailTransaksiView extends GetView<DetailTransaksiController> {
                                 'Total :',
                                 style: GoogleFonts.poppins(
                                   textStyle: TextStyle(
-                                    fontSize: textScaleFactor <= 1.15 ? 12 : 12,
+                                    fontSize: 12,
                                     fontWeight: FontWeight.w500,
                                     color: Colors.black,
                                   ),
@@ -449,7 +425,7 @@ class DetailTransaksiView extends GetView<DetailTransaksiController> {
                                 totalBayar.toRupiah(),
                                 style: GoogleFonts.poppins(
                                   textStyle: TextStyle(
-                                    fontSize: textScaleFactor <= 1.15 ? 12 : 12,
+                                    fontSize: 12,
                                     fontWeight: FontWeight.w500,
                                     color: Colors.black,
                                   ),
@@ -464,7 +440,7 @@ class DetailTransaksiView extends GetView<DetailTransaksiController> {
                                 'Diskon :',
                                 style: GoogleFonts.poppins(
                                   textStyle: TextStyle(
-                                    fontSize: textScaleFactor <= 1.15 ? 12 : 12,
+                                    fontSize: 12,
                                     fontWeight: FontWeight.w500,
                                     color: Colors.black,
                                   ),
@@ -474,7 +450,7 @@ class DetailTransaksiView extends GetView<DetailTransaksiController> {
                                 'Rp 0',
                                 style: GoogleFonts.poppins(
                                   textStyle: TextStyle(
-                                    fontSize: textScaleFactor <= 1.15 ? 12 : 12,
+                                    fontSize: 12,
                                     fontWeight: FontWeight.w500,
                                     color: Colors.black,
                                   ),
@@ -489,7 +465,7 @@ class DetailTransaksiView extends GetView<DetailTransaksiController> {
                                 'Kembalian :',
                                 style: GoogleFonts.poppins(
                                   textStyle: TextStyle(
-                                    fontSize: textScaleFactor <= 1.15 ? 12 : 12,
+                                    fontSize: 12,
                                     fontWeight: FontWeight.w500,
                                     color: Colors.black,
                                   ),
@@ -499,7 +475,7 @@ class DetailTransaksiView extends GetView<DetailTransaksiController> {
                                 'Rp 0',
                                 style: GoogleFonts.poppins(
                                   textStyle: TextStyle(
-                                    fontSize: textScaleFactor <= 1.15 ? 12 : 12,
+                                    fontSize: 12,
                                     fontWeight: FontWeight.w500,
                                     color: Colors.black,
                                   ),
@@ -514,7 +490,7 @@ class DetailTransaksiView extends GetView<DetailTransaksiController> {
                                 'Total bayar :',
                                 style: GoogleFonts.poppins(
                                   textStyle: TextStyle(
-                                    fontSize: textScaleFactor <= 1.15 ? 12 : 12,
+                                    fontSize: 12,
                                     fontWeight: FontWeight.w500,
                                     color: Colors.black,
                                   ),
@@ -524,7 +500,7 @@ class DetailTransaksiView extends GetView<DetailTransaksiController> {
                                 totalBayar.toRupiah(),
                                 style: GoogleFonts.poppins(
                                   textStyle: TextStyle(
-                                    fontSize: textScaleFactor <= 1.15 ? 12 : 12,
+                                    fontSize: 12,
                                     fontWeight: FontWeight.w500,
                                     color: Colors.black,
                                   ),

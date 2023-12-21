@@ -291,7 +291,7 @@ class ProfileView extends GetView<ProfileController> {
                         style: TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.bold,
-                          fontSize: textScaleFactor <= 1.15 ? 13 : 12,
+                          fontSize: 12,
                         ),
                       ),
                       Spacer(),
@@ -339,7 +339,7 @@ class ProfileView extends GetView<ProfileController> {
                         style: TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.bold,
-                          fontSize: textScaleFactor <= 1.15 ? 13 : 12,
+                          fontSize: 12,
                         ),
                       ),
                       Spacer(),
@@ -392,7 +392,7 @@ class ProfileView extends GetView<ProfileController> {
                         style: TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.bold,
-                          fontSize: textScaleFactor <= 1.15 ? 13 : 12,
+                          fontSize: 12,
                         ),
                       ),
                       Spacer(),
@@ -447,7 +447,7 @@ class ProfileView extends GetView<ProfileController> {
                         style: TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.bold,
-                          fontSize: textScaleFactor <= 1.15 ? 13 : 12,
+                          fontSize: 12,
                         ),
                       ),
                       Spacer(),

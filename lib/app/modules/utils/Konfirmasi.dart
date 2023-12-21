@@ -135,8 +135,7 @@ class _KonfirmasiState extends State<Konfirmasi> {
                               "#${orderData.transaksi!.kodeTr.toString()}",
                               style: GoogleFonts.poppins(
                                   textStyle: TextStyle(
-                                      fontSize:
-                                          textScaleFactor <= 1.15 ? 14 : 12,
+                                      fontSize: 14,
                                       color: Colors.black,
                                       fontWeight: FontWeight.bold)),
                             ),
@@ -144,8 +143,7 @@ class _KonfirmasiState extends State<Konfirmasi> {
                               orderData.transaksi!.tanggal.toString(),
                               style: GoogleFonts.poppins(
                                   textStyle: TextStyle(
-                                      fontSize:
-                                          textScaleFactor <= 1.15 ? 14 : 12,
+                                      fontSize: 12,
                                       fontWeight: FontWeight.normal)),
                             ),
                           ),
@@ -164,10 +162,7 @@ class _KonfirmasiState extends State<Konfirmasi> {
                                         "Total Menu",
                                         style: GoogleFonts.poppins(
                                             textStyle: TextStyle(
-                                                fontSize:
-                                                    textScaleFactor <= 1.15
-                                                        ? 14
-                                                        : 12,
+                                                fontSize: 14,
                                                 color: Colors.black,
                                                 fontWeight: FontWeight.normal)),
                                       ),
@@ -175,10 +170,7 @@ class _KonfirmasiState extends State<Konfirmasi> {
                                         "${orderData.transaksi!.detailTransaksi!.length.toString()} menu",
                                         style: GoogleFonts.poppins(
                                             textStyle: TextStyle(
-                                                fontSize:
-                                                    textScaleFactor <= 1.15
-                                                        ? 14
-                                                        : 12,
+                                                fontSize: 14,
                                                 color: Colors.black,
                                                 fontWeight: FontWeight.bold)),
                                       ),
@@ -195,10 +187,7 @@ class _KonfirmasiState extends State<Konfirmasi> {
                                         "Total",
                                         style: GoogleFonts.poppins(
                                             textStyle: TextStyle(
-                                                fontSize:
-                                                    textScaleFactor <= 1.15
-                                                        ? 14
-                                                        : 12,
+                                                fontSize: 14,
                                                 color: Colors.black,
                                                 fontWeight: FontWeight.normal)),
                                       ),
@@ -206,10 +195,7 @@ class _KonfirmasiState extends State<Konfirmasi> {
                                         totalHarga.toRupiah(),
                                         style: GoogleFonts.poppins(
                                             textStyle: TextStyle(
-                                                fontSize:
-                                                    textScaleFactor <= 1.15
-                                                        ? 14
-                                                        : 12,
+                                                fontSize: 14,
                                                 color: Colors.black,
                                                 fontWeight: FontWeight.bold)),
                                       )
@@ -224,9 +210,7 @@ class _KonfirmasiState extends State<Konfirmasi> {
                                     children: [
                                       Text("Status",
                                           style: GoogleFonts.poppins(
-                                              fontSize: textScaleFactor <= 1.15
-                                                  ? 14
-                                                  : 12,
+                                              fontSize: 14,
                                               color: Colors.black,
                                               fontWeight: FontWeight.normal)),
                                       Text(
@@ -237,10 +221,7 @@ class _KonfirmasiState extends State<Konfirmasi> {
                                             : orderData.status.toString(),
                                         style: GoogleFonts.poppins(
                                             textStyle: TextStyle(
-                                                fontSize:
-                                                    textScaleFactor <= 1.15
-                                                        ? 14
-                                                        : 12,
+                                                fontSize: 14,
                                                 color: Colors.red,
                                                 fontWeight: FontWeight.bold)),
                                       ),

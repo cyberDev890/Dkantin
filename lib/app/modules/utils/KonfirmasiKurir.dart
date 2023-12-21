@@ -6,8 +6,6 @@ import 'package:lottie/lottie.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../data/providers/services.dart';
-import '../detailTransaksi/views/detail_transaksi_view.dart';
-import '../pesanan/controllers/pesanan_controller.dart';
 import '../pesananKurir/controllers/pesananKurir_controller.dart';
 
 class Konfirmasikurir extends StatefulWidget {
@@ -137,8 +135,7 @@ class _KonfirmasikurirState extends State<Konfirmasikurir> {
                               "#${orderData.transaksi!.kodeTr.toString()}",
                               style: GoogleFonts.poppins(
                                   textStyle: TextStyle(
-                                      fontSize:
-                                          textScaleFactor <= 1.15 ? 14 : 12,
+                                      fontSize: 14,
                                       color: Colors.black,
                                       fontWeight: FontWeight.bold)),
                             ),
@@ -146,8 +143,7 @@ class _KonfirmasikurirState extends State<Konfirmasikurir> {
                               orderData.transaksi!.tanggal.toString(),
                               style: GoogleFonts.poppins(
                                   textStyle: TextStyle(
-                                      fontSize:
-                                          textScaleFactor <= 1.15 ? 13 : 12,
+                                      fontSize: 12,
                                       fontWeight: FontWeight.normal)),
                             ),
                           ),
@@ -155,9 +151,60 @@ class _KonfirmasikurirState extends State<Konfirmasikurir> {
                             padding: EdgeInsets.all(10),
                             // color: Colors.blue,
                             child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        "Nama",
+                                        style: GoogleFonts.poppins(
+                                            textStyle: TextStyle(
+                                                fontSize: 14,
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.normal)),
+                                      ),
+                                      Text(
+                                        orderData.transaksi!.nama ?? '',
+                                        style: GoogleFonts.poppins(
+                                            textStyle: TextStyle(
+                                                fontSize: 14,
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.w600)),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 5,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        "No. Telepon",
+                                        style: GoogleFonts.poppins(
+                                            textStyle: TextStyle(
+                                                fontSize: 14,
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.normal)),
+                                      ),
+                                      Text(
+                                        orderData.transaksi!.noTelepon ?? '',
+                                        style: GoogleFonts.poppins(
+                                            textStyle: TextStyle(
+                                                fontSize: 14,
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.w600)),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 5,
+                                  ),
                                   Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
@@ -166,10 +213,7 @@ class _KonfirmasikurirState extends State<Konfirmasikurir> {
                                         "Total Menu",
                                         style: GoogleFonts.poppins(
                                             textStyle: TextStyle(
-                                                fontSize:
-                                                    textScaleFactor <= 1.15
-                                                        ? 14
-                                                        : 12,
+                                                fontSize: 14,
                                                 color: Colors.black,
                                                 fontWeight: FontWeight.normal)),
                                       ),
@@ -177,10 +221,7 @@ class _KonfirmasikurirState extends State<Konfirmasikurir> {
                                         "${orderData.transaksi!.detailTransaksi!.length.toString()} menu",
                                         style: GoogleFonts.poppins(
                                             textStyle: TextStyle(
-                                                fontSize:
-                                                    textScaleFactor <= 1.15
-                                                        ? 14
-                                                        : 12,
+                                                fontSize: 14,
                                                 color: Colors.black,
                                                 fontWeight: FontWeight.bold)),
                                       ),
@@ -197,10 +238,7 @@ class _KonfirmasikurirState extends State<Konfirmasikurir> {
                                         "Total",
                                         style: GoogleFonts.poppins(
                                             textStyle: TextStyle(
-                                                fontSize:
-                                                    textScaleFactor <= 1.15
-                                                        ? 14
-                                                        : 12,
+                                                fontSize: 14,
                                                 color: Colors.black,
                                                 fontWeight: FontWeight.normal)),
                                       ),
@@ -223,9 +261,7 @@ class _KonfirmasikurirState extends State<Konfirmasikurir> {
                                     children: [
                                       Text("Status",
                                           style: GoogleFonts.poppins(
-                                              fontSize: textScaleFactor <= 1.15
-                                                  ? 14
-                                                  : 12,
+                                              fontSize: 14,
                                               color: Colors.black,
                                               fontWeight: FontWeight.normal)),
                                       Text(
@@ -240,10 +276,7 @@ class _KonfirmasikurirState extends State<Konfirmasikurir> {
                                                 : orderData.status.toString(),
                                         style: GoogleFonts.poppins(
                                             textStyle: TextStyle(
-                                                fontSize:
-                                                    textScaleFactor <= 1.15
-                                                        ? 14
-                                                        : 12,
+                                                fontSize: 14,
                                                 color: Colors.red,
                                                 fontWeight: FontWeight.bold)),
                                       ),
@@ -259,10 +292,7 @@ class _KonfirmasikurirState extends State<Konfirmasikurir> {
                                               '', // Teks kosong jika orderData.status mengandung 'Selesai'
                                               style: GoogleFonts.poppins(
                                                 textStyle: TextStyle(
-                                                  fontSize:
-                                                      textScaleFactor <= 1.15
-                                                          ? 14
-                                                          : 12,
+                                                  fontSize: 14,
                                                   color: Colors.blue,
                                                   fontWeight: FontWeight.bold,
                                                 ),
@@ -292,11 +322,7 @@ class _KonfirmasikurirState extends State<Konfirmasikurir> {
                                                     "Foto Bukti",
                                                     style: GoogleFonts.poppins(
                                                         textStyle: TextStyle(
-                                                            fontSize:
-                                                                textScaleFactor <=
-                                                                        1.15
-                                                                    ? 14
-                                                                    : 12,
+                                                            fontSize: 14,
                                                             color: Colors.blue,
                                                             fontWeight:
                                                                 FontWeight
@@ -326,11 +352,7 @@ class _KonfirmasikurirState extends State<Konfirmasikurir> {
                                                     "Foto Bukti",
                                                     style: GoogleFonts.poppins(
                                                         textStyle: TextStyle(
-                                                            fontSize:
-                                                                textScaleFactor <=
-                                                                        1.15
-                                                                    ? 14
-                                                                    : 12,
+                                                            fontSize: 14,
                                                             color: Colors.white,
                                                             fontWeight:
                                                                 FontWeight

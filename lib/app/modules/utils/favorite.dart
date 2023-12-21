@@ -339,7 +339,7 @@ class _FavoriteState extends State<Favorite> {
                                     style: GoogleFonts.poppins(
                                       textStyle: TextStyle(
                                         fontSize:
-                                            textScaleFactor <= 1.15 ? 13 : 13,
+                                             13,
                                         color: Colors.white,
                                         fontWeight: FontWeight.normal,
                                       ),
@@ -355,7 +355,7 @@ class _FavoriteState extends State<Favorite> {
                                     style: GoogleFonts.poppins(
                                       textStyle: TextStyle(
                                         fontSize:
-                                            textScaleFactor <= 1.15 ? 13 : 13,
+                                             13,
                                         color: Colors.white,
                                         fontWeight: FontWeight.bold,
                                       ),

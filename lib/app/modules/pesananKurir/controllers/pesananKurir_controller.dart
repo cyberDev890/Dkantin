@@ -1,10 +1,8 @@
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import '../../../data/models/pesanan_kirim_model.dart';
-import '../../../data/models/pesanan_model.dart';
 import '../../../data/providers/pesanan_provider.dart';
 
 class PesananKurirController extends GetxController

@@ -137,8 +137,7 @@ class _ProsesState extends State<Proses> {
                               "#${orderData.transaksi!.kodeTr.toString()}",
                               style: GoogleFonts.poppins(
                                   textStyle: TextStyle(
-                                      fontSize:
-                                          textScaleFactor <= 1.15 ? 14 : 12,
+                                      fontSize: 14,
                                       color: Colors.black,
                                       fontWeight: FontWeight.bold)),
                             ),
@@ -146,8 +145,7 @@ class _ProsesState extends State<Proses> {
                               orderData.transaksi!.tanggal.toString(),
                               style: GoogleFonts.poppins(
                                   textStyle: TextStyle(
-                                      fontSize:
-                                          textScaleFactor <= 1.15 ? 14 : 12,
+                                      fontSize: 12,
                                       fontWeight: FontWeight.normal)),
                             ),
                           ),
@@ -166,10 +164,7 @@ class _ProsesState extends State<Proses> {
                                         "Total Menu",
                                         style: GoogleFonts.poppins(
                                             textStyle: TextStyle(
-                                                fontSize:
-                                                    textScaleFactor <= 1.15
-                                                        ? 14
-                                                        : 12,
+                                                fontSize: 14,
                                                 color: Colors.black,
                                                 fontWeight: FontWeight.normal)),
                                       ),
@@ -177,10 +172,7 @@ class _ProsesState extends State<Proses> {
                                         "${orderData.transaksi!.detailTransaksi!.length.toString()} menu",
                                         style: GoogleFonts.poppins(
                                             textStyle: TextStyle(
-                                                fontSize:
-                                                    textScaleFactor <= 1.15
-                                                        ? 14
-                                                        : 12,
+                                                fontSize: 14,
                                                 color: Colors.black,
                                                 fontWeight: FontWeight.bold)),
                                       ),
@@ -194,10 +186,7 @@ class _ProsesState extends State<Proses> {
                                         "Total",
                                         style: GoogleFonts.poppins(
                                             textStyle: TextStyle(
-                                                fontSize:
-                                                    textScaleFactor <= 1.15
-                                                        ? 14
-                                                        : 12,
+                                                fontSize: 14,
                                                 color: Colors.black,
                                                 fontWeight: FontWeight.normal)),
                                       ),
@@ -205,10 +194,7 @@ class _ProsesState extends State<Proses> {
                                         totalHarga.toRupiah(),
                                         style: GoogleFonts.poppins(
                                             textStyle: TextStyle(
-                                                fontSize:
-                                                    textScaleFactor <= 1.15
-                                                        ? 14
-                                                        : 12,
+                                                fontSize: 14,
                                                 color: Colors.black,
                                                 fontWeight: FontWeight.bold)),
                                       )
@@ -220,9 +206,7 @@ class _ProsesState extends State<Proses> {
                                     children: [
                                       Text("Status",
                                           style: GoogleFonts.poppins(
-                                              fontSize: textScaleFactor <= 1.15
-                                                  ? 14
-                                                  : 12,
+                                              fontSize: 14,
                                               color: Colors.black,
                                               fontWeight: FontWeight.normal)),
                                       Text(
@@ -233,10 +217,7 @@ class _ProsesState extends State<Proses> {
                                             : orderData.status.toString(),
                                         style: GoogleFonts.poppins(
                                             textStyle: TextStyle(
-                                                fontSize:
-                                                    textScaleFactor <= 1.15
-                                                        ? 14
-                                                        : 12,
+                                                fontSize: 14,
                                                 color: Colors.red,
                                                 fontWeight: FontWeight.bold)),
                                       ),

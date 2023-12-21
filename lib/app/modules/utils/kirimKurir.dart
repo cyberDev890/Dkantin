@@ -130,8 +130,7 @@ class _KirimKurirState extends State<KirimKurir> {
                               "#${orderData.transaksi!.kodeTr.toString()}",
                               style: GoogleFonts.poppins(
                                   textStyle: TextStyle(
-                                      fontSize:
-                                          textScaleFactor <= 1.15 ? 14 : 12,
+                                      fontSize: 14,
                                       color: Colors.black,
                                       fontWeight: FontWeight.bold)),
                             ),
@@ -139,8 +138,7 @@ class _KirimKurirState extends State<KirimKurir> {
                               orderData.transaksi!.tanggal.toString(),
                               style: GoogleFonts.poppins(
                                   textStyle: TextStyle(
-                                      fontSize:
-                                          textScaleFactor <= 1.15 ? 14 : 12,
+                                      fontSize: 12,
                                       fontWeight: FontWeight.normal)),
                             ),
                           ),
@@ -159,10 +157,7 @@ class _KirimKurirState extends State<KirimKurir> {
                                         "Total Menu",
                                         style: GoogleFonts.poppins(
                                             textStyle: TextStyle(
-                                                fontSize:
-                                                    textScaleFactor <= 1.15
-                                                        ? 14
-                                                        : 12,
+                                                fontSize: 14,
                                                 color: Colors.black,
                                                 fontWeight: FontWeight.normal)),
                                       ),
@@ -170,10 +165,7 @@ class _KirimKurirState extends State<KirimKurir> {
                                         "${orderData.transaksi!.detailTransaksi!.length.toString()} menu",
                                         style: GoogleFonts.poppins(
                                             textStyle: TextStyle(
-                                                fontSize:
-                                                    textScaleFactor <= 1.15
-                                                        ? 14
-                                                        : 12,
+                                                fontSize: 14,
                                                 color: Colors.black,
                                                 fontWeight: FontWeight.bold)),
                                       ),
@@ -190,10 +182,7 @@ class _KirimKurirState extends State<KirimKurir> {
                                         "Total",
                                         style: GoogleFonts.poppins(
                                             textStyle: TextStyle(
-                                                fontSize:
-                                                    textScaleFactor <= 1.15
-                                                        ? 14
-                                                        : 12,
+                                                fontSize: 14,
                                                 color: Colors.black,
                                                 fontWeight: FontWeight.normal)),
                                       ),
@@ -201,10 +190,7 @@ class _KirimKurirState extends State<KirimKurir> {
                                         totalHarga.toRupiah(),
                                         style: GoogleFonts.poppins(
                                             textStyle: TextStyle(
-                                                fontSize:
-                                                    textScaleFactor <= 1.15
-                                                        ? 14
-                                                        : 12,
+                                                fontSize: 14,
                                                 color: Colors.black,
                                                 fontWeight: FontWeight.bold)),
                                       )
@@ -219,9 +205,7 @@ class _KirimKurirState extends State<KirimKurir> {
                                     children: [
                                       Text("Status",
                                           style: GoogleFonts.poppins(
-                                              fontSize: textScaleFactor <= 1.15
-                                                  ? 14
-                                                  : 12,
+                                              fontSize: 14,
                                               color: Colors.black,
                                               fontWeight: FontWeight.normal)),
                                       Text(
@@ -232,10 +216,7 @@ class _KirimKurirState extends State<KirimKurir> {
                                             : orderData.status.toString(),
                                         style: GoogleFonts.poppins(
                                             textStyle: TextStyle(
-                                                fontSize:
-                                                    textScaleFactor <= 1.15
-                                                        ? 14
-                                                        : 12,
+                                                fontSize: 14,
                                                 color: Colors.red,
                                                 fontWeight: FontWeight.bold)),
                                       ),
@@ -365,10 +346,7 @@ class _KirimKurirState extends State<KirimKurir> {
                                           "Antar",
                                           style: GoogleFonts.poppins(
                                               textStyle: TextStyle(
-                                                  fontSize:
-                                                      textScaleFactor <= 1.15
-                                                          ? 14
-                                                          : 12,
+                                                  fontSize: 14,
                                                   color: Colors.white,
                                                   fontWeight: FontWeight.bold)),
                                         ),

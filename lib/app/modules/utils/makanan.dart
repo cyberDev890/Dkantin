@@ -178,9 +178,7 @@ class _MakananState extends State<Makanan> {
                                             overflow: TextOverflow.ellipsis,
                                             menuData.nama ?? '',
                                             style: TextStyle(
-                                              fontSize: textScaleFactor <= 1.15
-                                                  ? 15
-                                                  : 12,
+                                              fontSize: 14,
                                               color: Colors.black,
                                               fontWeight: FontWeight.w500,
                                             ),
@@ -188,9 +186,7 @@ class _MakananState extends State<Makanan> {
                                           Text(
                                             'Kantin: ${menuData.idKantin ?? ''}',
                                             style: TextStyle(
-                                              fontSize: textScaleFactor <= 1.15
-                                                  ? 15
-                                                  : 12,
+                                              fontSize: 14,
                                               color: Colors.black,
                                               fontWeight: FontWeight.w500,
                                             ),
@@ -202,10 +198,7 @@ class _MakananState extends State<Makanan> {
                                               Text(
                                                 harga.toRupiah(),
                                                 style: TextStyle(
-                                                  fontSize:
-                                                      textScaleFactor <= 1.15
-                                                          ? 15
-                                                          : 12,
+                                                  fontSize: 14,
                                                   color: Colors.black,
                                                   fontWeight: FontWeight.w500,
                                                 ),

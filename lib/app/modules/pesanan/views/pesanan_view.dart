@@ -58,7 +58,7 @@ class PesananView extends GetView<PesananController> {
                   (pesananController.orderProses.length ?? 0).toString(),
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: textScaleFactor <= 1.15 ? 10 : 10,
+                    fontSize: 10,
                   ),
                 ),
                 position: badges.BadgePosition.topEnd(top: -10, end: -15),
@@ -69,7 +69,7 @@ class PesananView extends GetView<PesananController> {
                 child: Text(
                   "Diproses",
                   style: TextStyle(
-                    fontSize: textScaleFactor <= 1.15 ? 15 : 12,
+                    fontSize: 14,
                     color: Colors.black,
                   ),
                 ),
@@ -83,7 +83,7 @@ class PesananView extends GetView<PesananController> {
                   (pesananController.orderDikirim.length ?? 0).toString(),
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: textScaleFactor <= 1.15 ? 10 : 10,
+                    fontSize: 10,
                   ),
                 ),
                 position: badges.BadgePosition.topEnd(top: -10, end: -15),
@@ -94,7 +94,7 @@ class PesananView extends GetView<PesananController> {
                 child: Text(
                   "Dikirim",
                   style: TextStyle(
-                    fontSize: textScaleFactor <= 1.15 ? 15 : 12,
+                    fontSize: 14,
                     color: Colors.black,
                   ),
                 ),
@@ -108,7 +108,7 @@ class PesananView extends GetView<PesananController> {
                   (pesananController.orderDiterima.length ?? 0).toString(),
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: textScaleFactor <= 1.15 ? 10 : 10,
+                    fontSize: 10,
                   ),
                 ),
                 position: badges.BadgePosition.topEnd(top: -10, end: -9),
@@ -119,7 +119,7 @@ class PesananView extends GetView<PesananController> {
                 child: Text(
                   "Konfirmasi",
                   style: TextStyle(
-                    fontSize: textScaleFactor <= 1.15 ? 15 : 12,
+                    fontSize: 14,
                     color: Colors.black,
                   ),
                 ),
@@ -135,7 +135,7 @@ class PesananView extends GetView<PesananController> {
           ),
           unselectedLabelStyle: GoogleFonts.poppins(
             textStyle: TextStyle(
-              fontSize: textScaleFactor <= 1.15 ? 15 : 12,
+              fontSize: 14,
               fontWeight:
                   FontWeight.normal, // Font Weight untuk yang tidak terpilih
             ),

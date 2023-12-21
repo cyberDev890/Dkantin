@@ -1,11 +1,7 @@
 import 'package:carbon_icons/carbon_icons.dart';
-import 'package:dikantin/app/modules/home/views/home_view.dart';
-import 'package:dikantin/app/modules/pesanan/views/pesanan_view.dart';
 import 'package:dikantin/app/modules/pesananKurir/views/pesananKurir_view.dart';
-import 'package:dikantin/app/modules/profile/views/profile_view.dart';
 import 'package:dikantin/app/modules/profileKurir/controllers/profile_controller.dart';
 import 'package:dikantin/app/modules/profileKurir/views/profile_view.dart';
-import 'package:dikantin/app/modules/riwayat/views/riwayat_view.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';

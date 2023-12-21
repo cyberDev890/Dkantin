@@ -41,7 +41,7 @@ class LoginView extends GetView<LoginController> {
                 ),
                 Text("Login",
                     style: TextStyle(
-                        fontSize: textScaleFactor <= 1.15 ? 40 : 40,
+                        fontSize: 40,
                         fontWeight: FontWeight.bold,
                         color: Colors.white)),
                 SizedBox(

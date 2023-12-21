@@ -1,6 +1,5 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
-import 'package:dikantin/app/data/providers/services.dart';
 import 'package:dikantin/app/modules/utils/formatDate.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -457,69 +456,6 @@ class ProfileKurirView extends GetView<ProfileKurirController> {
                                     )),
                               ),
                             ],
-                          ),
-                        ),
-                        Container(
-                          width: 200,
-                          decoration: BoxDecoration(
-                            color: Color.fromARGB(255, 255, 255, 255),
-                            borderRadius: BorderRadius.circular(8),
-                            // border: Border.all(
-                            //     color: Color.fromARGB(
-                            //         255, 167, 167, 167),
-                            //     width: 1 // Lebar border
-                            //     ),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.5),
-                                spreadRadius: 1,
-                                blurRadius: 3,
-                                offset: Offset(
-                                    0, 2), // changes the position of the shadow
-                              ),
-                            ],
-                          ),
-                          child: Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(12, 12, 12, 12),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              // ignore: prefer_const_literals_to_create_immutables
-                              children: [
-                                Icon(
-                                  Icons.ssid_chart_rounded,
-                                  color: Colors.blue[600],
-                                  size: 30,
-                                ),
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0, 8, 0, 4),
-                                  child: Obx(
-                                    () => Text(
-                                      pesananKurirController.riwayatKurir.length
-                                          .toString(),
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize:
-                                            textScaleFactor <= 1.15 ? 14 : 13,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                Text(
-                                  'Selesai',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: textScaleFactor <= 1.15 ? 14 : 13,
-                                  ),
-                                )
-                              ],
-                            ),
                           ),
                         ),
                       ],

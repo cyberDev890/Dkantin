@@ -146,8 +146,8 @@ class RegisterProvider {
 
       if (response.statusCode == 200) {
         Get.snackbar(
-          'Register Successful',
-          'You have successfully registered.',
+          'Registrasi Berhasil',
+          'Akun anda telah dibuat',
           snackPosition: SnackPosition.TOP, // Menampilkan Snackbar dari atas
           duration: Duration(seconds: 2),
         );
@@ -157,7 +157,7 @@ class RegisterProvider {
         Get.offAllNamed("/login");
       } else {
         Get.snackbar(
-          'Salah Woy',
+          'Perhatian !',
           '$errorMessage',
           snackPosition: SnackPosition.TOP, // Menampilkan Snackbar dari atas
           duration: Duration(seconds: 2),
@@ -167,8 +167,8 @@ class RegisterProvider {
     } catch (e) {
       print(e);
       Get.snackbar(
-        'Registration Failed',
-        'There was an error during registration.',
+        'Registrasi Gagal',
+        'Eror Saat Registrasi',
         snackPosition: SnackPosition.TOP,
         duration: Duration(seconds: 2),
       );
@@ -200,14 +200,14 @@ class ForgotPasswordProvider with ChangeNotifier {
       if (response.statusCode == 200) {
         Get.snackbar(
           'Berhasil',
-          'Udah Masuk gan check emailnya janlup',
+          'Cek Email untuk Mengaktivasi',
           snackPosition: SnackPosition.TOP,
           duration: Duration(seconds: 2),
         );
         Get.offAllNamed("/otp-page");
       } else {
         Get.snackbar(
-          'Gagal gan',
+          'Perhatian !',
           responseBody['data'],
           snackPosition: SnackPosition.TOP,
           duration: Duration(seconds: 2),
@@ -217,7 +217,7 @@ class ForgotPasswordProvider with ChangeNotifier {
       }
     } catch (error) {
       Get.snackbar(
-        'gagal gan ',
+        'Gagal',
         '$error',
         snackPosition: SnackPosition.TOP,
         duration: Duration(seconds: 2),

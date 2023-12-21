@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 import '../../../data/models/penjualan_model.dart';
 import '../../../data/models/search_model.dart';
 import '../../../data/providers/menu_provider.dart';
-import '../../profile/controllers/profile_controller.dart';
 
 class HomeController extends GetxController with GetTickerProviderStateMixin {
   final TextEditingController catatanController = TextEditingController();
