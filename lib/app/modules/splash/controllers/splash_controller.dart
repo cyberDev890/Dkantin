@@ -29,7 +29,7 @@ class SplashController extends GetxController {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? token = prefs.getString('token');
     String? tokenKurir = prefs.getString('tokenKurir');
-    print(token);
+    print("Iki token wiawi:: $token");
     print(tokenKurir);
     // Jika kedua token bernilai null, pergi ke halaman login
     if (token == null && tokenKurir == null) {

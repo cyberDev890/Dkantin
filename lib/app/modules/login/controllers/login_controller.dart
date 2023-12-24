@@ -48,8 +48,6 @@ class LoginController extends GetxController {
   }
 
   Future<void> login(String username, String password, String fcmtoken) async {
-    print("object");
-
     try {
       // Periksa status koneksi sebelum melakukan login
       if (!connectivityHelper.hasConnection.value) {

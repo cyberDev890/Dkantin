@@ -42,7 +42,6 @@ class ProfileController extends GetxController {
   Future<void> logout() async {
     // Hapus data dari SharedPreferences
     await clearSharedPreferences();
-
     // Navigasi ke halaman login
     Get.offAllNamed('/login');
   }

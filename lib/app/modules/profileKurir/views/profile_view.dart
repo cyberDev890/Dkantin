@@ -269,14 +269,16 @@ class ProfileKurirView extends GetView<ProfileKurirController> {
                                     children: [
                                       Align(
                                         alignment: Alignment.centerRight,
-                                        child: Text(
-                                          controller.today.value.toRupiah(),
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 23),
-                                        ),
+                                        child: Obx(() {
+                                          return Text(
+                                            controller.today.value.toRupiah(),
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 23),
+                                          );
+                                        }),
                                       ),
                                       Align(
                                         alignment: Alignment.centerRight,

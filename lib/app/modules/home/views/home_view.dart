@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:dikantin/app/modules/navigation/controllers/navigation_controller.dart';
 import 'package:dikantin/app/modules/utils/formatDate.dart';
 import 'package:dikantin/app/modules/utils/minuman.dart';
 import 'package:dikantin/app/modules/utils/favorite.dart';
@@ -14,7 +15,6 @@ import '../controllers/home_controller.dart';
 class HomeView extends GetView<HomeController> {
   HomeView({Key? key}) : super(key: key);
   final HomeController c = Get.find<HomeController>();
-
   @override
   Widget build(BuildContext context) {
     final mediaHeight = MediaQuery.of(context).size.height;
@@ -135,14 +135,19 @@ class HomeView extends GetView<HomeController> {
                                           SizedBox(
                                             width: 5,
                                           ),
-                                          Container(
-                                            child: Text(
-                                              "Top Up",
-                                              style: GoogleFonts.poppins(
-                                                textStyle: TextStyle(
-                                                  color: Color(0xFF00C2FF),
-                                                  fontSize: 12,
-                                                  fontWeight: FontWeight.bold,
+                                          InkWell(
+                                            onTap: () {
+                                              c.ngapek();
+                                            },
+                                            child: Container(
+                                              child: Text(
+                                                "Top Up",
+                                                style: GoogleFonts.poppins(
+                                                  textStyle: TextStyle(
+                                                    color: Color(0xFF00C2FF),
+                                                    fontSize: 12,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
                                                 ),
                                               ),
                                             ),
