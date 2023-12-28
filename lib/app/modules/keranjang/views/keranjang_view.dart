@@ -146,11 +146,7 @@ class KeranjangView extends GetView<KeranjangController> {
                                                             .ellipsis,
                                                         menuData.nama ?? '',
                                                         style: TextStyle(
-                                                            fontSize:
-                                                                textScaleFactor <=
-                                                                        1.15
-                                                                    ? 15
-                                                                    : 12,
+                                                            fontSize: 12,
                                                             color: Colors.black,
                                                             fontWeight:
                                                                 FontWeight
@@ -179,11 +175,7 @@ class KeranjangView extends GetView<KeranjangController> {
                                                       priceAfterDiscount
                                                           .toRupiah(),
                                                       style: TextStyle(
-                                                          fontSize:
-                                                              textScaleFactor <=
-                                                                      1.15
-                                                                  ? 15
-                                                                  : 12,
+                                                          fontSize: 12,
                                                           color: Colors.black,
                                                           fontWeight:
                                                               FontWeight.w500),
@@ -198,11 +190,7 @@ class KeranjangView extends GetView<KeranjangController> {
                                                             : harga.toRupiah(),
                                                         style:
                                                             GoogleFonts.poppins(
-                                                          fontSize:
-                                                              textScaleFactor <=
-                                                                      1.15
-                                                                  ? 15
-                                                                  : 12,
+                                                          fontSize: 12,
                                                           decoration:
                                                               TextDecoration
                                                                   .lineThrough,
@@ -273,11 +261,7 @@ class KeranjangView extends GetView<KeranjangController> {
                                                                 style:
                                                                     GoogleFonts
                                                                         .poppins(
-                                                                  fontSize:
-                                                                      textScaleFactor <=
-                                                                              1.15
-                                                                          ? 15
-                                                                          : 12,
+                                                                  fontSize: 12,
                                                                 )),
                                                             Container(
                                                               decoration: BoxDecoration(
@@ -314,11 +298,7 @@ class KeranjangView extends GetView<KeranjangController> {
                                                                     .idMenu!)
                                                             .toRupiah(),
                                                         style: TextStyle(
-                                                            fontSize:
-                                                                textScaleFactor <=
-                                                                        1.15
-                                                                    ? 15
-                                                                    : 12,
+                                                            fontSize: 12,
                                                             fontWeight:
                                                                 FontWeight
                                                                     .w500),

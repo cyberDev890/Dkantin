@@ -85,7 +85,7 @@ class OrderView extends GetView<OrderController> {
                               profileController.profile.value.data?.alamat ??
                                   '',
                               style: GoogleFonts.poppins(
-                                fontSize: textScaleFactor <= 1.15 ? 12 : 12,
+                                fontSize: 12,
                               )),
                         ),
                         SizedBox(
@@ -206,18 +206,14 @@ class OrderView extends GetView<OrderController> {
                                                           MediaQuery.of(context)
                                                                   .size
                                                                   .width *
-                                                              0.67,
+                                                              0.65,
                                                       child: Text(
                                                         maxLines: 1,
                                                         overflow: TextOverflow
                                                             .ellipsis,
                                                         menuData.nama ?? '',
                                                         style: TextStyle(
-                                                            fontSize:
-                                                                textScaleFactor <=
-                                                                        1.15
-                                                                    ? 15
-                                                                    : 12,
+                                                            fontSize: 12,
                                                             color: Colors.black,
                                                             fontWeight:
                                                                 FontWeight
@@ -249,11 +245,7 @@ class OrderView extends GetView<OrderController> {
                                                             priceAfterDiscount
                                                                 .toRupiah(),
                                                             style: TextStyle(
-                                                                fontSize:
-                                                                    textScaleFactor <=
-                                                                            1.15
-                                                                        ? 15
-                                                                        : 12,
+                                                                fontSize: 12,
                                                                 color: Colors
                                                                     .black,
                                                                 fontWeight:
@@ -263,11 +255,7 @@ class OrderView extends GetView<OrderController> {
                                                           Text(
                                                             "* ${quantity.toString()}",
                                                             style: TextStyle(
-                                                                fontSize:
-                                                                    textScaleFactor <=
-                                                                            1.15
-                                                                        ? 15
-                                                                        : 12,
+                                                                fontSize: 12,
                                                                 color: Colors
                                                                     .black,
                                                                 fontWeight:
@@ -283,11 +271,7 @@ class OrderView extends GetView<OrderController> {
                                                               menuData.idMenu!)
                                                           .toRupiah(),
                                                       style: TextStyle(
-                                                          fontSize:
-                                                              textScaleFactor <=
-                                                                      1.15
-                                                                  ? 15
-                                                                  : 12,
+                                                          fontSize: 12,
                                                           color: Colors.black,
                                                           fontWeight:
                                                               FontWeight.w500),
