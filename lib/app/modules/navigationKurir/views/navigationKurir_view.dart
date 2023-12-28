@@ -16,6 +16,7 @@ class NavigationKurirView extends GetView<NavigationKurirController> {
       Get.put(PesananKurirController());
   final ProfileKurirController profileKurirController =
       Get.put(ProfileKurirController());
+  final NavigationKurirController nav = Get.put(NavigationKurirController());
   DateTime? currentBackPressTime;
 
   @override
@@ -74,10 +75,13 @@ class NavigationKurirView extends GetView<NavigationKurirController> {
                     // Check if the selected tab is "Pesanan"
                     pesananKurirController
                         .refreshPesanan(); // Call the refresh function
+                    nav.checkToken();
                   } else if (index == 1) {
                     pesananKurirController.loadRiwayatKurir();
+                    nav.checkToken();
                   } else if (index == 2) {
                     profileKurirController.getPenghasilanKurir();
+                    nav.checkToken();
                   }
                   controller.updateCurrentScreen(index);
                 },

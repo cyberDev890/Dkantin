@@ -3,6 +3,8 @@ class Api {
   static const gambar = "http://dikantin.com/";
   static const signUp = "$koneksi/validate/register";
   static const signIn = "$koneksi/validate/login";
+  static const getToken= "$koneksi/validate/getTokenCustomer";
+  static const getTokenKurir= "$koneksi/validate/getTokenKurir";
   static const updateProfile = "$koneksi/validate/customerAccount";
   static const getProfile = '$koneksi/validate/profileShow';
   static const getProfilekurir = '$koneksi/validate/kurirShow';

@@ -37,8 +37,8 @@ class OtpPageController extends GetxController {
         // print('Verification successful');
       } else {
         Get.snackbar(
-          'Error',
-          'Salah gan otpnya mohon check kembali',
+          'Gagal',
+          'Kode salah mohon cek kembali',
           snackPosition: SnackPosition.TOP,
           duration: Duration(seconds: 2),
         );
@@ -62,6 +62,9 @@ class OtpPageController extends GetxController {
           ),
         ],
       ),
+      barrierDismissible:
+          false, // Tidak dapat dihapus dengan mengklik di luar dialog
+
       actions: [
         ElevatedButton(
           onPressed: () {

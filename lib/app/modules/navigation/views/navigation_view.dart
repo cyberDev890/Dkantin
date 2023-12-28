@@ -17,6 +17,7 @@ class NavigationView extends GetView<NavigationController> {
   final PesananController pesananController = Get.put(PesananController());
   final RiwayatController riwayatController = Get.put(RiwayatController());
   final HomeController homeController = Get.put(HomeController());
+  final NavigationController nav = Get.put(NavigationController());
   DateTime? currentBackPressTime;
   @override
   Widget build(BuildContext context) {
@@ -73,10 +74,15 @@ class NavigationView extends GetView<NavigationController> {
                 onTap: (index) {
                   if (index == 0) {
                     homeController.refreshData();
+                    nav.checkToken();
                   } else if (index == 1) {
                     pesananController.refreshPesanan();
+                    nav.checkToken();
                   } else if (index == 2) {
                     riwayatController.searchAll();
+                    nav.checkToken();
+                  } else if (index == 3) {
+                    nav.checkToken();
                   }
                   controller.updateCurrentScreen(index);
                 },

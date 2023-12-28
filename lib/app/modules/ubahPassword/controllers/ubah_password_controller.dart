@@ -54,7 +54,8 @@ class UbahPasswordController extends GetxController {
         // Handle error response
         print('Error: ${response.statusText}');
         // Menampilkan pesan kesalahan dari server ke pengguna jika diperlukan
-        Get.snackbar('Error', 'Terjadi kesalahan: ${response.statusText}');
+        Get.snackbar('Gagal',
+            'Password baru tidak boleh sama dengan password lama. Silakan coba password yang berbeda.');
       } else {
         await backLogin();
         // Handle successful response
@@ -62,7 +63,7 @@ class UbahPasswordController extends GetxController {
 
         // Menampilkan respons body ke pengguna
 
-        Get.snackbar('Sukses', 'Password berhasil diverifikasi');
+        Get.snackbar('Sukses', 'Password berhasil diubah');
       }
     } catch (error) {
       // Handle other errors (e.g., network error)

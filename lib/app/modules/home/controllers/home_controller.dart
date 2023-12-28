@@ -1,9 +1,13 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
+import "package:http/http.dart" as http;
 import '../../../data/models/penjualan_model.dart';
 import '../../../data/models/search_model.dart';
 import '../../../data/providers/menu_provider.dart';
+import '../../../data/providers/services.dart';
 
 class HomeController extends GetxController with GetTickerProviderStateMixin {
   final TextEditingController catatanController = TextEditingController();
@@ -239,6 +243,30 @@ class HomeController extends GetxController with GetTickerProviderStateMixin {
       Get.snackbar("Error", "An error occurred: $e");
     } finally {
       setLoading(false); // Menutup indikator loading
+    }
+  }
+
+  Future<void> ngapek() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? id_customer = prefs.getString('id_customer');
+
+    final response = await http.post(
+      Uri.parse(Api.getToken),
+      body: {
+        'id_customer': id_customer, // Ganti dengan informasi unik dari pengguna
+      },
+    );
+
+    if (response.statusCode == 200) {
+      // Berhasil membatalkan pesanan
+      final jsonResponse = jsonDecode(response.body);
+
+      final newToken = jsonResponse['data']['token'];
+      print(newToken);
+    } else {
+      // Gagal membatalkan pesanan
+      print('Gagal ambil data. Status code: ${response.statusCode}');
+      throw Exception('Gagal ambil data');
     }
   }
 }

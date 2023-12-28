@@ -100,31 +100,6 @@ class PesananView extends GetView<PesananController> {
                 ),
               );
             })),
-            Tab(child: Obx(() {
-              return badges.Badge(
-                showBadge: (pesananController.orderDiterima.isNotEmpty ?? true),
-                badgeAnimation: badges.BadgeAnimation.slide(),
-                badgeContent: Text(
-                  (pesananController.orderDiterima.length ?? 0).toString(),
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 10,
-                  ),
-                ),
-                position: badges.BadgePosition.topEnd(top: -10, end: -9),
-                badgeStyle: badges.BadgeStyle(
-                  shape: badges.BadgeShape.circle,
-                  badgeColor: Colors.orange,
-                ),
-                child: Text(
-                  "Konfirmasi",
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: Colors.black,
-                  ),
-                ),
-              );
-            })),
           ],
           labelStyle: GoogleFonts.poppins(
             textStyle: TextStyle(
@@ -157,7 +132,7 @@ class PesananView extends GetView<PesananController> {
               ),
               child: TabBarView(
                   controller: pesananController.tabController,
-                  children: [Proses(), Kirim(), Konfirmasi()]),
+                  children: [Proses(), Kirim()]),
             )),
       ),
     );

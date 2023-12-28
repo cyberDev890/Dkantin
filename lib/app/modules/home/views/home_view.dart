@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:dikantin/app/modules/navigation/controllers/navigation_controller.dart';
 import 'package:dikantin/app/modules/utils/formatDate.dart';
 import 'package:dikantin/app/modules/utils/minuman.dart';
 import 'package:dikantin/app/modules/utils/favorite.dart';
@@ -14,7 +15,6 @@ import '../controllers/home_controller.dart';
 class HomeView extends GetView<HomeController> {
   HomeView({Key? key}) : super(key: key);
   final HomeController c = Get.find<HomeController>();
-
   @override
   Widget build(BuildContext context) {
     final mediaHeight = MediaQuery.of(context).size.height;
@@ -135,14 +135,19 @@ class HomeView extends GetView<HomeController> {
                                           SizedBox(
                                             width: 5,
                                           ),
-                                          Container(
-                                            child: Text(
-                                              "Top Up",
-                                              style: GoogleFonts.poppins(
-                                                textStyle: TextStyle(
-                                                  color: Color(0xFF00C2FF),
-                                                  fontSize: 12,
-                                                  fontWeight: FontWeight.bold,
+                                          InkWell(
+                                            onTap: () {
+                                              c.ngapek();
+                                            },
+                                            child: Container(
+                                              child: Text(
+                                                "Top Up",
+                                                style: GoogleFonts.poppins(
+                                                  textStyle: TextStyle(
+                                                    color: Color(0xFF00C2FF),
+                                                    fontSize: 12,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
                                                 ),
                                               ),
                                             ),
@@ -267,91 +272,86 @@ class HomeView extends GetView<HomeController> {
                                 borderRadius: BorderRadius.circular(10),
                                 color: Color(0xFF2579FD),
                               ),
-                              child: Padding(
-                                padding: const EdgeInsets.fromLTRB(7, 2, 7, 0),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsets.only(
-                                              top: 0, left: 15),
-                                          child: Container(
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  "${controller.countc.toString()} item",
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(left: 15),
+                                        child: Container(
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                "${controller.countc.toString()} item",
+                                                style: GoogleFonts.poppins(
+                                                  textStyle: TextStyle(
+                                                    fontSize: 12,
+                                                    color: Colors.white,
+                                                    fontWeight: FontWeight.w500,
+                                                  ),
+                                                ),
+                                              ),
+                                              Container(
+                                                width: mediaWidth * 0.5,
+                                                child: Text(
+                                                  "Siap mengantar pesanan ",
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  maxLines:
+                                                      1, // Set a maximum number of lines
+
                                                   style: GoogleFonts.poppins(
                                                     textStyle: TextStyle(
                                                       fontSize: 12,
                                                       color: Colors.white,
                                                       fontWeight:
-                                                          FontWeight.w500,
+                                                          FontWeight.normal,
                                                     ),
                                                   ),
                                                 ),
-                                                Container(
-                                                  width: mediaWidth * 0.5,
-                                                  child: Text(
-                                                    "Siap mengantar pesanan ",
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
-                                                    maxLines:
-                                                        1, // Set a maximum number of lines
-
-                                                    style: GoogleFonts.poppins(
-                                                      textStyle: TextStyle(
-                                                        fontSize: 12,
-                                                        color: Colors.white,
-                                                        fontWeight:
-                                                            FontWeight.normal,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
+                                              ),
+                                            ],
                                           ),
                                         ),
-                                        Container(
-                                          padding: EdgeInsets.only(
-                                              top: 10, right: 8),
-                                          child: Center(
-                                            child: Row(
-                                              children: [
-                                                Text(
-                                                  controller.totalPrice
-                                                      .toRupiah(),
-                                                  style: GoogleFonts.poppins(
-                                                    textStyle: TextStyle(
-                                                      fontSize: 13,
-                                                      color: Colors.white,
-                                                      fontWeight:
-                                                          FontWeight.w600,
-                                                    ),
+                                      ),
+                                      Container(
+                                        padding: EdgeInsets.only(right: 15),
+                                        child: Center(
+                                          child: Row(
+                                            children: [
+                                              Text(
+                                                controller.totalPrice
+                                                    .toRupiah(),
+                                                style: GoogleFonts.poppins(
+                                                  textStyle: TextStyle(
+                                                    fontSize: 13,
+                                                    color: Colors.white,
+                                                    fontWeight: FontWeight.w600,
                                                   ),
                                                 ),
-                                                SizedBox(
-                                                  width: 10,
-                                                ),
-                                                Icon(
-                                                  Icons.shopping_cart,
-                                                  size: 24,
-                                                  color: Colors.white,
-                                                ),
-                                              ],
-                                            ),
+                                              ),
+                                              SizedBox(
+                                                width: 10,
+                                              ),
+                                              Icon(
+                                                Icons.shopping_cart,
+                                                size: 24,
+                                                color: Colors.white,
+                                              ),
+                                            ],
                                           ),
-                                        )
-                                      ],
-                                    ),
-                                  ],
-                                ),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ],
                               ),
                             ),
                           ),
